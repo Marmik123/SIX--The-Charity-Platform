@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:get_storage/get_storage.dart';
-import 'package:get_x_starter_kit/app/data/config/encryption.dart';
-import 'package:get_x_starter_kit/app/data/local/storage_keys.dart';
-import 'package:get_x_starter_kit/app/data/remote/api_service/service.dart';
+import 'package:six/app/data/config/encryption.dart';
+import 'package:six/app/data/local/storage_keys.dart';
+import 'package:six/app/data/remote/api_service/service.dart';
 
 class UserProvider {
   static late UserEntity? _userEntity;

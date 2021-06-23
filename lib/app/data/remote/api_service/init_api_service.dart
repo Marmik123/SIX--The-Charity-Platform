@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:get_x_starter_kit/app/data/config/encryption.dart';
-import 'package:get_x_starter_kit/app/data/config/logger.dart';
-import 'package:get_x_starter_kit/app/data/local/user_provider.dart';
-import 'package:get_x_starter_kit/app/data/remote/api_service/service.dart';
+import 'package:six/app/data/config/encryption.dart';
+import 'package:six/app/data/config/logger.dart';
+import 'package:six/app/data/local/user_provider.dart';
+import 'package:six/app/data/remote/api_service/service.dart';
 
 final dioLoggerInterceptor = InterceptorsWrapper(
   onRequest: (options, handler) {

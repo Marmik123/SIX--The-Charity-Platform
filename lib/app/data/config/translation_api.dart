@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:get_x_starter_kit/generated/locales.g.dart';
+import 'package:six/generated/locales.g.dart';
 
 class AppTranslations extends Translations {
   late Map<String, Map<String, String>> map;

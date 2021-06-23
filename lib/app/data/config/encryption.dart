@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:encrypt/encrypt.dart';
 // import 'package:crypton/crypton.dart';
 // import 'package:flutter/cupertino.dart';
-import 'package:get_x_starter_kit/app/data/config/logger.dart';
+import 'package:six/app/data/config/logger.dart';
 
 //TODO: change private key.
 //Get it generated from NodeJS library

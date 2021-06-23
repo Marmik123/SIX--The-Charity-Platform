@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:get_x_starter_kit/app/data/remote/notifications/local_notifications.dart';
+import 'package:six/app/data/remote/notifications/local_notifications.dart';
 
 FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 

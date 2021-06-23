@@ -1,5 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:get_x_starter_kit/app/data/config/logger.dart';
+import 'package:six/app/data/config/logger.dart';
 
 /// Handle onMessage, onLaunch and onResume events
 void notificationAction(RemoteMessage? remoteMessage) {

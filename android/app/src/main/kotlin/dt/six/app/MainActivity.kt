@@ -1,4 +1,4 @@
-package com.dt.get_x_starter_kit
+package dt.six.app
 
 import io.flutter.embedding.android.FlutterActivity
 
