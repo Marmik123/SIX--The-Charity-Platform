@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:get_x_starter_kit/app/data/config/logger.dart';
+import 'package:six/app/data/config/logger.dart';
 
 class FlutterLocalNotificationHelper {
   FlutterLocalNotificationHelper._();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:get_x_starter_kit/app/data/models/menu_option_model.dart';
+import 'package:six/app/data/models/menu_option_model.dart';
 
 class SegmentedSelector extends StatelessWidget {
   SegmentedSelector({

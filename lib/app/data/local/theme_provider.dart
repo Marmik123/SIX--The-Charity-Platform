@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:get_x_starter_kit/app/data/local/storage_keys.dart';
+import 'package:six/app/data/local/storage_keys.dart';
 
 class ThemeProvider {
   static ThemeMode _theme = ThemeMode.system;

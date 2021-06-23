@@ -2,17 +2,17 @@ import 'package:catcher/core/catcher.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:get_x_starter_kit/app/data/config/encryption.dart';
-import 'package:get_x_starter_kit/app/data/local/locale_provider.dart';
-import 'package:get_x_starter_kit/app/data/local/theme_provider.dart';
-import 'package:get_x_starter_kit/app/data/models/menu_option_model.dart';
-import 'package:get_x_starter_kit/app/data/remote/api_service/init_api_service.dart';
-import 'package:get_x_starter_kit/app/data/remote/api_service/service.dart';
-import 'package:get_x_starter_kit/app/ui/components/custom_paint.dart';
-import 'package:get_x_starter_kit/app/ui/components/segmented_controls.dart';
-import 'package:get_x_starter_kit/app/ui/components/voucher_card.dart';
-import 'package:get_x_starter_kit/generated/locales.g.dart';
-import 'package:get_x_starter_kit/app/routes/app_pages.dart';
+import 'package:six/app/data/config/encryption.dart';
+import 'package:six/app/data/local/locale_provider.dart';
+import 'package:six/app/data/local/theme_provider.dart';
+import 'package:six/app/data/models/menu_option_model.dart';
+import 'package:six/app/data/remote/api_service/init_api_service.dart';
+import 'package:six/app/data/remote/api_service/service.dart';
+import 'package:six/app/ui/components/custom_paint.dart';
+import 'package:six/app/ui/components/segmented_controls.dart';
+import 'package:six/app/ui/components/voucher_card.dart';
+import 'package:six/generated/locales.g.dart';
+import 'package:six/app/routes/app_pages.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {

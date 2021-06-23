@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 
-import 'package:get_x_starter_kit/app/modules/home/bindings/home_binding.dart';
-import 'package:get_x_starter_kit/app/modules/home/views/home_view.dart';
-import 'package:get_x_starter_kit/app/modules/socket_test/bindings/socket_test_binding.dart';
-import 'package:get_x_starter_kit/app/modules/socket_test/views/socket_test_view.dart';
-import 'package:get_x_starter_kit/app/modules/tinode_chat/bindings/tinode_chat_binding.dart';
-import 'package:get_x_starter_kit/app/modules/tinode_chat/views/tinode_chat_view.dart';
+import 'package:six/app/modules/home/bindings/home_binding.dart';
+import 'package:six/app/modules/home/views/home_view.dart';
+import 'package:six/app/modules/socket_test/bindings/socket_test_binding.dart';
+import 'package:six/app/modules/socket_test/views/socket_test_view.dart';
+import 'package:six/app/modules/tinode_chat/bindings/tinode_chat_binding.dart';
+import 'package:six/app/modules/tinode_chat/views/tinode_chat_view.dart';
 
 part 'app_routes.dart';
 

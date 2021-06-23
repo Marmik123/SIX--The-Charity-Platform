@@ -1,4 +1,4 @@
-# get_x_starter_kit
+# six
 
 A new Flutter project.
 

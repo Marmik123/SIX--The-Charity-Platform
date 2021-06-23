@@ -5,14 +5,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-import 'package:get_x_starter_kit/app/data/config/app_themes.dart';
-import 'package:get_x_starter_kit/app/data/config/design_config.dart';
-import 'package:get_x_starter_kit/app/data/config/error_handling.dart';
-import 'package:get_x_starter_kit/app/data/config/initialize_app.dart';
+import 'package:six/app/data/config/app_themes.dart';
+import 'package:six/app/data/config/design_config.dart';
+import 'package:six/app/data/config/error_handling.dart';
+import 'package:six/app/data/config/initialize_app.dart';
 
 import 'package:catcher/catcher.dart';
-import 'package:get_x_starter_kit/app/data/config/translation_api.dart';
-import 'package:get_x_starter_kit/app/data/local/locale_provider.dart';
+import 'package:six/app/data/config/translation_api.dart';
+import 'package:six/app/data/local/locale_provider.dart';
 import 'app/routes/app_pages.dart';
 
 Future<void> main() async {

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:get_x_starter_kit/app/data/config/logger.dart';
+import 'package:six/app/data/config/logger.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class SocketTestController extends GetxController {

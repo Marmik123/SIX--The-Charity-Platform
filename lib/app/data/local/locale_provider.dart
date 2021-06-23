@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:get_x_starter_kit/app/data/local/storage_keys.dart';
+import 'package:six/app/data/local/storage_keys.dart';
 
 class LocaleProvider {
   static Locale _currentLocale = const Locale('en_US');

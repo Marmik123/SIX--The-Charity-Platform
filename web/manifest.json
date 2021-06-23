@@ -1,6 +1,6 @@
 {
-    "name": "get_x_starter_kit",
-    "short_name": "get_x_starter_kit",
+    "name": "six",
+    "short_name": "six",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
