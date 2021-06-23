@@ -12,7 +12,7 @@ class AppThemes {
   static const Color nevada = Color.fromRGBO(105, 109, 119, 1);
   static const Color ebonyClay = Color.fromRGBO(40, 42, 58, 1);
 
-  static String font1 = 'ProductSans';
+  static String Gilroy_Font = 'Gilroy';
   static String font2 = 'Roboto';
   //constants color range for light theme
   //main color
@@ -89,7 +89,7 @@ class AppThemes {
   //the light theme
   static final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
-    fontFamily: font1,
+    fontFamily: Gilroy_Font,
     scaffoldBackgroundColor: _lightBackgroundColor,
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: _lightPrimaryColor,
@@ -179,7 +179,7 @@ class AppThemes {
     //primarySwatch: _darkPrimaryColor, //cant be Color on MaterialColor so it can compute different shades.
     accentColor: _darkPrimaryColor, //prefix icon color form input on focus
 
-    fontFamily: font1,
+    fontFamily: Gilroy_Font,
     scaffoldBackgroundColor: _darkBackgroundColor,
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: _darkPrimaryColor,
