@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
 
-class OnboardingController extends GetxController {
-  //TODO: Implement OnboardingController
+class HomeController extends GetxController {
+  //TODO: Implement HomeController
 
+  RxInt? currentIndex = 0.obs;
   final count = 0.obs;
   @override
   void onInit() {
