@@ -11,6 +11,8 @@ abstract class Routes {
   static const ONBOARDING_SCREEN = _Paths.ONBOARDING_SCREEN;
   static const SIGN_PASS_VERIFICATION = _Paths.SIGN_PASS_VERIFICATION;
   static const HOME = _Paths.HOME;
+  static const AVAILABLE_CREDITS = _Paths.AVAILABLE_CREDITS;
+  static const VOUCHER = _Paths.VOUCHER;
 }
 
 abstract class _Paths {
@@ -21,4 +23,6 @@ abstract class _Paths {
   static const ONBOARDING_SCREEN = '/onboarding-screen';
   static const SIGN_PASS_VERIFICATION = '/sign-pass-verification';
   static const HOME = '/home';
+  static const AVAILABLE_CREDITS = '/available-credits';
+  static const VOUCHER = '/voucher';
 }

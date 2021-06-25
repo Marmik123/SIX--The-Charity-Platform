@@ -49,10 +49,11 @@ class CurvedContainer extends CustomPainter {
 
     Paint paint_0_fill = Paint()..style = PaintingStyle.fill;
     paint_0_fill.shader = ui.Gradient.linear(
-        Offset(size.width * -7.263731, size.height * -61.81773),
-        Offset(size.width * 1.614428, size.height * 5.522727),
-        [Color(0xff1FAF9E).withOpacity(1), Color(0xff0087FF).withOpacity(1)],
-        [0, 1]);
+      Offset(size.width * 97.263731, size.height * -141.81773),
+      Offset(size.width * 102.614428, size.height * 125.522727),
+      [Color(0xff1FAF9E).withOpacity(1), Color(0xff0087FF).withOpacity(1)],
+      [0.3, 0.6],
+    );
     canvas.drawPath(path_0, paint_0_fill);
   }
 

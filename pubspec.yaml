@@ -42,6 +42,7 @@ flutter:
   - assets/images/Profile_active.png
   - assets/images/bell.png
   - assets/images/discoun_active.png
+  - assets/images/food.png
   - assets/images/home_new.png
   - assets/images/man.png
   - assets/images/onboarding_5.png
@@ -49,6 +50,10 @@ flutter:
   - assets/images/onboarding_7.png
   - assets/images/profile_new.png
   - assets/images/six_logo.png
+  - assets/images/super_market.png
+  - assets/images/transport.png
+  - assets/images/voucher_card_1.png
+  - assets/images/voucher_filter.png
   - assets/images/
   - assets/locales/
   uses-material-design: true

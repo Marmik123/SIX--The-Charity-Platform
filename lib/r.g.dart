@@ -126,6 +126,10 @@ class _R_Image_AssetResource {
   final discoun_active = const AssetResource("assets/images/discoun_active.png",
       packageName: null);
 
+  /// asset: assets/images/food.png
+  // ignore: non_constant_identifier_names
+  final food = const AssetResource("assets/images/food.png", packageName: null);
+
   /// asset: assets/images/home_new.png
   // ignore: non_constant_identifier_names
   final home_new =
@@ -159,6 +163,26 @@ class _R_Image_AssetResource {
   // ignore: non_constant_identifier_names
   final six_logo =
       const AssetResource("assets/images/six_logo.png", packageName: null);
+
+  /// asset: assets/images/super_market.png
+  // ignore: non_constant_identifier_names
+  final super_market =
+      const AssetResource("assets/images/super_market.png", packageName: null);
+
+  /// asset: assets/images/transport.png
+  // ignore: non_constant_identifier_names
+  final transport =
+      const AssetResource("assets/images/transport.png", packageName: null);
+
+  /// asset: assets/images/voucher_card_1.png
+  // ignore: non_constant_identifier_names
+  final voucher_card_1 = const AssetResource("assets/images/voucher_card_1.png",
+      packageName: null);
+
+  /// asset: assets/images/voucher_filter.png
+  // ignore: non_constant_identifier_names
+  final voucher_filter = const AssetResource("assets/images/voucher_filter.png",
+      packageName: null);
 }
 
 // ignore: camel_case_types
@@ -220,6 +244,12 @@ class _R_Image {
     return AssetImage(asset.discoun_active.keyName);
   }
 
+  /// asset: assets/images/food.png
+  // ignore: non_constant_identifier_names
+  AssetImage food() {
+    return AssetImage(asset.food.keyName);
+  }
+
   /// asset: assets/images/home_new.png
   // ignore: non_constant_identifier_names
   AssetImage home_new() {
@@ -260,6 +290,30 @@ class _R_Image {
   // ignore: non_constant_identifier_names
   AssetImage six_logo() {
     return AssetImage(asset.six_logo.keyName);
+  }
+
+  /// asset: assets/images/super_market.png
+  // ignore: non_constant_identifier_names
+  AssetImage super_market() {
+    return AssetImage(asset.super_market.keyName);
+  }
+
+  /// asset: assets/images/transport.png
+  // ignore: non_constant_identifier_names
+  AssetImage transport() {
+    return AssetImage(asset.transport.keyName);
+  }
+
+  /// asset: assets/images/voucher_card_1.png
+  // ignore: non_constant_identifier_names
+  AssetImage voucher_card_1() {
+    return AssetImage(asset.voucher_card_1.keyName);
+  }
+
+  /// asset: assets/images/voucher_filter.png
+  // ignore: non_constant_identifier_names
+  AssetImage voucher_filter() {
+    return AssetImage(asset.voucher_filter.keyName);
   }
 }
 

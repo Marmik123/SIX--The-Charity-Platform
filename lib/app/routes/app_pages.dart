@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import 'package:six/app/modules/available_credits/bindings/available_credits_binding.dart';
+import 'package:six/app/modules/available_credits/views/available_credits_view.dart';
 import 'package:six/app/modules/home/bindings/home_binding.dart';
 import 'package:six/app/modules/home/views/home_view.dart';
 import 'package:six/app/modules/onboarding_screen/bindings/onboarding_screen_binding.dart';
@@ -8,6 +10,8 @@ import 'package:six/app/modules/sign_pass_verification/bindings/sign_pass_verifi
 import 'package:six/app/modules/sign_pass_verification/views/sign_pass_verification_view.dart';
 import 'package:six/app/modules/splash/bindings/splash_binding.dart';
 import 'package:six/app/modules/splash/views/splash_view.dart';
+import 'package:six/app/modules/voucher/bindings/voucher_binding.dart';
+import 'package:six/app/modules/voucher/views/voucher_view.dart';
 
 // import 'package:get_x_starter_kit/app/modules/home/bindings/home_binding.dart';
 // import 'package:get_x_starter_kit/app/modules/home/views/home_view.dart';
@@ -53,6 +57,16 @@ class AppPages {
       name: _Paths.HOME,
       page: () => HomeView(),
       binding: HomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.AVAILABLE_CREDITS,
+      page: () => AvailableCreditsView(),
+      binding: AvailableCreditsBinding(),
+    ),
+    GetPage(
+      name: _Paths.VOUCHER,
+      page: () => VoucherView(),
+      binding: VoucherBinding(),
     ),
   ];
 }

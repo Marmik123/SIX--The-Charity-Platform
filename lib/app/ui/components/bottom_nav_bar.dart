@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/modules/home/controllers/home_controller.dart';
+import 'package:six/app/modules/home/views/home_view.dart';
+import 'package:six/app/modules/voucher/views/voucher_view.dart';
 import 'package:six/app/ui/components/shape_utils.dart';
 import 'package:six/r.g.dart';
 
-Widget bottomNavBar(HomeController controller) {
+Widget bottomNavBar() {
+  HomeController controller = Get.put(HomeController());
   return BottomNavigationBar(
     backgroundColor: AppColors.kffffff,
     elevation: 45,
@@ -16,6 +20,9 @@ Widget bottomNavBar(HomeController controller) {
     showUnselectedLabels: true,
     onTap: (index) {
       controller.currentIndex!.value = index;
+      index == 1
+          ? Get.off<void>(() => VoucherView())
+          : Get.off<void>(() => HomeView());
     },
     unselectedFontSize: 36.sp,
     selectedFontSize: 36.sp,
