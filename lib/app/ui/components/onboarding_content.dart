@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:six/app/data/config/app_colors.dart';
-import 'package:six/r.g.dart';
 
-Widget onBoarding(
-    String? title, String? subTitle, int? index, PageController page) {
+Widget onBoarding(String? title, String? subTitle, int? index,
+    PageController page, String assetName, double padding) {
   return Column(
     children: [
       Container(
@@ -24,25 +23,14 @@ Widget onBoarding(
         width: 1.sw,
         height: 1534.h,
         child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(165),
-            bottomRight: Radius.circular(165),
-          ),
-          child: index == 0
-              ? Image(
-                  image: R.image.onboarding_5(),
-                  fit: BoxFit.fitWidth,
-                )
-              : index == 1
-                  ? Image.asset(
-                      'assets/images/onboarding_6.png',
-                      fit: BoxFit.fitWidth,
-                    )
-                  : Image.asset(
-                      'assets/images/onboarding_7.png',
-                      fit: BoxFit.fitWidth,
-                    ),
-        ),
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(165),
+              bottomRight: Radius.circular(165),
+            ),
+            child: Image.asset(
+              assetName,
+              fit: BoxFit.fitWidth,
+            )),
       ),
       SizedBox(
         height: 150.h,
@@ -83,7 +71,7 @@ Widget onBoarding(
         ),
       ),
       SizedBox(
-        height: index == 0 ? 226.h : 65.h,
+        height: padding,
       ),
     ],
   );

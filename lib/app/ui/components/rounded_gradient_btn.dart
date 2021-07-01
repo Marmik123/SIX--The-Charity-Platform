@@ -11,7 +11,7 @@ Widget roundedButton(String text, VoidCallback onTap) {
       enableFeedback: true,
       overlayColor: MaterialStateProperty.all(AppColors.kE5E5E5),
       elevation: MaterialStateProperty.all(0),
-      backgroundColor: MaterialStateProperty.all(AppColors.kE5E5E5),
+      backgroundColor: MaterialStateProperty.all(Colors.transparent),
       shape: MaterialStateProperty.all(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(900.r))),
     ),

@@ -29,4 +29,19 @@ class AppColors {
   static const Color kEED2E0 = Color(0xffEED2E0);
   static const Color k001F22 = Color(0xff001F22);
   static const Color kF8FAFA = Color(0xffF8FAFA);
+  static const Color kD7FBFF = Color(0xffD7FBFF);
+  static const Color kFF0000 = Color(0xffFF0000);
+  static const Color kFFEFD7 = Color(0xffFFEFD7);
+  static const Color kEF9104 = Color(0xffEF9104);
+  static const Color kFFF5E7 = Color(0xffFFF5E7);
+  static const Color kFFE7E7 = Color(0xffFFE7E7);
+  static const Color kEF0404 = Color(0xffEF0404);
+  static const Color kFFD7D7 = Color(0xffFFD7D7);
+  static const Color k30D4D4 = Color(0xff30D4D4);
+  static const Color kB4C3D0 = Color(0xffB4C3D0);
+  static const Color kDFDFDF = Color(0xffDFDFDF);
+  static const Color k0087A1 = Color(0xff0087A1);
+  static const Color kFFF5F1 = Color(0xffFFF5F1);
+  static const Color kFF9871 = Color(0xffFF9871);
+  static const Color kFF5555 = Color(0xffFF5555);
 }

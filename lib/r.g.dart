@@ -93,6 +93,11 @@ class AssetResource {
 class _R_Image_AssetResource {
   const _R_Image_AssetResource();
 
+  /// asset: assets/images/Calendar.png
+  // ignore: non_constant_identifier_names
+  final calendar =
+      const AssetResource("assets/images/Calendar.png", packageName: null);
+
   /// asset: assets/images/Discount.png
   // ignore: non_constant_identifier_names
   final discount =
@@ -126,6 +131,16 @@ class _R_Image_AssetResource {
   final discoun_active = const AssetResource("assets/images/discoun_active.png",
       packageName: null);
 
+  /// asset: assets/images/email.png
+  // ignore: non_constant_identifier_names
+  final email =
+      const AssetResource("assets/images/email.png", packageName: null);
+
+  /// asset: assets/images/feedback.png
+  // ignore: non_constant_identifier_names
+  final feedback =
+      const AssetResource("assets/images/feedback.png", packageName: null);
+
   /// asset: assets/images/food.png
   // ignore: non_constant_identifier_names
   final food = const AssetResource("assets/images/food.png", packageName: null);
@@ -154,25 +169,80 @@ class _R_Image_AssetResource {
   final onboarding_7 =
       const AssetResource("assets/images/onboarding_7.png", packageName: null);
 
+  /// asset: assets/images/phone.png
+  // ignore: non_constant_identifier_names
+  final phone =
+      const AssetResource("assets/images/phone.png", packageName: null);
+
+  /// asset: assets/images/privacy.png
+  // ignore: non_constant_identifier_names
+  final privacy =
+      const AssetResource("assets/images/privacy.png", packageName: null);
+
   /// asset: assets/images/profile_new.png
   // ignore: non_constant_identifier_names
   final profile_new =
       const AssetResource("assets/images/profile_new.png", packageName: null);
+
+  /// asset: assets/images/qr_border.png
+  // ignore: non_constant_identifier_names
+  final qr_border =
+      const AssetResource("assets/images/qr_border.png", packageName: null);
+
+  /// asset: assets/images/request.png
+  // ignore: non_constant_identifier_names
+  final request =
+      const AssetResource("assets/images/request.png", packageName: null);
 
   /// asset: assets/images/six_logo.png
   // ignore: non_constant_identifier_names
   final six_logo =
       const AssetResource("assets/images/six_logo.png", packageName: null);
 
+  /// asset: assets/images/success_redem.png
+  // ignore: non_constant_identifier_names
+  final success_redem =
+      const AssetResource("assets/images/success_redem.png", packageName: null);
+
   /// asset: assets/images/super_market.png
   // ignore: non_constant_identifier_names
   final super_market =
       const AssetResource("assets/images/super_market.png", packageName: null);
 
+  /// asset: assets/images/support.png
+  // ignore: non_constant_identifier_names
+  final support =
+      const AssetResource("assets/images/support.png", packageName: null);
+
+  /// asset: assets/images/term_c.png
+  // ignore: non_constant_identifier_names
+  final term_c =
+      const AssetResource("assets/images/term_c.png", packageName: null);
+
+  /// asset: assets/images/ticket.png
+  // ignore: non_constant_identifier_names
+  final ticket =
+      const AssetResource("assets/images/ticket.png", packageName: null);
+
+  /// asset: assets/images/ticket_click.png
+  // ignore: non_constant_identifier_names
+  final ticket_click =
+      const AssetResource("assets/images/ticket_click.png", packageName: null);
+
   /// asset: assets/images/transport.png
   // ignore: non_constant_identifier_names
   final transport =
       const AssetResource("assets/images/transport.png", packageName: null);
+
+  /// asset: assets/images/vendor_onb1.png
+  // ignore: non_constant_identifier_names
+  final vendor_onb1 =
+      const AssetResource("assets/images/vendor_onb1.png", packageName: null);
+
+  /// asset: assets/images/vendor_onb2.png
+  // ignore: non_constant_identifier_names
+  final vendor_onb2 =
+      const AssetResource("assets/images/vendor_onb2.png", packageName: null);
 
   /// asset: assets/images/voucher_card_1.png
   // ignore: non_constant_identifier_names
@@ -201,6 +271,12 @@ class _R_Image {
   const _R_Image();
 
   final asset = const _R_Image_AssetResource();
+
+  /// asset: assets/images/Calendar.png
+  // ignore: non_constant_identifier_names
+  AssetImage calendar() {
+    return AssetImage(asset.calendar.keyName);
+  }
 
   /// asset: assets/images/Discount.png
   // ignore: non_constant_identifier_names
@@ -244,6 +320,18 @@ class _R_Image {
     return AssetImage(asset.discoun_active.keyName);
   }
 
+  /// asset: assets/images/email.png
+  // ignore: non_constant_identifier_names
+  AssetImage email() {
+    return AssetImage(asset.email.keyName);
+  }
+
+  /// asset: assets/images/feedback.png
+  // ignore: non_constant_identifier_names
+  AssetImage feedback() {
+    return AssetImage(asset.feedback.keyName);
+  }
+
   /// asset: assets/images/food.png
   // ignore: non_constant_identifier_names
   AssetImage food() {
@@ -280,10 +368,34 @@ class _R_Image {
     return AssetImage(asset.onboarding_7.keyName);
   }
 
+  /// asset: assets/images/phone.png
+  // ignore: non_constant_identifier_names
+  AssetImage phone() {
+    return AssetImage(asset.phone.keyName);
+  }
+
+  /// asset: assets/images/privacy.png
+  // ignore: non_constant_identifier_names
+  AssetImage privacy() {
+    return AssetImage(asset.privacy.keyName);
+  }
+
   /// asset: assets/images/profile_new.png
   // ignore: non_constant_identifier_names
   AssetImage profile_new() {
     return AssetImage(asset.profile_new.keyName);
+  }
+
+  /// asset: assets/images/qr_border.png
+  // ignore: non_constant_identifier_names
+  AssetImage qr_border() {
+    return AssetImage(asset.qr_border.keyName);
+  }
+
+  /// asset: assets/images/request.png
+  // ignore: non_constant_identifier_names
+  AssetImage request() {
+    return AssetImage(asset.request.keyName);
   }
 
   /// asset: assets/images/six_logo.png
@@ -292,16 +404,58 @@ class _R_Image {
     return AssetImage(asset.six_logo.keyName);
   }
 
+  /// asset: assets/images/success_redem.png
+  // ignore: non_constant_identifier_names
+  AssetImage success_redem() {
+    return AssetImage(asset.success_redem.keyName);
+  }
+
   /// asset: assets/images/super_market.png
   // ignore: non_constant_identifier_names
   AssetImage super_market() {
     return AssetImage(asset.super_market.keyName);
   }
 
+  /// asset: assets/images/support.png
+  // ignore: non_constant_identifier_names
+  AssetImage support() {
+    return AssetImage(asset.support.keyName);
+  }
+
+  /// asset: assets/images/term_c.png
+  // ignore: non_constant_identifier_names
+  AssetImage term_c() {
+    return AssetImage(asset.term_c.keyName);
+  }
+
+  /// asset: assets/images/ticket.png
+  // ignore: non_constant_identifier_names
+  AssetImage ticket() {
+    return AssetImage(asset.ticket.keyName);
+  }
+
+  /// asset: assets/images/ticket_click.png
+  // ignore: non_constant_identifier_names
+  AssetImage ticket_click() {
+    return AssetImage(asset.ticket_click.keyName);
+  }
+
   /// asset: assets/images/transport.png
   // ignore: non_constant_identifier_names
   AssetImage transport() {
     return AssetImage(asset.transport.keyName);
+  }
+
+  /// asset: assets/images/vendor_onb1.png
+  // ignore: non_constant_identifier_names
+  AssetImage vendor_onb1() {
+    return AssetImage(asset.vendor_onb1.keyName);
+  }
+
+  /// asset: assets/images/vendor_onb2.png
+  // ignore: non_constant_identifier_names
+  AssetImage vendor_onb2() {
+    return AssetImage(asset.vendor_onb2.keyName);
   }
 
   /// asset: assets/images/voucher_card_1.png

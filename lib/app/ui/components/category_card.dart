@@ -33,10 +33,7 @@ Widget categoryCard({
         image, // Category Icon
         CustomPaint(
           child: Padding(
-            padding: const EdgeInsets.only(
-              left: 15.0,
-              right: 15,
-            ),
+            padding: const EdgeInsets.only(left: 15.0, right: 15, bottom: 5.0),
             child: Column(
               children: [
                 SizedBox(
@@ -107,7 +104,7 @@ Widget categoryCard({
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    Padding(
+/*                    Padding(
                       padding: const EdgeInsets.only(bottom: 2.0),
                       child: Text(
                         '/\$${totalCredits.toInt()}',
@@ -119,11 +116,11 @@ Widget categoryCard({
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                    ),
+                    )*/
                   ],
                 ),
                 SizedBox(
-                  height: 40.h,
+                  height: 5.h,
                 ),
               ],
             ),

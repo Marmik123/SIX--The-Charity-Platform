@@ -67,10 +67,10 @@ Future<void> main() async {
     ],
   );
 
-  FlutterError.onError = (errorDetails) {
+  /*FlutterError.onError = (errorDetails) {
     letMeHandleAllErrors(errorDetails.exception, errorDetails.stack);
     // Catcher.reportCheckedError(errorDetails.exception, errorDetails.stack);
-  };
+  };*/
 }
 
 class StartTheApp extends StatelessWidget {

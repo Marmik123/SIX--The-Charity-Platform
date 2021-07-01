@@ -13,6 +13,14 @@ abstract class Routes {
   static const HOME = _Paths.HOME;
   static const AVAILABLE_CREDITS = _Paths.AVAILABLE_CREDITS;
   static const VOUCHER = _Paths.VOUCHER;
+  static const VOUCHER_REDEMPTION = _Paths.VOUCHER_REDEMPTION;
+  static const PROFILE = _Paths.PROFILE;
+  static const SUPPORT = _Paths.SUPPORT;
+  static const NOTIFICATION = _Paths.NOTIFICATION;
+  static const ONBOARDING_VENDOR = _Paths.ONBOARDING_VENDOR;
+  static const VENDOR_HOME = _Paths.VENDOR_HOME;
+  static const VENDOR_REDEEM = _Paths.VENDOR_REDEEM;
+  static const QR_SCREEN = _Paths.QR_SCREEN;
 }
 
 abstract class _Paths {
@@ -25,4 +33,12 @@ abstract class _Paths {
   static const HOME = '/home';
   static const AVAILABLE_CREDITS = '/available-credits';
   static const VOUCHER = '/voucher';
+  static const VOUCHER_REDEMPTION = '/voucher-redemption';
+  static const PROFILE = '/profile';
+  static const SUPPORT = '/support';
+  static const NOTIFICATION = '/notification';
+  static const ONBOARDING_VENDOR = '/onboarding-vendor';
+  static const VENDOR_HOME = '/vendor-home';
+  static const VENDOR_REDEEM = '/vendor-redeem';
+  static const QR_SCREEN = '/qr-screen';
 }
