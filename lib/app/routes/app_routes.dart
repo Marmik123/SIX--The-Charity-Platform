@@ -21,6 +21,9 @@ abstract class Routes {
   static const VENDOR_HOME = _Paths.VENDOR_HOME;
   static const VENDOR_REDEEM = _Paths.VENDOR_REDEEM;
   static const QR_SCREEN = _Paths.QR_SCREEN;
+  static const CHARITY_HOME = _Paths.CHARITY_HOME;
+  static const CHARITY_ONBOARDING = _Paths.CHARITY_ONBOARDING;
+  static const PURCHASE = _Paths.PURCHASE;
 }
 
 abstract class _Paths {
@@ -41,4 +44,7 @@ abstract class _Paths {
   static const VENDOR_HOME = '/vendor-home';
   static const VENDOR_REDEEM = '/vendor-redeem';
   static const QR_SCREEN = '/qr-screen';
+  static const CHARITY_HOME = '/charity-home';
+  static const CHARITY_ONBOARDING = '/charity-onboarding';
+  static const PURCHASE = '/purchase';
 }

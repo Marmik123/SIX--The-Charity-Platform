@@ -37,7 +37,6 @@ class OnboardingScreenController extends GetxController {
     R.image.asset.onboarding_5.assetName,
     R.image.asset.onboarding_6.assetName,
   ];
-
   final count = 0.obs;
   late RxInt? index = 0.obs;
   @override

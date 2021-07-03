@@ -1,4 +1,8 @@
 import 'package:get/get.dart';
+import 'package:six/app/modules/charity/charity_home/bindings/charity_home_binding.dart';
+import 'package:six/app/modules/charity/charity_home/views/charity_home_view.dart';
+import 'package:six/app/modules/charity/charity_onboarding/bindings/charity_onboarding_binding.dart';
+import 'package:six/app/modules/charity/charity_onboarding/views/charity_onboarding_view.dart';
 import 'package:six/app/modules/needy_family/available_credits/bindings/available_credits_binding.dart';
 import 'package:six/app/modules/needy_family/available_credits/views/available_credits_view.dart';
 import 'package:six/app/modules/needy_family/home/bindings/home_binding.dart';
@@ -17,6 +21,8 @@ import 'package:six/app/modules/needy_family/voucher/bindings/voucher_binding.da
 import 'package:six/app/modules/needy_family/voucher/views/voucher_view.dart';
 import 'package:six/app/modules/needy_family/voucher_redemption/bindings/voucher_redemption_binding.dart';
 import 'package:six/app/modules/needy_family/voucher_redemption/views/voucher_redemption_view.dart';
+import 'package:six/app/modules/purchase/bindings/purchase_binding.dart';
+import 'package:six/app/modules/purchase/views/purchase_view.dart';
 import 'package:six/app/modules/splash/bindings/splash_binding.dart';
 import 'package:six/app/modules/splash/views/splash_view.dart';
 import 'package:six/app/modules/vendor/onboarding_vendor/bindings/onboarding_vendor_binding.dart';
@@ -76,7 +82,9 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.AVAILABLE_CREDITS,
-      page: () => AvailableCreditsView(),
+      page: () => AvailableCreditsView(
+        whichRole: '',
+      ),
       binding: AvailableCreditsBinding(),
     ),
     GetPage(
@@ -91,7 +99,9 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PROFILE,
-      page: () => ProfileView(),
+      page: () => ProfileView(
+        whichScreen: '',
+      ),
       binding: ProfileBinding(),
     ),
     GetPage(
@@ -123,6 +133,21 @@ class AppPages {
       name: _Paths.QR_SCREEN,
       page: () => QrScreenView(),
       binding: QrScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHARITY_HOME,
+      page: () => CharityHomeView(),
+      binding: CharityHomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHARITY_ONBOARDING,
+      page: () => CharityOnboardingView(),
+      binding: CharityOnboardingBinding(),
+    ),
+    GetPage(
+      name: _Paths.PURCHASE,
+      page: () => PurchaseView(),
+      binding: PurchaseBinding(),
     ),
   ];
 }

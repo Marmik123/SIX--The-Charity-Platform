@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
 
-class VendorRedeemController extends GetxController {
-  //TODO: Implement VendorRedeemController
-  RxBool codeEntered = false.obs;
-  RxBool redeemThroughNum = false.obs;
+class CharityHomeController extends GetxController {
+  //TODO: Implement CharityHomeController
+  RxInt? tabIndex = 0.obs;
 
   final count = 0.obs;
   @override

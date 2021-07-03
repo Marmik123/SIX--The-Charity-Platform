@@ -7,6 +7,9 @@ import 'package:six/app/ui/components/catched_image.dart';
 import '../controllers/available_credits_controller.dart';
 
 class AvailableCreditsView extends GetView<AvailableCreditsController> {
+  final String whichRole;
+
+  AvailableCreditsView({required this.whichRole});
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);

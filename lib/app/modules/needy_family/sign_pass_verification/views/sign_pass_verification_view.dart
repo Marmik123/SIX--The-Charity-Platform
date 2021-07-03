@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 
 import '../controllers/sign_pass_verification_controller.dart';
@@ -164,7 +165,11 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                         ),
                         roundedButton('Login', () {
                           Get.offAndToNamed<void>('/home');
-                        })
+                        }, 452.w),
+                        roundedButton('Charity', () {
+                          Get.offAndToNamed<void>(Routes.CHARITY_ONBOARDING);
+                        }, 100.w),
+                        roundedButton('Vendor', () {}, 100.w),
                       ],
                     )
                   : Column(

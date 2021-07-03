@@ -20,7 +20,9 @@ class HomeView extends GetView<HomeController> {
   List<Widget> bottomNavScreen = <Widget>[
     HomeContent(),
     VoucherView(),
-    ProfileView(),
+    ProfileView(
+      whichScreen: 'Needy Family',
+    ),
   ];
   @override
   Widget build(BuildContext context) {
@@ -145,7 +147,24 @@ class HomeContent extends StatelessWidget {
                   SizedBox(
                     height: 70.h,
                   ),
-                  monthPicker(),
+                  monthPicker(
+                    color: AppColors.kffffff,
+                    borderColor: AppColors.kE3FCFF,
+                    width: 390.w,
+                    height: 80.h,
+                    shadowColor: AppColors.k0A9988,
+                    textContent: Text(
+                      'Sept, ${DateTime.now().year}',
+                      style: TextStyle(
+                        fontFamily: 'Gilroy',
+                        fontSize: 40.sp,
+                        fontStyle: FontStyle.normal,
+                        color: AppColors.k1FAF9E,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    onTapArrow: () {},
+                  ),
                 ],
               ),
             ),

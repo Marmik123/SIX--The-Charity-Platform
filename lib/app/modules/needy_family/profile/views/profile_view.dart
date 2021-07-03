@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/double_shaded_container.dart';
@@ -11,6 +12,10 @@ import 'package:six/r.g.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
+  final String whichScreen;
+  ProfileController profileCtrl = Get.put(ProfileController());
+
+  ProfileView({required this.whichScreen});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +56,36 @@ class ProfileView extends GetView<ProfileController> {
                         SizedBox(
                           height: 93.h,
                         ),
-                        doubleShadedCont('https://picsum.photos/id/1027/400'),
+                        Stack(
+                          alignment: Alignment.bottomRight,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                print('image picker called');
+                                profileCtrl
+                                    .pickProfilePicture(ImageSource.gallery);
+                              },
+                              onLongPress: () {},
+                              child: doubleShadedCont(
+                                  'https://picsum.photos/id/1027/400'),
+                            ),
+                            Positioned(
+                              right: 385.w,
+                              top: 355.h,
+                              child: GestureDetector(
+                                onTap: () {
+                                  print('image picker called');
+                                  controller.askImageSource();
+                                },
+                                child: Image.asset(
+                                  R.image.asset.image_picker.assetName,
+                                  height: 105.h,
+                                  width: 104.w,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                         SizedBox(
                           height: 83.h,
                         ),
@@ -69,26 +103,28 @@ class ProfileView extends GetView<ProfileController> {
                         SizedBox(
                           height: 20.h,
                         ),
-                        Text(
-                          'peterlim@gmail.com',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Gilroy',
-                            fontSize: 40.sp,
-                            fontStyle: FontStyle.normal,
-                            color: AppColors.k033660,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
+                        whichScreen == 'Needy Family'
+                            ? Text(
+                                'peterlim@gmail.com',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy',
+                                  fontSize: 40.sp,
+                                  fontStyle: FontStyle.normal,
+                                  color: AppColors.k033660,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              )
+                            : SizedBox.shrink(),
                       ],
                     ),
                   ),
                 ),
                 Positioned(
-                  top: 1130.h,
+                  top: 1108.h,
                   child: Container(
                     width: 1005.w,
-                    height: 1011.h,
+                    height: 719.h,
                     decoration: BoxDecoration(
                       color: AppColors.kffffff,
                       borderRadius: BorderRadius.circular(50.r),
@@ -105,10 +141,10 @@ class ProfileView extends GetView<ProfileController> {
                         SizedBox(
                           height: 75.h,
                         ),
-                        profileMenuItem(R.image.asset.request.assetName,
+                        /* profileMenuItem(R.image.asset.request.assetName,
                             'Make a Request', () {}),
                         profileMenuItem(R.image.asset.term_c.assetName,
-                            'My Previous Request', () {}),
+                            'My Previous Request', () {}),*/
                         GestureDetector(
                           behavior: HitTestBehavior.translucent,
                           child: profileMenuItem(
@@ -212,7 +248,10 @@ class ProfileView extends GetView<ProfileController> {
                     ,
                   ),
                 ),
-                Positioned(top: 2050.h, child: roundedButton('Logout', () {}))
+                Positioned(
+                  top: 1740.h,
+                  child: roundedButton('Logout', () {}, 452.w),
+                )
               ],
             ),
           ],

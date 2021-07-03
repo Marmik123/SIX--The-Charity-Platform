@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/modules/needy_family/profile/views/profile_view.dart';
+import 'package:six/app/modules/vendor/vendor_redeem/controllers/vendor_redeem_controller.dart';
 import 'package:six/app/modules/vendor/vendor_redeem/views/vendor_redeem_view.dart';
 import 'package:six/app/ui/components/bottom_nav_bar.dart';
 import 'package:six/app/ui/components/month_picker.dart';
@@ -11,17 +13,22 @@ import 'package:six/r.g.dart';
 import '../controllers/vendor_home_controller.dart';
 
 class VendorHomeView extends GetView<VendorHomeController> {
+  VendorRedeemController vendorRCtrl = Get.put(VendorRedeemController());
   List<Widget> bottomNavScreen = <Widget>[
     VendorHome(),
     VendorRedeemView(),
+    ProfileView(
+      whichScreen: 'Vendor',
+    )
   ];
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
         backgroundColor: AppColors.kffffff,
-        bottomNavigationBar:
-            bottomNavBar(fromVoucherScreen: false, vendorHome: true),
+        bottomNavigationBar: !vendorRCtrl.redeemThroughNum.value
+            ? bottomNavBar(fromVoucherScreen: false, vendorHome: true)
+            : SizedBox.shrink(),
         body: bottomNavScreen.elementAt(controller.currentIndex!.value),
       ),
     );
@@ -60,7 +67,24 @@ class VendorHome extends StatelessWidget {
                     SizedBox(
                       height: 98.h,
                     ),
-                    monthPicker(),
+                    monthPicker(
+                      color: AppColors.kffffff,
+                      borderColor: AppColors.kE3FCFF,
+                      width: 390.w,
+                      height: 80.h,
+                      shadowColor: AppColors.k0A9988,
+                      textContent: Text(
+                        'Sept, ${DateTime.now().year}',
+                        style: TextStyle(
+                          fontFamily: 'Gilroy',
+                          fontSize: 40.sp,
+                          fontStyle: FontStyle.normal,
+                          color: AppColors.k1FAF9E,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      onTapArrow: () {},
+                    ),
                   ],
                 ),
               ),

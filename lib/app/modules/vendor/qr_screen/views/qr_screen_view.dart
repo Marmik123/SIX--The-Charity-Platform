@@ -5,12 +5,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/modules/vendor/vendor_home/controllers/vendor_home_controller.dart';
+import 'package:six/app/modules/vendor/vendor_redeem/controllers/vendor_redeem_controller.dart';
+import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/common_voucher_card.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 
 import '../controllers/qr_screen_controller.dart';
 
 class QrScreenView extends GetView<QrScreenController> {
+  VendorRedeemController vendorRCtrl = Get.put(VendorRedeemController());
+  VendorHomeController vendorHome = Get.put(VendorHomeController());
   @override
   Widget build(BuildContext context) {
     return Obx(() => Stack(
@@ -74,83 +79,33 @@ class QrScreenView extends GetView<QrScreenController> {
                               ),
                               Stack(
                                 alignment: Alignment.bottomCenter,
+                                overflow: Overflow.visible,
                                 children: [
-                                  voucherCard(
-                                    title: 'NTUC Fairprice',
-                                    imgUrl:
-                                        'https://picsum.photos/id/237/200/300',
-                                    amount: 10,
-                                    voucherCode: '15015403',
-                                    date: '1, Nov 2021',
-                                    onTap: () {},
-                                    voucherState: VoucherState.active,
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 20.0),
+                                    child: voucherCard(
+                                      title: 'NTUC Fairprice',
+                                      imgUrl:
+                                          'https://picsum.photos/id/237/200/300',
+                                      amount: 10,
+                                      voucherCode: '15015403',
+                                      date: '1, Nov 2021',
+                                      onTap: () {},
+                                      btnText: 'Active Voucher',
+                                      voucherState: VoucherState.active,
+                                      isQRScreen: true,
+                                    ),
                                   ),
                                   Positioned(
-                                      bottom: -1,
-                                      child:
-                                          roundedButton('Redeem Now', () {})),
+                                      bottom: -6,
+                                      right: 10,
+                                      child: roundedButton('Redeem Now', () {
+                                        vendorRCtrl.redeemThroughNum.value =
+                                            true;
+                                        Get.offNamed<void>(Routes.VENDOR_HOME);
+                                      }, 905.w)),
                                 ],
                               ),
-                              /*Container(
-                                height: 881.h,
-                                width: 1005.w,
-                                decoration: BoxDecoration(
-                                  color: AppColors.kffffff,
-                                  borderRadius: BorderRadius.circular(100.r),
-                                ),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 115.h,
-                                    ),
-                                    Image.asset(
-                                      R.image.asset.success_redem.assetName,
-                                      width: 300.r,
-                                      height: 300.r,
-                                    ),
-                                    SizedBox(
-                                      height: 45.h,
-                                    ),
-                                    Text(
-                                      'Success!',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy',
-                                        fontSize: 55.sp,
-                                        fontStyle: FontStyle.normal,
-                                        color: AppColors.k033660,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    SizedBox(
-                                      height: 55.h,
-                                    ),
-                                    Container(
-                                      width: 100.w,
-                                      height: 6.h,
-                                      decoration: BoxDecoration(
-                                        color: AppColors.kB4C3D0,
-                                        borderRadius:
-                                            BorderRadius.circular(100.r),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 55.h,
-                                    ),
-                                    Text(
-                                      'Congrats! You have successfully\nredemeed your e-voucher',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy',
-                                        fontSize: 45.sp,
-                                        fontStyle: FontStyle.normal,
-                                        color: AppColors.k6886A0,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    )
-                                  ],
-                                ),
-                              ),*/ //SUCCESS DIALOG
                               SizedBox(
                                 height: 484.h,
                               ),

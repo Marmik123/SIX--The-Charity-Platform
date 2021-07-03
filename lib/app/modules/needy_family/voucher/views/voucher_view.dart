@@ -220,7 +220,9 @@ class VoucherContent extends StatelessWidget {
                       Get.toNamed<void>(Routes.VOUCHER_REDEMPTION);
                     },
                     voucherCode: '15015403',
+                    btnText: 'Redeem Now',
                     voucherState: VoucherState.active,
+                    isQRScreen: false,
                   ), //Common Voucher Card
                 ],
               ),
@@ -236,7 +238,9 @@ class VoucherContent extends StatelessWidget {
                     imgUrl: 'https://picsum.photos/id/1012/200/300',
                     onTap: () {},
                     voucherCode: '15015403',
+                    btnText: 'Already Redeemed',
                     voucherState: VoucherState.redeemed,
+                    isQRScreen: false,
                   ), //Common Voucher Card
                 ],
               ),
@@ -252,7 +256,9 @@ class VoucherContent extends StatelessWidget {
                     imgUrl: 'https://picsum.photos/id/1013/200/300',
                     voucherCode: '15015403',
                     onTap: () {},
+                    btnText: 'Expired Voucher',
                     voucherState: VoucherState.expired,
+                    isQRScreen: false,
                   ), //Common Voucher Card
                 ],
               )

@@ -150,9 +150,29 @@ class _R_Image_AssetResource {
   final home_new =
       const AssetResource("assets/images/home_new.png", packageName: null);
 
+  /// asset: assets/images/image_picker.png
+  // ignore: non_constant_identifier_names
+  final image_picker =
+      const AssetResource("assets/images/image_picker.png", packageName: null);
+
   /// asset: assets/images/man.png
   // ignore: non_constant_identifier_names
   final man = const AssetResource("assets/images/man.png", packageName: null);
+
+  /// asset: assets/images/onb_1.png
+  // ignore: non_constant_identifier_names
+  final onb_1 =
+      const AssetResource("assets/images/onb_1.png", packageName: null);
+
+  /// asset: assets/images/onb_2.png
+  // ignore: non_constant_identifier_names
+  final onb_2 =
+      const AssetResource("assets/images/onb_2.png", packageName: null);
+
+  /// asset: assets/images/onb_3.png
+  // ignore: non_constant_identifier_names
+  final onb_3 =
+      const AssetResource("assets/images/onb_3.png", packageName: null);
 
   /// asset: assets/images/onboarding_5.png
   // ignore: non_constant_identifier_names
@@ -344,10 +364,34 @@ class _R_Image {
     return AssetImage(asset.home_new.keyName);
   }
 
+  /// asset: assets/images/image_picker.png
+  // ignore: non_constant_identifier_names
+  AssetImage image_picker() {
+    return AssetImage(asset.image_picker.keyName);
+  }
+
   /// asset: assets/images/man.png
   // ignore: non_constant_identifier_names
   AssetImage man() {
     return AssetImage(asset.man.keyName);
+  }
+
+  /// asset: assets/images/onb_1.png
+  // ignore: non_constant_identifier_names
+  AssetImage onb_1() {
+    return AssetImage(asset.onb_1.keyName);
+  }
+
+  /// asset: assets/images/onb_2.png
+  // ignore: non_constant_identifier_names
+  AssetImage onb_2() {
+    return AssetImage(asset.onb_2.keyName);
+  }
+
+  /// asset: assets/images/onb_3.png
+  // ignore: non_constant_identifier_names
+  AssetImage onb_3() {
+    return AssetImage(asset.onb_3.keyName);
   }
 
   /// asset: assets/images/onboarding_5.png
