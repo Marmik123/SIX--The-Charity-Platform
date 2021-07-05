@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:six/app/data/config/app_colors.dart';
-import 'package:six/r.g.dart';
 
 Widget successDialog({
   required String text,
+  required String dialogTypeText,
   required String assetName,
   required VoidCallback onTapCancel,
 }) {
@@ -34,7 +34,7 @@ Widget successDialog({
               height: 45.h,
             ),
             Text(
-              'Success!',
+              dialogTypeText,
               style: TextStyle(
                 fontFamily: 'Gilroy',
                 fontSize: 55.sp,

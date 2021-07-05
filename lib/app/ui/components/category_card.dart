@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/category_curved_container.dart';
 
 Widget categoryCard({
   required int index,
   required String categoryName,
+  required String whichScreen,
   required double creditsRemaining,
   required double totalCredits,
+  required double width,
+  required double height,
   required Image image,
   required Color background,
   required Color foreground,
   required Color shadow,
   required Color accent,
+  required EdgeInsetsGeometry padding,
 }) {
   return Container(
-    width: 420.w,
-    height: 560.h,
+    width: width, //420.w,
+    height: height, //560.h,
     decoration: BoxDecoration(
       border: Border.all(
         color: AppColors.kE2E2E2,
@@ -33,7 +39,7 @@ Widget categoryCard({
         image, // Category Icon
         CustomPaint(
           child: Padding(
-            padding: const EdgeInsets.only(left: 15.0, right: 15, bottom: 5.0),
+            padding: padding,
             child: Column(
               children: [
                 SizedBox(
@@ -45,65 +51,70 @@ Widget categoryCard({
                     fontFamily: 'Gilroy',
                     fontSize: 45.sp,
                     fontStyle: FontStyle.normal,
-                    color: AppColors.k033660,
+                    color: foreground,
                     fontWeight: FontWeight.w500,
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(
-                  height: 75.h,
-                ),
-                Stack(
-                  alignment: Alignment.topRight,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: LinearProgressIndicator(
-                        value: (creditsRemaining / totalCredits),
-                        color: foreground,
-                        backgroundColor: accent,
-                        minHeight: 6,
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 4.5,
-                      right: 1,
-                      child: Container(
-                        //alignment: Alignment.centerRight,
-                        color: AppColors.kffffff,
-                        height: 12.h,
-                        width: totalCredits.w - creditsRemaining.w + 1.w,
-                      ),
-                    ),
-                    Positioned(
-                      bottom: -2,
-                      right: 1,
-                      child: Container(
-                        //alignment: Alignment.centerRight,
-                        color: AppColors.kffffff,
-                        height: 12.h,
-                        width: totalCredits.w - creditsRemaining.w + 1.w,
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 33.h,
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      '\$${creditsRemaining.toInt()}',
-                      style: TextStyle(
-                        fontFamily: 'Gilroy',
-                        fontSize: 60.sp,
-                        fontStyle: FontStyle.normal,
-                        color: AppColors.k033660,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                whichScreen == 'Needy Family'
+                    ? Column(
+                        children: [
+                          SizedBox(
+                            height: 75.h,
+                          ),
+                          Stack(
+                            alignment: Alignment.topRight,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: LinearProgressIndicator(
+                                  value: (creditsRemaining / totalCredits),
+                                  color: foreground,
+                                  backgroundColor: accent,
+                                  minHeight: 6,
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 4.5,
+                                right: 1,
+                                child: Container(
+                                  //alignment: Alignment.centerRight,
+                                  color: AppColors.kffffff,
+                                  height: 12.h,
+                                  width:
+                                      totalCredits.w - creditsRemaining.w + 1.w,
+                                ),
+                              ),
+                              Positioned(
+                                bottom: -2,
+                                right: 1,
+                                child: Container(
+                                  //alignment: Alignment.centerRight,
+                                  color: AppColors.kffffff,
+                                  height: 12.h,
+                                  width:
+                                      totalCredits.w - creditsRemaining.w + 1.w,
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: 33.h,
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                '\$${creditsRemaining.toInt()}',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy',
+                                  fontSize: 60.sp,
+                                  fontStyle: FontStyle.normal,
+                                  color: AppColors.k033660,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
 /*                    Padding(
                       padding: const EdgeInsets.only(bottom: 2.0),
                       child: Text(
@@ -117,11 +128,38 @@ Widget categoryCard({
                         ),
                       ),
                     )*/
-                  ],
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Get.toNamed<void>(Routes.AVAILABLE_VENDORS);
+                            },
+                            child: Text(
+                              'View Vendors',
+                              maxLines: 1,
+                              style: TextStyle(
+                                fontFamily: 'Gilroy',
+                                fontSize: 30.sp,
+                                fontStyle: FontStyle.normal,
+                                color: AppColors.k033660,
+                                fontWeight: FontWeight.w500,
+                                decoration: TextDecoration.underline,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
               ],
             ),
           ),

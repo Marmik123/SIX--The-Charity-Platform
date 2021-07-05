@@ -27,7 +27,7 @@ class VendorHomeView extends GetView<VendorHomeController> {
       () => Scaffold(
         backgroundColor: AppColors.kffffff,
         bottomNavigationBar: !vendorRCtrl.redeemThroughNum.value
-            ? bottomNavBar(fromVoucherScreen: false, vendorHome: true)
+            ? bottomNavBar(whichScreen: 'Vendor')
             : SizedBox.shrink(),
         body: bottomNavScreen.elementAt(controller.currentIndex!.value),
       ),

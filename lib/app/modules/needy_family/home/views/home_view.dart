@@ -29,8 +29,7 @@ class HomeView extends GetView<HomeController> {
     return Obx(
       () => Scaffold(
         backgroundColor: AppColors.kffffff,
-        bottomNavigationBar:
-            bottomNavBar(fromVoucherScreen: false, vendorHome: false),
+        bottomNavigationBar: bottomNavBar(whichScreen: 'Needy Family'),
         //extendBodyBehindAppBar: true,
         body: bottomNavScreen.elementAt(controller.currentIndex!.value),
       ),
@@ -315,6 +314,11 @@ class HomeContent extends StatelessWidget {
                   accent: AppColors.kFBEEF4,
                   shadow: AppColors.kEED2E0,
                   foreground: AppColors.kFF007A,
+                  whichScreen: 'Needy Family',
+                  width: 420.w,
+                  height: 560.h,
+                  padding:
+                      const EdgeInsets.only(left: 15.0, right: 15, bottom: 5.0),
                 ),
               ),
             ),

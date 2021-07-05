@@ -3,15 +3,15 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/modules/charity/charity_home/controllers/charity_home_controller.dart';
 import 'package:six/app/modules/needy_family/home/controllers/home_controller.dart';
 import 'package:six/app/modules/vendor/vendor_home/controllers/vendor_home_controller.dart';
-import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/shape_utils.dart';
 import 'package:six/r.g.dart';
 
-Widget bottomNavBar(
-    {required bool fromVoucherScreen, required bool vendorHome}) {
+Widget bottomNavBar({required String whichScreen}) {
   var vendorCtrl = Get.put(VendorHomeController());
+  var charityCtrl = Get.put(CharityHomeController());
   HomeController controller = Get.put(HomeController());
   return Container(
     decoration: BoxDecoration(
@@ -27,16 +27,20 @@ Widget bottomNavBar(
       backgroundColor: AppColors.kffffff,
       elevation: 45,
       iconSize: 25,
-      currentIndex: vendorHome
+      currentIndex: whichScreen == 'Vendor'
           ? vendorCtrl.currentIndex!.value
-          : controller.currentIndex!.value,
+          : whichScreen == 'Needy Family'
+              ? controller.currentIndex!.value
+              : charityCtrl.currentIndex!.value,
       type: BottomNavigationBarType.fixed,
       showUnselectedLabels: true,
       onTap: (index) {
-        vendorHome
+        whichScreen == 'Vendor'
             ? vendorCtrl.currentIndex!.value = index
-            : controller.currentIndex!.value = index;
-        fromVoucherScreen ? (Get.offAllNamed<void>(Routes.HOME)) : null;
+            : whichScreen == 'Needy-Family'
+                ? controller.currentIndex!.value = index
+                : charityCtrl.currentIndex!.value = index;
+        //fromVoucherScreen ? (Get.offAllNamed<void>(Routes.HOME)) : null;
       },
       unselectedFontSize: 36.sp,
       selectedFontSize: 36.sp,
@@ -86,9 +90,11 @@ Widget bottomNavBar(
           icon: Padding(
             padding: const EdgeInsets.only(bottom: 5),
             child: Image.asset(
-              vendorHome
+              whichScreen == 'Vendor'
                   ? R.image.asset.ticket.assetName
-                  : R.image.discount().assetName,
+                  : whichScreen == 'Charity'
+                      ? R.image.asset.charity_ticket.assetName
+                      : R.image.discount().assetName,
               height: 61.h,
               width: 61.w,
             ),
@@ -104,15 +110,21 @@ Widget bottomNavBar(
                     offset: Offset(5, 5))
               ]),
               child: Image.asset(
-                vendorHome
+                whichScreen == 'Vendor'
                     ? R.image.asset.ticket_click.assetName
-                    : R.image.discoun_active().assetName,
+                    : whichScreen == 'Charity'
+                        ? R.image.asset.charity_ticket_select.assetName
+                        : R.image.discoun_active().assetName,
                 height: 61.h,
                 width: 61.w,
               ),
             ),
           ),
-          label: vendorHome ? 'Redeem' : 'Voucher',
+          label: whichScreen == 'Vendor'
+              ? 'Redeem'
+              : whichScreen == 'Charity'
+                  ? 'Purchase'
+                  : 'Voucher',
         ),
         BottomNavigationBarItem(
           icon: Padding(

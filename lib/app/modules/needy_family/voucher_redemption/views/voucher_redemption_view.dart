@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:six/app/data/config/app_colors.dart';
-import 'package:six/app/ui/components/bottom_nav_bar.dart';
 import 'package:six/app/ui/components/success_dialog.dart';
 import 'package:six/r.g.dart';
 
@@ -63,8 +62,9 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                     ],
                   ),
                 ),
-                bottomNavigationBar:
-                    bottomNavBar(fromVoucherScreen: true, vendorHome: false),
+                /*bottomNavigationBar:
+                    bottomNavBar(fromVoucherScreen: true, vendorHome: false,whichScreen: 'Needy Family'),
+               */
                 backgroundColor: AppColors.kffffff,
                 extendBodyBehindAppBar: true,
                 body: SingleChildScrollView(
@@ -267,6 +267,7 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                         child: Material(
                           color: Colors.transparent,
                           child: successDialog(
+                            dialogTypeText: 'Success!',
                             text:
                                 'Congrats! You have successfully\nredemeed your e-voucher',
                             assetName: R.image.asset.success_redem.assetName,

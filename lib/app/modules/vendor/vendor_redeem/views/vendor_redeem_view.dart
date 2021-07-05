@@ -267,6 +267,7 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
                         child: Material(
                           color: Colors.transparent,
                           child: successDialog(
+                              dialogTypeText: 'Success!',
                               text: 'Voucher has been successfully\nredeemed.',
                               assetName: R.image.asset.success_redem.assetName,
                               onTapCancel: () {

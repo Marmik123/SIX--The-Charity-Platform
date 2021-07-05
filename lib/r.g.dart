@@ -6,13 +6,13 @@
 //
 
 // ignore: unused_import
-import 'package:flutter/widgets.dart';
-// ignore: unused_import
 import 'package:flutter/services.dart' show rootBundle;
 // ignore: unused_import
-import 'package:path/path.dart' as path;
+import 'package:flutter/widgets.dart';
 // ignore: unused_import
 import 'package:flutter_svg/flutter_svg.dart';
+// ignore: unused_import
+import 'package:path/path.dart' as path;
 // ignore: unused_import
 import 'package:r_dart_library/asset_svg.dart';
 
@@ -126,6 +126,17 @@ class _R_Image_AssetResource {
   // ignore: non_constant_identifier_names
   final bell = const AssetResource("assets/images/bell.png", packageName: null);
 
+  /// asset: assets/images/charity_ticket.png
+  // ignore: non_constant_identifier_names
+  final charity_ticket = const AssetResource("assets/images/charity_ticket.png",
+      packageName: null);
+
+  /// asset: assets/images/charity_ticket_select.png
+  // ignore: non_constant_identifier_names
+  final charity_ticket_select = const AssetResource(
+      "assets/images/charity_ticket_select.png",
+      packageName: null);
+
   /// asset: assets/images/discoun_active.png
   // ignore: non_constant_identifier_names
   final discoun_active = const AssetResource("assets/images/discoun_active.png",
@@ -135,6 +146,11 @@ class _R_Image_AssetResource {
   // ignore: non_constant_identifier_names
   final email =
       const AssetResource("assets/images/email.png", packageName: null);
+
+  /// asset: assets/images/error_dialog.png
+  // ignore: non_constant_identifier_names
+  final error_dialog =
+      const AssetResource("assets/images/error_dialog.png", packageName: null);
 
   /// asset: assets/images/feedback.png
   // ignore: non_constant_identifier_names
@@ -213,6 +229,11 @@ class _R_Image_AssetResource {
   // ignore: non_constant_identifier_names
   final request =
       const AssetResource("assets/images/request.png", packageName: null);
+
+  /// asset: assets/images/select_voucher.png
+  // ignore: non_constant_identifier_names
+  final select_voucher = const AssetResource("assets/images/select_voucher.png",
+      packageName: null);
 
   /// asset: assets/images/six_logo.png
   // ignore: non_constant_identifier_names
@@ -334,6 +355,18 @@ class _R_Image {
     return AssetImage(asset.bell.keyName);
   }
 
+  /// asset: assets/images/charity_ticket.png
+  // ignore: non_constant_identifier_names
+  AssetImage charity_ticket() {
+    return AssetImage(asset.charity_ticket.keyName);
+  }
+
+  /// asset: assets/images/charity_ticket_select.png
+  // ignore: non_constant_identifier_names
+  AssetImage charity_ticket_select() {
+    return AssetImage(asset.charity_ticket_select.keyName);
+  }
+
   /// asset: assets/images/discoun_active.png
   // ignore: non_constant_identifier_names
   AssetImage discoun_active() {
@@ -344,6 +377,12 @@ class _R_Image {
   // ignore: non_constant_identifier_names
   AssetImage email() {
     return AssetImage(asset.email.keyName);
+  }
+
+  /// asset: assets/images/error_dialog.png
+  // ignore: non_constant_identifier_names
+  AssetImage error_dialog() {
+    return AssetImage(asset.error_dialog.keyName);
   }
 
   /// asset: assets/images/feedback.png
@@ -440,6 +479,12 @@ class _R_Image {
   // ignore: non_constant_identifier_names
   AssetImage request() {
     return AssetImage(asset.request.keyName);
+  }
+
+  /// asset: assets/images/select_voucher.png
+  // ignore: non_constant_identifier_names
+  AssetImage select_voucher() {
+    return AssetImage(asset.select_voucher.keyName);
   }
 
   /// asset: assets/images/six_logo.png

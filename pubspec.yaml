@@ -50,8 +50,11 @@ flutter:
   - assets/images/Profile.png
   - assets/images/Profile_active.png
   - assets/images/bell.png
+  - assets/images/charity_ticket.png
+  - assets/images/charity_ticket_select.png
   - assets/images/discoun_active.png
   - assets/images/email.png
+  - assets/images/error_dialog.png
   - assets/images/feedback.png
   - assets/images/food.png
   - assets/images/home_new.png
@@ -68,6 +71,7 @@ flutter:
   - assets/images/profile_new.png
   - assets/images/qr_border.png
   - assets/images/request.png
+  - assets/images/select_voucher.png
   - assets/images/six_logo.png
   - assets/images/success_redem.png
   - assets/images/super_market.png

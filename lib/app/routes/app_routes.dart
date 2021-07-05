@@ -24,6 +24,7 @@ abstract class Routes {
   static const CHARITY_HOME = _Paths.CHARITY_HOME;
   static const CHARITY_ONBOARDING = _Paths.CHARITY_ONBOARDING;
   static const PURCHASE = _Paths.PURCHASE;
+  static const AVAILABLE_VENDORS = _Paths.AVAILABLE_VENDORS;
 }
 
 abstract class _Paths {
@@ -47,4 +48,5 @@ abstract class _Paths {
   static const CHARITY_HOME = '/charity-home';
   static const CHARITY_ONBOARDING = '/charity-onboarding';
   static const PURCHASE = '/purchase';
+  static const AVAILABLE_VENDORS = '/available-vendors';
 }
