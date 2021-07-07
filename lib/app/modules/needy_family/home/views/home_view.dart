@@ -8,9 +8,7 @@ import 'package:six/app/modules/needy_family/voucher/views/voucher_view.dart';
 import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/bottom_nav_bar.dart';
 import 'package:six/app/ui/components/category_card.dart';
-import 'package:six/app/ui/components/curved_container.dart';
 import 'package:six/app/ui/components/double_shaded_container.dart';
-import 'package:six/app/ui/components/month_picker.dart';
 import 'package:six/r.g.dart';
 
 import '../controllers/home_controller.dart';
@@ -146,24 +144,6 @@ class HomeContent extends StatelessWidget {
                   SizedBox(
                     height: 70.h,
                   ),
-                  monthPicker(
-                    color: AppColors.kffffff,
-                    borderColor: AppColors.kE3FCFF,
-                    width: 390.w,
-                    height: 80.h,
-                    shadowColor: AppColors.k0A9988,
-                    textContent: Text(
-                      'Sept, ${DateTime.now().year}',
-                      style: TextStyle(
-                        fontFamily: 'Gilroy',
-                        fontSize: 40.sp,
-                        fontStyle: FontStyle.normal,
-                        color: AppColors.k1FAF9E,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    onTapArrow: () {},
-                  ),
                 ],
               ),
             ),
@@ -174,63 +154,61 @@ class HomeContent extends StatelessWidget {
                   Get.toNamed<void>('/available-credits');
                 },
                 child: Container(
-                  decoration: BoxDecoration(boxShadow: [
-                    BoxShadow(
-                        color: AppColors.k000000.withOpacity(0.25),
-                        blurRadius: 4.r,
-                        spreadRadius: -32.r,
-                        offset: Offset(0, 40.h))
-                  ], borderRadius: BorderRadius.circular(10.r)),
-                  child: CustomPaint(
-                      child: Container(
-                        width: 1005.w,
-                        height: 220.h,
-                        child: Center(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              SizedBox(
-                                width: 60.w,
+                  width: 1005.w,
+                  height: 220.h,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment(-1, -2.8),
+                        end: Alignment(1, 5),
+                        colors: [AppColors.k1FAF9E, AppColors.k0087FF]),
+                    borderRadius: BorderRadius.circular(50.r),
+                  ),
+                  child: Center(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          width: 60.w,
+                        ),
+                        Text(
+                          'Total Credits Available',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy',
+                            fontSize: 50.sp,
+                            fontStyle: FontStyle.normal,
+                            color: AppColors.kffffff,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(
+                          width: 134.w,
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '\$',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy',
+                                fontSize: 60.sp,
+                                fontStyle: FontStyle.normal,
+                                color: AppColors.kffffff,
+                                fontWeight: FontWeight.w400,
                               ),
-                              Text(
-                                'Total Credits Available',
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy',
-                                  fontSize: 50.sp,
-                                  fontStyle: FontStyle.normal,
-                                  color: AppColors.kffffff,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              '280',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy',
+                                fontSize: 60.sp,
+                                fontStyle: FontStyle.normal,
+                                color: AppColors.kffffff,
+                                fontWeight: FontWeight.w700,
                               ),
-                              SizedBox(
-                                width: 134.w,
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '\$',
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy',
-                                      fontSize: 60.sp,
-                                      fontStyle: FontStyle.normal,
-                                      color: AppColors.kffffff,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  Text(
-                                    '280',
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy',
-                                      fontSize: 60.sp,
-                                      fontStyle: FontStyle.normal,
-                                      color: AppColors.kffffff,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
+                            ),
 /*                                      Padding(
                                     padding:
                                         const EdgeInsets.only(bottom: 2.0),
@@ -245,27 +223,21 @@ class HomeContent extends StatelessWidget {
                                       ),
                                     ),
                                   )*/
-                                ],
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Get.toNamed<void>('/available-credits');
-                                },
-                                child: Icon(
-                                  Icons.keyboard_arrow_right_sharp,
-                                  color: AppColors.kffffff,
-                                  size: 25,
-                                ),
-                              )
-                            ],
-                          ),
+                          ],
                         ),
-                      ),
-                      size: Size(
-                          1005.w,
-                          (1005.w * 0.21890547263681592)
-                              .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                      painter: CurvedContainer()),
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed<void>('/available-credits');
+                          },
+                          child: Icon(
+                            Icons.keyboard_arrow_right_sharp,
+                            color: AppColors.kffffff,
+                            size: 25,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -298,6 +270,7 @@ class HomeContent extends StatelessWidget {
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: 3,
+              physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.only(right: 15),
                 child: categoryCard(

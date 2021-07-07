@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/routes/app_pages.dart';
+import 'package:six/app/ui/components/common_textfield.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 
 import '../controllers/sign_pass_verification_controller.dart';
@@ -120,7 +121,33 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                             borderRadius: BorderRadius.circular(50.r),
                             child: Form(
                               key: controller.formKey,
-                              child: TextFormField(
+                              child: textField(
+                                initialValue: '',
+                                prefixText: '',
+                                hintText: 'Enter Password',
+                                prefixImageName: '',
+                                onTap: () {},
+                                context: context,
+                                height: 170.h,
+                                width: 1005.w,
+                                keyBoardType: TextInputType.text,
+                                contentPadding:
+                                    const EdgeInsets.only(bottom: 5),
+                                hintStyle: TextStyle(
+                                  color: AppColors.k6886A0,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FontStyle.normal,
+                                  fontFamily: 'Gilroy',
+                                  fontSize: 45.sp,
+                                ),
+                                textStyle: TextStyle(
+                                  fontSize: 45.sp,
+                                  color: AppColors.k6886A0,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FontStyle.normal,
+                                ),
+                              )
+/*                              TextFormField(
                                 style: TextStyle(
                                   fontSize: 45.sp,
                                   color: AppColors.k6886A0,
@@ -156,20 +183,41 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
-                              ),
+                              )*/
+                              ,
                             ),
                           ),
                         ),
                         SizedBox(
                           height: 100.h,
                         ),
-                        roundedButton('Login', () {
-                          Get.offAndToNamed<void>('/home');
-                        }, 452.w),
-                        roundedButton('Charity', () {
-                          Get.offAndToNamed<void>(Routes.CHARITY_ONBOARDING);
-                        }, 100.w),
-                        roundedButton('Vendor', () {}, 100.w),
+                        roundedButton(
+                          text: 'Login',
+                          onTap: () {
+                            Get.offAndToNamed<void>('/home');
+                          },
+                          width: 452.w,
+                          height: 150.h,
+                          fontSize: 50.sp,
+                        ),
+                        roundedButton(
+                          text: 'Charity',
+                          onTap: () {
+                            Get.offAndToNamed<void>(Routes.CHARITY_ONBOARDING);
+                          },
+                          width: 452.w,
+                          height: 150.h,
+                          fontSize: 50.sp,
+                        ),
+                        roundedButton(
+                          text: 'Vendor',
+                          onTap: () {
+                            Get.offAndToNamed<void>(Routes.ONBOARDING_VENDOR);
+                          },
+                          width: 452.w,
+                          height: 150.h,
+                          fontSize: 50.sp,
+                        ),
                       ],
                     )
                   : Column(

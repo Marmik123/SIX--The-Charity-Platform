@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:six/app/data/config/app_colors.dart';
-import 'package:six/app/ui/components/success_dialog.dart';
+import 'package:six/app/ui/components/action_dialog.dart';
 import 'package:six/r.g.dart';
 
 import '../controllers/voucher_redemption_controller.dart';
@@ -266,7 +266,7 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                       child: Center(
                         child: Material(
                           color: Colors.transparent,
-                          child: successDialog(
+                          child: actionDialog(
                             dialogTypeText: 'Success!',
                             text:
                                 'Congrats! You have successfully\nredemeed your e-voucher',

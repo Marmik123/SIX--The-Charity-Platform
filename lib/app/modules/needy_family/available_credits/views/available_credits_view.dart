@@ -60,7 +60,7 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
                 itemCount: 16,
                 shrinkWrap: true,
                 padding: const EdgeInsets.only(top: 20, left: 50),
-                physics: ClampingScrollPhysics(),
+                physics: BouncingScrollPhysics(),
                 itemBuilder: (context, index) => Stack(
                   overflow: Overflow.visible,
                   children: [

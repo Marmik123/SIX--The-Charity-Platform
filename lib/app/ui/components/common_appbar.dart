@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 
-PreferredSizeWidget appBar({
-  required String title,
-  required double height,
-}) {
+PreferredSizeWidget appBar(
+    {required String title,
+    required double height,
+    required bool disableBackIcon}) {
   return AppBar(
     elevation: 0,
     toolbarHeight: height,
@@ -27,10 +27,12 @@ PreferredSizeWidget appBar({
       onTap: () {
         Get.back<void>();
       },
-      child: Icon(
-        Icons.arrow_back_sharp,
-        color: AppColors.k033660,
-      ),
+      child: disableBackIcon
+          ? SizedBox.shrink()
+          : Icon(
+              Icons.arrow_back_sharp,
+              color: AppColors.k033660,
+            ),
     ),
   );
 }

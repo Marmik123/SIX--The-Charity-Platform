@@ -7,6 +7,8 @@ import 'package:six/app/modules/charity/charity_onboarding/bindings/charity_onbo
 import 'package:six/app/modules/charity/charity_onboarding/views/charity_onboarding_view.dart';
 import 'package:six/app/modules/charity/purchase/bindings/purchase_binding.dart';
 import 'package:six/app/modules/charity/purchase/views/purchase_view.dart';
+import 'package:six/app/modules/charity/vendor_details/bindings/vendor_details_binding.dart';
+import 'package:six/app/modules/charity/vendor_details/views/vendor_details_view.dart';
 import 'package:six/app/modules/needy_family/available_credits/bindings/available_credits_binding.dart';
 import 'package:six/app/modules/needy_family/available_credits/views/available_credits_view.dart';
 import 'package:six/app/modules/needy_family/home/bindings/home_binding.dart';
@@ -25,8 +27,6 @@ import 'package:six/app/modules/needy_family/voucher/bindings/voucher_binding.da
 import 'package:six/app/modules/needy_family/voucher/views/voucher_view.dart';
 import 'package:six/app/modules/needy_family/voucher_redemption/bindings/voucher_redemption_binding.dart';
 import 'package:six/app/modules/needy_family/voucher_redemption/views/voucher_redemption_view.dart';
-import 'package:six/app/modules/splash/bindings/splash_binding.dart';
-import 'package:six/app/modules/splash/views/splash_view.dart';
 import 'package:six/app/modules/vendor/onboarding_vendor/bindings/onboarding_vendor_binding.dart';
 import 'package:six/app/modules/vendor/onboarding_vendor/views/onboarding_vendor_view.dart';
 import 'package:six/app/modules/vendor/qr_screen/bindings/qr_screen_binding.dart';
@@ -62,11 +62,7 @@ class AppPages {
       page: () => TinodeChatView(),
       binding: TinodeChatBinding(),
     ),*/
-    GetPage(
-      name: _Paths.SPLASH,
-      page: () => SplashView(),
-      binding: SplashBinding(),
-    ),
+
     GetPage(
       name: _Paths.ONBOARDING_SCREEN,
       page: () => OnboardingScreenView(),
@@ -155,6 +151,11 @@ class AppPages {
       name: _Paths.AVAILABLE_VENDORS,
       page: () => AvailableVendorsView(),
       binding: AvailableVendorsBinding(),
+    ),
+    GetPage(
+      name: _Paths.VENDOR_DETAILS,
+      page: () => VendorDetailsView(),
+      binding: VendorDetailsBinding(),
     ),
   ];
 }

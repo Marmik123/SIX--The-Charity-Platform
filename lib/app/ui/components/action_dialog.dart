@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:six/app/data/config/app_colors.dart';
 
-Widget successDialog({
+Widget actionDialog({
   required String text,
   required String dialogTypeText,
   required String assetName,

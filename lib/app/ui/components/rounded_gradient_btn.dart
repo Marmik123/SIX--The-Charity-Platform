@@ -5,7 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:six/app/data/config/app_colors.dart';
 
 double elevation = 0;
-Widget roundedButton(String text, VoidCallback onTap, double width) {
+Widget roundedButton({
+  required String text,
+  required VoidCallback onTap,
+  required double width,
+  required double height,
+  required double fontSize,
+}) {
   return ElevatedButton(
     onPressed: onTap,
     style: ButtonStyle(
@@ -26,14 +32,14 @@ Widget roundedButton(String text, VoidCallback onTap, double width) {
               end: Alignment(1, 5),
               colors: [AppColors.k1FAF9E, AppColors.k0087FF])),
       child: Container(
-        height: 150.h,
+        height: height,
         child: Center(
           child: Text(
             text,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'Gilroy',
-              fontSize: 50.sp,
+              fontSize: fontSize,
               fontStyle: FontStyle.normal,
               color: AppColors.kffffff,
               fontWeight: FontWeight.w500,

@@ -16,6 +16,7 @@ class SupportView extends GetView<SupportController> {
         appBar: appBar(
           title: 'Support',
           height: 200.h,
+          disableBackIcon: false,
         ),
         body: Column(
           children: [
@@ -25,7 +26,7 @@ class SupportView extends GetView<SupportController> {
             ListView.builder(
               itemCount: 2,
               shrinkWrap: true,
-              physics: ClampingScrollPhysics(),
+              physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.only(
                   left: 12.0,

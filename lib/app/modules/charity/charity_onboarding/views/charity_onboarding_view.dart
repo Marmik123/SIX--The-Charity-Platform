@@ -29,8 +29,6 @@ class CharityOnboardingView extends GetView<CharityOnboardingController> {
                     itemCount: controller.title.length,
                     onPageChanged: (index) {
                       controller.index!.value = index;
-                      print('@@$index');
-                      print(controller.index!.value);
                       /* controller.pageController.nextPage(
                         duration: Duration(milliseconds: 200), curve: Curves.bounceOut);
                   */
@@ -65,7 +63,7 @@ class CharityOnboardingView extends GetView<CharityOnboardingController> {
                   },
                   screenIndex: controller.index!.value.toDouble(),
                   onChangedPadding: 35.w),
-            )
+            ),
           ],
         )));
   }

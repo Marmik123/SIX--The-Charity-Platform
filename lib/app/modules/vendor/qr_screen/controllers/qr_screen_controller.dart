@@ -86,7 +86,6 @@ class QrScreenController extends GetxController {
 
   @override
   void onClose() {
-    qrCtrl.dispose();
     super.dispose();
   }
 

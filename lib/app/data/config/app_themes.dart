@@ -86,10 +86,10 @@ class AppThemes {
     subtitle1: TextStyle(fontSize: 16.0, color: _lightTextColor),
     caption: TextStyle(fontSize: 12.0, color: _lightBackgroundAppBarColor),
   );
-
   //the light theme
   static final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
+    primaryColor: AppColors.k033660,
     fontFamily: Gilroy_Font,
     scaffoldBackgroundColor: _lightBackgroundColor,
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -147,6 +147,8 @@ class AppThemes {
       fillColor: _lightBackgroundSecondaryColor,
       //focusColor: _lightBorderActiveColor,
     ),
+    textSelectionTheme:
+        TextSelectionThemeData(selectionHandleColor: AppColors.k033660),
   );
 
 //text theme for dark theme

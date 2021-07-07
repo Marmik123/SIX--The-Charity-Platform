@@ -6,7 +6,6 @@ import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/modules/charity/charity_home/controllers/charity_home_controller.dart';
 import 'package:six/app/modules/needy_family/home/controllers/home_controller.dart';
 import 'package:six/app/modules/vendor/vendor_home/controllers/vendor_home_controller.dart';
-import 'package:six/app/ui/components/shape_utils.dart';
 import 'package:six/r.g.dart';
 
 Widget bottomNavBar({required String whichScreen}) {
@@ -37,7 +36,7 @@ Widget bottomNavBar({required String whichScreen}) {
       onTap: (index) {
         whichScreen == 'Vendor'
             ? vendorCtrl.currentIndex!.value = index
-            : whichScreen == 'Needy-Family'
+            : whichScreen == 'Needy Family'
                 ? controller.currentIndex!.value = index
                 : charityCtrl.currentIndex!.value = index;
         //fromVoucherScreen ? (Get.offAllNamed<void>(Routes.HOME)) : null;
@@ -72,11 +71,14 @@ Widget bottomNavBar({required String whichScreen}) {
           ),
           activeIcon: Padding(
             padding: const EdgeInsets.only(bottom: 5),
-            child: PhysicalShape(
-              clipper: StarClipper(),
-              color: Colors.blue,
-              elevation: 1,
-              shadowColor: AppColors.k1FAF9E,
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 200),
+              decoration: BoxDecoration(boxShadow: [
+                BoxShadow(
+                    color: AppColors.k1FAF9E.withOpacity(0.4),
+                    blurRadius: 20.sp,
+                    offset: Offset(5, 5))
+              ]),
               child: Image.asset(
                 R.image.home_new().assetName,
                 height: 61.h,
@@ -113,10 +115,11 @@ Widget bottomNavBar({required String whichScreen}) {
                 whichScreen == 'Vendor'
                     ? R.image.asset.ticket_click.assetName
                     : whichScreen == 'Charity'
-                        ? R.image.asset.charity_ticket_select.assetName
+                        ? R.image.purchase_icon().assetName
                         : R.image.discoun_active().assetName,
                 height: 61.h,
                 width: 61.w,
+                //color: AppColors.k1FAF9E,
               ),
             ),
           ),
@@ -157,12 +160,4 @@ Widget bottomNavBar({required String whichScreen}) {
       ],
     ),
   );
-}
-
-class StarClipper extends CustomClipper<Path> {
-  @override
-  bool shouldReclip(covariant CustomClipper oldClipper) => false;
-
-  @override
-  Path getClip(Size size) => ShapeUtils.createHome(Size(61.w, 61.h));
 }

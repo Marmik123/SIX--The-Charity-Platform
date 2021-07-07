@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:six/app/data/config/app_colors.dart';
 
-Widget textField(
-  String initialValue,
-  String prefixText,
-  String hintText,
-  Icon prefixIcon,
-  VoidCallback onTap, {
+Widget textField({
   required BuildContext context,
   required double height,
   required double width,
+  required String initialValue,
+  required String prefixText,
+  required String hintText,
+  required String prefixImageName,
+  required VoidCallback onTap,
+  required EdgeInsetsGeometry contentPadding,
+  required TextStyle textStyle,
+  required TextStyle hintStyle,
   required TextInputType keyBoardType,
 }) {
   return Container(
@@ -31,46 +34,61 @@ Widget textField(
             blurRadius: 50.r,
           ),
         ]),
-    child: TextFormField(
-      initialValue: initialValue,
-      enabled: true,
-      onEditingComplete: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        currentFocus.unfocus();
-      },
-      style: TextStyle(
-        color: AppColors.k13A89E,
-        fontWeight: FontWeight.w700,
-        fontStyle: FontStyle.normal,
-        fontFamily: 'Gilroy',
-        fontSize: 65.sp,
-      ),
-      keyboardType: TextInputType.number,
-      decoration: InputDecoration(
-        fillColor: AppColors.kffffff,
-        contentPadding: const EdgeInsets.only(left: 120, top: 15),
-        filled: true,
-        hintText: hintText,
-        prefixIcon: prefixIcon,
-        hintStyle: TextStyle(
-          color: AppColors.k6886A0,
-          fontWeight: FontWeight.w500,
-          fontStyle: FontStyle.normal,
-          fontFamily: 'Gilroy',
-          fontSize: 45.sp,
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          width: 60.w,
         ),
-        prefixText: prefixText,
-        prefixStyle: TextStyle(
-          color: AppColors.k13A89E,
-          fontWeight: FontWeight.w700,
-          fontStyle: FontStyle.normal,
-          fontFamily: 'Gilroy',
-          fontSize: 65.sp,
+        prefixImageName != ''
+            ? Image.asset(
+                prefixImageName,
+                width: 50.w,
+                height: 50.h,
+              )
+            : SizedBox.shrink(),
+        prefixImageName != ''
+            ? SizedBox(
+                width: 41.w,
+              )
+            : SizedBox.shrink(),
+        Container(
+          width: 825.w,
+          height: 125.h,
+          alignment: Alignment.centerLeft,
+          child: TextFormField(
+            initialValue: initialValue,
+            enabled: true,
+            autofocus: true,
+            onEditingComplete: () {
+              FocusScopeNode currentFocus = FocusScope.of(context);
+              currentFocus.unfocus();
+            },
+            cursorColor: AppColors.k033660,
+            style: textStyle,
+            keyboardType: keyBoardType,
+            decoration: InputDecoration(
+              fillColor: AppColors.kffffff,
+              contentPadding: contentPadding,
+              filled: true,
+              hintText: hintText,
+              enabled: true,
+              hintStyle: hintStyle,
+              prefixText: prefixText,
+              prefixStyle: TextStyle(
+                color: AppColors.k13A89E,
+                fontWeight: FontWeight.w700,
+                fontStyle: FontStyle.normal,
+                fontFamily: 'Gilroy',
+                fontSize: 65.sp,
+              ),
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              isDense: true,
+            ),
+          ),
         ),
-        enabledBorder: InputBorder.none,
-        focusedBorder: InputBorder.none,
-        isDense: true,
-      ),
+      ],
     ),
   );
 }

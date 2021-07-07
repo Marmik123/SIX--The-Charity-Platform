@@ -10,7 +10,6 @@ Widget onBoardingNavigation({
   required double screenIndex,
   required double onChangedPadding,
 }) {
-  print('###$screenIndex');
   return Row(
     children: [
       SizedBox(

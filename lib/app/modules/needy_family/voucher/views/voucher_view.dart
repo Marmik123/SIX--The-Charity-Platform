@@ -119,7 +119,7 @@ class VoucherContent extends StatelessWidget {
                   ),
                   itemCount: 10,
                   scrollDirection: Axis.horizontal,
-                  physics: ClampingScrollPhysics(),
+                  physics: BouncingScrollPhysics(),
                   itemBuilder: (context, index) => Obx(() => Row(
                         children: [
                           GestureDetector(
@@ -204,6 +204,7 @@ class VoucherContent extends StatelessWidget {
         ),
         Expanded(
           child: ListView(
+            physics: BouncingScrollPhysics(),
             children: [
               Row(
                 children: [

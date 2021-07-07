@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/routes/app_pages.dart';
+import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/common_textfield.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 import 'package:six/r.g.dart';
@@ -23,52 +25,72 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
               overflow: Overflow.visible,
               children: [
                 Container(
-                    width: 1125.w,
-                    height: 375.h,
-                    color: AppColors.kF2FEFF,
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 60.w,
-                        ),
-                        Icon(
-                          Icons.arrow_back,
-                          color: AppColors.k033660,
-                        ),
-                        SizedBox(
-                          width: 247.w,
-                        ),
-                        Text(
-                          'Available Vendors',
-                          maxLines: 1,
-                          style: TextStyle(
-                            fontFamily: 'Gilroy',
-                            fontSize: 50.sp,
-                            fontStyle: FontStyle.normal,
-                            color: AppColors.k033660,
-                            fontWeight: FontWeight.w500,
+                  color: AppColors.kffffff,
+                  height: 460.h,
+                  width: 1125.w,
+                ),
+                Positioned(
+                  top: 0,
+                  child: Container(
+                      width: 1125.w,
+                      height: 375.h,
+                      color: AppColors.kF2FEFF,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 60.w,
                           ),
-                          textAlign: TextAlign.center,
-                        )
-                      ],
-                    )),
+                          Icon(
+                            Icons.arrow_back,
+                            color: AppColors.k033660,
+                          ),
+                          SizedBox(
+                            width: 247.w,
+                          ),
+                          Text(
+                            'Available Vendors',
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontFamily: 'Gilroy',
+                              fontSize: 50.sp,
+                              fontStyle: FontStyle.normal,
+                              color: AppColors.k033660,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            textAlign: TextAlign.center,
+                          )
+                        ],
+                      )),
+                ),
                 Positioned(
                   left: 60.w,
                   top: 290.h,
                   child: Center(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50.r),
-                      child: textField(
-                        '',
-                        '',
-                        'Search',
-                        Icon(Icons.search_sharp),
-                        () {},
-                        context: context,
-                        height: 160.h,
-                        width: 1005.w,
-                        keyBoardType: TextInputType.text,
+                    child: textField(
+                      initialValue: '',
+                      prefixText: '',
+                      hintText: 'Search',
+                      prefixImageName: R.image.asset.search.assetName,
+                      onTap: () {},
+                      context: context,
+                      height: 160.h,
+                      width: 1005.w,
+                      keyBoardType: TextInputType.text,
+                      textStyle: TextStyle(
+                        color: AppColors.k6886A0,
+                        fontWeight: FontWeight.w500,
+                        fontStyle: FontStyle.normal,
+                        fontFamily: 'Gilroy',
+                        fontSize: 45.sp,
                       ),
+                      hintStyle: TextStyle(
+                        color: AppColors.k6886A0,
+                        fontWeight: FontWeight.w500,
+                        fontStyle: FontStyle.normal,
+                        fontFamily: 'Gilroy',
+                        fontSize: 45.sp,
+                      ),
+                      contentPadding: const EdgeInsets.only(bottom: 5),
                     ),
                   ),
                 )
@@ -80,6 +102,7 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
             Expanded(
               child: ListView.builder(
                   itemCount: 12,
+                  padding: const EdgeInsets.only(top: 0),
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.only(left: 5, right: 5),
@@ -108,16 +131,18 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                   ),
                                   Container(
                                     child: Center(
-                                      child: Image.asset(
-                                        R.image.asset.six_logo.assetName,
-                                        height: 180.r,
-                                        width: 180.r,
-                                        fit: BoxFit.fitWidth,
-                                      ),
-                                    ),
+                                        child: ClipRRect(
+                                      borderRadius:
+                                          BorderRadius.circular(100.r),
+                                      child: cacheImage(
+                                          height: 180.r,
+                                          width: 180.r,
+                                          url:
+                                              'https://picsum.photos/id/1011/180'),
+                                    )),
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: Colors.red,
+                                      color: AppColors.kffffff,
                                     ),
                                   ),
                                   SizedBox(
@@ -178,7 +203,14 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                   Padding(
                                     padding: const EdgeInsets.only(top: 12.0),
                                     child: roundedButton(
-                                        'View Details', () {}, 380.w),
+                                        text: 'View Details',
+                                        onTap: () {
+                                          Get.toNamed<void>(
+                                              Routes.VENDOR_DETAILS);
+                                        },
+                                        width: 281.w,
+                                        height: 100.h,
+                                        fontSize: 35.sp),
                                   )
                                 ],
                               ),

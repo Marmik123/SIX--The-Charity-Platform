@@ -29,7 +29,7 @@ Widget onBoarding(String? title, String? subTitle, int? index,
             ),
             child: Image.asset(
               assetName,
-              fit: BoxFit.fitWidth,
+              fit: BoxFit.fill,
             )),
       ),
       SizedBox(

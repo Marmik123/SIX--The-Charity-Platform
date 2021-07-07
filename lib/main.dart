@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:catcher/catcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,43 +20,56 @@ Future<void> main() async {
   //TODO: Social Login
   //TODO: Force update
 
+  //Making Status Bar Transparent
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent, // transparent status bar
+  ));
+
   /// Debug configuration with dialog report mode and console handler. It will show dialog and once user accepts it, error will be shown   /// in console.
-  // var debugOptions = CatcherOptions(PageReportMode(), [
-  //   ConsoleHandler(),
-  // ]);
+  var debugOptions = CatcherOptions(PageReportMode(), [
+    ConsoleHandler(),
+  ]);
 
   /// Release configuration. Same as above, but once user accepts dialog, user will be prompted to send email with crash to support.
-  /*var releaseOptions = CatcherOptions(DialogReportMode(), [
+  var releaseOptions = CatcherOptions(DialogReportMode(), [
     DiscordHandler(
-      'https://ptb.discord.com/api/webhooks/850803931922956296/ntypKkhc1XnGLxy01FZLmwCecy0VE3xZQH_5phYR3zb9Izs4aosSfcJ74_IED3BbdHDP',
+      'https://discordapp.com/api/webhooks/862198856510472212/2c7RpczFiIYW8nyoV-gO47XXKBga_827wCAdFZbG2IplAxjWA5oVQ2M5zLntVOZchXQi',
       printLogs: true,
       enableApplicationParameters: true,
       enableDeviceParameters: true,
       enableStackTrace: true,
       enableCustomParameters: false,
     ),
-  ]);*/
+  ]);
 
-  await runZonedGuarded(
-    () async {
-      Get.put(AppTranslations());
-      TranslationApi.loadTranslations();
-      await initializeCoreApp(
-        // Set it to true when including firebase app
-        firebaseApp: false,
-        // Set it to true if want to set local notifications for onMessage Firebase events
-        setupLocalNotifications: false,
-        developmentApiBaseUrl: 'developmentApiBaseUrl',
-        productionApiBaseUrl: null,
-        encryption: false,
+  Catcher(
+    debugConfig: debugOptions,
+    releaseConfig: releaseOptions,
+    ensureInitialized: true,
+    navigatorKey: Catcher.navigatorKey,
+    runAppFunction: () async {
+      await runZonedGuarded(
+        () async {
+          Get.put(AppTranslations());
+          TranslationApi.loadTranslations();
+          await initializeCoreApp(
+            // Set it to true when including firebase app
+            firebaseApp: false,
+            // Set it to true if want to set local notifications for onMessage Firebase events
+            setupLocalNotifications: false,
+            developmentApiBaseUrl: 'developmentApiBaseUrl',
+            productionApiBaseUrl: null,
+            encryption: false,
+          );
+          runApp(
+            const StartTheApp(),
+          );
+        },
+        (error, trace) {
+          letMeHandleAllErrors(error, trace);
+          Catcher.reportCheckedError(error, trace);
+        },
       );
-      runApp(
-        const StartTheApp(),
-      );
-    },
-    (error, trace) {
-      letMeHandleAllErrors(error, trace);
-      // Catcher.reportCheckedError(error, trace);
     },
   );
 
@@ -67,10 +81,15 @@ Future<void> main() async {
     ],
   );
 
-  /*FlutterError.onError = (errorDetails) {
-    letMeHandleAllErrors(errorDetails.exception, errorDetails.stack);
-    // Catcher.reportCheckedError(errorDetails.exception, errorDetails.stack);
-  };*/
+  FlutterError.onError = (errorDetails) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      letMeHandleAllErrors(
+        errorDetails.exception,
+        errorDetails.stack,
+      );
+      Catcher.reportCheckedError(errorDetails.exception, errorDetails.stack);
+    });
+  };
 }
 
 class StartTheApp extends StatelessWidget {
@@ -85,10 +104,11 @@ class StartTheApp extends StatelessWidget {
       ),
       builder: () {
         return GetMaterialApp(
-          // navigatorKey: Catcher.navigatorKey,
-          title: 'GetX CLI Starter Kit',
+          title: 'SIX-The Charity Platform',
+          navigatorKey: Catcher.navigatorKey,
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
+          debugShowCheckedModeBanner: false,
           translationsKeys: Get.find<AppTranslations>().keys,
           translations: Get.find<AppTranslations>(),
           locale: LocaleProvider.currentLocale,

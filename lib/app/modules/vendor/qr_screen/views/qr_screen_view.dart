@@ -7,7 +7,6 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/modules/vendor/vendor_home/controllers/vendor_home_controller.dart';
 import 'package:six/app/modules/vendor/vendor_redeem/controllers/vendor_redeem_controller.dart';
-import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/common_voucher_card.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 
@@ -98,12 +97,18 @@ class QrScreenView extends GetView<QrScreenController> {
                                   ),
                                   Positioned(
                                       bottom: -6,
-                                      right: 10,
-                                      child: roundedButton('Redeem Now', () {
-                                        vendorRCtrl.redeemThroughNum.value =
-                                            true;
-                                        Get.offNamed<void>(Routes.VENDOR_HOME);
-                                      }, 905.w)),
+                                      right: 25,
+                                      child: roundedButton(
+                                        text: 'Redeem Now',
+                                        onTap: () {
+                                          vendorRCtrl.redeemThroughNum.value =
+                                              true;
+                                          Get.back<void>();
+                                        },
+                                        width: 905.w,
+                                        height: 150.h,
+                                        fontSize: 50.sp,
+                                      )),
                                 ],
                               ),
                               SizedBox(

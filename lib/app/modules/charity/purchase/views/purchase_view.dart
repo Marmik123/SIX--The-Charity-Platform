@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/ui/components/action_dialog.dart';
 import 'package:six/app/ui/components/category_card.dart';
 import 'package:six/app/ui/components/common_appbar.dart';
+import 'package:six/app/ui/components/common_textfield.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
-import 'package:six/app/ui/components/success_dialog.dart';
 import 'package:six/r.g.dart';
 
 import '../controllers/purchase_controller.dart';
@@ -24,6 +25,7 @@ class PurchaseView extends GetView<PurchaseController> {
               appBar: appBar(
                 title: 'Select Category',
                 height: 200.h,
+                disableBackIcon: true,
               ),
               body: Padding(
                 padding: const EdgeInsets.only(left: 20.0, right: 20),
@@ -48,82 +50,87 @@ class PurchaseView extends GetView<PurchaseController> {
                       height: 50.h,
                     ),
                     Expanded(
-                      child: GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 34.w,
-                            mainAxisSpacing: 34.w,
-                            childAspectRatio: 628.w / 755.h,
-                          ),
-                          itemCount: 12,
-                          physics: BouncingScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                ctrl.selectCategory!.value = index;
-                              },
-                              child: Stack(
-                                alignment: Alignment.topRight,
-                                children: [
-                                  categoryCard(
-                                    index: index,
-                                    categoryName: 'Food &\nBeverage',
-                                    creditsRemaining: 0,
-                                    totalCredits: 14,
-                                    image: Image.asset(
-                                      R.image.asset.food.assetName,
-                                      height: 148.h,
-                                      width: 139.w,
+                      child: GetBuilder<PurchaseController>(
+                        builder: (_) => GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 34.w,
+                              mainAxisSpacing: 34.w,
+                              childAspectRatio: 628.w / 755.h,
+                            ),
+                            itemCount: 12,
+                            physics: BouncingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  ctrl.selectCategory!.value = index;
+                                  ctrl.update();
+                                },
+                                child: Stack(
+                                  alignment: Alignment.topRight,
+                                  children: [
+                                    categoryCard(
+                                      index: index,
+                                      categoryName: 'Food &\nBeverage',
+                                      creditsRemaining: 0,
+                                      totalCredits: 14,
+                                      image: Image.asset(
+                                        R.image.asset.food.assetName,
+                                        height: 148.h,
+                                        width: 139.w,
+                                      ),
+                                      background: AppColors.kFFF5F1,
+                                      foreground: AppColors.kECB91B,
+                                      shadow:
+                                          AppColors.kEED2E0.withOpacity(0.15),
+                                      accent: AppColors.kE2E2E2,
+                                      whichScreen: 'Charity',
+                                      height: 629.h,
+                                      width: 558.w,
+                                      padding: const EdgeInsets.only(
+                                          left: 48.0, right: 48, bottom: 35.0),
                                     ),
-                                    background: AppColors.kFFF5F1,
-                                    foreground: AppColors.kECB91B,
-                                    shadow: AppColors.kEED2E0.withOpacity(0.15),
-                                    accent: AppColors.kE2E2E2,
-                                    whichScreen: 'Charity',
-                                    height: 629.h,
-                                    width: 558.w,
-                                    padding: const EdgeInsets.only(
-                                        left: 48.0, right: 48, bottom: 35.0),
-                                  ),
-                                  Positioned(
-                                    right: 30.r,
-                                    top: 30.r,
-                                    child: Container(
-                                      width: 88.r,
-                                      height: 88.r,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.kffffff,
-                                          shape: BoxShape.circle,
-                                          border: Border.all(
-                                            color: AppColors.k033660
-                                                .withOpacity(0.05),
-                                            width: 1.w,
-                                          )),
-                                      child: ctrl.selectCategory!.value == index
-                                          ? Image.asset(
-                                              R.image.asset.select_voucher
-                                                  .assetName,
-                                              height: 88.r,
-                                              width: 88.r,
-                                              fit: BoxFit.contain,
-                                            )
-                                          : SizedBox.shrink(),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            );
-                          }),
+                                    Positioned(
+                                      right: 30.r,
+                                      top: 30.r,
+                                      child: Container(
+                                        width: 88.r,
+                                        height: 88.r,
+                                        decoration: BoxDecoration(
+                                            color: AppColors.kffffff,
+                                            shape: BoxShape.circle,
+                                            border: Border.all(
+                                              color: AppColors.k033660
+                                                  .withOpacity(0.05),
+                                              width: 1.w,
+                                            )),
+                                        child:
+                                            ctrl.selectCategory!.value == index
+                                                ? Image.asset(
+                                                    R.image.asset.select_voucher
+                                                        .assetName,
+                                                    height: 88.r,
+                                                    width: 88.r,
+                                                    fit: BoxFit.contain,
+                                                  )
+                                                : SizedBox.shrink(),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              );
+                            }),
+                      ),
                     ),
                     SizedBox(
                       height: 350.h,
                     ),
                     Center(
                       child: roundedButton(
-                        'Purchase Credit',
-                        () {
+                        text: 'Purchase Credit',
+                        onTap: () {
                           ctrl.purchasePressed.value = true;
                           Get.bottomSheet<void>(
                             Container(
@@ -202,7 +209,35 @@ class PurchaseView extends GetView<PurchaseController> {
                                                     blurRadius: 50.r,
                                                   ),
                                                 ]),
-                                            child: TextFormField(
+                                            child: textField(
+                                                context: context,
+                                                height: 170.h,
+                                                width: 1005.w,
+                                                initialValue: '10,000',
+                                                prefixText: '\$',
+                                                hintText: '',
+                                                prefixImageName: '',
+                                                onTap: () {},
+                                                keyBoardType:
+                                                    TextInputType.number,
+                                                textStyle: TextStyle(
+                                                  color: AppColors.k13A89E,
+                                                  fontWeight: FontWeight.w700,
+                                                  fontStyle: FontStyle.normal,
+                                                  fontFamily: 'Gilroy',
+                                                  fontSize: 65.sp,
+                                                ),
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                        left: 105, bottom: 5),
+                                                hintStyle: TextStyle(
+                                                  color: AppColors.k6886A0,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle: FontStyle.normal,
+                                                  fontFamily: 'Gilroy',
+                                                  fontSize: 45.sp,
+                                                )),
+                                            /*TextFormField(
                                               initialValue: '10,000',
                                               enabled: true,
                                               onEditingComplete: () {
@@ -237,16 +272,22 @@ class PurchaseView extends GetView<PurchaseController> {
                                                 focusedBorder: InputBorder.none,
                                                 isDense: true,
                                               ),
-                                            ),
+                                            )*/
                                           ),
                                           SizedBox(
                                             height: 87.h,
                                           ),
                                           Center(
-                                            child: roundedButton('Pay Now', () {
-                                              Get.back<void>();
-                                              controller.paid.value = true;
-                                            }, 500.w),
+                                            child: roundedButton(
+                                              text: 'Pay Now',
+                                              onTap: () {
+                                                Get.back<void>();
+                                                controller.paid.value = true;
+                                              },
+                                              width: 500.w,
+                                              height: 150.h,
+                                              fontSize: 50.sp,
+                                            ),
                                           )
                                         ],
                                       ),
@@ -270,7 +311,9 @@ class PurchaseView extends GetView<PurchaseController> {
                             elevation: 5,
                           );
                         },
-                        500.w,
+                        width: 500.w,
+                        height: 150.h,
+                        fontSize: 50.sp,
                       ),
                     ),
                     SizedBox(
@@ -318,7 +361,7 @@ class PurchaseView extends GetView<PurchaseController> {
                       child: Center(
                         child: Material(
                           color: Colors.transparent,
-                          child: successDialog(
+                          child: actionDialog(
                             onTapCancel: () {
                               controller.purchasePressed.value = false;
                               controller.paid.value = false;

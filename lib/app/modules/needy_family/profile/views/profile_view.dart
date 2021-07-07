@@ -61,7 +61,6 @@ class ProfileView extends GetView<ProfileController> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                print('image picker called');
                                 profileCtrl
                                     .pickProfilePicture(ImageSource.gallery);
                               },
@@ -74,8 +73,8 @@ class ProfileView extends GetView<ProfileController> {
                               top: 355.h,
                               child: GestureDetector(
                                 onTap: () {
-                                  print('image picker called');
-                                  controller.askImageSource();
+                                  profileCtrl
+                                      .pickProfilePicture(ImageSource.gallery);
                                 },
                                 child: Image.asset(
                                   R.image.asset.image_picker.assetName,
@@ -250,7 +249,14 @@ class ProfileView extends GetView<ProfileController> {
                 ),
                 Positioned(
                   top: 1740.h,
-                  child: roundedButton('Logout', () {}, 452.w),
+                  child: roundedButton(
+                      text: 'Logout',
+                      onTap: () {
+                        Get.offAllNamed<void>(Routes.SIGN_PASS_VERIFICATION);
+                      },
+                      width: 452.w,
+                      height: 150.h,
+                      fontSize: 50.sp),
                 )
               ],
             ),

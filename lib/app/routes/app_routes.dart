@@ -7,7 +7,6 @@ abstract class Routes {
   // static const HOME = _Paths.ONBOARDING;
   static const SOCKET_TEST = _Paths.SOCKET_TEST;
   // static const TINODE_CHAT = _Paths.TINODE_CHAT;
-  static const SPLASH = _Paths.SPLASH;
   static const ONBOARDING_SCREEN = _Paths.ONBOARDING_SCREEN;
   static const SIGN_PASS_VERIFICATION = _Paths.SIGN_PASS_VERIFICATION;
   static const HOME = _Paths.HOME;
@@ -25,6 +24,7 @@ abstract class Routes {
   static const CHARITY_ONBOARDING = _Paths.CHARITY_ONBOARDING;
   static const PURCHASE = _Paths.PURCHASE;
   static const AVAILABLE_VENDORS = _Paths.AVAILABLE_VENDORS;
+  static const VENDOR_DETAILS = _Paths.VENDOR_DETAILS;
 }
 
 abstract class _Paths {
@@ -49,4 +49,5 @@ abstract class _Paths {
   static const CHARITY_ONBOARDING = '/charity-onboarding';
   static const PURCHASE = '/purchase';
   static const AVAILABLE_VENDORS = '/available-vendors';
+  static const VENDOR_DETAILS = '/vendor-details';
 }

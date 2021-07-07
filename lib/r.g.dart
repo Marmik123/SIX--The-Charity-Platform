@@ -6,13 +6,13 @@
 //
 
 // ignore: unused_import
-import 'package:flutter/services.dart' show rootBundle;
-// ignore: unused_import
 import 'package:flutter/widgets.dart';
 // ignore: unused_import
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart' show rootBundle;
 // ignore: unused_import
 import 'package:path/path.dart' as path;
+// ignore: unused_import
+import 'package:flutter_svg/flutter_svg.dart';
 // ignore: unused_import
 import 'package:r_dart_library/asset_svg.dart';
 
@@ -98,6 +98,10 @@ class _R_Image_AssetResource {
   final calendar =
       const AssetResource("assets/images/Calendar.png", packageName: null);
 
+  /// asset: assets/images/Call.png
+  // ignore: non_constant_identifier_names
+  final call = const AssetResource("assets/images/Call.png", packageName: null);
+
   /// asset: assets/images/Discount.png
   // ignore: non_constant_identifier_names
   final discount =
@@ -112,6 +116,16 @@ class _R_Image_AssetResource {
   final home_active =
       const AssetResource("assets/images/Home_active.png", packageName: null);
 
+  /// asset: assets/images/Location.png
+  // ignore: non_constant_identifier_names
+  final location =
+      const AssetResource("assets/images/Location.png", packageName: null);
+
+  /// asset: assets/images/Message.png
+  // ignore: non_constant_identifier_names
+  final message =
+      const AssetResource("assets/images/Message.png", packageName: null);
+
   /// asset: assets/images/Profile.png
   // ignore: non_constant_identifier_names
   final profile =
@@ -121,6 +135,11 @@ class _R_Image_AssetResource {
   // ignore: non_constant_identifier_names
   final profile_active = const AssetResource("assets/images/Profile_active.png",
       packageName: null);
+
+  /// asset: assets/images/Search.png
+  // ignore: non_constant_identifier_names
+  final search =
+      const AssetResource("assets/images/Search.png", packageName: null);
 
   /// asset: assets/images/bell.png
   // ignore: non_constant_identifier_names
@@ -219,6 +238,16 @@ class _R_Image_AssetResource {
   // ignore: non_constant_identifier_names
   final profile_new =
       const AssetResource("assets/images/profile_new.png", packageName: null);
+
+  /// asset: assets/images/purchase.png
+  // ignore: non_constant_identifier_names
+  final purchase =
+      const AssetResource("assets/images/purchase.png", packageName: null);
+
+  /// asset: assets/images/purchase_icon.png
+  // ignore: non_constant_identifier_names
+  final purchase_icon =
+      const AssetResource("assets/images/purchase_icon.png", packageName: null);
 
   /// asset: assets/images/qr_border.png
   // ignore: non_constant_identifier_names
@@ -319,6 +348,12 @@ class _R_Image {
     return AssetImage(asset.calendar.keyName);
   }
 
+  /// asset: assets/images/Call.png
+  // ignore: non_constant_identifier_names
+  AssetImage call() {
+    return AssetImage(asset.call.keyName);
+  }
+
   /// asset: assets/images/Discount.png
   // ignore: non_constant_identifier_names
   AssetImage discount() {
@@ -337,6 +372,18 @@ class _R_Image {
     return AssetImage(asset.home_active.keyName);
   }
 
+  /// asset: assets/images/Location.png
+  // ignore: non_constant_identifier_names
+  AssetImage location() {
+    return AssetImage(asset.location.keyName);
+  }
+
+  /// asset: assets/images/Message.png
+  // ignore: non_constant_identifier_names
+  AssetImage message() {
+    return AssetImage(asset.message.keyName);
+  }
+
   /// asset: assets/images/Profile.png
   // ignore: non_constant_identifier_names
   AssetImage profile() {
@@ -347,6 +394,12 @@ class _R_Image {
   // ignore: non_constant_identifier_names
   AssetImage profile_active() {
     return AssetImage(asset.profile_active.keyName);
+  }
+
+  /// asset: assets/images/Search.png
+  // ignore: non_constant_identifier_names
+  AssetImage search() {
+    return AssetImage(asset.search.keyName);
   }
 
   /// asset: assets/images/bell.png
@@ -467,6 +520,18 @@ class _R_Image {
   // ignore: non_constant_identifier_names
   AssetImage profile_new() {
     return AssetImage(asset.profile_new.keyName);
+  }
+
+  /// asset: assets/images/purchase.png
+  // ignore: non_constant_identifier_names
+  AssetImage purchase() {
+    return AssetImage(asset.purchase.keyName);
+  }
+
+  /// asset: assets/images/purchase_icon.png
+  // ignore: non_constant_identifier_names
+  AssetImage purchase_icon() {
+    return AssetImage(asset.purchase_icon.keyName);
   }
 
   /// asset: assets/images/qr_border.png

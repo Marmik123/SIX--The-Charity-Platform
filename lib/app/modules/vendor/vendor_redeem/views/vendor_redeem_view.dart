@@ -5,13 +5,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/modules/vendor/qr_screen/controllers/qr_screen_controller.dart';
 import 'package:six/app/modules/vendor/vendor_redeem/controllers/vendor_redeem_controller.dart';
 import 'package:six/app/routes/app_pages.dart';
+import 'package:six/app/ui/components/action_dialog.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
-import 'package:six/app/ui/components/success_dialog.dart';
 import 'package:six/r.g.dart';
 
 class VendorRedeemView extends GetView<VendorRedeemController> {
+  var qrCtrl = Get.put(QrScreenController());
   VendorRedeemController vendorRCtrl = Get.put(VendorRedeemController());
   @override
   Widget build(BuildContext context) {
@@ -104,9 +106,15 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
                                   SizedBox(
                                     height: 79.h,
                                   ),
-                                  roundedButton('Scan Now', () {
-                                    Get.toNamed<void>(Routes.QR_SCREEN);
-                                  }, 500.w)
+                                  roundedButton(
+                                    text: 'Scan Now',
+                                    onTap: () {
+                                      Get.toNamed<void>(Routes.QR_SCREEN);
+                                    },
+                                    width: 500.w,
+                                    height: 150.h,
+                                    fontSize: 50.sp,
+                                  )
                                 ],
                               ),
                             ),
@@ -240,9 +248,16 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
                         SizedBox(
                           height: 120.h,
                         ),
-                        roundedButton('Redeem Now', () {
-                          controller.redeemThroughNum.value = true;
-                        }, 500.w),
+                        roundedButton(
+                          text: 'Redeem Now',
+                          onTap: () {
+                            qrCtrl.qrScanned.value = true;
+                            //controller.redeemThroughNum.value = true;
+                          },
+                          width: 500.w,
+                          height: 150.h,
+                          fontSize: 50.sp,
+                        ),
                       ],
                     ),
                   ),
@@ -266,7 +281,7 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
                       child: Center(
                         child: Material(
                           color: Colors.transparent,
-                          child: successDialog(
+                          child: actionDialog(
                               dialogTypeText: 'Success!',
                               text: 'Voucher has been successfully\nredeemed.',
                               assetName: R.image.asset.success_redem.assetName,
