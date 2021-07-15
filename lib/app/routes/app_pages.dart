@@ -8,7 +8,7 @@ import 'package:six/app/modules/charity/charity_onboarding/views/charity_onboard
 import 'package:six/app/modules/charity/purchase/bindings/purchase_binding.dart';
 import 'package:six/app/modules/charity/purchase/views/purchase_view.dart';
 import 'package:six/app/modules/charity/vendor_details/bindings/vendor_details_binding.dart';
-import 'package:six/app/modules/charity/vendor_details/views/vendor_details_view.dart';
+import 'package:six/app/modules/charity/vendor_details/views/vendor_details_d_view.dart';
 import 'package:six/app/modules/needy_family/available_credits/bindings/available_credits_binding.dart';
 import 'package:six/app/modules/needy_family/available_credits/views/available_credits_view.dart';
 import 'package:six/app/modules/needy_family/home/bindings/home_binding.dart';
@@ -27,6 +27,26 @@ import 'package:six/app/modules/needy_family/voucher/bindings/voucher_binding.da
 import 'package:six/app/modules/needy_family/voucher/views/voucher_view.dart';
 import 'package:six/app/modules/needy_family/voucher_redemption/bindings/voucher_redemption_binding.dart';
 import 'package:six/app/modules/needy_family/voucher_redemption/views/voucher_redemption_view.dart';
+import 'package:six/app/modules/purchase_social/bindings/purchase_social_binding.dart';
+import 'package:six/app/modules/purchase_social/views/purchase_social_view.dart';
+import 'package:six/app/modules/social_worker/add_note/bindings/add_note_binding.dart';
+import 'package:six/app/modules/social_worker/add_note/views/add_note_view.dart';
+import 'package:six/app/modules/social_worker/assigned_voucher/bindings/assigned_voucher_binding.dart';
+import 'package:six/app/modules/social_worker/assigned_voucher/views/assigned_voucher_view.dart';
+import 'package:six/app/modules/social_worker/beneficiary_details/bindings/beneficiary_details_binding.dart';
+import 'package:six/app/modules/social_worker/beneficiary_details/views/beneficiary_details_view.dart';
+import 'package:six/app/modules/social_worker/connected_organization/bindings/connected_organization_binding.dart';
+import 'package:six/app/modules/social_worker/connected_organization/views/connected_organization_view.dart';
+import 'package:six/app/modules/social_worker/distribute_voucher/bindings/distribute_voucher_binding.dart';
+import 'package:six/app/modules/social_worker/distribute_voucher/views/distribute_voucher_view.dart';
+import 'package:six/app/modules/social_worker/edit_note/bindings/edit_note_binding.dart';
+import 'package:six/app/modules/social_worker/edit_note/views/edit_note_view.dart';
+import 'package:six/app/modules/social_worker/history_sw/bindings/history_sw_binding.dart';
+import 'package:six/app/modules/social_worker/history_sw/views/history_sw_view.dart';
+import 'package:six/app/modules/social_worker/social_home/bindings/social_home_binding.dart';
+import 'package:six/app/modules/social_worker/social_home/views/social_home_view.dart';
+import 'package:six/app/modules/social_worker/social_onboarding/bindings/social_onboarding_binding.dart';
+import 'package:six/app/modules/social_worker/social_onboarding/views/social_onboarding_view.dart';
 import 'package:six/app/modules/vendor/onboarding_vendor/bindings/onboarding_vendor_binding.dart';
 import 'package:six/app/modules/vendor/onboarding_vendor/views/onboarding_vendor_view.dart';
 import 'package:six/app/modules/vendor/qr_screen/bindings/qr_screen_binding.dart';
@@ -52,17 +72,6 @@ class AppPages {
   static const INITIAL = Routes.ONBOARDING_SCREEN;
 
   static final routes = [
-    /* GetPage(
-      name: _Paths.SOCKET_TEST,
-      page: () => SocketTestView(),
-      binding: SocketTestBinding(),
-    ),*/
-    /* GetPage(
-      name: _Paths.TINODE_CHAT,
-      page: () => TinodeChatView(),
-      binding: TinodeChatBinding(),
-    ),*/
-
     GetPage(
       name: _Paths.ONBOARDING_SCREEN,
       page: () => OnboardingScreenView(),
@@ -144,18 +153,79 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PURCHASE,
-      page: () => PurchaseView(),
+      page: () => PurchaseView(
+        whichScreen: '',
+      ),
       binding: PurchaseBinding(),
     ),
     GetPage(
       name: _Paths.AVAILABLE_VENDORS,
-      page: () => AvailableVendorsView(),
+      page: () => AvailableVendorsView(
+        whichScreen: '',
+      ),
       binding: AvailableVendorsBinding(),
     ),
     GetPage(
       name: _Paths.VENDOR_DETAILS,
-      page: () => VendorDetailsView(),
+      page: () => VendorDetailsView(
+        whichScreen: '',
+      ),
       binding: VendorDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.SOCIAL_HOME,
+      page: () => SocialHomeView(),
+      binding: SocialHomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.SOCIAL_ONBOARDING,
+      page: () => SocialOnboardingView(),
+      binding: SocialOnboardingBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_NOTE,
+      page: () => AddNoteView(),
+      binding: AddNoteBinding(),
+    ),
+    GetPage(
+      name: _Paths.BENEFICIARY_DETAILS,
+      page: () => BeneficiaryDetailsView(),
+      binding: BeneficiaryDetailsBinding(),
+    ),
+    /* GetPage(
+      name: _Paths.NOTE_DETAILS,
+      page: () => NoteDetailsView(),
+      binding: NoteDetailsBinding(),
+    ),*/
+    GetPage(
+      name: _Paths.EDIT_NOTE,
+      page: () => EditNoteView(),
+      binding: EditNoteBinding(),
+    ),
+    GetPage(
+      name: _Paths.CONNECTED_ORGANIZATION,
+      page: () => ConnectedOrganizationView(),
+      binding: ConnectedOrganizationBinding(),
+    ),
+    GetPage(
+      name: _Paths.ASSIGNED_VOUCHER,
+      page: () => AssignedVoucherView(),
+      binding: AssignedVoucherBinding(),
+    ),
+    GetPage(
+      name: _Paths.DISTRIBUTE_VOUCHER,
+      page: () => DistributeVoucherView(),
+      binding: DistributeVoucherBinding(),
+    ),
+    GetPage(
+      name: _Paths.PURCHASE_SOCIAL,
+      page: () => PurchaseSocialView(),
+      binding: PurchaseSocialBinding(),
+    ),
+    GetPage(
+      name: _Paths.HISTORY_SW,
+      page: () => HistorySwView(),
+      binding: HistorySwBinding(),
     ),
   ];
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
-import 'package:six/app/routes/app_pages.dart';
+import 'package:six/app/modules/charity/available_vendors/views/available_vendors_view.dart';
 import 'package:six/app/ui/components/category_curved_container.dart';
 
 Widget categoryCard({
@@ -19,6 +19,7 @@ Widget categoryCard({
   required Color shadow,
   required Color accent,
   required EdgeInsetsGeometry padding,
+  required BuildContext context,
 }) {
   return Container(
     width: width, //420.w,
@@ -62,7 +63,7 @@ Widget categoryCard({
                           SizedBox(
                             height: 75.h,
                           ),
-                          Stack(
+                          /* Stack(
                             alignment: Alignment.topRight,
                             children: [
                               ClipRRect(
@@ -97,6 +98,33 @@ Widget categoryCard({
                                 ),
                               )
                             ],
+                          ),*/ //STACK CUSTOM SLIDER
+                          SliderTheme(
+                            data: SliderTheme.of(context).copyWith(
+                              thumbColor: Colors.transparent,
+                              thumbShape: RoundSliderThumbShape(
+                                  enabledThumbRadius: 0.0),
+                              /*rangeTrackShape:
+                                  RoundedRectRangeSliderTrackShape(),
+                             */
+                              trackShape: RoundedRectSliderTrackShape(),
+                              disabledThumbColor: Colors.transparent,
+                              overlayColor: Colors.transparent,
+                              overlayShape:
+                                  RoundSliderOverlayShape(overlayRadius: 0),
+                              trackHeight: 6,
+                            ),
+                            child: FittedBox(
+                              fit: BoxFit.fitHeight,
+                              child: Slider(
+                                value: creditsRemaining,
+                                max: totalCredits,
+                                min: 0,
+                                onChanged: (value) {},
+                                activeColor: foreground,
+                                inactiveColor: accent,
+                              ),
+                            ),
                           ),
                           SizedBox(
                             height: 33.h,
@@ -142,7 +170,11 @@ Widget categoryCard({
                           ),
                           GestureDetector(
                             onTap: () {
-                              Get.toNamed<void>(Routes.AVAILABLE_VENDORS);
+                              whichScreen == 'Charity'
+                                  ? Get.to<void>(() => AvailableVendorsView(
+                                      whichScreen: 'Charity'))
+                                  : Get.to<void>(() => AvailableVendorsView(
+                                      whichScreen: 'Social'));
                             },
                             child: Text(
                               'View Vendors',

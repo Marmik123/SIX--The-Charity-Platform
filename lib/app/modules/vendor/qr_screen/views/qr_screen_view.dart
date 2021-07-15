@@ -7,8 +7,10 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/modules/vendor/vendor_home/controllers/vendor_home_controller.dart';
 import 'package:six/app/modules/vendor/vendor_redeem/controllers/vendor_redeem_controller.dart';
+import 'package:six/app/ui/components/action_dialog.dart';
 import 'package:six/app/ui/components/common_voucher_card.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
+import 'package:six/r.g.dart';
 
 import '../controllers/qr_screen_controller.dart';
 
@@ -87,6 +89,7 @@ class QrScreenView extends GetView<QrScreenController> {
                                       imgUrl:
                                           'https://picsum.photos/id/237/200/300',
                                       amount: 10,
+                                      whichScreen: 'QRScreen',
                                       voucherCode: '15015403',
                                       date: '1, Nov 2021',
                                       onTap: () {},
@@ -183,6 +186,38 @@ class QrScreenView extends GetView<QrScreenController> {
                     ),
                   )
                 : Container(),
+            controller.redeemed.value
+                ? BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 20.r, sigmaY: 20.r),
+                    child: Container(
+                      height: 1.sh,
+                      width: 1.sw,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.k0087A1.withOpacity(0.6),
+                            offset: Offset(0, 4),
+                            blurRadius: 4.r,
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Material(
+                          color: Colors.transparent,
+                          child: actionDialog(
+                              whichScreen: 'Vendor',
+                              dialogTypeText: 'Success!',
+                              text: 'Voucher has been successfully\nredeemed.',
+                              assetName: R.image.asset.success_redem.assetName,
+                              onTapCancel: () {
+                                vendorRCtrl.redeemThroughNum.value = false;
+                              }),
+                        ),
+                      ),
+                    ),
+                  )
+                : Container()
           ],
         ));
   }

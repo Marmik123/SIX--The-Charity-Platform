@@ -5,6 +5,7 @@ import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/common_appbar.dart';
 import 'package:six/r.g.dart';
+import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 
 import '../controllers/support_controller.dart';
 
@@ -112,54 +113,64 @@ class SupportView extends GetView<SupportController> {
                             SizedBox(
                               height: 20.h,
                             ),
-                            Row(
-                              children: [
-                                Image.asset(
-                                  R.image.asset.email.assetName,
-                                  width: 43.w,
-                                  height: 34.h,
-                                ),
-                                SizedBox(
-                                  width: 20.w,
-                                ),
-                                Text(
-                                  'raymondwong@gmai.com',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy',
-                                    fontSize: 45.sp,
-                                    fontStyle: FontStyle.normal,
-                                    color: AppColors.k033660.withOpacity(0.6),
-                                    fontWeight: FontWeight.w400,
+                            GestureDetector(
+                              onTap: () {
+                                controller.launchURL();
+                              },
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    R.image.asset.email.assetName,
+                                    width: 43.w,
+                                    height: 34.h,
                                   ),
-                                  textAlign: TextAlign.center,
-                                )
-                              ],
+                                  SizedBox(
+                                    width: 20.w,
+                                  ),
+                                  Text(
+                                    'raymondwong@gmail.com',
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy',
+                                      fontSize: 45.sp,
+                                      fontStyle: FontStyle.normal,
+                                      color: AppColors.k033660.withOpacity(0.6),
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  )
+                                ],
+                              ),
                             ),
                             SizedBox(
                               height: 25.h,
                             ),
-                            Row(
-                              children: [
-                                Image.asset(
-                                  R.image.asset.phone.assetName,
-                                  width: 43.w,
-                                  height: 34.h,
-                                ),
-                                SizedBox(
-                                  width: 20.w,
-                                ),
-                                Text(
-                                  '+65 87417335',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy',
-                                    fontSize: 45.sp,
-                                    fontStyle: FontStyle.normal,
-                                    color: AppColors.k033660.withOpacity(0.6),
-                                    fontWeight: FontWeight.w400,
+                            GestureDetector(
+                              onTap: () {
+                                UrlLauncher.launch('tel://65 87417335');
+                              },
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    R.image.asset.phone.assetName,
+                                    width: 43.w,
+                                    height: 34.h,
                                   ),
-                                  textAlign: TextAlign.center,
-                                )
-                              ],
+                                  SizedBox(
+                                    width: 20.w,
+                                  ),
+                                  Text(
+                                    '+65 87417335',
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy',
+                                      fontSize: 45.sp,
+                                      fontStyle: FontStyle.normal,
+                                      color: AppColors.k033660.withOpacity(0.6),
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  )
+                                ],
+                              ),
                             )
                           ],
                         )

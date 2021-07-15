@@ -56,13 +56,17 @@ flutter:
   - assets/images/Profile_active.png
   - assets/images/Search.png
   - assets/images/bell.png
+  - assets/images/buy.png
+  - assets/images/camera_only.png
   - assets/images/charity_ticket.png
   - assets/images/charity_ticket_select.png
   - assets/images/discoun_active.png
+  - assets/images/edit_icon.png
   - assets/images/email.png
   - assets/images/error_dialog.png
   - assets/images/feedback.png
   - assets/images/food.png
+  - assets/images/history.png
   - assets/images/home_new.png
   - assets/images/image_picker.png
   - assets/images/man.png
@@ -72,11 +76,16 @@ flutter:
   - assets/images/onboarding_5.png
   - assets/images/onboarding_6.png
   - assets/images/onboarding_7.png
+  - assets/images/ons_1.png
+  - assets/images/ons_2.png
+  - assets/images/ons_3.png
   - assets/images/phone.png
   - assets/images/privacy.png
   - assets/images/profile_new.png
+  - assets/images/pucrchase_social_active.png
   - assets/images/purchase.png
   - assets/images/purchase_icon.png
+  - assets/images/purchase_social.png
   - assets/images/qr_border.png
   - assets/images/request.png
   - assets/images/select_voucher.png

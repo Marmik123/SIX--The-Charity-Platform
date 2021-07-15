@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="dt.six.app">
+    package="dt.six_f.app">
     <queries>
         <intent>
             <action android:name="android.intent.action.SENDTO" />

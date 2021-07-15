@@ -50,6 +50,7 @@ class OnboardingScreenView extends GetView<OnboardingScreenController> {
                 height: 150.h,
                 child: onBoardingNavigation(
                     itemCount: controller.title.length,
+                    isVendor: false,
                     onTapArrow: () {
                       controller.index == 2
                           ? Get.offAllNamed<void>('/sign-pass-verification')

@@ -4,6 +4,7 @@ class VendorRedeemController extends GetxController {
   //TODO: Implement VendorRedeemController
   RxBool codeEntered = false.obs;
   RxBool redeemThroughNum = false.obs;
+  RxBool redeemNow = false.obs;
 
   final count = 0.obs;
   @override

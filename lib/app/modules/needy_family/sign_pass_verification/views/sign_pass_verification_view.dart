@@ -218,6 +218,15 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                           height: 150.h,
                           fontSize: 50.sp,
                         ),
+                        roundedButton(
+                          text: 'Social',
+                          onTap: () {
+                            Get.offAndToNamed<void>(Routes.SOCIAL_ONBOARDING);
+                          },
+                          width: 452.w,
+                          height: 150.h,
+                          fontSize: 50.sp,
+                        )
                       ],
                     )
                   : Column(

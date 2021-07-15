@@ -24,8 +24,8 @@ Widget onBoarding(String? title, String? subTitle, int? index,
         height: 1534.h,
         child: ClipRRect(
             borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(165),
-              bottomRight: Radius.circular(165),
+              bottomLeft: Radius.circular(185),
+              bottomRight: Radius.circular(185),
             ),
             child: Image.asset(
               assetName,

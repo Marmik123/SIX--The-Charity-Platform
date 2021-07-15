@@ -13,6 +13,7 @@ class QrScreenController extends GetxController {
   RxBool permissionGiven = false.obs;
   RxBool qrScanned = false.obs;
   RxBool cannotDetect = false.obs;
+  RxBool redeemed = false.obs;
   late QRViewController qrCtrl;
   final count = 0.obs;
   @override
@@ -80,7 +81,7 @@ class QrScreenController extends GetxController {
   }
 
   void onTimeout(EventSink barcode) {
-    cannotDetect.value = true;
+    qrScanned.value ? null : cannotDetect.value = true;
     qrCtrl.resumeCamera();
   }
 

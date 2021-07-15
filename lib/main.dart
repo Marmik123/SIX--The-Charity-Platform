@@ -107,7 +107,7 @@ class StartTheApp extends StatelessWidget {
           title: 'SIX-The Charity Platform',
           navigatorKey: Catcher.navigatorKey,
           initialRoute: AppPages.INITIAL,
-          getPages: AppPages.routes,
+          getPages: AppPages.routes as List<GetPage<dynamic>>,
           debugShowCheckedModeBanner: false,
           translationsKeys: Get.find<AppTranslations>().keys,
           translations: Get.find<AppTranslations>(),

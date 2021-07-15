@@ -21,7 +21,9 @@ class CharityHomeView extends GetView<CharityHomeController> {
   var purCtrl = Get.put(PurchaseController());
   List<Widget> bottomScreen = <Widget>[
     CharityHome(),
-    PurchaseView(),
+    PurchaseView(
+      whichScreen: 'Charity',
+    ),
     ProfileView(
       whichScreen: 'Charity',
     ),
@@ -89,6 +91,7 @@ class CharityHome extends StatelessWidget {
                       color: AppColors.kffffff,
                       borderColor: AppColors.kE3FCFF,
                       height: 80.h,
+                      whichScreen: '',
                       shadowColor: AppColors.k0A9988,
                       width: 390.w,
                       textContent: Text(

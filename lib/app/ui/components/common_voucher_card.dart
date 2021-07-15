@@ -1,7 +1,10 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/modules/social_worker/distribute_voucher/controllers/distribute_voucher_controller.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/dialog_vocher_redeem.dart';
 import 'package:six/app/ui/components/voucher_container_paint.dart';
@@ -12,6 +15,8 @@ enum VoucherState {
   redeemed,
 }
 final LayerLink link = LayerLink();
+DistributeVoucherController voucherCtrlSW =
+    Get.put(DistributeVoucherController());
 Widget voucherCard({
   required String title,
   required String imgUrl,
@@ -21,6 +26,7 @@ Widget voucherCard({
   required VoidCallback onTap,
   required VoucherState voucherState,
   required String btnText,
+  required String whichScreen,
   required bool isQRScreen,
 }) {
   return Stack(
@@ -32,8 +38,8 @@ Widget voucherCard({
         color: AppColors.kffffff,
       ),*/
       Container(
-        height: isQRScreen ? 743.h : 646.h,
-        child: isQRScreen
+        height: whichScreen == 'QRScreen' ? 743.h : 646.h,
+        child: whichScreen == 'QRScreen' || whichScreen == 'History'
             ? CustomPaint(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10, right: 18.0),
@@ -44,7 +50,7 @@ Widget voucherCard({
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: 49.h,
+                          height: whichScreen == 'History' ? 40.h : 49.h,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 32.0),
@@ -93,7 +99,7 @@ Widget voucherCard({
                           ),
                         ),
                         SizedBox(
-                          height: 40.h,
+                          height: whichScreen == 'History' ? 15.w : 40.h,
                         ),
                         FittedBox(
                           child: Row(
@@ -184,7 +190,7 @@ Widget voucherCard({
                                     )
                                   ],
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -320,37 +326,47 @@ Widget voucherCard({
                                         ]),
                                       ),
                                     ),
-                                    FittedBox(
-                                      child: RichText(
-                                        text: TextSpan(children: <TextSpan>[
-                                          TextSpan(
-                                            text: 'Voucher Code : ',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy',
-                                              fontSize: 40.sp,
-                                              color: AppColors.k033660
-                                                  .withOpacity(0.6),
-                                              fontStyle: FontStyle.normal,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: voucherCode,
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy',
-                                              fontSize: 40.sp,
-                                              color: AppColors.k033660,
-                                              fontStyle: FontStyle.normal,
-                                              fontWeight: FontWeight.w500,
+                                    whichScreen == 'Social Worker'
+                                        ? SizedBox.shrink()
+                                        : FittedBox(
+                                            child: RichText(
+                                              text:
+                                                  TextSpan(children: <TextSpan>[
+                                                TextSpan(
+                                                  text: 'Voucher Code : ',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy',
+                                                    fontSize: 40.sp,
+                                                    color: AppColors.k033660
+                                                        .withOpacity(0.6),
+                                                    fontStyle: FontStyle.normal,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: voucherCode,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy',
+                                                    fontSize: 40.sp,
+                                                    color: AppColors.k033660,
+                                                    fontStyle: FontStyle.normal,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                )
+                                              ]),
                                             ),
                                           )
-                                        ]),
-                                      ),
-                                    )
                                   ],
                                 ),
                               )
                             ],
+                          ),
+                        ),
+                        Center(
+                          child: Container(
+                            color: Colors.red,
+                            width: 100.w,
+                            height: 100.h,
                           ),
                         ),
                       ],
@@ -369,10 +385,24 @@ Widget voucherCard({
               ),
       ),
       Positioned(
-        bottom: isQRScreen ? 318.h : 220.h,
-        left: isQRScreen ? 81.w : 22.w,
+        bottom: whichScreen == 'QRScreen'
+            ? 318.h
+            : whichScreen == 'History'
+                ? 260.w
+                : 220.h,
+        left: whichScreen == 'QRScreen'
+            ? 81.w
+            : whichScreen == 'Social Worker'
+                ? 30.w
+                : whichScreen == 'History'
+                    ? 100.w
+                    : 22.w,
         child: Container(
-          width: isQRScreen ? 905.w : 955.w,
+          width: whichScreen == 'QRScreen'
+              ? 905.w
+              : whichScreen == 'History'
+                  ? 925.w
+                  : 955.w,
           height: 3.h,
           color: voucherState == VoucherState.active
               ? AppColors.k14A1BE
@@ -382,8 +412,18 @@ Widget voucherCard({
         ),
       ),
       Positioned(
-        bottom: isQRScreen ? 195.h : 95.h,
-        right: isQRScreen ? 86.w : 96.w,
+        bottom: whichScreen == 'QRScreen'
+            ? 195.h
+            : whichScreen == 'History'
+                ? 185.w
+                : 95.h,
+        right: whichScreen == 'QRScreen'
+            ? 86.w
+            : whichScreen == 'Social Worker'
+                ? 105.w
+                : whichScreen == 'History'
+                    ? 130.h
+                    : 96.w,
         child: Column(
           children: [
             InkWell(
@@ -410,39 +450,145 @@ Widget voucherCard({
                         color: AppColors.kD7FBFF,
                       ),*/
                       borderRadius: BorderRadius.circular(30.r)),
-                  height: 105.h,
-                  width: isQRScreen ? 880.w : 920.w,
+                  height: whichScreen == 'History' ? 80.h : 105.h,
+                  width: whichScreen == 'QRScreen'
+                      ? 880.w
+                      : whichScreen == 'History'
+                          ? 920.h
+                          : 920.w,
                   alignment: Alignment.center,
-                  child: Text(
-                    btnText,
-                    style: TextStyle(
-                      fontFamily: 'Gilroy',
-                      fontSize: 50.sp,
-                      fontStyle: FontStyle.normal,
-                      color: voucherState == VoucherState.active
-                          ? AppColors.k13A89E
-                          : voucherState == VoucherState.redeemed
-                              ? AppColors.kEF9104
-                              : AppColors.kEF0404,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
+                  child: whichScreen != 'Social Worker'
+                      ? Text(
+                          btnText,
+                          style: TextStyle(
+                            fontFamily: 'Gilroy',
+                            fontSize: whichScreen == 'History' ? 42.sp : 50.sp,
+                            fontStyle: FontStyle.normal,
+                            color: voucherState == VoucherState.active
+                                ? AppColors.k13A89E
+                                : voucherState == VoucherState.redeemed
+                                    ? AppColors.kEF9104
+                                    : AppColors.kEF0404,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          textAlign: TextAlign.center,
+                        )
+                      : Obx(() => Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  voucherCtrlSW.voucherCount() == 0
+                                      ? null
+                                      : voucherCtrlSW.voucherCount.value--;
+                                },
+                                child: Container(
+                                  height: 70.r,
+                                  width: 70.r,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: voucherCtrlSW.voucherCount() == 0
+                                        ? AppColors.kffffff
+                                        : AppColors.k14A1BE,
+                                  ),
+                                  child: Icon(
+                                    Icons.remove,
+                                    size: 15,
+                                    color: voucherCtrlSW.voucherCount() == 0
+                                        ? AppColors.k14A1BE
+                                        : AppColors.kffffff,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                voucherCtrlSW.voucherCount.value.toString(),
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy',
+                                  fontSize: 50.sp,
+                                  fontStyle: FontStyle.normal,
+                                  color: voucherState == VoucherState.active
+                                      ? AppColors.k13A89E
+                                      : voucherState == VoucherState.redeemed
+                                          ? AppColors.kEF9104
+                                          : AppColors.kEF0404,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  voucherCtrlSW.voucherCount.value++;
+                                },
+                                child: Container(
+                                  height: 70.r,
+                                  width: 70.r,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: voucherCtrlSW.voucherCount() == 0
+                                        ? AppColors.kffffff
+                                        : AppColors.k14A1BE,
+                                  ),
+                                  child: Icon(
+                                    Icons.add,
+                                    size: 15,
+                                    color: voucherCtrlSW.voucherCount() == 0
+                                        ? AppColors.k14A1BE
+                                        : AppColors.kffffff,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
                 ),
               ),
             ),
             SizedBox(
               height: 30.h,
             ),
+            whichScreen == 'History'
+                ? SizedBox.shrink()
+                : Text(
+                    'Click here for Terms & Conditions',
+                    style: TextStyle(
+                        fontFamily: 'Gilroy',
+                        fontSize: 35.sp,
+                        fontStyle: FontStyle.normal,
+                        color: AppColors.k033660,
+                        fontWeight: FontWeight.w500,
+                        decoration: TextDecoration.underline),
+                    textAlign: TextAlign.center,
+                  ),
+          ],
+        ),
+      ),
+      Positioned(
+        left: 100.h,
+        bottom: 70.h,
+        child: Row(
+          children: [
+            CircleAvatar(
+              backgroundColor: Colors.transparent,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child: cacheImage(
+                    height: 119.r,
+                    width: 119.r,
+                    url: imgUrl,
+                  ),
+                ),
+              ),
+            ),
             Text(
-              'Click here for Terms & Conditions',
+              title,
               style: TextStyle(
-                  fontFamily: 'Gilroy',
-                  fontSize: 35.sp,
-                  fontStyle: FontStyle.normal,
-                  color: AppColors.k033660,
-                  fontWeight: FontWeight.w500,
-                  decoration: TextDecoration.underline),
+                fontFamily: 'Gilroy',
+                fontSize: 50.sp,
+                fontStyle: FontStyle.normal,
+                color: AppColors.k033660,
+                fontWeight: FontWeight.w500,
+              ),
               textAlign: TextAlign.center,
             ),
           ],

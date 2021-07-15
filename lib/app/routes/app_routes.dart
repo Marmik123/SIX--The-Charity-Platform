@@ -25,6 +25,17 @@ abstract class Routes {
   static const PURCHASE = _Paths.PURCHASE;
   static const AVAILABLE_VENDORS = _Paths.AVAILABLE_VENDORS;
   static const VENDOR_DETAILS = _Paths.VENDOR_DETAILS;
+  static const SOCIAL_HOME = _Paths.SOCIAL_HOME;
+  static const SOCIAL_ONBOARDING = _Paths.SOCIAL_ONBOARDING;
+  static const ADD_NOTE = _Paths.ADD_NOTE;
+  static const BENEFICIARY_DETAILS = _Paths.BENEFICIARY_DETAILS;
+  static const NOTE_DETAILS = _Paths.NOTE_DETAILS;
+  static const EDIT_NOTE = _Paths.EDIT_NOTE;
+  static const CONNECTED_ORGANIZATION = _Paths.CONNECTED_ORGANIZATION;
+  static const ASSIGNED_VOUCHER = _Paths.ASSIGNED_VOUCHER;
+  static const DISTRIBUTE_VOUCHER = _Paths.DISTRIBUTE_VOUCHER;
+  static const PURCHASE_SOCIAL = _Paths.PURCHASE_SOCIAL;
+  static const HISTORY_SW = _Paths.HISTORY_SW;
 }
 
 abstract class _Paths {
@@ -50,4 +61,15 @@ abstract class _Paths {
   static const PURCHASE = '/purchase';
   static const AVAILABLE_VENDORS = '/available-vendors';
   static const VENDOR_DETAILS = '/vendor-details';
+  static const SOCIAL_HOME = '/social-home';
+  static const SOCIAL_ONBOARDING = '/social-onboarding';
+  static const ADD_NOTE = '/add-note';
+  static const BENEFICIARY_DETAILS = '/beneficiary-details';
+  static const NOTE_DETAILS = '/note-details';
+  static const EDIT_NOTE = '/edit-note';
+  static const CONNECTED_ORGANIZATION = '/connected-organization';
+  static const ASSIGNED_VOUCHER = '/assigned-voucher';
+  static const DISTRIBUTE_VOUCHER = '/distribute-voucher';
+  static const PURCHASE_SOCIAL = '/purchase-social';
+  static const HISTORY_SW = '/history-sw';
 }

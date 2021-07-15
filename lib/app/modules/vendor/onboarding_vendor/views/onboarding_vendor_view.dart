@@ -50,6 +50,7 @@ class OnboardingVendorView extends GetView<OnboardingVendorController> {
                 width: 1.sw,
                 height: 150.h,
                 child: onBoardingNavigation(
+                  isVendor: true,
                   itemCount: controller.title.length,
                   onTapArrow: () {
                     controller.index == 1

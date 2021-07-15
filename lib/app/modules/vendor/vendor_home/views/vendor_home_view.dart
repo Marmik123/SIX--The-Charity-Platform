@@ -27,9 +27,10 @@ class VendorHomeView extends GetView<VendorHomeController> {
     return Obx(
       () => Scaffold(
         backgroundColor: AppColors.kffffff,
-        bottomNavigationBar: !vendorRCtrl.redeemThroughNum.value
-            ? bottomNavBar(whichScreen: 'Vendor')
-            : SizedBox.shrink(),
+        bottomNavigationBar:
+            !vendorRCtrl.redeemNow.value && !vendorRCtrl.redeemThroughNum.value
+                ? bottomNavBar(whichScreen: 'Vendor')
+                : SizedBox.shrink(),
         body: bottomNavScreen.elementAt(controller.currentIndex!.value),
       ),
     );
@@ -87,6 +88,7 @@ class VendorHome extends StatelessWidget {
                       color: AppColors.kffffff,
                       borderColor: AppColors.kE3FCFF,
                       height: 80.h,
+                      whichScreen: '',
                       shadowColor: AppColors.k0A9988,
                       width: 390.w,
                       textContent: Text(

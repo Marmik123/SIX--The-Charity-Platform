@@ -51,6 +51,7 @@ class CharityOnboardingView extends GetView<CharityOnboardingController> {
               height: 150.h,
               child: onBoardingNavigation(
                   itemCount: controller.title.length,
+                  isVendor: false,
                   onTapArrow: () {
                     controller.index == 2
                         ? Get.offAllNamed<void>(Routes.CHARITY_HOME)

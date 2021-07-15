@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -76,11 +77,17 @@ class ProfileView extends GetView<ProfileController> {
                                   profileCtrl
                                       .pickProfilePicture(ImageSource.gallery);
                                 },
-                                child: Image.asset(
-                                  R.image.asset.image_picker.assetName,
-                                  height: 105.h,
-                                  width: 104.w,
-                                ),
+                                child: whichScreen == 'Needy Family'
+                                    ? Image.asset(
+                                        R.image.asset.camera_only.assetName,
+                                        width: 43.w,
+                                        height: 33.h,
+                                      )
+                                    : Image.asset(
+                                        R.image.asset.image_picker.assetName,
+                                        height: 105.h,
+                                        width: 104.w,
+                                      ),
                               ),
                             ),
                           ],
@@ -102,7 +109,8 @@ class ProfileView extends GetView<ProfileController> {
                         SizedBox(
                           height: 20.h,
                         ),
-                        whichScreen == 'Needy Family'
+                        whichScreen == 'Needy Family' ||
+                                whichScreen == 'Social Worker'
                             ? Text(
                                 'peterlim@gmail.com',
                                 textAlign: TextAlign.center,
@@ -123,7 +131,7 @@ class ProfileView extends GetView<ProfileController> {
                   top: 1108.h,
                   child: Container(
                     width: 1005.w,
-                    height: 719.h,
+                    height: whichScreen == 'Social Worker' ? 869.h : 719.h,
                     decoration: BoxDecoration(
                       color: AppColors.kffffff,
                       borderRadius: BorderRadius.circular(50.r),
@@ -140,10 +148,18 @@ class ProfileView extends GetView<ProfileController> {
                         SizedBox(
                           height: 75.h,
                         ),
-                        /* profileMenuItem(R.image.asset.request.assetName,
-                            'Make a Request', () {}),
-                        profileMenuItem(R.image.asset.term_c.assetName,
-                            'My Previous Request', () {}),*/
+                        whichScreen == 'Social Worker'
+                            ? profileMenuItem(
+                                R.image.asset.history.assetName,
+                                'History',
+                                () {
+                                  Get.toNamed<void>(Routes.HISTORY_SW);
+                                },
+                              )
+                            : SizedBox.shrink(),
+                        /*profileMenuItem(R.image.asset.term_c.assetName,
+                            'My Previous Request', () {}),
+                        */
                         GestureDetector(
                           behavior: HitTestBehavior.translucent,
                           child: profileMenuItem(
@@ -151,12 +167,10 @@ class ProfileView extends GetView<ProfileController> {
                             Get.toNamed<void>(Routes.SUPPORT);
                           }),
                         ),
-                        GestureDetector(
-                          child: profileMenuItem(
-                              R.image.asset.feedback.assetName, 'Feedback', () {
-                            Get.toNamed<void>(Routes.ONBOARDING_VENDOR);
-                          }),
-                        ),
+                        profileMenuItem(
+                            R.image.asset.feedback.assetName, 'Feedback', () {
+                          //Get.toNamed<void>(Routes.ONBOARDING_VENDOR);
+                        }),
                         profileMenuItem(R.image.asset.term_c.assetName,
                             'Term & Condition', () {}),
                         profileMenuItem(R.image.asset.privacy.assetName,
@@ -248,7 +262,7 @@ class ProfileView extends GetView<ProfileController> {
                   ),
                 ),
                 Positioned(
-                  top: 1740.h,
+                  top: whichScreen == 'Social Worker' ? 1890.h : 1740.h,
                   child: roundedButton(
                       text: 'Logout',
                       onTap: () {

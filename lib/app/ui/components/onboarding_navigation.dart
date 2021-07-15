@@ -9,6 +9,7 @@ Widget onBoardingNavigation({
   required VoidCallback onTapSkip,
   required double screenIndex,
   required double onChangedPadding,
+  required bool isVendor,
 }) {
   return Row(
     children: [
@@ -16,40 +17,30 @@ Widget onBoardingNavigation({
         width: 60.w,
       ),
       Container(
-        width: 98.w,
+        width: isVendor ? 84.w : 90.w,
         height: 150.h,
         child: Stack(
           alignment: Alignment.center,
           children: [
-            ListView.builder(
+            ListView.separated(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 physics: ClampingScrollPhysics(),
                 itemCount: itemCount,
-                itemBuilder: (context, index) => Row(
-                      children: [
-                        Container(
-                          width: 20.w,
-                          height: 20.h,
-                          decoration:
-                              /*controller.index!.value == index
-                      ? BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.k14A1BE,
-                  ) :*/
-                              BoxDecoration(
-                            border: Border.all(
-                              color: AppColors.k6886A0,
-                              width: 3.w,
-                            ),
-                            shape: BoxShape.circle,
-                            color: AppColors.kffffff,
-                          ),
+                separatorBuilder: (context, index) => SizedBox(
+                      width: isVendor ? 6.w : 15.w,
+                    ),
+                itemBuilder: (context, index) => Container(
+                      width: 20.w,
+                      height: 20.h,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: AppColors.k6886A0,
+                          width: 3.w,
                         ),
-                        SizedBox(
-                          width: 15.w,
-                        ),
-                      ],
+                        shape: BoxShape.circle,
+                        color: AppColors.kffffff,
+                      ),
                     )),
             AnimatedPositioned(
               left: screenIndex * onChangedPadding,

@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/modules/social_worker/distribute_voucher/controllers/distribute_voucher_controller.dart';
+import 'package:six/app/ui/components/rounded_gradient_btn.dart';
+import 'package:six/app/ui/components/sizedbox.dart';
 
+var distributeCtrl = Get.put(DistributeVoucherController());
 Widget actionDialog({
   required String text,
   required String dialogTypeText,
   required String assetName,
+  required String whichScreen,
   required VoidCallback onTapCancel,
 }) {
   return Column(
@@ -14,7 +20,7 @@ Widget actionDialog({
         height: 778.h,
       ),
       Container(
-        height: 881.h,
+        height: whichScreen == 'SW' ? 1106.h : 881.h,
         width: 1005.w,
         decoration: BoxDecoration(
           color: AppColors.kffffff,
@@ -68,38 +74,56 @@ Widget actionDialog({
                 fontWeight: FontWeight.w500,
               ),
               textAlign: TextAlign.center,
-            )
+            ),
+            whichScreen == 'SW'
+                ? Column(
+                    children: [
+                      h(45.h),
+                      roundedButton(
+                        text: 'Done',
+                        onTap: () {
+                          Get.back<void>();
+                        },
+                        width: 452.w,
+                        height: 150.h,
+                        fontSize: 50.sp,
+                      ),
+                    ],
+                  )
+                : SizedBox.shrink()
           ],
         ),
       ),
       SizedBox(
         height: 484.h,
       ),
-      GestureDetector(
-        onTap: onTapCancel,
-        child: Container(
-          height: 160.r,
-          width: 160.r,
-          decoration: BoxDecoration(
-            color: AppColors.kffffff,
-            borderRadius: BorderRadius.circular(70.r),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.k00474E.withOpacity(0.04),
-                blurRadius: 40.r,
-                offset: Offset(0, 20),
+      whichScreen == 'SW'
+          ? SizedBox.shrink()
+          : GestureDetector(
+              onTap: onTapCancel,
+              child: Container(
+                height: 160.r,
+                width: 160.r,
+                decoration: BoxDecoration(
+                  color: AppColors.kffffff,
+                  borderRadius: BorderRadius.circular(70.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.k00474E.withOpacity(0.04),
+                      blurRadius: 40.r,
+                      offset: Offset(0, 20),
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: Icon(
+                    Icons.clear,
+                    color: AppColors.k1FAF9E,
+                    size: 20,
+                  ),
+                ),
               ),
-            ],
-          ),
-          child: Center(
-            child: Icon(
-              Icons.clear,
-              color: AppColors.k1FAF9E,
-              size: 20,
-            ),
-          ),
-        ),
-      )
+            )
     ],
   );
 }

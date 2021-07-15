@@ -51,104 +51,112 @@ class HomeContent extends StatelessWidget {
           children: [
             Container(
               width: 1125.w,
-              height: 1265.h,
-              color: AppColors.kE3FCFF,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 120.h,
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: 66.w,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.toNamed<void>(Routes.VENDOR_HOME);
-                        },
-                        child: Image.asset(
-                          R.image.six_logo().assetName,
-                          height: 77.h,
-                          width: 170.w,
+              height: 1380.h,
+              color: Colors.transparent,
+            ),
+            Positioned(
+              top: 0,
+              child: Container(
+                width: 1125.w,
+                height: 1265.h,
+                color: AppColors.kE3FCFF,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 120.h,
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 66.w,
                         ),
-                      ),
-                      SizedBox(
-                        width: 669.w,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.toNamed<void>(Routes.NOTIFICATION);
-                        },
-                        child: Container(
-                          width: 160.w,
-                          height: 160.h,
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Image.asset(
-                              R.image.bell().assetName,
-                              height: 20,
-                              width: 20,
-                            ),
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed<void>(Routes.VENDOR_HOME);
+                          },
+                          child: Image.asset(
+                            R.image.six_logo().assetName,
+                            height: 77.h,
+                            width: 170.w,
                           ),
-                          decoration: BoxDecoration(
-                              color: AppColors.kffffff,
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 40.sp,
-                                  color: AppColors.kD1EFF2.withOpacity(0.8),
-                                  offset: Offset(0, 20),
-                                )
-                              ],
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(70.r))),
                         ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 57.h,
-                  ),
-                  doubleShadedCont(
-                      'https://picsum.photos/id/1027/400'), //double shaded profile container
-                  SizedBox(
-                    height: 45.h,
-                  ),
-                  Text(
-                    'Hi, Peter Lim',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Gilroy',
-                      fontSize: 65.sp,
-                      fontStyle: FontStyle.normal,
-                      color: AppColors.k033660,
-                      fontWeight: FontWeight.w500,
+                        SizedBox(
+                          width: 669.w,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed<void>(Routes.NOTIFICATION);
+                          },
+                          child: Container(
+                            width: 160.w,
+                            height: 160.h,
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Image.asset(
+                                R.image.bell().assetName,
+                                height: 20,
+                                width: 20,
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                                color: AppColors.kffffff,
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 40.sp,
+                                    color: AppColors.kD1EFF2.withOpacity(0.8),
+                                    offset: Offset(0, 20),
+                                  )
+                                ],
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(70.r))),
+                          ),
+                        )
+                      ],
                     ),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Text(
-                    'Welcome back!',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Gilroy',
-                      fontSize: 40.sp,
-                      fontStyle: FontStyle.normal,
-                      color: AppColors.k033660,
-                      fontWeight: FontWeight.w400,
+                    SizedBox(
+                      height: 57.h,
                     ),
-                  ),
-                  SizedBox(
-                    height: 70.h,
-                  ),
-                ],
+                    doubleShadedCont(
+                        'https://picsum.photos/id/1027/400'), //double shaded profile container
+                    SizedBox(
+                      height: 45.h,
+                    ),
+                    Text(
+                      'Hi, Peter Lim',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: 'Gilroy',
+                        fontSize: 65.sp,
+                        fontStyle: FontStyle.normal,
+                        color: AppColors.k033660,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Text(
+                      'Welcome back!',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: 'Gilroy',
+                        fontSize: 40.sp,
+                        fontStyle: FontStyle.normal,
+                        color: AppColors.k033660,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 70.h,
+                    ),
+                  ],
+                ),
               ),
             ),
             Positioned(
-              bottom: -110.h,
+              bottom: 10.h,
               child: GestureDetector(
                 onTap: () {
                   Get.toNamed<void>('/available-credits');
@@ -244,7 +252,7 @@ class HomeContent extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 190.h,
+          height: 75.h,
         ),
         Padding(
           padding: const EdgeInsets.only(left: 25.0),
@@ -266,7 +274,7 @@ class HomeContent extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 25.0),
           child: Container(
-            height: 565.h,
+            height: 560.h,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: 3,
@@ -275,13 +283,14 @@ class HomeContent extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 15),
                 child: categoryCard(
                   index: index,
+                  context: context,
                   image: Image.asset(
                     R.image.asset.super_market.assetName,
                     height: 130.h,
                     width: 120.w,
                   ),
                   background: AppColors.kFF007A.withOpacity(0.05),
-                  categoryName: 'Super - Market',
+                  categoryName: 'Supermarket',
                   creditsRemaining: 100,
                   totalCredits: 300,
                   accent: AppColors.kFBEEF4,
@@ -289,7 +298,7 @@ class HomeContent extends StatelessWidget {
                   foreground: AppColors.kFF007A,
                   whichScreen: 'Needy Family',
                   width: 420.w,
-                  height: 560.h,
+                  height: 580.h,
                   padding:
                       const EdgeInsets.only(left: 15.0, right: 15, bottom: 5.0),
                 ),

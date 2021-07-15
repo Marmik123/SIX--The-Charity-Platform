@@ -17,6 +17,7 @@ class CharityHomeController extends GetxController {
     color: AppColors.kF2FEFF,
     borderColor: AppColors.kD8FCFF,
     height: 90.h,
+    whichScreen: '',
     shadowColor: AppColors.kffffff,
     textContent: Text(
       'Support Beneficiary Fund',
@@ -51,6 +52,7 @@ class CharityHomeController extends GetxController {
       value: monthPicker(
         color: AppColors.kF2FEFF,
         borderColor: AppColors.kD8FCFF,
+        whichScreen: '',
         height: 90.h,
         shadowColor: AppColors.kffffff,
         textContent: Text(
@@ -85,6 +87,7 @@ class CharityHomeController extends GetxController {
         color: AppColors.kF2FEFF,
         borderColor: AppColors.kD8FCFF,
         height: 90.h,
+        whichScreen: '',
         shadowColor: AppColors.kffffff,
         textContent: Text(
           'Covid19 Relief Fund',
@@ -118,6 +121,7 @@ class CharityHomeController extends GetxController {
         color: AppColors.kF2FEFF,
         borderColor: AppColors.kD8FCFF,
         height: 90.h,
+        whichScreen: '',
         shadowColor: AppColors.kffffff,
         textContent: Text(
           'Serving the Elderly',

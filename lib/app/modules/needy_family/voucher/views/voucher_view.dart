@@ -202,8 +202,12 @@ class VoucherContent extends StatelessWidget {
             )
           ],
         ),
+        SizedBox(
+          height: 30.h,
+        ),
         Expanded(
           child: ListView(
+            padding: const EdgeInsets.all(0),
             physics: BouncingScrollPhysics(),
             children: [
               Row(
@@ -216,6 +220,7 @@ class VoucherContent extends StatelessWidget {
                     amount: 10,
                     date: '31,Nov 2021',
                     imgUrl: 'https://picsum.photos/id/1011/200/300',
+                    whichScreen: 'Needy Family',
                     onTap: () {
                       homeController.currentIndex!.value = 1;
                       Get.toNamed<void>(Routes.VOUCHER_REDEMPTION);
@@ -240,6 +245,7 @@ class VoucherContent extends StatelessWidget {
                     onTap: () {},
                     voucherCode: '15015403',
                     btnText: 'Already Redeemed',
+                    whichScreen: 'Needy Family',
                     voucherState: VoucherState.redeemed,
                     isQRScreen: false,
                   ), //Common Voucher Card
@@ -257,6 +263,7 @@ class VoucherContent extends StatelessWidget {
                     imgUrl: 'https://picsum.photos/id/1013/200/300',
                     voucherCode: '15015403',
                     onTap: () {},
+                    whichScreen: 'Needy Family',
                     btnText: 'Expired Voucher',
                     voucherState: VoucherState.expired,
                     isQRScreen: false,

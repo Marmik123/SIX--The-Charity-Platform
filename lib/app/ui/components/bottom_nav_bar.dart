@@ -5,12 +5,14 @@ import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/modules/charity/charity_home/controllers/charity_home_controller.dart';
 import 'package:six/app/modules/needy_family/home/controllers/home_controller.dart';
+import 'package:six/app/modules/social_worker/social_home/controllers/social_home_controller.dart';
 import 'package:six/app/modules/vendor/vendor_home/controllers/vendor_home_controller.dart';
 import 'package:six/r.g.dart';
 
 Widget bottomNavBar({required String whichScreen}) {
   var vendorCtrl = Get.put(VendorHomeController());
   var charityCtrl = Get.put(CharityHomeController());
+  var socialCtrl = Get.put(SocialHomeController());
   HomeController controller = Get.put(HomeController());
   return Container(
     decoration: BoxDecoration(
@@ -30,15 +32,19 @@ Widget bottomNavBar({required String whichScreen}) {
           ? vendorCtrl.currentIndex!.value
           : whichScreen == 'Needy Family'
               ? controller.currentIndex!.value
-              : charityCtrl.currentIndex!.value,
+              : whichScreen == 'Social'
+                  ? socialCtrl.currentIndex!()
+                  : charityCtrl.currentIndex!.value,
       type: BottomNavigationBarType.fixed,
       showUnselectedLabels: true,
       onTap: (index) {
         whichScreen == 'Vendor'
-            ? vendorCtrl.currentIndex!.value = index
+            ? vendorCtrl.currentIndex!(index)
             : whichScreen == 'Needy Family'
-                ? controller.currentIndex!.value = index
-                : charityCtrl.currentIndex!.value = index;
+                ? controller.currentIndex!(index)
+                : whichScreen == 'Social'
+                    ? socialCtrl.currentIndex!(index)
+                    : charityCtrl.currentIndex!(index);
         //fromVoucherScreen ? (Get.offAllNamed<void>(Routes.HOME)) : null;
       },
       unselectedFontSize: 36.sp,
@@ -96,7 +102,9 @@ Widget bottomNavBar({required String whichScreen}) {
                   ? R.image.asset.ticket.assetName
                   : whichScreen == 'Charity'
                       ? R.image.asset.charity_ticket.assetName
-                      : R.image.discount().assetName,
+                      : whichScreen == 'Social'
+                          ? R.image.asset.purchase_social.assetName
+                          : R.image.discount().assetName,
               height: 61.h,
               width: 61.w,
             ),
@@ -116,7 +124,9 @@ Widget bottomNavBar({required String whichScreen}) {
                     ? R.image.asset.ticket_click.assetName
                     : whichScreen == 'Charity'
                         ? R.image.purchase_icon().assetName
-                        : R.image.discoun_active().assetName,
+                        : whichScreen == 'Social'
+                            ? R.image.asset.buy.assetName
+                            : R.image.discoun_active().assetName,
                 height: 61.h,
                 width: 61.w,
                 //color: AppColors.k1FAF9E,
@@ -125,7 +135,7 @@ Widget bottomNavBar({required String whichScreen}) {
           ),
           label: whichScreen == 'Vendor'
               ? 'Redeem'
-              : whichScreen == 'Charity'
+              : whichScreen == 'Charity' || whichScreen == 'Social'
                   ? 'Purchase'
                   : 'Voucher',
         ),

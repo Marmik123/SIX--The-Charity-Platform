@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
-import 'package:six/app/routes/app_pages.dart';
+import 'package:six/app/modules/charity/vendor_details/views/vendor_details_d_view.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/common_textfield.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
@@ -11,6 +11,9 @@ import 'package:six/r.g.dart';
 import '../controllers/available_vendors_controller.dart';
 
 class AvailableVendorsView extends GetView<AvailableVendorsController> {
+  final String whichScreen;
+
+  AvailableVendorsView({required this.whichScreen});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,18 +50,31 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                           SizedBox(
                             width: 247.w,
                           ),
-                          Text(
-                            'Available Vendors',
-                            maxLines: 1,
-                            style: TextStyle(
-                              fontFamily: 'Gilroy',
-                              fontSize: 50.sp,
-                              fontStyle: FontStyle.normal,
-                              color: AppColors.k033660,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            textAlign: TextAlign.center,
-                          )
+                          whichScreen == 'Charity'
+                              ? Text(
+                                  'Available Vendors',
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy',
+                                    fontSize: 50.sp,
+                                    fontStyle: FontStyle.normal,
+                                    color: AppColors.k033660,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                )
+                              : Text(
+                                  'Voucher List',
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy',
+                                    fontSize: 50.sp,
+                                    fontStyle: FontStyle.normal,
+                                    color: AppColors.k033660,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                )
                         ],
                       )),
                 ),
@@ -205,8 +221,15 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                     child: roundedButton(
                                         text: 'View Details',
                                         onTap: () {
-                                          Get.toNamed<void>(
-                                              Routes.VENDOR_DETAILS);
+                                          whichScreen == 'Social'
+                                              ? Get.to<void>(
+                                                  () => VendorDetailsView(
+                                                      whichScreen: 'Social'),
+                                                )
+                                              : Get.to<void>(
+                                                  () => VendorDetailsView(
+                                                      whichScreen: 'Charity'),
+                                                );
                                         },
                                         width: 281.w,
                                         height: 100.h,
