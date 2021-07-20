@@ -29,14 +29,12 @@ class QrScreenView extends GetView<QrScreenController> {
                 elevation: 0,
                 toolbarHeight: 80,
                 centerTitle: true,
-                leading: InkWell(
-                  onTap: () {
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  color: AppColors.k033660,
+                  onPressed: () {
                     Get.back<void>();
                   },
-                  child: const Icon(
-                    Icons.arrow_back_sharp,
-                    color: AppColors.kffffff,
-                  ),
                 ),
                 title: Text(
                   'Scan',

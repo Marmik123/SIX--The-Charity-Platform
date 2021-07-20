@@ -9,7 +9,6 @@ import 'package:six/app/ui/components/common_appbar.dart';
 import 'package:six/app/ui/components/common_textfield.dart';
 import 'package:six/app/ui/components/common_voucher_card.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
-import 'package:six/app/ui/components/sizedbox.dart';
 import 'package:six/r.g.dart';
 
 import '../controllers/distribute_voucher_controller.dart';
@@ -21,37 +20,23 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
       () => Stack(
         children: [
           Scaffold(
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+            floatingActionButton: roundedButton(
+              text: 'Confirm Now',
+              onTap: () {
+                controller.voucherAssigned(true);
+                //Get.toNamed<void>(Routes.DISTRIBUTE_VOUCHER);
+              },
+              width: 452.w,
+              height: 150.h,
+              fontSize: 50.sp,
+            ),
             backgroundColor: AppColors.kffffff,
             appBar: appBar(
               title: 'Voucher',
               height: 200.h,
               disableBackIcon: false,
-            ),
-            bottomNavigationBar: BottomNavigationBar(
-              backgroundColor: AppColors.kffffff,
-              items: [
-                BottomNavigationBarItem(
-                  label: '',
-                  icon: w(0.5.sw),
-                ),
-                BottomNavigationBarItem(
-                  label: '',
-                  icon: roundedButton(
-                    text: 'Confirm Now',
-                    onTap: () {
-                      controller.voucherAssigned(true);
-                      //Get.toNamed<void>(Routes.DISTRIBUTE_VOUCHER);
-                    },
-                    width: 452.w,
-                    height: 150.h,
-                    fontSize: 50.sp,
-                  ),
-                ),
-                const BottomNavigationBarItem(
-                  label: '',
-                  icon: SizedBox.shrink(),
-                ),
-              ],
             ),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

@@ -55,12 +55,13 @@ class PurchaseView extends GetView<PurchaseController> {
                     Expanded(
                       child: GetBuilder<PurchaseController>(
                         builder: (_) => GridView.builder(
+                            physics: const BouncingScrollPhysics(),
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               crossAxisSpacing: 34.w,
                               mainAxisSpacing: 34.w,
-                              childAspectRatio: 628.w / 755.h,
+                              childAspectRatio: 628.w / 875.h,
                             ),
                             itemCount: 12,
                             // physics: BouncingScrollPhysics(),
@@ -92,11 +93,11 @@ class PurchaseView extends GetView<PurchaseController> {
                                       whichScreen: whichScreen == 'Social'
                                           ? 'Social'
                                           : 'Charity',
-                                      height: 629.h,
+                                      height: 672.h,
                                       width: 558.w,
                                       context: context,
                                       padding: const EdgeInsets.only(
-                                          left: 48.0, right: 48, bottom: 35.0),
+                                          left: 20.0, right: 20, bottom: 35.0),
                                     ),
                                     Positioned(
                                       right: 30.r,

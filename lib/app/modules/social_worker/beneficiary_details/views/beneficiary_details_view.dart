@@ -58,14 +58,12 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                 pinned: true,
                 titleSpacing: 0.0,
                 centerTitle: false,
-                leading: GestureDetector(
-                  onTap: () {
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  color: AppColors.k033660,
+                  onPressed: () {
                     Get.back<void>();
                   },
-                  child: const Icon(
-                    Icons.arrow_back,
-                    color: AppColors.k033660,
-                  ),
                 ),
                 elevation: 5,
                 shadowColor: AppColors.k00474E.withOpacity(0.14),
@@ -454,8 +452,8 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
               SliverPersistentHeader(
                 pinned: true,
                 delegate: SliverAppBarDelegate(
-                  minHeight: 180.h,
-                  maxHeight: 180.h,
+                  minHeight: 190.h,
+                  maxHeight: 190.h,
                   child: Column(
                     children: [
                       Stack(
@@ -472,8 +470,8 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: List.generate(
                                   3,
-                                  (index) => GestureDetector(
-                                    onTap: () {
+                                  (index) => TextButton(
+                                    onPressed: () {
                                       controller.tabIndex(index);
                                     },
                                     child: indexedStackTabItem(
@@ -488,10 +486,13 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                               ),
                             ),
                           ),
-                          Container(
-                            width: 935.w,
-                            height: 2.h,
-                            color: AppColors.kB4C3D0,
+                          Positioned(
+                            bottom: 8,
+                            child: Container(
+                              width: 935.w,
+                              height: 2.h,
+                              color: AppColors.kB4C3D0,
+                            ),
                           ),
                         ],
                       ),
@@ -507,7 +508,17 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                       child: Obx(
                         () => IndexedStack(
                           index: controller.tabIndex(),
-                          children: tabsContent,
+                          children: <Widget>[
+                            controller.tabIndex() == 0
+                                ? NoteDetailsView()
+                                : const SizedBox.shrink(),
+                            controller.tabIndex() == 1
+                                ? ConnectedOrganizationView()
+                                : const SizedBox.shrink(),
+                            controller.tabIndex() == 2
+                                ? AssignedVoucherView()
+                                : const SizedBox.shrink(),
+                          ],
                         ),
                       ),
                     ),

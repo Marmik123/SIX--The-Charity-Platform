@@ -1,34 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class VendorDetailsController extends GetxController
-    with SingleGetTickerProviderMixin {
-  //TODO: Implement VendorDetailsController
+class VendorDetailsController extends GetxController {
   TabController? tabController;
+  RxInt tabIndex = 0.obs;
+  String whichScreen = 'screenName';
+  ScrollController scrollController = ScrollController();
   List<String> text = [
     '',
     '',
   ];
   List<String> textNewLine = [
     'About Us',
-    'Availalbe Vouchers ',
+    'Available Vouchers ',
   ];
-  final count = 0.obs;
+
   @override
   void onInit() {
     super.onInit();
-    tabController = TabController(length: 2, vsync: this);
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
+    whichScreen = Get.arguments as String;
+    tabController = TabController(
+      length: 2,
+      vsync: NavigatorState(),
+    );
   }
 
   @override
   void onClose() {
     tabController!.dispose();
   }
-
-  void increment() => count.value++;
 }

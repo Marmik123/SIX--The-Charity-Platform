@@ -23,16 +23,14 @@ PreferredSizeWidget appBar(
       textAlign: TextAlign.center,
     ),
     centerTitle: true,
-    leading: InkWell(
-      onTap: () {
-        Get.back<void>();
-      },
-      child: disableBackIcon
-          ? const SizedBox.shrink()
-          : const Icon(
-              Icons.arrow_back_sharp,
-              color: AppColors.k033660,
-            ),
-    ),
+    leading: disableBackIcon
+        ? const SizedBox.shrink()
+        : IconButton(
+            icon: const Icon(Icons.arrow_back),
+            color: AppColors.k033660,
+            onPressed: () {
+              Get.back<void>();
+            },
+          ),
   );
 }

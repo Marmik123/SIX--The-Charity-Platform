@@ -14,7 +14,7 @@ void letMeHandleAllErrors(Object error, StackTrace? trace) {
           'Oops!', 'Got error : ${res.statusCode} -> ${res.statusMessage}');
       break;
     default:
-      Get.snackbar<void>('Oops!', 'Something went wrong');
+      // Get.snackbar<void>('Oops!', 'Something went wrong');
       logE(error.toString());
       logE(trace);
       break;

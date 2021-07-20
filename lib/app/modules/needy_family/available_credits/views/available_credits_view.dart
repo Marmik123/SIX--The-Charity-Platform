@@ -28,14 +28,12 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
                     SizedBox(
                       width: 60.w,
                     ),
-                    InkWell(
-                      onTap: () {
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      color: AppColors.k033660,
+                      onPressed: () {
                         Get.back<void>();
                       },
-                      child: const Icon(
-                        Icons.arrow_back_sharp,
-                        color: AppColors.k033660,
-                      ),
                     ),
                     SizedBox(
                       width: 255.w,

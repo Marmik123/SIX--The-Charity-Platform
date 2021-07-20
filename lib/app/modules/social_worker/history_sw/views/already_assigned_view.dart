@@ -9,6 +9,7 @@ class AlreadyAssignedView extends GetView<HistorySwController> {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      padding: EdgeInsets.zero,
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
       itemCount: 5,

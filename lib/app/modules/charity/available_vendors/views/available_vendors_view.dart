@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
-import 'package:six/app/modules/charity/vendor_details/views/vendor_details_d_view.dart';
+import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/common_textfield.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
@@ -44,9 +44,12 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                           SizedBox(
                             width: 60.w,
                           ),
-                          const Icon(
-                            Icons.arrow_back,
+                          IconButton(
+                            icon: const Icon(Icons.arrow_back),
                             color: AppColors.k033660,
+                            onPressed: () {
+                              Get.back<void>();
+                            },
                           ),
                           SizedBox(
                             width: 247.w,
@@ -152,13 +155,15 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                   color: AppColors.kffffff,
                                 ),
                                 child: Center(
-                                    child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(100.r),
-                                  child: cacheImage(
-                                      height: 180.r,
-                                      width: 180.r,
-                                      url: 'https://picsum.photos/id/1011/180'),
-                                ),),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(100.r),
+                                    child: cacheImage(
+                                        height: 180.r,
+                                        width: 180.r,
+                                        url:
+                                            'https://picsum.photos/id/1011/180'),
+                                  ),
+                                ),
                               ),
                               SizedBox(
                                 width: 30.w,
@@ -210,7 +215,7 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                 ],
                               ),
                               SizedBox(
-                                width: 57.w,
+                                width: 147.w,
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 12.0),
@@ -218,14 +223,12 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                     text: 'View Details',
                                     onTap: () {
                                       whichScreen == 'Social'
-                                          ? Get.to<void>(
-                                              () => VendorDetailsView(
-                                                  whichScreen: 'Social'),
-                                            )
-                                          : Get.to<void>(
-                                              () => VendorDetailsView(
-                                                  whichScreen: 'Charity'),
-                                            );
+                                          ? Get.toNamed<void>(
+                                              Routes.VENDOR_DETAILS,
+                                              arguments: 'Social')
+                                          : Get.toNamed<void>(
+                                              Routes.VENDOR_DETAILS,
+                                              arguments: 'Charity');
                                     },
                                     width: 281.w,
                                     height: 100.h,

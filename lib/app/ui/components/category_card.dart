@@ -40,71 +40,72 @@ Widget categoryCard({
         image, // Category Icon
         CustomPaint(
           size: Size(
-              410.w,
-              (410.w * 0.8622222222222222)
-                  .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+            410.w,
+            (410.w * 0.8622222222222222).toDouble(),
+          ), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
           painter: CategoryContainer(),
-          child: Padding(
-            padding: padding,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 85.h,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 85.h,
+              ),
+              Text(
+                categoryName,
+                style: TextStyle(
+                  fontFamily: 'Gilroy',
+                  fontSize: 45.sp,
+                  fontStyle: FontStyle.normal,
+                  color: foreground,
+                  fontWeight: FontWeight.w500,
                 ),
-                Text(
-                  categoryName,
-                  style: TextStyle(
-                    fontFamily: 'Gilroy',
-                    fontSize: 45.sp,
-                    fontStyle: FontStyle.normal,
-                    color: foreground,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                whichScreen == 'Needy Family'
-                    ? Column(
-                        children: [
-                          SizedBox(
-                            height: 75.h,
-                          ),
-                          /* Stack(
-                            alignment: Alignment.topRight,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: LinearProgressIndicator(
-                                  value: (creditsRemaining / totalCredits),
-                                  color: foreground,
-                                  backgroundColor: accent,
-                                  minHeight: 6,
-                                ),
+                textAlign: TextAlign.center,
+              ),
+              whichScreen == 'Needy Family'
+                  ? Column(
+                      children: [
+                        SizedBox(
+                          height: 75.h,
+                        ),
+                        /* Stack(
+                          alignment: Alignment.topRight,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: LinearProgressIndicator(
+                                value: (creditsRemaining / totalCredits),
+                                color: foreground,
+                                backgroundColor: accent,
+                                minHeight: 6,
                               ),
-                              Positioned(
-                                bottom: 4.5,
-                                right: 1,
-                                child: Container(
-                                  //alignment: Alignment.centerRight,
-                                  color: AppColors.kffffff,
-                                  height: 12.h,
-                                  width:
-                                      totalCredits.w - creditsRemaining.w + 1.w,
-                                ),
+                            ),
+                            Positioned(
+                              bottom: 4.5,
+                              right: 1,
+                              child: Container(
+                                //alignment: Alignment.centerRight,
+                                color: AppColors.kffffff,
+                                height: 12.h,
+                                width:
+                                    totalCredits.w - creditsRemaining.w + 1.w,
                               ),
-                              Positioned(
-                                bottom: -2,
-                                right: 1,
-                                child: Container(
-                                  //alignment: Alignment.centerRight,
-                                  color: AppColors.kffffff,
-                                  height: 12.h,
-                                  width:
-                                      totalCredits.w - creditsRemaining.w + 1.w,
-                                ),
-                              )
-                            ],
-                          ),*/ //STACK CUSTOM SLIDER
-                          SliderTheme(
+                            ),
+                            Positioned(
+                              bottom: -2,
+                              right: 1,
+                              child: Container(
+                                //alignment: Alignment.centerRight,
+                                color: AppColors.kffffff,
+                                height: 12.h,
+                                width:
+                                    totalCredits.w - creditsRemaining.w + 1.w,
+                              ),
+                            )
+                          ],
+                        ),*/ //STACK CUSTOM SLIDER
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 15.0, right: 15, bottom: 3),
+                          child: SliderTheme(
                             data: SliderTheme.of(context).copyWith(
                               thumbColor: Colors.transparent,
                               thumbShape: const RoundSliderThumbShape(
@@ -131,74 +132,52 @@ Widget categoryCard({
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: 33.h,
+                        ),
+                        SizedBox(
+                          height: 33.h,
+                        ),
+                        Text(
+                          '\$${creditsRemaining.toInt()}',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy',
+                            fontSize: 60.sp,
+                            fontStyle: FontStyle.normal,
+                            color: AppColors.k033660,
+                            fontWeight: FontWeight.w700,
                           ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                '\$${creditsRemaining.toInt()}',
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy',
-                                  fontSize: 60.sp,
-                                  fontStyle: FontStyle.normal,
-                                  color: AppColors.k033660,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-/*                    Padding(
-                      padding: const EdgeInsets.only(bottom: 2.0),
-                      child: Text(
-                        '/\$${totalCredits.toInt()}',
-                        style: TextStyle(
-                          fontFamily: 'Gilroy',
-                          fontSize: 40.sp,
-                          fontStyle: FontStyle.normal,
-                          color: AppColors.k033660,
-                          fontWeight: FontWeight.w400,
+                        ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                      ],
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.only(
+                          left: 38.0, right: 38, bottom: 27),
+                      child: TextButton(
+                        onPressed: () {
+                          whichScreen == 'Charity'
+                              ? Get.to<void>(() =>
+                                  AvailableVendorsView(whichScreen: 'Charity'))
+                              : Get.to<void>(() =>
+                                  AvailableVendorsView(whichScreen: 'Social'));
+                        },
+                        child: Text(
+                          'View Vendors',
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontFamily: 'Gilroy',
+                            fontSize: 30.sp,
+                            fontStyle: FontStyle.normal,
+                            color: AppColors.k033660,
+                            fontWeight: FontWeight.w500,
+                            decoration: TextDecoration.underline,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
-                    )*/
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                        ],
-                      )
-                    : Column(
-                        children: [
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              whichScreen == 'Charity'
-                                  ? Get.to<void>(() => AvailableVendorsView(
-                                      whichScreen: 'Charity'))
-                                  : Get.to<void>(() => AvailableVendorsView(
-                                      whichScreen: 'Social'));
-                            },
-                            child: Text(
-                              'View Vendors',
-                              maxLines: 1,
-                              style: TextStyle(
-                                fontFamily: 'Gilroy',
-                                fontSize: 30.sp,
-                                fontStyle: FontStyle.normal,
-                                color: AppColors.k033660,
-                                fontWeight: FontWeight.w500,
-                                decoration: TextDecoration.underline,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ],
-                      ),
-              ],
-            ),
+                    ),
+            ],
           ),
         ),
       ],

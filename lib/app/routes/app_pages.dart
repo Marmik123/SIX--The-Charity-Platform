@@ -8,7 +8,7 @@ import 'package:six/app/modules/charity/charity_onboarding/views/charity_onboard
 import 'package:six/app/modules/charity/purchase/bindings/purchase_binding.dart';
 import 'package:six/app/modules/charity/purchase/views/purchase_view.dart';
 import 'package:six/app/modules/charity/vendor_details/bindings/vendor_details_binding.dart';
-import 'package:six/app/modules/charity/vendor_details/views/vendor_details_d_view.dart';
+import 'package:six/app/modules/charity/vendor_details/views/vendor_details__view.dart';
 import 'package:six/app/modules/needy_family/available_credits/bindings/available_credits_binding.dart';
 import 'package:six/app/modules/needy_family/available_credits/views/available_credits_view.dart';
 import 'package:six/app/modules/needy_family/home/bindings/home_binding.dart';

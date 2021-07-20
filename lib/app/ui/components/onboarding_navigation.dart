@@ -71,10 +71,10 @@ Widget onBoardingNavigation({
       ),
       circularArrowButton(onTapArrow),
       SizedBox(
-        width: 346.w,
+        width: 286.w,
       ),
-      GestureDetector(
-        onTap: onTapSkip,
+      TextButton(
+        onPressed: onTapSkip,
         child: Text(
           'Skip',
           textAlign: TextAlign.center,
@@ -86,7 +86,7 @@ Widget onBoardingNavigation({
             fontWeight: FontWeight.w500,
           ),
         ),
-      )
+      ),
     ],
   );
 }

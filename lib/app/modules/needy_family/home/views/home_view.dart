@@ -167,7 +167,7 @@ class HomeContent extends StatelessWidget {
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
                         begin: Alignment(-1, -2.8),
-                        end: Alignment(1, 5),
+                        end: Alignment(1, 10),
                         colors: [AppColors.k1FAF9E, AppColors.k0087FF]),
                     borderRadius: BorderRadius.circular(50.r),
                   ),

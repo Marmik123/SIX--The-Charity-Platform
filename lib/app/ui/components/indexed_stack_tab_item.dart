@@ -7,7 +7,6 @@ Widget indexedStackTabItem(String text, String textNewLine, int index,
     String whichScreen, int currentIndex) {
   return Column(
     children: [
-      h(15.h),
       Text(
         text,
         style: TextStyle(
@@ -34,8 +33,8 @@ Widget indexedStackTabItem(String text, String textNewLine, int index,
       AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         curve: Curves.elasticInOut,
-        width: 300.w,
-        height: 50.h,
+        width: whichScreen == 'Details' ? 410.w : 300.w,
+        height: 30.h,
         decoration: UnderlineTabIndicator(
           borderSide: BorderSide(
             color:

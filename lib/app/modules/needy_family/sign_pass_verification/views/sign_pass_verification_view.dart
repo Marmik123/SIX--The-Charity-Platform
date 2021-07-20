@@ -263,12 +263,12 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
               ),
               controller.isVerified.value
                   ? const SizedBox.shrink()
-                  : GestureDetector(
-                      onTap: () {
+                  : TextButton(
+                      onPressed: () {
                         controller.isVerified.value = true;
                       },
                       child: const Text('Next'),
-                    )
+                    ),
             ],
           ),
         ));
