@@ -39,7 +39,7 @@ class ProfileController extends GetxController {
             onTap: () {
               pickProfilePicture(ImageSource.camera);
             },
-            leading: Icon(
+            leading: const Icon(
               Icons.camera_alt,
               color: AppColors.k0087A1,
             ),
@@ -55,11 +55,11 @@ class ProfileController extends GetxController {
             onTap: () {
               pickProfilePicture(ImageSource.gallery);
             },
-            leading: Icon(
+            leading: const Icon(
               Icons.image_outlined,
               color: AppColors.k0087A1,
             ),
-            title: Text('Gallery',
+            title: const Text('Gallery',
                 style: TextStyle(
                   fontSize: 15,
                   color: AppColors.k0087A1,
@@ -69,7 +69,6 @@ class ProfileController extends GetxController {
         ],
       ),
     );
-    print("called image source");
   }
 
   //Function for choosing picture

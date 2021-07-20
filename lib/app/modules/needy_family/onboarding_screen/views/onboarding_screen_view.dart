@@ -18,8 +18,8 @@ class OnboardingScreenView extends GetView<OnboardingScreenController> {
               Container(
                 height: 0.9.sh,
                 width: 1.sw,
-                child: NotificationListener(
-                  onNotification: (OverscrollIndicatorNotification overscroll) {
+                child: NotificationListener<OverscrollIndicatorNotification>(
+                  onNotification: (overscroll) {
                     overscroll.disallowGlow();
                     return false;
                   },
@@ -52,10 +52,10 @@ class OnboardingScreenView extends GetView<OnboardingScreenController> {
                     itemCount: controller.title.length,
                     isVendor: false,
                     onTapArrow: () {
-                      controller.index == 2
+                      controller.index!() == 2
                           ? Get.offAllNamed<void>('/sign-pass-verification')
                           : controller.pageController.nextPage(
-                              duration: Duration(milliseconds: 300),
+                              duration: const Duration(milliseconds: 300),
                               curve: Curves.ease);
                     },
                     onTapSkip: () {

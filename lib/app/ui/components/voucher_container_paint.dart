@@ -8,7 +8,7 @@ class VoucherContainer extends CustomPainter {
   VoucherContainer(this.strokeColor);
   @override
   void paint(Canvas canvas, Size size) {
-    Path path_0 = Path();
+    var path_0 = Path();
     path_0.moveTo(size.width * 0.9378947, size.height * 0.6269122);
     path_0.lineTo(size.width * 0.9383732, size.height * 0.6262040);
     path_0.cubicTo(
@@ -90,11 +90,11 @@ class VoucherContainer extends CustomPainter {
         size.height * 0.6269122);
     path_0.close();
 
-    Paint paint_0_fill = Paint()..style = PaintingStyle.fill;
-    paint_0_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_0, paint_0_fill);
+    var paint0Fill = Paint()..style = PaintingStyle.fill;
+    paint0Fill.color = Colors.white.withOpacity(1.0);
+    canvas.drawPath(path_0, paint0Fill);
 
-    Path path_1 = Path();
+    var path_1 = Path();
     path_1.moveTo(size.width * 0.9373579, size.height * 0.6247011);
     path_1.lineTo(size.width * 0.9368794, size.height * 0.6254093);
     path_1.cubicTo(
@@ -246,15 +246,15 @@ class VoucherContainer extends CustomPainter {
         size.height * 0.6247011);
     path_1.close();
 
-    Paint paint_1_stroke = Paint()
+    var paint1Stroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 3;
-    paint_1_stroke.color = strokeColor.withOpacity(1.0);
-    canvas.drawPath(path_1, paint_1_stroke);
+    paint1Stroke.color = strokeColor.withOpacity(1.0);
+    canvas.drawPath(path_1, paint1Stroke);
 
-    Paint paint_1_fill = Paint()..style = PaintingStyle.fill;
-    paint_1_fill.color = Color(0xffffffff).withOpacity(1.0);
-    canvas.drawPath(path_1, paint_1_fill);
+    var paint1Fill = Paint()..style = PaintingStyle.fill;
+    paint1Fill.color = const Color(0xffffffff).withOpacity(1.0);
+    canvas.drawPath(path_1, paint1Fill);
   }
 
   @override

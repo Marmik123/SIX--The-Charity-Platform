@@ -14,7 +14,7 @@ import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
   final String whichScreen;
-  ProfileController profileCtrl = Get.put(ProfileController());
+  final ProfileController profileCtrl = Get.put(ProfileController());
 
   ProfileView({required this.whichScreen});
   @override
@@ -25,7 +25,7 @@ class ProfileView extends GetView<ProfileController> {
           children: [
             Stack(
               alignment: Alignment.bottomCenter,
-              overflow: Overflow.visible,
+              clipBehavior: Clip.none,
               children: [
                 Container(
                   color: Colors.transparent,
@@ -122,7 +122,7 @@ class ProfileView extends GetView<ProfileController> {
                                   fontWeight: FontWeight.w400,
                                 ),
                               )
-                            : SizedBox.shrink(),
+                            : const SizedBox.shrink(),
                       ],
                     ),
                   ),
@@ -139,7 +139,7 @@ class ProfileView extends GetView<ProfileController> {
                         BoxShadow(
                           color: AppColors.k00474E.withOpacity(0.04),
                           blurRadius: 50.r,
-                          offset: Offset(0, 20),
+                          offset: const Offset(0, 20),
                         ),
                       ],
                     ),
@@ -156,7 +156,7 @@ class ProfileView extends GetView<ProfileController> {
                                   Get.toNamed<void>(Routes.HISTORY_SW);
                                 },
                               )
-                            : SizedBox.shrink(),
+                            : const SizedBox.shrink(),
                         /*profileMenuItem(R.image.asset.term_c.assetName,
                             'My Previous Request', () {}),
                         */

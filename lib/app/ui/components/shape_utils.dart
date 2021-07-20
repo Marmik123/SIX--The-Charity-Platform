@@ -5,7 +5,7 @@ class ShapeUtils {
 
       /// Coming from https://stackoverflow.com/questions/7007429/how-to-draw-a-triangle-a-star-a-square-or-a-heart-on-the-canvas
       Path createHome(Size size) {
-    Path path_0 = Path();
+    var path_0 = Path();
     path_0.moveTo(size.width * 0.3653960, size.height * 0.7049885);
     path_0.lineTo(size.width * 0.3653960, size.height * 0.6168029);
     path_0.cubicTo(

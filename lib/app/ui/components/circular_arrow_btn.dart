@@ -8,14 +8,14 @@ Widget circularArrowButton(VoidCallback onTap) {
     child: Container(
       height: 150.h,
       width: 150.w,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           shape: BoxShape.circle,
           gradient: LinearGradient(
             begin: Alignment(-1, -2),
             end: Alignment(1, 2),
             colors: [AppColors.k1FAF9E, AppColors.k0087FF],
           )),
-      child: Center(
+      child: const Center(
         child: Icon(
           Icons.arrow_forward_ios_rounded,
           color: AppColors.kffffff,

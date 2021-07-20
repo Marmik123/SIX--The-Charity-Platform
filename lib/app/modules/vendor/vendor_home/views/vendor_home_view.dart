@@ -14,8 +14,8 @@ import 'package:six/r.g.dart';
 import '../controllers/vendor_home_controller.dart';
 
 class VendorHomeView extends GetView<VendorHomeController> {
-  VendorRedeemController vendorRCtrl = Get.put(VendorRedeemController());
-  List<Widget> bottomNavScreen = <Widget>[
+  final VendorRedeemController vendorRCtrl = Get.put(VendorRedeemController());
+  final List<Widget> bottomNavScreen = <Widget>[
     VendorHome(),
     VendorRedeemView(),
     ProfileView(
@@ -30,7 +30,7 @@ class VendorHomeView extends GetView<VendorHomeController> {
         bottomNavigationBar:
             !vendorRCtrl.redeemNow.value && !vendorRCtrl.redeemThroughNum.value
                 ? bottomNavBar(whichScreen: 'Vendor')
-                : SizedBox.shrink(),
+                : const SizedBox.shrink(),
         body: bottomNavScreen.elementAt(controller.currentIndex!.value),
       ),
     );
@@ -38,18 +38,15 @@ class VendorHomeView extends GetView<VendorHomeController> {
 }
 
 class VendorHome extends StatelessWidget {
-  VendorHome({
-    Key? key,
-  }) : super(key: key);
-  DateTime? selectedDate;
-  VendorHomeController ctrl = Get.put(VendorHomeController());
+  late final DateTime? selectedDate;
+  final VendorHomeController ctrl = Get.put(VendorHomeController());
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Obx(() => Stack(
-              overflow: Overflow.visible,
+              clipBehavior: Clip.none,
               alignment: Alignment.bottomCenter,
               children: [
                 Container(
@@ -77,12 +74,11 @@ class VendorHome extends StatelessWidget {
                 Positioned(
                   top: 337.h,
                   child: GestureDetector(
-                    onTap: () async {
-                      ctrl.monthNum!.value = await monthPickerDialog(
+                    onTap: () {
+                      monthPickerDialog(
                         context: context,
                         selectedDate: ctrl.selectedDate,
-                      );
-                      ctrl.assignMonth(ctrl.monthNum!());
+                      ).then((value) => ctrl.assignMonth(value?.month ?? 1));
                     },
                     child: monthPicker(
                       color: AppColors.kffffff,
@@ -92,7 +88,7 @@ class VendorHome extends StatelessWidget {
                       shadowColor: AppColors.k0A9988,
                       width: 390.w,
                       textContent: Text(
-                        '${ctrl.monthName()}, ${ctrl.selectedDate!.year}',
+                        '${ctrl.monthName()}, ${ctrl.selectedDate.year}',
                         style: TextStyle(
                           fontFamily: 'Gilroy',
                           fontSize: 40.sp,
@@ -110,6 +106,11 @@ class VendorHome extends StatelessWidget {
                   child: Container(
                     height: 590.h,
                     child: CustomPaint(
+                      size: Size(
+                          1005.w,
+                          (1005.w * 0.5870646766169154)
+                              .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                      painter: VendorHomeCurved(),
                       child: Row(
                         children: [
                           SizedBox(
@@ -130,7 +131,7 @@ class VendorHome extends StatelessWidget {
                                     BoxShadow(
                                       color:
                                           AppColors.k00474E.withOpacity(0.04),
-                                      offset: Offset(0, 20),
+                                      offset: const Offset(0, 20),
                                       blurRadius: 50.r,
                                     ),
                                   ],
@@ -199,7 +200,7 @@ class VendorHome extends StatelessWidget {
                                         BoxShadow(
                                           color: AppColors.k00474E
                                               .withOpacity(0.04),
-                                          offset: Offset(0, 20),
+                                          offset: const Offset(0, 20),
                                           blurRadius: 50.r,
                                         ),
                                       ],
@@ -253,7 +254,7 @@ class VendorHome extends StatelessWidget {
                                         BoxShadow(
                                           color: AppColors.k00474E
                                               .withOpacity(0.04),
-                                          offset: Offset(0, 20),
+                                          offset: const Offset(0, 20),
                                           blurRadius: 50.r,
                                         ),
                                       ],
@@ -307,11 +308,6 @@ class VendorHome extends StatelessWidget {
                           ),
                         ],
                       ),
-                      size: Size(
-                          1005.w,
-                          (1005.w * 0.5870646766169154)
-                              .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                      painter: VendorHomeCurved(),
                     ),
                   ),
                 )
@@ -328,7 +324,7 @@ class VendorHome extends StatelessWidget {
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
                 color: AppColors.k00474E.withOpacity(0.1),
-                offset: Offset(0, 20),
+                offset: const Offset(0, 20),
                 blurRadius: 50.r,
               )
             ]),
@@ -353,7 +349,7 @@ class VendorHome extends StatelessWidget {
               itemCount: 15,
               shrinkWrap: true,
               padding: const EdgeInsets.only(top: 0),
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) {
                 return Column(
                   children: [
@@ -366,7 +362,7 @@ class VendorHome extends StatelessWidget {
                         boxShadow: [
                           BoxShadow(
                             color: AppColors.k00474E.withOpacity(0.04),
-                            offset: Offset(0, 20),
+                            offset: const Offset(0, 20),
                             blurRadius: 50.r,
                           )
                         ],

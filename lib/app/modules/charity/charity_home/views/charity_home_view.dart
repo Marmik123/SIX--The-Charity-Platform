@@ -18,8 +18,8 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import '../controllers/charity_home_controller.dart';
 
 class CharityHomeView extends GetView<CharityHomeController> {
-  var purCtrl = Get.put(PurchaseController());
-  List<Widget> bottomScreen = <Widget>[
+  final PurchaseController purCtrl = Get.put(PurchaseController());
+  final List<Widget> bottomScreen = <Widget>[
     CharityHome(),
     PurchaseView(
       whichScreen: 'Charity',
@@ -28,13 +28,14 @@ class CharityHomeView extends GetView<CharityHomeController> {
       whichScreen: 'Charity',
     ),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Obx(() => DefaultTabController(
         length: 2,
         child: Scaffold(
           bottomNavigationBar: purCtrl.paid.value
-              ? SizedBox.shrink()
+              ? const SizedBox.shrink()
               : bottomNavBar(
                   whichScreen: 'Charity',
                 ),
@@ -45,14 +46,14 @@ class CharityHomeView extends GetView<CharityHomeController> {
 }
 
 class CharityHome extends StatelessWidget {
-  CharityHomeController ctrl = Get.put(CharityHomeController());
+  final CharityHomeController ctrl = Get.put(CharityHomeController());
 
   @override
   Widget build(BuildContext context) {
     return Obx(() => Column(
           children: [
             Stack(
-              overflow: Overflow.visible,
+              clipBehavior: Clip.none,
               alignment: Alignment.center,
               children: [
                 Container(
@@ -80,12 +81,14 @@ class CharityHome extends StatelessWidget {
                 Positioned(
                   top: 337.h,
                   child: GestureDetector(
-                    onTap: () async {
-                      ctrl.monthNum!.value = await monthPickerDialog(
+                    onTap: ()  {
+                      monthPickerDialog(
                         context: context,
                         selectedDate: ctrl.selectedDate,
-                      );
-                      ctrl.assignMonth(ctrl.monthNum!());
+                      ).then((value) {
+                        ctrl.assignMonth(value?.month ??1);
+                      });
+
                     },
                     child: monthPicker(
                       color: AppColors.kffffff,
@@ -95,7 +98,7 @@ class CharityHome extends StatelessWidget {
                       shadowColor: AppColors.k0A9988,
                       width: 390.w,
                       textContent: Text(
-                        '${ctrl.monthName()}, ${ctrl.selectedDate!.year}',
+                        '${ctrl.monthName()}, ${ctrl.selectedDate.year}',
                         style: TextStyle(
                           fontFamily: 'Gilroy',
                           fontSize: 40.sp,
@@ -124,6 +127,11 @@ class CharityHome extends StatelessWidget {
                             offset: Offset(0, 40.h))
                       ], borderRadius: BorderRadius.circular(10.r)),
                       child: CustomPaint(
+                          size: Size(
+                              1005.w,
+                              (1005.w * 0.21890547263681592)
+                                  .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                          painter: CurvedContainer(),
                           child: Container(
                             width: 1005.w,
                             height: 220.h,
@@ -182,7 +190,7 @@ class CharityHome extends StatelessWidget {
                                     onTap: () {
                                       Get.toNamed<void>('/available-credits');
                                     },
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.keyboard_arrow_right_sharp,
                                       color: AppColors.kffffff,
                                       size: 25,
@@ -191,12 +199,7 @@ class CharityHome extends StatelessWidget {
                                 ],
                               ),
                             ),
-                          ),
-                          size: Size(
-                              1005.w,
-                              (1005.w * 0.21890547263681592)
-                                  .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                          painter: CurvedContainer()),
+                          )),
                     ),
                   ),
                 ),
@@ -212,7 +215,7 @@ class CharityHome extends StatelessWidget {
                         BoxShadow(
                           color: AppColors.k00474E.withOpacity(0.04),
                           blurRadius: 50.r,
-                          offset: Offset(0, 20),
+                          offset: const Offset(0, 20),
                         ),
                       ],
                     ),
@@ -352,7 +355,7 @@ class CharityHome extends StatelessWidget {
               indicatorColor: AppColors.k13A89E,
               indicator: UnderlineTabIndicator(
                   insets: EdgeInsets.only(left: 95.w, right: 95.w),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: AppColors.k13A89E,
                     width: 2,
                   )),
@@ -365,7 +368,7 @@ class CharityHome extends StatelessWidget {
               height: 1000.h,
               child: Center(
                 child: TabBarView(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     children: [
                       Column(
                         children: [
@@ -378,11 +381,9 @@ class CharityHome extends StatelessWidget {
                                 series: <ChartSeries>[
                                   ColumnSeries<GraphData, String>(
                                       dataSource: ctrl.chartData,
-                                      xValueMapper: (GraphData data, _) =>
-                                          data.xLabel,
-                                      yValueMapper: (GraphData data, String) =>
-                                          data.value,
-                                      pointColorMapper: (GraphData data, _) =>
+                                      xValueMapper: (data, _) => data.xLabel,
+                                      yValueMapper: (data, _) => data.value,
+                                      pointColorMapper: (data, _) =>
                                           data.columnColor,
                                       // Sets the corner radius
                                       width: 0.15,
@@ -403,13 +404,13 @@ class CharityHome extends StatelessWidget {
                                           fontFamily: 'Gilroy',
                                         ),
                                       ),
-                                      borderRadius: BorderRadius.only(
+                                      borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(15),
                                         topRight: Radius.circular(15),
                                       )),
                                 ],
                                 primaryYAxis: NumericAxis(
-                                    majorTickLines: MajorTickLines(
+                                    majorTickLines: const MajorTickLines(
                                       size: 1,
                                       width: 0,
                                       color: Colors.transparent,
@@ -428,7 +429,7 @@ class CharityHome extends StatelessWidget {
                                       color: AppColors.kDCDCDC,
                                       width: 2.w,
                                     ),
-                                    majorGridLines: MajorGridLines(
+                                    majorGridLines: const MajorGridLines(
                                       width: 1,
                                       color: AppColors.kffffff,
                                     ),
@@ -439,7 +440,7 @@ class CharityHome extends StatelessWidget {
                                         fontStyle: FontStyle.normal,
                                         fontWeight: FontWeight.normal)),
                                 primaryXAxis: CategoryAxis(
-                                  majorTickLines: MajorTickLines(
+                                  majorTickLines: const MajorTickLines(
                                     size: 1,
                                     width: 0,
                                     color: Colors.transparent,
@@ -454,7 +455,7 @@ class CharityHome extends StatelessWidget {
                                       fontSize: 30.sp,
                                       fontStyle: FontStyle.normal,
                                       fontWeight: FontWeight.normal),
-                                  majorGridLines: MajorGridLines(
+                                  majorGridLines: const MajorGridLines(
                                       width: 0,
                                       color: AppColors.kD1D1D1,
                                       dashArray: <double>[12, 2]),
@@ -472,10 +473,10 @@ class CharityHome extends StatelessWidget {
                             height: 60.h,
                           ),
                           PopupMenuButton<Widget>(
-                            offset: Offset(-2, 1),
+                            offset: const Offset(-2, 1),
                             elevation: 10,
-                            onSelected: (Widget) {
-                              ctrl.popUpItem(Widget);
+                            onSelected: (widget) {
+                              ctrl.popUpItem(widget);
                             },
                             shape: OutlineInputBorder(
                                 borderSide: BorderSide(
@@ -484,8 +485,8 @@ class CharityHome extends StatelessWidget {
                                 ),
                                 borderRadius: BorderRadius.circular(30.r)),
                             color: AppColors.kF2FEFF,
-                            child: ctrl.popUpItem(),
                             itemBuilder: (context) => ctrl.popUpWidgets,
+                            child: ctrl.popUpItem(),
                           ),
                           SizedBox(
                             height: 76.h,
@@ -496,11 +497,9 @@ class CharityHome extends StatelessWidget {
                                 series: <ChartSeries>[
                                   ColumnSeries<GraphData, String>(
                                       dataSource: ctrl.secondChart,
-                                      xValueMapper: (GraphData data, _) =>
-                                          data.xLabel,
-                                      yValueMapper: (GraphData data, String) =>
-                                          data.value,
-                                      pointColorMapper: (GraphData data, _) =>
+                                      xValueMapper: (data, _) => data.xLabel,
+                                      yValueMapper: (data, _) => data.value,
+                                      pointColorMapper: (data, _) =>
                                           data.columnColor,
                                       // Sets the corner radius
                                       width: 0.15,
@@ -521,13 +520,13 @@ class CharityHome extends StatelessWidget {
                                           fontFamily: 'Gilroy',
                                         ),
                                       ),
-                                      borderRadius: BorderRadius.only(
+                                      borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(15),
                                         topRight: Radius.circular(15),
                                       )),
                                 ],
                                 primaryYAxis: NumericAxis(
-                                    majorTickLines: MajorTickLines(
+                                    majorTickLines: const MajorTickLines(
                                       size: 1,
                                       width: 0,
                                       color: Colors.transparent,
@@ -546,7 +545,7 @@ class CharityHome extends StatelessWidget {
                                       color: AppColors.kDCDCDC,
                                       width: 2.w,
                                     ),
-                                    majorGridLines: MajorGridLines(
+                                    majorGridLines: const MajorGridLines(
                                       width: 0,
                                       color: AppColors.kffffff,
                                     ),
@@ -557,7 +556,7 @@ class CharityHome extends StatelessWidget {
                                         fontStyle: FontStyle.normal,
                                         fontWeight: FontWeight.normal)),
                                 primaryXAxis: CategoryAxis(
-                                  majorTickLines: MajorTickLines(
+                                  majorTickLines: const MajorTickLines(
                                     size: 5,
                                     width: 0,
                                     color: Colors.transparent,
@@ -573,7 +572,7 @@ class CharityHome extends StatelessWidget {
                                     fontStyle: FontStyle.normal,
                                     fontWeight: FontWeight.normal,
                                   ),
-                                  majorGridLines: MajorGridLines(
+                                  majorGridLines: const MajorGridLines(
                                     width: 0,
                                     color: AppColors.kD1D1D1,
                                     dashArray: <double>[2, 2],

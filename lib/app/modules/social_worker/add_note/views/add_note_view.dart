@@ -19,7 +19,7 @@ class AddNoteView extends GetView<AddNoteController> {
         disableBackIcon: false,
       ),
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Center(
           child: Column(
             children: [
@@ -33,18 +33,18 @@ class AddNoteView extends GetView<AddNoteController> {
                     boxShadow: [
                       BoxShadow(
                         color: AppColors.k00474E.withOpacity(0.04),
-                        offset: Offset(0, 20),
+                        offset: const Offset(0, 20),
                         blurRadius: 50.r,
                       ),
                     ]),
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: TextFormField(
-                    scrollPhysics: BouncingScrollPhysics(),
+                    scrollPhysics: const BouncingScrollPhysics(),
                     enabled: true,
                     autofocus: true,
                     onEditingComplete: () {
-                      FocusScopeNode currentFocus = FocusScope.of(context);
+                      var currentFocus = FocusScope.of(context);
                       currentFocus.unfocus();
                     },
                     cursorColor: AppColors.k033660,

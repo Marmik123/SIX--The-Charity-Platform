@@ -14,8 +14,9 @@ import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 import 'package:six/r.g.dart';
 
 class VendorRedeemView extends GetView<VendorRedeemController> {
-  var qrCtrl = Get.put(QrScreenController());
-  VendorRedeemController vendorRCtrl = Get.put(VendorRedeemController());
+  final QrScreenController qrCtrl = Get.put(QrScreenController());
+  final VendorRedeemController vendorRCtrl = Get.put(VendorRedeemController());
+
   @override
   Widget build(BuildContext context) {
     return Obx(() => Stack(
@@ -23,20 +24,20 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
             Scaffold(
                 backgroundColor: AppColors.kffffff,
                 body: NotificationListener<OverscrollIndicatorNotification>(
-                  onNotification: (OverscrollIndicatorNotification overscroll) {
+                  onNotification: (overscroll) {
                     overscroll.disallowGlow();
                     return false;
                   },
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
-                    physics: ClampingScrollPhysics(),
+                    physics: const ClampingScrollPhysics(),
                     child: Container(
                       width: 1.sw,
                       height: 1.sh,
                       child: Column(
                         children: [
                           Stack(
-                            overflow: Overflow.visible,
+                            clipBehavior: Clip.none,
                             alignment: Alignment.bottomCenter,
                             children: [
                               Container(
@@ -92,7 +93,7 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
                                                   color: AppColors.k000000
                                                       .withOpacity(0.04),
                                                   blurRadius: 50.r,
-                                                  offset: Offset(0, 20)),
+                                                  offset: const Offset(0, 20)),
                                             ],
                                           ),
                                           child: Center(
@@ -144,7 +145,7 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
                                           color: AppColors.kDFDFDF
                                               .withOpacity(0.25),
                                           blurRadius: 50.r,
-                                          offset: Offset(0, 20),
+                                          offset: const Offset(0, 20),
                                         ),
                                       ]),
                                   child: Center(
@@ -208,7 +209,7 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
                                 boxShadow: [
                                   BoxShadow(
                                     color: AppColors.k00474E.withOpacity(0.04),
-                                    offset: Offset(0, 20),
+                                    offset: const Offset(0, 20),
                                     blurRadius: 50.r,
                                   ),
                                 ]),
@@ -219,7 +220,7 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
                                     child: TextFormField(
                                       enabled: true,
                                       onEditingComplete: () {
-                                        FocusScopeNode currentFocus =
+                                        var currentFocus =
                                             FocusScope.of(context);
                                         currentFocus.unfocus();
                                         controller.codeEntered.value = true;
@@ -283,7 +284,7 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
                         boxShadow: [
                           BoxShadow(
                             color: AppColors.k000000.withOpacity(0.25),
-                            offset: Offset(0, 4),
+                            offset: const Offset(0, 4),
                             blurRadius: 4.r,
                           ),
                         ],
@@ -298,7 +299,7 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
                               ),
                               Stack(
                                 alignment: Alignment.bottomCenter,
-                                overflow: Overflow.visible,
+                                clipBehavior: Clip.none,
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(left: 20.0),
@@ -353,11 +354,11 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
                                         color:
                                             AppColors.k00474E.withOpacity(0.04),
                                         blurRadius: 40.r,
-                                        offset: Offset(0, 20),
+                                        offset: const Offset(0, 20),
                                       ),
                                     ],
                                   ),
-                                  child: Center(
+                                  child: const Center(
                                     child: Icon(
                                       Icons.clear,
                                       color: AppColors.k1FAF9E,
@@ -384,7 +385,7 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
                         boxShadow: [
                           BoxShadow(
                             color: AppColors.k0087A1.withOpacity(0.6),
-                            offset: Offset(0, 4),
+                            offset: const Offset(0, 4),
                             blurRadius: 4.r,
                           ),
                         ],

@@ -8,6 +8,7 @@ import 'package:six/app/data/config/logger.dart';
 
 //TODO: change private key.
 //Get it generated from NodeJS library
+/*
 const String _rsaPrivateKey =
     'MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBALrknq4NRyg1BXfdDXWqz4Xahnk3s7vceMPSi5KWcOokfO3gr/vgZ3+oGWMrU7E6LkSYGXUCK5gXATMrxqKXzTUmhvWQWPdP0BAsqHrDJLL7wuS9SQjqiIAvA91KLncgx0m7gQfEMsUfm5vvbYRWz9V1QLLnlZA/fAIIPJ6L0QfjAgMBAAECgYBmQcSYkudGFoyhYq+EnCrjoAdHt7R9q0ngSwjW8b1iPwij1vYzKDs4267YVdJ6+8xo95emL8POeXfMmb0bJVe/N1x1OjS1BrRBpvAXjK0tKpb+O7vh1ElK7SafW/O1UpI0AID4g1qx/0kE2cAmKS9GA7N44nsKRkGSWfxLXSoZIQJBAOary7io6UKJcHdJZy9PcBCJNjXfOQFhMWeg3g1X/EjhOCjW+fM4Shp3HkIR3E7P7ZDZqWMSmDrcB+oqSYsStOkCQQDPajdJxhPwVqCoGBvPim296xnertZ2obHawGr6vBzRMPD0pqX+pZlnq+hcZ+TKjH+CU6vZyJmSDhMUW4rze4brAkEArtS265badNvGqiKwWmNTBLV6qQovIqSP1YNPyb1OMc7ByfJmL7oSMEzoWhs/Z1yhKpBOmhCV4Ma0GP9EDmx3QQJBAKKoVnFpgAtztAv+1Bh/I67Tp3cFv7RK+9JkIcE+Mo8vBVenNPgtX894dgG5jCf35KsM+PESqrRqizXk0GQ/lD8CQFr7bIoMSMt2CQM2nqwuWU8xJVF5pUYHGB6aZXrAFHT7W/slzgwzvLFPrdzSLgp1c4pHmT+clWrylAoU4F4p3uU=';
 
@@ -15,6 +16,7 @@ const String _rsaPrivateKey =
 //Get it generated from NodeJS library
 const String _rsaPublicKey =
     'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC65J6uDUcoNQV33Q11qs+F2oZ5N7O73HjD0ouSlnDqJHzt4K/74Gd/qBljK1OxOi5EmBl1AiuYFwEzK8ail801Job1kFj3T9AQLKh6wySy+8LkvUkI6oiALwPdSi53IMdJu4EHxDLFH5ub722EVs/VdUCy55WQP3wCCDyei9EH4wIDAQAB';
+*/
 
 Uint8List secretKey =
     Uint8List.fromList([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);

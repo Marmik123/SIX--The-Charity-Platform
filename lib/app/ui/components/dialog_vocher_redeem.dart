@@ -7,7 +7,7 @@ import 'package:six/app/data/config/app_colors.dart';
 class DialogVoucherRedeem extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Path path_0 = Path();
+    var path_0 = Path();
     path_0.moveTo(size.width * 0.9412670, size.height * 0.5444034);
     path_0.lineTo(size.width * 0.9417195, size.height * 0.5437884);
     path_0.cubicTo(
@@ -89,11 +89,11 @@ class DialogVoucherRedeem extends CustomPainter {
         size.height * 0.5444034);
     path_0.close();
 
-    Paint paint_0_fill = Paint()..style = PaintingStyle.fill;
-    paint_0_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_0, paint_0_fill);
+    var paint0Fill = Paint()..style = PaintingStyle.fill;
+    paint0Fill.color = Colors.white.withOpacity(1.0);
+    canvas.drawPath(path_0, paint0Fill);
 
-    Path path_1 = Path();
+    var path_1 = Path();
     path_1.moveTo(size.width * 0.9407602, size.height * 0.5424834);
     path_1.lineTo(size.width * 0.9403077, size.height * 0.5430984);
     path_1.cubicTo(
@@ -245,15 +245,15 @@ class DialogVoucherRedeem extends CustomPainter {
         size.height * 0.5424834);
     path_1.close();
 
-    Paint paint_1_stroke = Paint()
+    var paint1Stroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = size.width * 0.002714932;
-    paint_1_stroke.color = Color(0xffE3FCFF).withOpacity(1.0);
-    canvas.drawPath(path_1, paint_1_stroke);
+    paint1Stroke.color = const Color(0xffE3FCFF).withOpacity(1.0);
+    canvas.drawPath(path_1, paint1Stroke);
 
-    Paint paint_1_fill = Paint()..style = PaintingStyle.fill;
-    paint_1_fill.color = AppColors.kffffff.withOpacity(1.0);
-    canvas.drawPath(path_1, paint_1_fill);
+    var paint1Fill = Paint()..style = PaintingStyle.fill;
+    paint1Fill.color = AppColors.kffffff.withOpacity(1.0);
+    canvas.drawPath(path_1, paint1Fill);
   }
 
   @override

@@ -10,12 +10,12 @@ class SupportController extends GetxController {
     super.onInit();
   }
 
-  void launchURL() async {
-    final Uri params = Uri(
+  Future<void> launchURL() async {
+    final params = Uri(
       scheme: 'mailto',
       path: 'raymondwong@gmail.com',
     );
-    String url = params.toString();
+    var url = params.toString();
     if (await canLaunch(url)) {
       await launch(url);
     } else {

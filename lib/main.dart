@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:six/app/data/config/app_themes.dart';
 import 'package:six/app/data/config/design_config.dart';
 import 'package:six/app/data/config/error_handling.dart';
 import 'package:six/app/data/config/initialize_app.dart';
@@ -21,7 +20,7 @@ Future<void> main() async {
   //TODO: Force update
 
   //Making Status Bar Transparent
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent, // transparent status bar
   ));
 
@@ -106,8 +105,11 @@ class StartTheApp extends StatelessWidget {
         return GetMaterialApp(
           title: 'SIX-The Charity Platform',
           navigatorKey: Catcher.navigatorKey,
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
           initialRoute: AppPages.INITIAL,
-          getPages: AppPages.routes as List<GetPage<dynamic>>,
+          getPages: AppPages.routes,
           debugShowCheckedModeBanner: false,
           translationsKeys: Get.find<AppTranslations>().keys,
           translations: Get.find<AppTranslations>(),
@@ -115,8 +117,6 @@ class StartTheApp extends StatelessWidget {
           fallbackLocale: const Locale('en_US'),
           defaultTransition: Transition.cupertino,
           themeMode: ThemeMode.system,
-          theme: AppThemes.lightTheme,
-          darkTheme: AppThemes.darkTheme,
         );
       },
     );

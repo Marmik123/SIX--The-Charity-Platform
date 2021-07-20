@@ -7,6 +7,7 @@ import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/modules/social_worker/distribute_voucher/controllers/distribute_voucher_controller.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/dialog_vocher_redeem.dart';
+import 'package:six/app/ui/components/sizedbox.dart';
 import 'package:six/app/ui/components/voucher_container_paint.dart';
 
 enum VoucherState {
@@ -30,7 +31,7 @@ Widget voucherCard({
   required bool isQRScreen,
 }) {
   return Stack(
-    overflow: Overflow.visible,
+    clipBehavior: Clip.none,
     alignment: Alignment.bottomCenter,
     children: [
       /*Container(
@@ -41,6 +42,11 @@ Widget voucherCard({
         height: whichScreen == 'QRScreen' ? 743.h : 646.h,
         child: whichScreen == 'QRScreen' || whichScreen == 'History'
             ? CustomPaint(
+                size: Size(
+                    1005.w,
+                    (1005.w * 0.7357466063348417)
+                        .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                painter: DialogVoucherRedeem(),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10, right: 18.0),
                   child: Container(
@@ -55,8 +61,15 @@ Widget voucherCard({
                         Padding(
                           padding: const EdgeInsets.only(left: 32.0),
                           child: Stack(
+                            clipBehavior: Clip.none,
+                            alignment: Alignment.centerLeft,
                             children: [
                               Container(
+                                width: 515.w,
+                                height: 139.h,
+                                decoration: BoxDecoration(
+                                    color: AppColors.kF8FAFA,
+                                    borderRadius: BorderRadius.circular(50.r)),
                                 child: Center(
                                   child: Text(
                                     title,
@@ -70,11 +83,6 @@ Widget voucherCard({
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
-                                width: 515.w,
-                                height: 139.h,
-                                decoration: BoxDecoration(
-                                    color: AppColors.kF8FAFA,
-                                    borderRadius: BorderRadius.circular(50.r)),
                               ),
                               Positioned(
                                 left: -15,
@@ -94,8 +102,6 @@ Widget voucherCard({
                                 ),
                               ),
                             ],
-                            overflow: Overflow.visible,
-                            alignment: Alignment.centerLeft,
                           ),
                         ),
                         SizedBox(
@@ -198,13 +204,17 @@ Widget voucherCard({
                     ),
                   ),
                 ),
-                size: Size(
-                    1005.w,
-                    (1005.w * 0.7357466063348417)
-                        .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                painter: DialogVoucherRedeem(),
               )
             : CustomPaint(
+                size: Size(
+                    1005.w,
+                    (1005.w * 0.6755980861244019)
+                        .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                painter: VoucherContainer(voucherState == VoucherState.active
+                    ? AppColors.kE3FCFF
+                    : voucherState == VoucherState.redeemed
+                        ? AppColors.kFFF5E7
+                        : AppColors.kFFE7E7),
                 child: Padding(
                   padding: const EdgeInsets.only(right: 18.0),
                   child: Container(
@@ -220,8 +230,15 @@ Widget voucherCard({
                         Padding(
                           padding: const EdgeInsets.only(left: 32.0),
                           child: Stack(
+                            clipBehavior: Clip.none,
+                            alignment: Alignment.centerLeft,
                             children: [
                               Container(
+                                width: 515.w,
+                                height: 139.h,
+                                decoration: BoxDecoration(
+                                    color: AppColors.kF8FAFA,
+                                    borderRadius: BorderRadius.circular(50.r)),
                                 child: Center(
                                   child: Text(
                                     title,
@@ -235,11 +252,6 @@ Widget voucherCard({
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
-                                width: 515.w,
-                                height: 139.h,
-                                decoration: BoxDecoration(
-                                    color: AppColors.kF8FAFA,
-                                    borderRadius: BorderRadius.circular(50.r)),
                               ),
                               Positioned(
                                 left: -15,
@@ -259,8 +271,6 @@ Widget voucherCard({
                                 ),
                               ),
                             ],
-                            overflow: Overflow.visible,
-                            alignment: Alignment.centerLeft,
                           ),
                         ),
                         SizedBox(
@@ -327,7 +337,7 @@ Widget voucherCard({
                                       ),
                                     ),
                                     whichScreen == 'Social Worker'
-                                        ? SizedBox.shrink()
+                                        ? const SizedBox.shrink()
                                         : FittedBox(
                                             child: RichText(
                                               text:
@@ -362,26 +372,10 @@ Widget voucherCard({
                             ],
                           ),
                         ),
-                        Center(
-                          child: Container(
-                            color: Colors.red,
-                            width: 100.w,
-                            height: 100.h,
-                          ),
-                        ),
                       ],
                     ),
                   ),
                 ),
-                size: Size(
-                    1005.w,
-                    (1005.w * 0.6755980861244019)
-                        .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                painter: VoucherContainer(voucherState == VoucherState.active
-                    ? AppColors.kE3FCFF
-                    : voucherState == VoucherState.redeemed
-                        ? AppColors.kFFF5E7
-                        : AppColors.kFFE7E7),
               ),
       ),
       Positioned(
@@ -396,7 +390,9 @@ Widget voucherCard({
                 ? 30.w
                 : whichScreen == 'History'
                     ? 100.w
-                    : 22.w,
+                    : whichScreen == 'Assign Voucher'
+                        ? 30.w
+                        : 22.w,
         child: Container(
           width: whichScreen == 'QRScreen'
               ? 905.w
@@ -423,7 +419,9 @@ Widget voucherCard({
                 ? 105.w
                 : whichScreen == 'History'
                     ? 130.h
-                    : 96.w,
+                    : whichScreen == 'Assign Voucher'
+                        ? 105.w
+                        : 96.w,
         child: Column(
           children: [
             InkWell(
@@ -436,7 +434,7 @@ Widget voucherCard({
                         ? AppColors.kEF9104
                         : AppColors.kff0000,
                 strokeCap: StrokeCap.round,
-                dashPattern: [3, 3],
+                dashPattern: const [3, 3],
                 borderType: BorderType.RRect,
                 strokeWidth: 5.sp,
                 child: Container(
@@ -478,9 +476,9 @@ Widget voucherCard({
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  voucherCtrlSW.voucherCount() == 0
-                                      ? null
-                                      : voucherCtrlSW.voucherCount.value--;
+                                  if (voucherCtrlSW.voucherCount() == 0) {
+                                    voucherCtrlSW.voucherCount.value--;
+                                  }
                                 },
                                 child: Container(
                                   height: 70.r,
@@ -546,7 +544,7 @@ Widget voucherCard({
               height: 30.h,
             ),
             whichScreen == 'History'
-                ? SizedBox.shrink()
+                ? const SizedBox.shrink()
                 : Text(
                     'Click here for Terms & Conditions',
                     style: TextStyle(
@@ -561,39 +559,42 @@ Widget voucherCard({
           ],
         ),
       ),
-      Positioned(
-        left: 100.h,
-        bottom: 70.h,
-        child: Row(
-          children: [
-            CircleAvatar(
-              backgroundColor: Colors.transparent,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: FittedBox(
-                  fit: BoxFit.fill,
-                  child: cacheImage(
-                    height: 119.r,
-                    width: 119.r,
-                    url: imgUrl,
+      whichScreen == 'History'
+          ? Positioned(
+              left: 100.h,
+              bottom: 70.h,
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: FittedBox(
+                        fit: BoxFit.fill,
+                        child: cacheImage(
+                          height: 119.r,
+                          width: 119.r,
+                          url: 'https://picsum.photos/id/1010/180',
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  w(37.w),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontFamily: 'Gilroy',
+                      fontSize: 50.sp,
+                      fontStyle: FontStyle.normal,
+                      color: AppColors.k033660,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
-            ),
-            Text(
-              title,
-              style: TextStyle(
-                fontFamily: 'Gilroy',
-                fontSize: 50.sp,
-                fontStyle: FontStyle.normal,
-                color: AppColors.k033660,
-                fontWeight: FontWeight.w500,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      )
+            )
+          : const SizedBox.shrink(),
     ],
   );
 }

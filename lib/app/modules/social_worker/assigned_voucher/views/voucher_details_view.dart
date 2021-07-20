@@ -15,7 +15,9 @@ import 'package:six/app/ui/components/sizedbox.dart';
 import 'package:six/r.g.dart';
 
 class VoucherDetailsView extends GetView<AssignedVoucherController> {
-  var controller = Get.put(AssignedVoucherController());
+  @override
+  final AssignedVoucherController controller =
+      Get.put(AssignedVoucherController());
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -50,7 +52,7 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                             boxShadow: [
                               BoxShadow(
                                 color: AppColors.k00474E.withOpacity(0.04),
-                                offset: Offset(0, 20),
+                                offset: const Offset(0, 20),
                                 blurRadius: 50.r,
                               )
                             ],
@@ -70,8 +72,16 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 32.0),
                                     child: Stack(
+                                      clipBehavior: Clip.none,
+                                      alignment: Alignment.centerLeft,
                                       children: [
                                         Container(
+                                          width: 515.w,
+                                          height: 139.h,
+                                          decoration: BoxDecoration(
+                                              color: AppColors.kF8FAFA,
+                                              borderRadius:
+                                                  BorderRadius.circular(50.r)),
                                           child: Center(
                                             child: Text(
                                               'NTUC Fairprice',
@@ -85,12 +95,6 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                               textAlign: TextAlign.center,
                                             ),
                                           ),
-                                          width: 515.w,
-                                          height: 139.h,
-                                          decoration: BoxDecoration(
-                                              color: AppColors.kF8FAFA,
-                                              borderRadius:
-                                                  BorderRadius.circular(50.r)),
                                         ),
                                         Positioned(
                                           left: -15,
@@ -112,8 +116,6 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                           ),
                                         ),
                                       ],
-                                      clipBehavior: Clip.none,
-                                      alignment: Alignment.centerLeft,
                                     ),
                                   ),
                                   SizedBox(
@@ -254,7 +256,7 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                           radius: Radius.circular(40.r),
                           color: AppColors.k14A1BE,
                           strokeCap: StrokeCap.round,
-                          dashPattern: [3, 3],
+                          dashPattern: const [3, 3],
                           borderType: BorderType.RRect,
                           strokeWidth: 5.sp,
                           child: Container(
@@ -274,9 +276,9 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        controller.voucherCount() == 0
-                                            ? null
-                                            : controller.voucherCount.value--;
+                                        if (controller.voucherCount() > 0) {
+                                          controller.voucherCount.value--;
+                                        }
                                       },
                                       child: Container(
                                         height: 70.r,
@@ -360,7 +362,7 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                         color: AppColors.kffffff,
                         boxShadow: [
                           BoxShadow(
-                            offset: Offset(0, 20),
+                            offset: const Offset(0, 20),
                             blurRadius: 50.r,
                             color: AppColors.k00474E.withOpacity(0.04),
                           ),
@@ -412,7 +414,7 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                       boxShadow: [
                         BoxShadow(
                           color: AppColors.k0087A1.withOpacity(0.4),
-                          offset: Offset(0, 2),
+                          offset: const Offset(0, 2),
                           blurRadius: 40.r,
                         ),
                       ],
@@ -431,7 +433,7 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                       boxShadow: [
                         BoxShadow(
                           color: AppColors.k0087A1.withOpacity(0.6),
-                          offset: Offset(0, 4),
+                          offset: const Offset(0, 4),
                           blurRadius: 4.r,
                         ),
                       ],

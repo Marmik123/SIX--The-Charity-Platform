@@ -14,12 +14,12 @@ import 'package:six/app/ui/components/month_picker_dialog.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
 import 'package:six/app/ui/components/vendor_home_curved_cont.dart';
 import 'package:six/r.g.dart';
-import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
+import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
 import '../controllers/social_home_controller.dart';
 
 class SocialHomeView extends GetView<SocialHomeController> {
-  List<Widget> bottomScreen = <Widget>[
+  final List<Widget> bottomScreen = <Widget>[
     SocialHome(),
     PurchaseView(
       whichScreen: 'Social',
@@ -33,7 +33,7 @@ class SocialHomeView extends GetView<SocialHomeController> {
     return Obx(
       () => Scaffold(
           bottomNavigationBar: controller.paid()
-              ? SizedBox.shrink()
+              ? const SizedBox.shrink()
               : bottomNavBar(
                   whichScreen: 'Social',
                 ),
@@ -44,14 +44,14 @@ class SocialHomeView extends GetView<SocialHomeController> {
 }
 
 class SocialHome extends StatelessWidget {
-  SocialHomeController controller = Get.put(SocialHomeController());
+  final SocialHomeController controller = Get.put(SocialHomeController());
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => Column(
         children: [
           Stack(
-            overflow: Overflow.visible,
+            clipBehavior: Clip.none,
             alignment: Alignment.bottomCenter,
             children: [
               Container(
@@ -97,6 +97,17 @@ class SocialHome extends StatelessWidget {
                             child: Container(
                               width: 160.w,
                               height: 160.h,
+                              decoration: BoxDecoration(
+                                  color: AppColors.kffffff,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 40.sp,
+                                      color: AppColors.kD1EFF2.withOpacity(0.8),
+                                      offset: const Offset(0, 20),
+                                    )
+                                  ],
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(70.r))),
                               child: Padding(
                                 padding: const EdgeInsets.all(15.0),
                                 child: Image.asset(
@@ -105,17 +116,6 @@ class SocialHome extends StatelessWidget {
                                   width: 20,
                                 ),
                               ),
-                              decoration: BoxDecoration(
-                                  color: AppColors.kffffff,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      blurRadius: 40.sp,
-                                      color: AppColors.kD1EFF2.withOpacity(0.8),
-                                      offset: Offset(0, 20),
-                                    )
-                                  ],
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(70.r))),
                             ),
                           )
                         ],
@@ -130,12 +130,12 @@ class SocialHome extends StatelessWidget {
               Positioned(
                 top: 337.h,
                 child: GestureDetector(
-                  onTap: () async {
-                    controller.monthNum!.value = await monthPickerDialog(
+                  onTap: () {
+                    monthPickerDialog(
                       context: context,
                       selectedDate: controller.selectedDate,
-                    );
-                    controller.assignMonth(controller.monthNum!());
+                    ).then(
+                        (value) => controller.assignMonth(value?.month ?? 1));
                   },
                   child: monthPicker(
                     color: AppColors.kffffff,
@@ -145,7 +145,7 @@ class SocialHome extends StatelessWidget {
                     width: 390.w,
                     whichScreen: '',
                     textContent: Text(
-                      '${controller.monthName()}, ${controller.selectedDate!.year}',
+                      '${controller.monthName()}, ${controller.selectedDate.year}',
                       style: TextStyle(
                         fontFamily: 'Gilroy',
                         fontSize: 40.sp,
@@ -165,6 +165,11 @@ class SocialHome extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(50.r),
                     child: CustomPaint(
+                      size: Size(
+                          1005.w,
+                          (1005.w * 0.5870646766169154)
+                              .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                      painter: VendorHomeCurved(),
                       child: Row(
                         children: [
                           SizedBox(
@@ -194,7 +199,7 @@ class SocialHome extends StatelessWidget {
                                           BoxShadow(
                                             color: AppColors.k00474E
                                                 .withOpacity(0.04),
-                                            offset: Offset(0, 20),
+                                            offset: const Offset(0, 20),
                                             blurRadius: 50.r,
                                           ),
                                         ],
@@ -270,7 +275,7 @@ class SocialHome extends StatelessWidget {
                                           BoxShadow(
                                             color: AppColors.k00474E
                                                 .withOpacity(0.04),
-                                            offset: Offset(0, 20),
+                                            offset: const Offset(0, 20),
                                             blurRadius: 50.r,
                                           ),
                                         ],
@@ -326,11 +331,6 @@ class SocialHome extends StatelessWidget {
                           ),
                         ],
                       ),
-                      size: Size(
-                          1005.w,
-                          (1005.w * 0.5870646766169154)
-                              .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                      painter: VendorHomeCurved(),
                     ),
                   ),
                 ),
@@ -356,13 +356,13 @@ class SocialHome extends StatelessWidget {
           Expanded(
             child: ListView.separated(
               padding: const EdgeInsets.all(0),
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
                   Get.toNamed<void>(Routes.BENEFICIARY_DETAILS);
                 },
                 child: Stack(
-                  overflow: Overflow.visible,
+                  clipBehavior: Clip.none,
                   alignment: Alignment.topLeft,
                   children: [
                     Padding(
@@ -381,7 +381,7 @@ class SocialHome extends StatelessWidget {
                                           color: AppColors.k00474E
                                               .withOpacity(0.04),
                                           blurRadius: 50.r,
-                                          offset: Offset(0, 20))
+                                          offset: const Offset(0, 20))
                                     ],
                                     borderRadius: BorderRadius.circular(50.r)),
                                 child: Row(
@@ -413,7 +413,7 @@ class SocialHome extends StatelessWidget {
                                             w(80.w),
                                             GestureDetector(
                                               onTap: () {
-                                                UrlLauncher.launch(
+                                                url_launcher.launch(
                                                     'tel://+65-9324573');
                                               },
                                               child: Container(
@@ -464,7 +464,7 @@ class SocialHome extends StatelessWidget {
                                             w(35.w),
                                             GestureDetector(
                                               onTap: () {},
-                                              child: Icon(
+                                              child: const Icon(
                                                 Icons
                                                     .keyboard_arrow_right_sharp,
                                                 color: AppColors.k4F7290,

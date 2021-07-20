@@ -8,12 +8,13 @@ import 'package:six/app/modules/social_worker/social_home/controllers/social_hom
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
-import 'package:six/app/ui/components/tab_bar_social_worker.dart';
+import 'package:six/app/ui/components/tab_item_social_worker.dart';
 import 'package:six/r.g.dart';
 
 class VendorDetailsView extends GetView<VendorDetailsController> {
-  var socialCtrl = Get.put(SocialHomeController());
-  var controller = Get.put(VendorDetailsController());
+  final SocialHomeController socialCtrl = Get.put(SocialHomeController());
+  @override
+  final VendorDetailsController controller = Get.put(VendorDetailsController());
   final String whichScreen;
 
   VendorDetailsView({required this.whichScreen});
@@ -27,7 +28,7 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
             children: [
               Stack(
                 alignment: Alignment.bottomCenter,
-                overflow: Overflow.visible,
+                clipBehavior: Clip.none,
                 children: [
                   Container(
                     height: 1134.h,
@@ -43,7 +44,7 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                             SizedBox(
                               width: 60.w,
                             ),
-                            Icon(
+                            const Icon(
                               Icons.arrow_back,
                               color: AppColors.k033660,
                             ),
@@ -68,7 +69,7 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                           height: 60.h,
                         ),
                         Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                           ),
                           child: Center(
@@ -137,7 +138,7 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                           boxShadow: [
                             BoxShadow(
                               color: AppColors.k00474E.withOpacity(0.04),
-                              offset: Offset(0, 20),
+                              offset: const Offset(0, 20),
                               blurRadius: 50.r,
                             )
                           ]),
@@ -259,11 +260,11 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                     )
                   : TabBar(
                       controller: controller.tabController!,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       isScrollable: false,
                       indicator: UnderlineTabIndicator(
                         insets: EdgeInsets.only(left: 45.w, right: 45.w),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: AppColors.k13A89E,
                           width: 2,
                         ),
@@ -294,14 +295,14 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                 height: 1.sh,
                 child: Center(
                   child: TabBarView(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     controller: controller.tabController!,
                     children: [
                       Container(
                         height: 900.h,
                         width: 0.99.sw,
                         child: SingleChildScrollView(
-                          physics: BouncingScrollPhysics(),
+                          physics: const BouncingScrollPhysics(),
                           child: Padding(
                             padding: const EdgeInsets.only(left: 20.0),
                             child: Text(
@@ -343,7 +344,7 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                     BoxShadow(
                                       color:
                                           AppColors.k00474E.withOpacity(0.04),
-                                      offset: Offset(0, 20),
+                                      offset: const Offset(0, 20),
                                       blurRadius: 50.r,
                                     )
                                   ],
@@ -365,8 +366,17 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                           padding:
                                               const EdgeInsets.only(left: 32.0),
                                           child: Stack(
+                                            clipBehavior: Clip.none,
+                                            alignment: Alignment.centerLeft,
                                             children: [
                                               Container(
+                                                width: 515.w,
+                                                height: 139.h,
+                                                decoration: BoxDecoration(
+                                                    color: AppColors.kF8FAFA,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50.r)),
                                                 child: Center(
                                                   child: Text(
                                                     'NTUC Fairprice',
@@ -382,13 +392,6 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                                     textAlign: TextAlign.center,
                                                   ),
                                                 ),
-                                                width: 515.w,
-                                                height: 139.h,
-                                                decoration: BoxDecoration(
-                                                    color: AppColors.kF8FAFA,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50.r)),
                                               ),
                                               Positioned(
                                                 left: -15,
@@ -412,8 +415,6 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                                 ),
                                               ),
                                             ],
-                                            overflow: Overflow.visible,
-                                            alignment: Alignment.centerLeft,
                                           ),
                                         ),
                                         SizedBox(

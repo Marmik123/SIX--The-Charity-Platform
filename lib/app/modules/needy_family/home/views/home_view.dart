@@ -14,9 +14,9 @@ import 'package:six/r.g.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  //VoucherController ctrl = Get.put(VoucherController());
-  List<Widget> bottomNavScreen = <Widget>[
-    HomeContent(),
+  //final VoucherController ctrl = Get.put(VoucherController());
+  final List<Widget> bottomNavScreen = <Widget>[
+    const HomeContent(),
     VoucherView(),
     ProfileView(
       whichScreen: 'Needy Family',
@@ -46,7 +46,7 @@ class HomeContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Stack(
-          overflow: Overflow.visible,
+          clipBehavior: Clip.none,
           alignment: Alignment.bottomCenter,
           children: [
             Container(
@@ -92,6 +92,17 @@ class HomeContent extends StatelessWidget {
                           child: Container(
                             width: 160.w,
                             height: 160.h,
+                            decoration: BoxDecoration(
+                                color: AppColors.kffffff,
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 40.sp,
+                                    color: AppColors.kD1EFF2.withOpacity(0.8),
+                                    offset: const Offset(0, 20),
+                                  )
+                                ],
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(70.r))),
                             child: Padding(
                               padding: const EdgeInsets.all(15.0),
                               child: Image.asset(
@@ -100,17 +111,6 @@ class HomeContent extends StatelessWidget {
                                 width: 20,
                               ),
                             ),
-                            decoration: BoxDecoration(
-                                color: AppColors.kffffff,
-                                boxShadow: [
-                                  BoxShadow(
-                                    blurRadius: 40.sp,
-                                    color: AppColors.kD1EFF2.withOpacity(0.8),
-                                    offset: Offset(0, 20),
-                                  )
-                                ],
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(70.r))),
                           ),
                         )
                       ],
@@ -165,7 +165,7 @@ class HomeContent extends StatelessWidget {
                   width: 1005.w,
                   height: 220.h,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                         begin: Alignment(-1, -2.8),
                         end: Alignment(1, 5),
                         colors: [AppColors.k1FAF9E, AppColors.k0087FF]),
@@ -237,7 +237,7 @@ class HomeContent extends StatelessWidget {
                           onTap: () {
                             Get.toNamed<void>('/available-credits');
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.keyboard_arrow_right_sharp,
                             color: AppColors.kffffff,
                             size: 25,
@@ -278,7 +278,7 @@ class HomeContent extends StatelessWidget {
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: 3,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.only(right: 15),
                 child: categoryCard(

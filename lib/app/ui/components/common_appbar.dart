@@ -28,8 +28,8 @@ PreferredSizeWidget appBar(
         Get.back<void>();
       },
       child: disableBackIcon
-          ? SizedBox.shrink()
-          : Icon(
+          ? const SizedBox.shrink()
+          : const Icon(
               Icons.arrow_back_sharp,
               color: AppColors.k033660,
             ),

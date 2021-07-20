@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/modules/charity/purchase/controllers/purchase_controller.dart';
 import 'package:six/app/modules/social_worker/assigned_voucher/controllers/assigned_voucher_controller.dart';
-import 'package:six/app/modules/social_worker/social_home/controllers/social_home_controller.dart';
 import 'package:six/app/ui/components/common_textfield.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 import 'package:six/r.g.dart';
@@ -14,7 +13,7 @@ Future<void> purchaseBottomSheet({
   required String whichScreen,
 }) {
   var ctrl = Get.put(PurchaseController());
-  var socialCtrl = Get.put(SocialHomeController());
+  //var socialCtrl = Get.put(SocialHomeController());
   var assignCtrl = Get.put(AssignedVoucherController());
   return Get.bottomSheet<void>(
     Container(
@@ -86,7 +85,7 @@ Future<void> purchaseBottomSheet({
                         boxShadow: [
                           BoxShadow(
                             color: AppColors.k00474E.withOpacity(0.04),
-                            offset: Offset(0, 20),
+                            offset: const Offset(0, 20),
                             blurRadius: 50.r,
                           ),
                         ]),
@@ -183,7 +182,7 @@ Future<void> purchaseBottomSheet({
                       : ctrl.paid.value = false;
                   Get.back<void>();
                 },
-                icon: Icon(Icons.clear),
+                icon: const Icon(Icons.clear),
                 color: AppColors.k1FAF9E,
                 iconSize: 25,
               )

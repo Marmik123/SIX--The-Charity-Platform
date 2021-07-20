@@ -10,8 +10,8 @@ import 'package:six/r.g.dart';
 import '../controllers/voucher_controller.dart';
 
 class VoucherView extends GetView<VoucherController> {
-  VoucherController ctrl = Get.put(VoucherController());
-  HomeController homeController = Get.put(HomeController());
+  final VoucherController ctrl = Get.put(VoucherController());
+  final HomeController homeController = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +37,7 @@ class VoucherContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Stack(
-          overflow: Overflow.visible,
+          clipBehavior: Clip.none,
           alignment: Alignment.bottomCenter,
           children: [
             Container(
@@ -83,7 +83,7 @@ class VoucherContent extends StatelessWidget {
                                 BoxShadow(
                                   blurRadius: 40.r,
                                   color: AppColors.k00474E.withOpacity(0.08),
-                                  offset: Offset(0, 20),
+                                  offset: const Offset(0, 20),
                                 )
                               ],
                               borderRadius:
@@ -119,7 +119,7 @@ class VoucherContent extends StatelessWidget {
                   ),
                   itemCount: 10,
                   scrollDirection: Axis.horizontal,
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) => Obx(() => Row(
                         children: [
                           GestureDetector(
@@ -132,17 +132,15 @@ class VoucherContent extends StatelessWidget {
                               decoration: BoxDecoration(
                                   color: AppColors.kffffff,
                                   borderRadius: BorderRadius.circular(50.r),
-                                  gradient: ctrl.selectedCategory.value !=
-                                              null &&
-                                          ctrl.selectedCategory.value == index
-                                      ? LinearGradient(
+                                  gradient: ctrl.selectedCategory.value == index
+                                      ? const LinearGradient(
                                           begin: Alignment(-1, -2.8),
                                           end: Alignment(1, 2),
                                           colors: [
                                               AppColors.k1FAF9E,
                                               AppColors.k0087FF
                                             ])
-                                      : LinearGradient(colors: [
+                                      : const LinearGradient(colors: [
                                           AppColors.kffffff,
                                           AppColors.kffffff
                                         ]),
@@ -151,7 +149,7 @@ class VoucherContent extends StatelessWidget {
                                         color:
                                             AppColors.k000000.withOpacity(0.04),
                                         blurRadius: 50.r,
-                                        offset: Offset(0, 20))
+                                        offset: const Offset(0, 20))
                                   ]),
                               child: Column(
                                 children: [
@@ -159,8 +157,7 @@ class VoucherContent extends StatelessWidget {
                                     height: 40.h,
                                   ),
                                   Image.asset(
-                                    ctrl.selectedCategory.value != null &&
-                                            ctrl.selectedCategory.value == index
+                                    ctrl.selectedCategory.value == index
                                         ? R.image.asset.voucher_card_1.assetName
                                         : R.image.asset.super_market.assetName,
                                     height: 113.h,
@@ -176,9 +173,7 @@ class VoucherContent extends StatelessWidget {
                                       fontSize: 40.sp,
                                       fontStyle: FontStyle.normal,
                                       color:
-                                          ctrl.selectedCategory.value != null &&
-                                                  ctrl.selectedCategory.value ==
-                                                      index
+                                          ctrl.selectedCategory.value == index
                                               ? AppColors.kffffff
                                               : AppColors.k033660,
                                       fontWeight: FontWeight.w500,
@@ -208,7 +203,7 @@ class VoucherContent extends StatelessWidget {
         Expanded(
           child: ListView(
             padding: const EdgeInsets.all(0),
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             children: [
               Row(
                 children: [

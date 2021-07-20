@@ -19,8 +19,8 @@ class OnboardingVendorView extends GetView<OnboardingVendorController> {
               Container(
                 height: 0.9.sh,
                 width: 1.sw,
-                child: NotificationListener(
-                  onNotification: (OverscrollIndicatorNotification overscroll) {
+                child: NotificationListener<OverscrollIndicatorNotification>(
+                  onNotification: (overscroll) {
                     overscroll.disallowGlow();
                     return false;
                   },
@@ -53,10 +53,10 @@ class OnboardingVendorView extends GetView<OnboardingVendorController> {
                   isVendor: true,
                   itemCount: controller.title.length,
                   onTapArrow: () {
-                    controller.index == 1
+                    controller.index!() == 1
                         ? Get.offAllNamed<void>(Routes.VENDOR_HOME)
                         : controller.pageController.nextPage(
-                            duration: Duration(milliseconds: 300),
+                            duration: const Duration(milliseconds: 300),
                             curve: Curves.ease);
                   },
                   onTapSkip: () {

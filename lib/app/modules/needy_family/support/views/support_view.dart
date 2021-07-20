@@ -5,7 +5,7 @@ import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/common_appbar.dart';
 import 'package:six/r.g.dart';
-import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
+import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
 import '../controllers/support_controller.dart';
 
@@ -27,7 +27,7 @@ class SupportView extends GetView<SupportController> {
             ListView.builder(
               itemCount: 2,
               shrinkWrap: true,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.only(
                   left: 12.0,
@@ -43,7 +43,7 @@ class SupportView extends GetView<SupportController> {
                     boxShadow: [
                       BoxShadow(
                         blurRadius: 50.r,
-                        offset: Offset(0, 15),
+                        offset: const Offset(0, 15),
                         color: AppColors.k00474E.withOpacity(0.04),
                       ),
                     ],
@@ -146,7 +146,7 @@ class SupportView extends GetView<SupportController> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                UrlLauncher.launch('tel://65 87417335');
+                                url_launcher.launch('tel://65 87417335');
                               },
                               child: Row(
                                 children: [

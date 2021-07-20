@@ -1,6 +1,7 @@
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:six/app/data/config/app_colors.dart';
 
 //Add this CustomPaint widget to the Widget Tree
 
@@ -8,7 +9,7 @@ import 'package:flutter/material.dart';
 class CategoryContainer extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Path path_0 = Path();
+    var path_0 = Path();
     path_0.moveTo(size.width * 0.04444444, size.height * 0.2218660);
     path_0.cubicTo(
         size.width * 0.04444444,
@@ -57,11 +58,11 @@ class CategoryContainer extends CustomPainter {
     path_0.lineTo(size.width * 0.04444444, size.height * 0.2218660);
     path_0.close();
 
-    Paint paint_0_fill = Paint()..style = PaintingStyle.fill;
-    paint_0_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_0, paint_0_fill);
+    var paint0Fill = Paint()..style = PaintingStyle.fill;
+    paint0Fill.color = Colors.white.withOpacity(1.0);
+    canvas.drawPath(path_0, paint0Fill);
 
-    Path path_1 = Path();
+    var path_1 = Path();
     path_1.moveTo(size.width * 0.04666667, size.height * 0.2218660);
     path_1.cubicTo(
         size.width * 0.04666667,
@@ -110,25 +111,25 @@ class CategoryContainer extends CustomPainter {
     path_1.lineTo(size.width * 0.04666667, size.height * 0.2218660);
     path_1.close();
 
-    Paint paint_1_stroke = Paint()
+    var paint1Stroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = size.width * 0.004444444;
-    paint_1_stroke.shader = ui.Gradient.linear(
+    paint1Stroke.shader = ui.Gradient.linear(
         Offset(size.width * 0.5000000, size.height * 0.1456186),
         Offset(size.width * 0.5000000, size.height), [
-      Color(0xffFF007A).withOpacity(0),
-      Color(0xffFF007A).withOpacity(0.1),
-      Color(0xffFF007A).withOpacity(0.15)
+      const Color(0xffFF007A).withOpacity(0),
+      const Color(0xffFF007A).withOpacity(0.1),
+      const Color(0xffFF007A).withOpacity(0.15)
     ], [
       0,
       0.489583,
       1
     ]);
-    canvas.drawPath(path_1, paint_1_stroke);
+    canvas.drawPath(path_1, paint1Stroke);
 
-    Paint paint_1_fill = Paint()..style = PaintingStyle.fill;
-    paint_1_fill.color = Color(0xffffff).withOpacity(1.0);
-    canvas.drawPath(path_1, paint_1_fill);
+    var paint1Fill = Paint()..style = PaintingStyle.fill;
+    paint1Fill.color = AppColors.kffffff.withOpacity(1.0);
+    canvas.drawPath(path_1, paint1Fill);
   }
 
   @override

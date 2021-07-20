@@ -31,7 +31,7 @@ class NotificationView extends GetView<NotificationController> {
             onTap: () {
               Get.back<void>();
             },
-            child: Icon(
+            child: const Icon(
               Icons.arrow_back_sharp,
               color: AppColors.k033660,
             ),
@@ -45,7 +45,7 @@ class NotificationView extends GetView<NotificationController> {
             ListView.builder(
               itemCount: 2,
               shrinkWrap: true,
-              physics: ClampingScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.only(
                   left: 12.0,
@@ -61,7 +61,7 @@ class NotificationView extends GetView<NotificationController> {
                     boxShadow: [
                       BoxShadow(
                         blurRadius: 50.r,
-                        offset: Offset(0, 15),
+                        offset: const Offset(0, 15),
                         color: AppColors.k00474E.withOpacity(0.04),
                       ),
                     ],

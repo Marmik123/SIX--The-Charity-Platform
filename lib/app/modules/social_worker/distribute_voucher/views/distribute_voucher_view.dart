@@ -47,7 +47,7 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                     fontSize: 50.sp,
                   ),
                 ),
-                BottomNavigationBarItem(
+                const BottomNavigationBarItem(
                   label: '',
                   icon: SizedBox.shrink(),
                 ),
@@ -57,7 +57,7 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Stack(
-                  overflow: Overflow.visible,
+                  clipBehavior: Clip.none,
                   alignment: Alignment.bottomCenter,
                   children: [
                     Container(
@@ -124,7 +124,7 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                             ),
                             itemCount: 10,
                             scrollDirection: Axis.horizontal,
-                            physics: BouncingScrollPhysics(),
+                            physics: const BouncingScrollPhysics(),
                             itemBuilder: (context, index) => Row(
                               children: [
                                 GestureDetector(
@@ -140,19 +140,16 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                                         borderRadius:
                                             BorderRadius.circular(50.r),
                                         gradient:
-                                            controller.selectedCategory.value !=
-                                                        null &&
-                                                    controller.selectedCategory
-                                                            .value ==
-                                                        index
-                                                ? LinearGradient(
+                                            controller.selectedCategory.value ==
+                                                    index
+                                                ? const LinearGradient(
                                                     begin: Alignment(-1, -2.8),
                                                     end: Alignment(1, 2),
                                                     colors: [
                                                         AppColors.k1FAF9E,
                                                         AppColors.k0087FF
                                                       ])
-                                                : LinearGradient(colors: [
+                                                : const LinearGradient(colors: [
                                                     AppColors.kffffff,
                                                     AppColors.kffffff
                                                   ]),
@@ -161,7 +158,7 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                                               color: AppColors.k000000
                                                   .withOpacity(0.04),
                                               blurRadius: 50.r,
-                                              offset: Offset(0, 20))
+                                              offset: const Offset(0, 20))
                                         ]),
                                     child: Column(
                                       children: [
@@ -169,11 +166,8 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                                           height: 40.h,
                                         ),
                                         Image.asset(
-                                          controller.selectedCategory.value !=
-                                                      null &&
-                                                  controller.selectedCategory
-                                                          .value ==
-                                                      index
+                                          controller.selectedCategory.value ==
+                                                  index
                                               ? R.image.asset.voucher_card_1
                                                   .assetName
                                               : R.image.asset.super_market
@@ -191,11 +185,8 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                                             fontSize: 40.sp,
                                             fontStyle: FontStyle.normal,
                                             color: controller.selectedCategory
-                                                            .value !=
-                                                        null &&
-                                                    controller.selectedCategory
-                                                            .value ==
-                                                        index
+                                                        .value ==
+                                                    index
                                                 ? AppColors.kffffff
                                                 : AppColors.k033660,
                                             fontWeight: FontWeight.w500,
@@ -226,7 +217,7 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                 Expanded(
                   child: ListView(
                     padding: const EdgeInsets.all(0),
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     children: [
                       Row(
                         children: [
@@ -305,7 +296,7 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                       boxShadow: [
                         BoxShadow(
                           color: AppColors.k0087A1.withOpacity(0.6),
-                          offset: Offset(0, 4),
+                          offset: const Offset(0, 4),
                           blurRadius: 4.r,
                         ),
                       ],

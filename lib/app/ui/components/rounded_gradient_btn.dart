@@ -27,7 +27,7 @@ Widget roundedButton({
       width: width,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(75.r),
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
               begin: Alignment(-1, -2.8),
               end: Alignment(1, 5),
               colors: [AppColors.k1FAF9E, AppColors.k0087FF])),

@@ -79,7 +79,7 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                             indicator: UnderlineTabIndicator(
                                 insets:
                                     EdgeInsets.only(left: 95.w, right: 95.w),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: AppColors.k13A89E,
                                   width: 1,
                                 )),
@@ -262,12 +262,12 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                 height: 171.h,
               ),
               controller.isVerified.value
-                  ? SizedBox.shrink()
+                  ? const SizedBox.shrink()
                   : GestureDetector(
                       onTap: () {
                         controller.isVerified.value = true;
                       },
-                      child: Text('Next'),
+                      child: const Text('Next'),
                     )
             ],
           ),

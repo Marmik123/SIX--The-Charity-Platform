@@ -8,7 +8,7 @@ Widget onBoarding(String? title, String? subTitle, int? index,
     children: [
       Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(170),
               bottomRight: Radius.circular(170),
             ),
@@ -23,7 +23,7 @@ Widget onBoarding(String? title, String? subTitle, int? index,
         width: 1.sw,
         height: 1534.h,
         child: ClipRRect(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(185),
               bottomRight: Radius.circular(185),
             ),
@@ -52,7 +52,7 @@ Widget onBoarding(String? title, String? subTitle, int? index,
               Shadow(
                 color: AppColors.k000000.withOpacity(0.25),
                 blurRadius: 4,
-                offset: Offset(0, 4),
+                offset: const Offset(0, 4),
               )
             ]),
       ),

@@ -13,7 +13,7 @@ Widget bottomNavBar({required String whichScreen}) {
   var vendorCtrl = Get.put(VendorHomeController());
   var charityCtrl = Get.put(CharityHomeController());
   var socialCtrl = Get.put(SocialHomeController());
-  HomeController controller = Get.put(HomeController());
+  var controller = Get.put(HomeController());
   return Container(
     decoration: BoxDecoration(
       color: AppColors.kffffff,
@@ -78,12 +78,12 @@ Widget bottomNavBar({required String whichScreen}) {
           activeIcon: Padding(
             padding: const EdgeInsets.only(bottom: 5),
             child: AnimatedContainer(
-              duration: Duration(milliseconds: 200),
+              duration: const Duration(milliseconds: 200),
               decoration: BoxDecoration(boxShadow: [
                 BoxShadow(
                     color: AppColors.k1FAF9E.withOpacity(0.4),
                     blurRadius: 20.sp,
-                    offset: Offset(5, 5))
+                    offset: const Offset(5, 5))
               ]),
               child: Image.asset(
                 R.image.home_new().assetName,
@@ -112,12 +112,12 @@ Widget bottomNavBar({required String whichScreen}) {
           activeIcon: Padding(
             padding: const EdgeInsets.only(bottom: 5),
             child: AnimatedContainer(
-              duration: Duration(milliseconds: 200),
+              duration: const Duration(milliseconds: 200),
               decoration: BoxDecoration(boxShadow: [
                 BoxShadow(
                     color: AppColors.k1FAF9E.withOpacity(0.4),
                     blurRadius: 20.sp,
-                    offset: Offset(5, 5))
+                    offset: const Offset(5, 5))
               ]),
               child: Image.asset(
                 whichScreen == 'Vendor'
@@ -151,12 +151,12 @@ Widget bottomNavBar({required String whichScreen}) {
           activeIcon: Padding(
             padding: const EdgeInsets.only(bottom: 5),
             child: AnimatedContainer(
-              duration: Duration(milliseconds: 200),
+              duration: const Duration(milliseconds: 200),
               decoration: BoxDecoration(boxShadow: [
                 BoxShadow(
                     color: AppColors.k1FAF9E.withOpacity(0.4),
                     blurRadius: 20.sp,
-                    offset: Offset(5, 5))
+                    offset: const Offset(5, 5))
               ]),
               child: Image.asset(
                 R.image.profile_new().assetName,

@@ -1,13 +1,17 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BeneficiaryDetailsController extends GetxController {
   //TODO: Implement BeneficiaryDetailsController
-  RxInt? tabIndex = 0.obs;
+  RxInt tabIndex = 0.obs;
   RxBool snap = true.obs;
-  RxBool backColor = true.obs;
+  RxBool tabBarVisibility = true.obs;
+  RxBool titleVisible = true.obs;
   RxDouble top = 0.0.obs;
   RxDouble opacity = 0.0.obs;
   final count = 0.obs;
+  ScrollController scrollViewController = ScrollController();
+
   List<String> text = [
     'Note',
     'Connected',
@@ -21,6 +25,20 @@ class BeneficiaryDetailsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    titleVisible(false);
+    scrollViewController.addListener(dataScrollController);
+  }
+
+  void dataScrollController() {
+    if (scrollViewController.offset > 150) {
+      if (titleVisible.isFalse) {
+        titleVisible(true);
+      }
+    } else {
+      if (titleVisible.isTrue) {
+        titleVisible(false);
+      }
+    }
   }
 
   @override
@@ -29,6 +47,9 @@ class BeneficiaryDetailsController extends GetxController {
   }
 
   @override
-  void onClose() {}
+  void onClose() {
+    scrollViewController.removeListener(dataScrollController);
+  }
+
   void increment() => count.value++;
 }

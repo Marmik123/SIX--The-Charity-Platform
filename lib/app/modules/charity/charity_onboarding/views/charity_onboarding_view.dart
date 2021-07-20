@@ -20,7 +20,7 @@ class CharityOnboardingView extends GetView<CharityOnboardingController> {
               height: 0.9.sh,
               width: 1.sw,
               child: NotificationListener<OverscrollIndicatorNotification>(
-                onNotification: (OverscrollIndicatorNotification overscroll) {
+                onNotification: (overscroll) {
                   overscroll.disallowGlow();
                   return false;
                 },
@@ -53,10 +53,10 @@ class CharityOnboardingView extends GetView<CharityOnboardingController> {
                   itemCount: controller.title.length,
                   isVendor: false,
                   onTapArrow: () {
-                    controller.index == 2
+                    controller.index!() == 2
                         ? Get.offAllNamed<void>(Routes.CHARITY_HOME)
                         : controller.pageController.nextPage(
-                            duration: Duration(milliseconds: 300),
+                            duration: const Duration(milliseconds: 300),
                             curve: Curves.ease);
                   },
                   onTapSkip: () {

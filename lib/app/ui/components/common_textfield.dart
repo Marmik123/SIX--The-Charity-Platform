@@ -30,7 +30,7 @@ Widget textField({
         boxShadow: [
           BoxShadow(
             color: AppColors.k00474E.withOpacity(0.04),
-            offset: Offset(0, 20),
+            offset: const Offset(0, 20),
             blurRadius: 50.r,
           ),
         ]),
@@ -46,12 +46,12 @@ Widget textField({
                 width: 50.w,
                 height: 50.h,
               )
-            : SizedBox.shrink(),
+            : const SizedBox.shrink(),
         prefixImageName != ''
             ? SizedBox(
                 width: 41.w,
               )
-            : SizedBox.shrink(),
+            : const SizedBox.shrink(),
         Container(
           width: 825.w,
           height: 125.h,
@@ -61,7 +61,7 @@ Widget textField({
             enabled: true,
             autofocus: true,
             onEditingComplete: () {
-              FocusScopeNode currentFocus = FocusScope.of(context);
+              var currentFocus = FocusScope.of(context);
               currentFocus.unfocus();
             },
             cursorColor: AppColors.k033660,

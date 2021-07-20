@@ -4,13 +4,13 @@ import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/modules/social_worker/social_home/controllers/social_home_controller.dart';
 import 'package:six/app/ui/components/catched_image.dart';
-import 'package:six/app/ui/components/tab_bar_social_worker.dart';
+import 'package:six/app/ui/components/tab_item_social_worker.dart';
 import 'package:six/r.g.dart';
 
 import '../controllers/vendor_details_controller.dart';
 
 class VendorDetailsDView extends GetView<VendorDetailsController> {
-  var socialCtrl = Get.put(SocialHomeController());
+  final SocialHomeController socialCtrl = Get.put(SocialHomeController());
   final String whichScreen;
 
   VendorDetailsDView({required this.whichScreen});
@@ -24,7 +24,7 @@ class VendorDetailsDView extends GetView<VendorDetailsController> {
             children: [
               Stack(
                 alignment: Alignment.bottomCenter,
-                overflow: Overflow.visible,
+                clipBehavior: Clip.none,
                 children: [
                   Container(
                     height: 1134.h,
@@ -40,7 +40,7 @@ class VendorDetailsDView extends GetView<VendorDetailsController> {
                             SizedBox(
                               width: 60.w,
                             ),
-                            Icon(
+                            const Icon(
                               Icons.arrow_back,
                               color: AppColors.k033660,
                             ),
@@ -65,7 +65,7 @@ class VendorDetailsDView extends GetView<VendorDetailsController> {
                           height: 60.h,
                         ),
                         Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                           ),
                           child: Center(
@@ -134,7 +134,7 @@ class VendorDetailsDView extends GetView<VendorDetailsController> {
                           boxShadow: [
                             BoxShadow(
                               color: AppColors.k00474E.withOpacity(0.04),
-                              offset: Offset(0, 20),
+                              offset: const Offset(0, 20),
                               blurRadius: 50.r,
                             )
                           ]),
@@ -258,11 +258,11 @@ class VendorDetailsDView extends GetView<VendorDetailsController> {
                       () => DefaultTabController(
                         length: 2,
                         child: TabBar(
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           isScrollable: false,
                           indicator: UnderlineTabIndicator(
                             insets: EdgeInsets.only(left: 45.w, right: 45.w),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: AppColors.k13A89E,
                               width: 2,
                             ),
@@ -277,11 +277,10 @@ class VendorDetailsDView extends GetView<VendorDetailsController> {
                               height: 110.h,
                               width: 1.sw,
                               child: tabItem(
-                                controller.text[index],
-                                controller.textNewLine[index],
-                                index,
-                                whichScreen
-                              ),
+                                  controller.text[index],
+                                  controller.textNewLine[index],
+                                  index,
+                                  whichScreen),
                             ),
                           ),
                         ),
@@ -294,7 +293,7 @@ class VendorDetailsDView extends GetView<VendorDetailsController> {
                 height: 900.h,
                 width: 0.99.sw,
                 child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20.0),
                     child: Text(

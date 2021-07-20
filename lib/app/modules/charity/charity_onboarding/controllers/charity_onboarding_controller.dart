@@ -22,7 +22,7 @@ class CharityOnboardingController extends GetxController {
     R.image.asset.onb_2.assetName,
     R.image.asset.onb_3.assetName,
   ];
-  late RxInt? index = 0.obs;
+  RxInt? index = 0.obs;
 
   final count = 0.obs;
   @override

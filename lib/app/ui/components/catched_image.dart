@@ -12,7 +12,7 @@ Widget cacheImage({
     height: height,
     width: width,
     fit: BoxFit.fill,
-    errorWidget: (context, url, dynamic error) => new Icon(Icons.error),
+    errorWidget: (context, url, dynamic error) => const Icon(Icons.error),
     placeholder: (context, url) {
       return Center(child: buildLoader());
     },

@@ -17,9 +17,9 @@ class QrScreenController extends GetxController {
   late QRViewController qrCtrl;
   final count = 0.obs;
   @override
-  void onInit() async {
+  Future<void> onInit() async {
     super.onInit();
-    PermissionStatus status = await _getCameraPermission();
+    var status = await _getCameraPermission();
     if (status.isGranted) {
       permissionGiven.value = true;
     }
@@ -30,7 +30,6 @@ class QrScreenController extends GetxController {
     super.onReady();
   }
 
-  @override
   void reassemble() {
     //super.reassemble();
     if (Platform.isAndroid) {
@@ -42,7 +41,7 @@ class QrScreenController extends GetxController {
 
   Future<PermissionStatus> _getCameraPermission() async {
     var status = await Permission.camera.status;
-    print("##$status");
+    print('##$status');
     if (!status.isGranted) {
       final result = await Permission.camera.request();
       return result;
@@ -53,11 +52,11 @@ class QrScreenController extends GetxController {
   }
 
   void onQRViewCreated(QRViewController controller) {
-    this.qrCtrl = controller;
+    qrCtrl = controller;
     // controller.scannedDataStream.timeout(Duration(seconds:10, )).lis
     controller.scannedDataStream
         .timeout(
-      Duration(
+      const Duration(
         seconds: 10,
       ),
       onTimeout: onTimeout,
@@ -69,7 +68,7 @@ class QrScreenController extends GetxController {
       if (result.isBlank!) {
         print('cant detect');
       }
-      controller.pauseCamera();
+      await controller.pauseCamera();
       if (scanData.code.isNotEmpty) {
         qrScanned.value = true;
         cannotDetect.value = false;
@@ -81,7 +80,9 @@ class QrScreenController extends GetxController {
   }
 
   void onTimeout(EventSink barcode) {
-    qrScanned.value ? null : cannotDetect.value = true;
+    if(qrScanned()){
+      cannotDetect.value = true;
+    }
     qrCtrl.resumeCamera();
   }
 

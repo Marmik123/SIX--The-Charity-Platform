@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class VendorHomeCurved extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Path path_0 = Path();
+    var path_0 = Path();
     path_0.moveTo(size.width * 0.9502488, 0);
     path_0.lineTo(size.width * 0.7293532, 0);
     path_0.cubicTo(
@@ -49,13 +49,13 @@ class VendorHomeCurved extends CustomPainter {
         0, size.width * 0.9502488, 0);
     path_0.close();
 
-    Paint paint_0_fill = Paint()..style = PaintingStyle.fill;
-    paint_0_fill.shader = ui.Gradient.linear(
+    var paint0Fill = Paint()..style = PaintingStyle.fill;
+    paint0Fill.shader = ui.Gradient.linear(
         Offset(size.width * 0.1980100, size.height * -0.00002217271),
         Offset(size.width * 1.885075, size.height * 2.289831),
-        [Color(0xff1FAF9E).withOpacity(1), Color(0xff0087FF).withOpacity(1)],
+        [const Color(0xff1FAF9E).withOpacity(1), const Color(0xff0087FF).withOpacity(1)],
         [0, 1]);
-    canvas.drawPath(path_0, paint_0_fill);
+    canvas.drawPath(path_0, paint0Fill);
   }
 
   @override

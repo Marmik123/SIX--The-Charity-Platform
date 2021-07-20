@@ -15,20 +15,6 @@ Widget monthPicker({
   return Container(
     height: height,
     width: width,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        textContent, //Text widget
-        GestureDetector(
-          onTap: onTapArrow,
-          child: Icon(
-            Icons.keyboard_arrow_down_sharp,
-            color: AppColors.k033660,
-            size: 20,
-          ),
-        )
-      ],
-    ),
     decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(30.r),
@@ -40,5 +26,19 @@ Widget monthPicker({
           BoxShadow(
               color: shadowColor, blurRadius: 30.r, offset: Offset(0, 25.sp))
         ]),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        textContent, //Text widget
+        GestureDetector(
+          onTap: onTapArrow,
+          child: const Icon(
+            Icons.keyboard_arrow_down_sharp,
+            color: AppColors.k033660,
+            size: 20,
+          ),
+        )
+      ],
+    ),
   );
 }

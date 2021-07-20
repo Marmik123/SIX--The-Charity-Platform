@@ -25,7 +25,7 @@ Widget onBoardingNavigation({
             ListView.separated(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                physics: ClampingScrollPhysics(),
+                physics: const ClampingScrollPhysics(),
                 itemCount: itemCount,
                 separatorBuilder: (context, index) => SizedBox(
                       width: isVendor ? 6.w : 15.w,
@@ -44,21 +44,21 @@ Widget onBoardingNavigation({
                     )),
             AnimatedPositioned(
               left: screenIndex * onChangedPadding,
-              duration: Duration(
+              duration: const Duration(
                 milliseconds: 300,
               ),
               child: AnimatedContainer(
                 curve: Curves.easeInQuint,
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   left: 5,
                 ),
                 width: 20.w,
                 height: 20.h,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: AppColors.k14A1BE,
                 ),
-                duration: Duration(
+                duration: const Duration(
                   milliseconds: 300,
                 ),
               ),

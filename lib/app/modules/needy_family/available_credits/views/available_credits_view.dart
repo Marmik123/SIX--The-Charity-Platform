@@ -12,7 +12,7 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
   AvailableCreditsView({required this.whichRole});
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
+    //var theme = Theme.of(context);
     return Scaffold(
         backgroundColor: AppColors.kffffff,
         body: Column(
@@ -32,7 +32,7 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
                       onTap: () {
                         Get.back<void>();
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_back_sharp,
                         color: AppColors.k033660,
                       ),
@@ -60,9 +60,9 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
                 itemCount: 16,
                 shrinkWrap: true,
                 padding: const EdgeInsets.only(top: 20, left: 50),
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) => Stack(
-                  overflow: Overflow.visible,
+                  clipBehavior: Clip.none,
                   children: [
                     Column(
                       children: [
@@ -76,7 +76,7 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
                                       color:
                                           AppColors.k00474E.withOpacity(0.04),
                                       blurRadius: 50.r,
-                                      offset: Offset(0, 20))
+                                      offset: const Offset(0, 20))
                                 ],
                                 borderRadius: BorderRadius.circular(50.r)),
                             child: Padding(

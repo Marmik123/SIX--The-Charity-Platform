@@ -11,7 +11,7 @@ Widget doubleShadedCont(String url) {
         width: 520.r,
         height: 520.r,
         alignment: Alignment.center,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
@@ -39,7 +39,7 @@ Widget doubleShadedCont(String url) {
             color: AppColors.kffffff,
             width: 8.w,
           ),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
                 color: AppColors.kffffff,
                 offset: Offset(-2, -1),

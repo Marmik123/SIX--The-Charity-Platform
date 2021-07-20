@@ -6,7 +6,9 @@ class HistorySwController extends GetxController
     with SingleGetTickerProviderMixin {
   //TODO: Implement HistorySwController
   TabController? tabController;
-  RxInt? tabIndex = 0.obs;
+  ScrollController scrollViewController = ScrollController();
+  RxBool titleVisible = true.obs;
+  RxInt tabIndex = 0.obs;
   List<String> text = [
     '',
     '',
@@ -17,22 +19,23 @@ class HistorySwController extends GetxController
     'Assigned',
     'Redeemed',
   ];
-  RxInt? monthNum = 1.obs;
   RxString monthName = 'Sept'.obs;
-  late DateTime? selectedDate = DateTime.now();
+  Rx<DateTime> selectedDate = DateTime.now().obs;
   final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
     tabController = TabController(length: 3, vsync: this);
+    titleVisible(false);
+    scrollViewController.addListener(dataScrollController);
   }
 
-  void launchURL() async {
-    final Uri params = Uri(
+  Future<void> launchURL() async {
+    final params = Uri(
       scheme: 'mailto',
       path: 'raymondwong@gmail.com',
     );
-    String url = params.toString();
+    var url = params.toString();
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -40,7 +43,7 @@ class HistorySwController extends GetxController
     }
   }
 
-  void assignMonth(int month) {
+  void assignMonth({int month = 1}) {
     switch (month) {
       case 1:
         monthName('Jan');
@@ -81,6 +84,18 @@ class HistorySwController extends GetxController
     }
   }
 
+  void dataScrollController() {
+    if (scrollViewController.offset > 150) {
+      if (titleVisible.isFalse) {
+        titleVisible(true);
+      }
+    } else {
+      if (titleVisible.isTrue) {
+        titleVisible(false);
+      }
+    }
+  }
+
   @override
   void onReady() {
     super.onReady();
@@ -89,6 +104,7 @@ class HistorySwController extends GetxController
   @override
   void onClose() {
     tabController!.dispose();
+    scrollViewController.removeListener(dataScrollController);
   }
 
   void increment() => count.value++;

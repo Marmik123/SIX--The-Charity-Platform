@@ -24,7 +24,7 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                     onTap: () {
                       Get.back<void>();
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_back_sharp,
                       color: AppColors.k033660,
                     ),
@@ -69,14 +69,14 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                 extendBodyBehindAppBar: true,
                 body: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
-                  physics: ClampingScrollPhysics(),
+                  physics: const ClampingScrollPhysics(),
                   child: Container(
                     width: 1.sw,
                     height: 1.sh,
                     child: Column(
                       children: [
                         Stack(
-                          overflow: Overflow.visible,
+                          clipBehavior: Clip.none,
                           alignment: Alignment.bottomCenter,
                           children: [
                             Container(
@@ -97,7 +97,7 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                                         color:
                                             AppColors.k000000.withOpacity(0.04),
                                         blurRadius: 50.r,
-                                        offset: Offset(0, 20)),
+                                        offset: const Offset(0, 20)),
                                   ],
                                 ),
                                 child: Center(
@@ -137,7 +137,7 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                                       color:
                                           AppColors.kDFDFDF.withOpacity(0.25),
                                       blurRadius: 50.r,
-                                      offset: Offset(0, 20),
+                                      offset: const Offset(0, 20),
                                     ),
                                   ]),
                               child: Center(
@@ -200,7 +200,7 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                               boxShadow: [
                                 BoxShadow(
                                   color: AppColors.k00474E.withOpacity(0.04),
-                                  offset: Offset(0, 20),
+                                  offset: const Offset(0, 20),
                                   blurRadius: 50.r,
                                 ),
                               ]),
@@ -212,8 +212,7 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                                     initialValue: '15015403',
                                     enabled: true,
                                     onEditingComplete: () {
-                                      FocusScopeNode currentFocus =
-                                          FocusScope.of(context);
+                                      var currentFocus = FocusScope.of(context);
                                       currentFocus.unfocus();
                                       controller.codeEntered.value = true;
                                     },
@@ -224,10 +223,10 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                                       fontFamily: 'Gilroy',
                                       fontSize: 45.sp,
                                     ),
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                         fillColor: AppColors.kffffff,
-                                        contentPadding: const EdgeInsets.only(
-                                            left: 15, top: 15),
+                                        contentPadding:
+                                            EdgeInsets.only(left: 15, top: 15),
                                         filled: true,
                                         enabledBorder: InputBorder.none,
                                         focusedBorder: InputBorder.none,
@@ -258,7 +257,7 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                         boxShadow: [
                           BoxShadow(
                             color: AppColors.k000000.withOpacity(0.25),
-                            offset: Offset(0, 4),
+                            offset: const Offset(0, 4),
                             blurRadius: 4.r,
                           ),
                         ],

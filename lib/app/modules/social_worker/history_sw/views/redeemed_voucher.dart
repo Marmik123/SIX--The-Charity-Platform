@@ -5,14 +5,14 @@ import 'package:six/app/modules/social_worker/history_sw/controllers/history_sw_
 import 'package:six/app/ui/components/common_voucher_card.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
 
-class HistoryAllVoucherView extends GetView<HistorySwController> {
+class RedeemedView extends GetView<HistorySwController> {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      physics: const ClampingScrollPhysics(),
-      itemCount: 15,
       shrinkWrap: true,
       padding: EdgeInsets.zero,
+      physics: const ClampingScrollPhysics(),
+      itemCount: 15,
       separatorBuilder: (context, index) => h(10.h),
       itemBuilder: (context, index) => voucherCard(
         title: 'Sheng Siong',
@@ -22,7 +22,7 @@ class HistoryAllVoucherView extends GetView<HistorySwController> {
         date: '1, Oct 2021',
         onTap: () {},
         voucherState: VoucherState.active,
-        btnText: 'Already Assigned',
+        btnText: 'Already Redeemed',
         whichScreen: 'History',
         isQRScreen: false,
       ),

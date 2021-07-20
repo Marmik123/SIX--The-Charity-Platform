@@ -9,19 +9,19 @@ class SocialHomeController extends GetxController {
   RxBool paid = false.obs;
   RxInt? monthNum = 1.obs;
   RxString monthName = 'Sept'.obs;
-  late DateTime? selectedDate = DateTime.now();
+  DateTime selectedDate = DateTime.now();
   final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
   }
 
-  void launchURL() async {
-    final Uri params = Uri(
+  Future<void> launchURL() async {
+    final params = Uri(
       scheme: 'mailto',
       path: 'raymondwong@gmail.com',
     );
-    String url = params.toString();
+    var url = params.toString();
     if (await canLaunch(url)) {
       await launch(url);
     } else {

@@ -39,6 +39,11 @@ Widget categoryCard({
         ),
         image, // Category Icon
         CustomPaint(
+          size: Size(
+              410.w,
+              (410.w * 0.8622222222222222)
+                  .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+          painter: CategoryContainer(),
           child: Padding(
             padding: padding,
             child: Column(
@@ -102,16 +107,16 @@ Widget categoryCard({
                           SliderTheme(
                             data: SliderTheme.of(context).copyWith(
                               thumbColor: Colors.transparent,
-                              thumbShape: RoundSliderThumbShape(
+                              thumbShape: const RoundSliderThumbShape(
                                   enabledThumbRadius: 0.0),
                               /*rangeTrackShape:
                                   RoundedRectRangeSliderTrackShape(),
                              */
-                              trackShape: RoundedRectSliderTrackShape(),
+                              trackShape: const RoundedRectSliderTrackShape(),
                               disabledThumbColor: Colors.transparent,
                               overlayColor: Colors.transparent,
-                              overlayShape:
-                                  RoundSliderOverlayShape(overlayRadius: 0),
+                              overlayShape: const RoundSliderOverlayShape(
+                                  overlayRadius: 0),
                               trackHeight: 6,
                             ),
                             child: FittedBox(
@@ -195,11 +200,6 @@ Widget categoryCard({
               ],
             ),
           ),
-          size: Size(
-              410.w,
-              (410.w * 0.8622222222222222)
-                  .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-          painter: CategoryContainer(),
         ),
       ],
     ),

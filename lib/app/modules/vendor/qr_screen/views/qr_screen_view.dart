@@ -15,8 +15,8 @@ import 'package:six/r.g.dart';
 import '../controllers/qr_screen_controller.dart';
 
 class QrScreenView extends GetView<QrScreenController> {
-  VendorRedeemController vendorRCtrl = Get.put(VendorRedeemController());
-  VendorHomeController vendorHome = Get.put(VendorHomeController());
+  final VendorRedeemController vendorRCtrl = Get.put(VendorRedeemController());
+  final VendorHomeController vendorHome = Get.put(VendorHomeController());
   @override
   Widget build(BuildContext context) {
     return Obx(() => Stack(
@@ -33,7 +33,7 @@ class QrScreenView extends GetView<QrScreenController> {
                   onTap: () {
                     Get.back<void>();
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.arrow_back_sharp,
                     color: AppColors.kffffff,
                   ),
@@ -52,7 +52,7 @@ class QrScreenView extends GetView<QrScreenController> {
               ),
               body: controller.permissionGiven.value
                   ? _buildQrView(context)
-                  : CircularProgressIndicator(),
+                  : const CircularProgressIndicator(),
             ),
             controller.qrScanned.value
                 ? BackdropFilter(
@@ -65,7 +65,7 @@ class QrScreenView extends GetView<QrScreenController> {
                         boxShadow: [
                           BoxShadow(
                             color: AppColors.k000000.withOpacity(0.25),
-                            offset: Offset(0, 4),
+                            offset: const Offset(0, 4),
                             blurRadius: 4.r,
                           ),
                         ],
@@ -80,7 +80,7 @@ class QrScreenView extends GetView<QrScreenController> {
                               ),
                               Stack(
                                 alignment: Alignment.bottomCenter,
-                                overflow: Overflow.visible,
+                                clipBehavior: Clip.none,
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(left: 20.0),
@@ -134,11 +134,11 @@ class QrScreenView extends GetView<QrScreenController> {
                                         color:
                                             AppColors.k00474E.withOpacity(0.04),
                                         blurRadius: 40.r,
-                                        offset: Offset(0, 20),
+                                        offset: const Offset(0, 20),
                                       ),
                                     ],
                                   ),
-                                  child: Center(
+                                  child: const Center(
                                     child: Icon(
                                       Icons.clear,
                                       color: AppColors.k1FAF9E,
@@ -197,7 +197,7 @@ class QrScreenView extends GetView<QrScreenController> {
                         boxShadow: [
                           BoxShadow(
                             color: AppColors.k0087A1.withOpacity(0.6),
-                            offset: Offset(0, 4),
+                            offset: const Offset(0, 4),
                             blurRadius: 4.r,
                           ),
                         ],

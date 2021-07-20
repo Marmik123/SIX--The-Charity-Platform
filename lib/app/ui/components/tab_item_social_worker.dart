@@ -22,8 +22,8 @@ Widget tabItem(String text, String textNewLine, int index, String whichScreen) {
               color: (whichScreen == 'Social'
                       ? socialCtrl.tabIndex!() == index
                       : whichScreen == 'History'
-                          ? historyCtrl.tabIndex!() == index
-                          : ctrl.tabIndex!() == index)
+                          ? historyCtrl.tabIndex() == index
+                          : ctrl.tabIndex() == index)
                   ? AppColors.k13A89E
                   : AppColors.k033660,
               fontWeight: FontWeight.w500,
@@ -36,8 +36,8 @@ Widget tabItem(String text, String textNewLine, int index, String whichScreen) {
                 color: (whichScreen == 'Social'
                         ? socialCtrl.tabIndex!() == index
                         : whichScreen == 'History'
-                            ? historyCtrl.tabIndex!() == index
-                            : ctrl.tabIndex!() == index)
+                            ? historyCtrl.tabIndex() == index
+                            : ctrl.tabIndex() == index)
                     ? AppColors.k13A89E
                     : AppColors.k033660,
                 fontWeight: FontWeight.w700,

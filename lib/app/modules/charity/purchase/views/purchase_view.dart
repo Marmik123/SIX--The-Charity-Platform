@@ -15,7 +15,7 @@ import 'package:six/r.g.dart';
 import '../controllers/purchase_controller.dart';
 
 class PurchaseView extends GetView<PurchaseController> {
-  var ctrl = Get.put(PurchaseController());
+  final PurchaseController ctrl = Get.put(PurchaseController());
   final String whichScreen;
 
   PurchaseView({required this.whichScreen});
@@ -63,7 +63,7 @@ class PurchaseView extends GetView<PurchaseController> {
                               childAspectRatio: 628.w / 755.h,
                             ),
                             itemCount: 12,
-                            physics: BouncingScrollPhysics(),
+                            // physics: BouncingScrollPhysics(),
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
                               return GestureDetector(
@@ -121,7 +121,7 @@ class PurchaseView extends GetView<PurchaseController> {
                                                     width: 88.r,
                                                     fit: BoxFit.contain,
                                                   )
-                                                : SizedBox.shrink(),
+                                                : const SizedBox.shrink(),
                                       ),
                                     )
                                   ],
@@ -131,10 +131,10 @@ class PurchaseView extends GetView<PurchaseController> {
                       ),
                     ),
                     SizedBox(
-                      height: whichScreen == 'History' ? 2.h : 350.h,
+                      height: whichScreen == 'Social' ? 2.h : 350.h,
                     ),
                     whichScreen == 'Social'
-                        ? SizedBox.shrink()
+                        ? const SizedBox.shrink()
                         : Center(
                             child: roundedButton(
                               text: 'Purchase Credit',
@@ -168,7 +168,7 @@ class PurchaseView extends GetView<PurchaseController> {
                         boxShadow: [
                           BoxShadow(
                             color: AppColors.k0087A1.withOpacity(0.4),
-                            offset: Offset(0, 2),
+                            offset: const Offset(0, 2),
                             blurRadius: 40.r,
                           ),
                         ],
@@ -187,7 +187,7 @@ class PurchaseView extends GetView<PurchaseController> {
                         boxShadow: [
                           BoxShadow(
                             color: AppColors.k0087A1.withOpacity(0.6),
-                            offset: Offset(0, 4),
+                            offset: const Offset(0, 4),
                             blurRadius: 4.r,
                           ),
                         ],

@@ -90,7 +90,7 @@ Widget actionDialog({
                       ),
                     ],
                   )
-                : SizedBox.shrink()
+                : const SizedBox.shrink()
           ],
         ),
       ),
@@ -98,7 +98,7 @@ Widget actionDialog({
         height: 484.h,
       ),
       whichScreen == 'SW'
-          ? SizedBox.shrink()
+          ? const SizedBox.shrink()
           : GestureDetector(
               onTap: onTapCancel,
               child: Container(
@@ -111,11 +111,11 @@ Widget actionDialog({
                     BoxShadow(
                       color: AppColors.k00474E.withOpacity(0.04),
                       blurRadius: 40.r,
-                      offset: Offset(0, 20),
+                      offset: const Offset(0, 20),
                     ),
                   ],
                 ),
-                child: Center(
+                child: const Center(
                   child: Icon(
                     Icons.clear,
                     color: AppColors.k1FAF9E,

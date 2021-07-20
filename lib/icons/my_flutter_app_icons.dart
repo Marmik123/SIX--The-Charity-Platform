@@ -25,6 +25,6 @@ class MyFlutterApp {
   static const _kFontFam = 'MyFlutterApp';
   static const String? _kFontPkg = null;
 
-  static const IconData vector_2_ = IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData vector = IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData percentage = IconData(0xf541, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

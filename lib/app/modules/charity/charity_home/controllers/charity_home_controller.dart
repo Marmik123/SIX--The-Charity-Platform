@@ -11,7 +11,7 @@ class CharityHomeController extends GetxController {
   RxInt? currentIndex = 0.obs;
   RxInt? monthNum = 1.obs;
   RxString monthName = 'Sept'.obs;
-  late DateTime? selectedDate = DateTime.now();
+  DateTime selectedDate = DateTime.now();
 
   Rx<Widget> popUpItem = monthPicker(
     color: AppColors.kF2FEFF,
@@ -36,19 +36,6 @@ class CharityHomeController extends GetxController {
 
   List<PopupMenuEntry<Widget>> popUpWidgets = [
     PopupMenuItem<Widget>(
-      child: Container(
-        width: 525.w,
-        child: Text(
-          'Support Beneficiary Fund',
-          style: TextStyle(
-            fontFamily: 'Gilroy',
-            fontSize: 35.sp,
-            fontStyle: FontStyle.normal,
-            color: AppColors.k13A89E,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
       value: monthPicker(
         color: AppColors.kF2FEFF,
         borderColor: AppColors.kD8FCFF,
@@ -68,12 +55,10 @@ class CharityHomeController extends GetxController {
         width: 627.w,
         onTapArrow: () {},
       ),
-    ),
-    PopupMenuItem<Widget>(
       child: Container(
         width: 525.w,
         child: Text(
-          'Covid19 Relief Fund',
+          'Support Beneficiary Fund',
           style: TextStyle(
             fontFamily: 'Gilroy',
             fontSize: 35.sp,
@@ -83,6 +68,8 @@ class CharityHomeController extends GetxController {
           ),
         ),
       ),
+    ),
+    PopupMenuItem<Widget>(
       value: monthPicker(
         color: AppColors.kF2FEFF,
         borderColor: AppColors.kD8FCFF,
@@ -102,12 +89,10 @@ class CharityHomeController extends GetxController {
         width: 627.w,
         onTapArrow: () {},
       ),
-    ),
-    PopupMenuItem<Widget>(
       child: Container(
         width: 525.w,
         child: Text(
-          'Serving the Elderly',
+          'Covid19 Relief Fund',
           style: TextStyle(
             fontFamily: 'Gilroy',
             fontSize: 35.sp,
@@ -117,6 +102,8 @@ class CharityHomeController extends GetxController {
           ),
         ),
       ),
+    ),
+    PopupMenuItem<Widget>(
       value: monthPicker(
         color: AppColors.kF2FEFF,
         borderColor: AppColors.kD8FCFF,
@@ -135,6 +122,19 @@ class CharityHomeController extends GetxController {
         ),
         width: 627.w,
         onTapArrow: () {},
+      ),
+      child: Container(
+        width: 525.w,
+        child: Text(
+          'Serving the Elderly',
+          style: TextStyle(
+            fontFamily: 'Gilroy',
+            fontSize: 35.sp,
+            fontStyle: FontStyle.normal,
+            color: AppColors.k13A89E,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
       ),
     ),
   ];

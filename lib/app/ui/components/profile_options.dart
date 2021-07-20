@@ -32,11 +32,11 @@ Widget profileMenuItem(String assetName, String text, VoidCallback onTap) {
     //minVerticalPadding: 18.h,
     trailing: IconButton(
       onPressed: () {},
-      icon: Icon(Icons.arrow_forward_ios),
+      icon: const Icon(Icons.arrow_forward_ios),
       color: AppColors.k033660,
       iconSize: 14,
     ),
     minVerticalPadding: 18.w,
-    visualDensity: VisualDensity(vertical: -3.5, horizontal: 0),
+    visualDensity: const VisualDensity(vertical: -3.5, horizontal: 0),
   );
 }
