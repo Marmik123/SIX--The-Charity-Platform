@@ -106,7 +106,7 @@ class StartTheApp extends StatelessWidget {
           title: 'SIX-The Charity Platform',
           navigatorKey: Catcher.navigatorKey,
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.blueGrey,
           ),
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,

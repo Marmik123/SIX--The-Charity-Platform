@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -10,6 +11,7 @@ class SocialHomeController extends GetxController {
   RxInt? monthNum = 1.obs;
   RxString monthName = 'Sept'.obs;
   DateTime selectedDate = DateTime.now();
+  ScrollController scrollController = ScrollController();
   final count = 0.obs;
   @override
   void onInit() {

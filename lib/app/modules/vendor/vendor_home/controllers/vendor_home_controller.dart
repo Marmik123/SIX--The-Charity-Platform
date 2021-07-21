@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VendorHomeController extends GetxController {
@@ -5,6 +6,8 @@ class VendorHomeController extends GetxController {
   RxInt? currentIndex = 0.obs;
   RxInt? monthNum = 1.obs;
   RxString monthName = 'Sept'.obs;
+  ScrollController scrollController = ScrollController();
+
   DateTime selectedDate = DateTime.now();
   final count = 0.obs;
   @override

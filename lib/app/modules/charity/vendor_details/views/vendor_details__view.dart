@@ -251,11 +251,24 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
               ),
               controller.whichScreen == 'Charity'
                   ? SliverPersistentHeader(
+                      pinned: true,
                       delegate: SliverAppBarDelegate(
-                        minHeight: 1.h,
-                        maxHeight: 1.h,
-                        child: const SizedBox.shrink(),
-                      ),
+                          minHeight: 100.h,
+                          maxHeight: 100.h,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 22, top: 5),
+                            child: Text(
+                              'About Us',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy',
+                                fontSize: 60.sp,
+                                fontStyle: FontStyle.normal,
+                                color: AppColors.k033660.withOpacity(0.5),
+                                fontWeight: FontWeight.w500,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          )),
                     )
                   : SliverPersistentHeader(
                       pinned: true,
@@ -316,15 +329,15 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                         ? Padding(
                             padding: const EdgeInsets.only(left: 20.0),
                             child: Text(
-                              'About Us',
+                              '\nLorem ipsum dolor sit amet, consectetur adipiscing\nelit, sed do eiusmod tempor incididunt ut labore et\ndolore magna aliqua. Ut enim ad minim veniam, \nquis nostrud exercitation ullamco laboris nisi ut\naliquip ex ea commodo consequat.\n\nLorem ipsum dolor sit amet, consectetur adipiscing\nelit, sed do eiusmod tempor incididunt ut labore et\ndolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut\naliquip ex ea commodo consequat.  ',
                               style: TextStyle(
                                 fontFamily: 'Gilroy',
-                                fontSize: 60.sp,
+                                fontSize: 42.sp,
                                 fontStyle: FontStyle.normal,
                                 color: AppColors.k033660.withOpacity(0.5),
                                 fontWeight: FontWeight.w500,
                               ),
-                              textAlign: TextAlign.center,
+                              textAlign: TextAlign.left,
                             ),
                           )
                         : Container(
