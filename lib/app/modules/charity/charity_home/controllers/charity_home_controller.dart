@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/config/logger.dart';
+import 'package:six/app/data/remote/api_service/init_api_service.dart';
 import 'package:six/app/ui/components/month_picker.dart';
 import 'package:six/graph_data.dart';
 
@@ -12,7 +14,7 @@ class CharityHomeController extends GetxController {
   RxInt? monthNum = 1.obs;
   RxString monthName = 'Sept'.obs;
   DateTime selectedDate = DateTime.now();
-
+  RxList<dynamic> graphDetails = <dynamic>[].obs;
   Rx<Widget> popUpItem = monthPicker(
     color: AppColors.kF2FEFF,
     borderColor: AppColors.kD8FCFF,
@@ -230,5 +232,21 @@ class CharityHomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    getGraphProgramData();
+  }
+
+  Future<void> getGraphProgramData() async {
+    var response = await APIService.get(
+      path: '/v1/auth/available-credits-program-graph',
+    );
+    if (response.statusCode == 200) {
+      logI('######GraphDetails########');
+      logI(response.data!['data']);
+      graphDetails(response.data!['data'] as List<dynamic>);
+      logI(graphDetails);
+      //envResponse = response.data as Map<String, dynamic>;
+    } else {
+      Get.snackbar<void>('Error in Env Data', 'Please Try Again.');
+    }
   }
 }

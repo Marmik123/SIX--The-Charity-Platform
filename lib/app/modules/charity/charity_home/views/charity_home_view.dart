@@ -81,14 +81,13 @@ class CharityHome extends StatelessWidget {
                 Positioned(
                   top: 337.h,
                   child: GestureDetector(
-                    onTap: ()  {
+                    onTap: () {
                       monthPickerDialog(
                         context: context,
                         selectedDate: ctrl.selectedDate,
                       ).then((value) {
-                        ctrl.assignMonth(value?.month ??1);
+                        ctrl.assignMonth(value?.month ?? 1);
                       });
-
                     },
                     child: monthPicker(
                       color: AppColors.kffffff,
@@ -379,10 +378,12 @@ class CharityHome extends StatelessWidget {
                               height: 710.h,
                               child: SfCartesianChart(
                                 series: <ChartSeries>[
-                                  ColumnSeries<GraphData, String>(
-                                      dataSource: ctrl.chartData,
-                                      xValueMapper: (data, _) => data.xLabel,
-                                      yValueMapper: (data, _) => data.value,
+                                  ColumnSeries<dynamic, String>(
+                                      dataSource: ctrl.graphDetails(),
+                                      xValueMapper: (dynamic data, _) =>
+                                          data['title'],
+                                      yValueMapper: (dynamic data, _) =>
+                                          data.value,
                                       pointColorMapper: (data, _) =>
                                           data.columnColor,
                                       // Sets the corner radius

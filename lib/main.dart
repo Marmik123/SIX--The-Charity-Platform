@@ -58,7 +58,7 @@ Future<void> main() async {
             setupLocalNotifications: false,
             developmentApiBaseUrl: 'developmentApiBaseUrl',
             productionApiBaseUrl: null,
-            encryption: false,
+            encryption: true,
           );
           runApp(
             const StartTheApp(),

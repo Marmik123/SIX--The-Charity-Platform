@@ -7,7 +7,6 @@ analyzer:
     - lib/generated_*.dart
     - lib/r.g.dart
     - lib/generated/locales.g.dart
-    - lib/app/routes/app_routes.dart
   strong-mode:
     implicit-casts: false
     implicit-dynamic: false

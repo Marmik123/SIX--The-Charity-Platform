@@ -21,6 +21,7 @@ import 'package:six/app/modules/needy_family/profile/bindings/profile_binding.da
 import 'package:six/app/modules/needy_family/profile/views/profile_view.dart';
 import 'package:six/app/modules/needy_family/sign_pass_verification/bindings/sign_pass_verification_binding.dart';
 import 'package:six/app/modules/needy_family/sign_pass_verification/views/sign_pass_verification_view.dart';
+import 'package:six/app/modules/needy_family/sign_pass_verification/views/web_view.dart';
 import 'package:six/app/modules/needy_family/support/bindings/support_binding.dart';
 import 'package:six/app/modules/needy_family/support/views/support_view.dart';
 import 'package:six/app/modules/needy_family/voucher/bindings/voucher_binding.dart';
@@ -227,5 +228,10 @@ class AppPages {
       page: () => HistorySwView(),
       binding: HistorySwBinding(),
     ),
+    GetPage(
+      name: _Paths.WEB_VIEW,
+      page: () => WebViewScreen(),
+      binding: SignPassVerificationBinding(),
+    )
   ];
 }

@@ -4,9 +4,6 @@ part of 'app_pages.dart';
 abstract class Routes {
   Routes._();
 
-  // static const HOME = _Paths.ONBOARDING;
-  static const SOCKET_TEST = _Paths.SOCKET_TEST;
-  // static const TINODE_CHAT = _Paths.TINODE_CHAT;
   static const ONBOARDING_SCREEN = _Paths.ONBOARDING_SCREEN;
   static const SIGN_PASS_VERIFICATION = _Paths.SIGN_PASS_VERIFICATION;
   static const HOME = _Paths.HOME;
@@ -36,12 +33,10 @@ abstract class Routes {
   static const DISTRIBUTE_VOUCHER = _Paths.DISTRIBUTE_VOUCHER;
   static const PURCHASE_SOCIAL = _Paths.PURCHASE_SOCIAL;
   static const HISTORY_SW = _Paths.HISTORY_SW;
+  static const WEB_VIEW = _Paths.WEB_VIEW;
 }
 
 abstract class _Paths {
-  // static const HOME = '/home';
-  static const SOCKET_TEST = '/socket-test';
-  // static const TINODE_CHAT = '/tinode-chat';
   static const SPLASH = '/splash';
   static const ONBOARDING_SCREEN = '/onboarding-screen';
   static const SIGN_PASS_VERIFICATION = '/sign-pass-verification';
@@ -72,4 +67,5 @@ abstract class _Paths {
   static const DISTRIBUTE_VOUCHER = '/distribute-voucher';
   static const PURCHASE_SOCIAL = '/purchase-social';
   static const HISTORY_SW = '/history-sw';
+  static const WEB_VIEW = '/web-view';
 }

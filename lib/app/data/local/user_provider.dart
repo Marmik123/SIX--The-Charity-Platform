@@ -2,25 +2,27 @@ import 'dart:convert';
 
 import 'package:get_storage/get_storage.dart';
 import 'package:six/app/data/config/encryption.dart';
+import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/local/storage_keys.dart';
-import 'package:six/app/data/remote/api_service/service.dart';
+import 'package:six/app/data/models/user_entity.dart';
 
 class UserProvider {
-  static late UserEntity? _userEntity;
-  static late String? _authToken;
+  static UserEntity? _userEntity;
+  static String? _authToken;
   static late bool _isLoggedIn;
 
   static UserEntity? get currentUser => _userEntity;
-  static String? get authToken => _authToken;
+  static String? get authToken => _authToken ?? '';
   static bool get isLoggedIn => _isLoggedIn;
 
   ///Set [currentUser] and [authToken]
   static Future<void> onLogin(UserEntity user, String userAuthToken) async {
+    logI('####@@@$userAuthToken');
     _isLoggedIn = true;
     _userEntity = user;
     _authToken = userAuthToken;
     await GetStorage().write(StorageKeys.userDataKey,
-        AppEncryption.encrypt(plainText: jsonEncode(user.toJson())));
+        AppEncryption.encrypt(plainText: user.toJson()));
     await GetStorage().write(StorageKeys.authTokenKey, userAuthToken);
   }
 
@@ -30,9 +32,12 @@ class UserProvider {
 
     if (encryptedUserData != null) {
       _isLoggedIn = true;
-      _userEntity = UserEntity.fromJson(
-          jsonDecode(AppEncryption.decrypt(cipherText: encryptedUserData))
-              as Map<String, dynamic>);
+      var userData = AppEncryption.decrypt(cipherText: encryptedUserData);
+      logI(userData.runtimeType);
+      logI(userData);
+      logI(jsonDecode(userData).runtimeType);
+      _userEntity =
+          UserEntity.fromMap(jsonDecode(userData) as Map<String, dynamic>);
       _authToken = GetStorage().read<String>(StorageKeys.authTokenKey)!;
     } else {
       _isLoggedIn = false;

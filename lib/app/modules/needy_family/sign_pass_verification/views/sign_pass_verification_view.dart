@@ -203,6 +203,7 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                         roundedButton(
                           text: 'Charity',
                           onTap: () {
+                            controller.getUserDetailToLogin();
                             Get.offAndToNamed<void>(Routes.CHARITY_ONBOARDING);
                           },
                           width: 452.w,
@@ -226,6 +227,29 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                           width: 452.w,
                           height: 150.h,
                           fontSize: 50.sp,
+                        ),
+                        roundedButton(
+                          text: 'Web View Login',
+                          onTap: () {
+                            Get.toNamed<void>(Routes.WEB_VIEW)?.then<void>(
+                              (value) {
+                                controller.successLogin()
+                                    ? Get.snackbar<void>(
+                                        'Login Successful',
+                                        'Redirecting',
+                                      )
+                                    : Get.snackbar<void>(
+                                        'Login Error', 'Try Again');
+                                Future<void>.delayed(const Duration(seconds: 3),
+                                    () {
+                                  Get.offAllNamed<void>(Routes.CHARITY_HOME);
+                                });
+                              },
+                            );
+                          },
+                          width: 300.w,
+                          height: 200.h,
+                          fontSize: 35.sp,
                         )
                       ],
                     )
@@ -265,6 +289,8 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                   ? const SizedBox.shrink()
                   : TextButton(
                       onPressed: () {
+                        controller.callAuthorizeData();
+                        controller.getUserDetailToLogin();
                         controller.isVerified.value = true;
                       },
                       child: const Text('Next'),

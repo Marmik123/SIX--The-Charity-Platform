@@ -46,6 +46,8 @@ Future<void> initializeCoreApp({
   if (productionApiBaseUrl != null || developmentApiBaseUrl != null) {
     APIService.initializeAPIService(
       encryptData: encryption,
+      prodBaseUrl: 'https://six.api.dharmatech.in',
+      devBaseUrl: 'https://six.api.dharmatech.in',
     );
   }
 }
