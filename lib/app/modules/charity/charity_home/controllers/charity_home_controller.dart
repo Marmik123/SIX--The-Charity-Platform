@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/config/logger.dart';
-import 'package:six/app/data/remote/api_service/init_api_service.dart';
+import 'package:six/app/data/models/graph_data.dart';
+import 'package:six/app/data/provider/home_graph_provider.dart';
 import 'package:six/app/ui/components/month_picker.dart';
-import 'package:six/graph_data.dart';
 
 class CharityHomeController extends GetxController {
   //TODO: Implement CharityHomeController
@@ -13,8 +13,18 @@ class CharityHomeController extends GetxController {
   RxInt? currentIndex = 0.obs;
   RxInt? monthNum = 1.obs;
   RxString monthName = 'Sept'.obs;
+  RxString totalDonation = 'Sept'.obs;
+  RxString totalContributors = 'Sept'.obs;
+  RxString totalFamilyCount = 'Sept'.obs;
+  RxString availableCredits = 'Sept'.obs;
   DateTime selectedDate = DateTime.now();
-  RxList<dynamic> graphDetails = <dynamic>[].obs;
+  RxList<GraphData> graphDetails = <GraphData>[].obs;
+  Map<String, dynamic>? dashboardData;
+  RxBool isLoading = false.obs;
+  TabController tabController = TabController(
+    length: 2,
+    vsync: NavigatorState(),
+  );
   Rx<Widget> popUpItem = monthPicker(
     color: AppColors.kF2FEFF,
     borderColor: AppColors.kD8FCFF,
@@ -140,52 +150,6 @@ class CharityHomeController extends GetxController {
       ),
     ),
   ];
-  final List<GraphData> chartData = [
-    GraphData(
-      yLabel: '\$60k',
-      xLabel: 'Support\nBeneficiary Fund',
-      value: 60000,
-      columnColor: AppColors.kFF9871,
-    ),
-    GraphData(
-      yLabel: '\$20k',
-      xLabel: 'Covid19\nRelief Fund',
-      value: 20000,
-      columnColor: AppColors.kFF007A,
-    ),
-    GraphData(
-      yLabel: '\$15k',
-      xLabel: 'Serving\nthe Elderly',
-      value: 15000,
-      columnColor: AppColors.kFFD85E,
-    ),
-  ];
-  final List<GraphData> secondChart = [
-    GraphData(
-      yLabel: '\$60k',
-      xLabel: 'Food &\nbeverage',
-      value: 15000,
-      columnColor: AppColors.kFF9871,
-    ),
-    GraphData(
-      yLabel: '\$20k',
-      xLabel: 'Delivery',
-      value: 5000,
-      columnColor: AppColors.kFF007A,
-    ),
-    GraphData(
-      yLabel: '\$15k',
-      xLabel: 'Supermarket',
-      value: 30000,
-      columnColor: AppColors.k13A89E,
-    ),
-    GraphData(
-      yLabel: '\$15k',
-      xLabel: 'Transportation',
-      value: 10000,
-      columnColor: AppColors.kFFD85E,
-    ),
-  ];
 
   void assignMonth(int month) {
     switch (month) {
@@ -232,21 +196,22 @@ class CharityHomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getGraphProgramData();
+    isLoading(true);
+    assignToGraphDetails();
+    assignDashboardData();
   }
 
-  Future<void> getGraphProgramData() async {
-    var response = await APIService.get(
-      path: '/v1/auth/available-credits-program-graph',
-    );
-    if (response.statusCode == 200) {
-      logI('######GraphDetails########');
-      logI(response.data!['data']);
-      graphDetails(response.data!['data'] as List<dynamic>);
-      logI(graphDetails);
-      //envResponse = response.data as Map<String, dynamic>;
-    } else {
-      Get.snackbar<void>('Error in Env Data', 'Please Try Again.');
-    }
+  Future<void> assignToGraphDetails() async {
+    graphDetails(await GraphDataProvider.getGraphProgramData());
+    isLoading(false);
+  }
+
+  Future<void> assignDashboardData() async {
+    dashboardData = await GraphDataProvider.getDashboardData();
+    logI('@@@$dashboardData');
+    availableCredits(dashboardData?['availableCreditData'].toString() ?? '');
+    totalDonation(dashboardData?['totalDonation'].toString() ?? '');
+    totalContributors(dashboardData?['totalContributors'].toString() ?? '');
+    totalFamilyCount(dashboardData?['totalFamilyCount'].toString() ?? '');
   }
 }
