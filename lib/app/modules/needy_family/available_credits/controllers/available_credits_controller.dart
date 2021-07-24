@@ -1,18 +1,18 @@
 import 'package:get/get.dart';
 import 'package:six/app/data/models/graph_data.dart';
-import 'package:six/app/data/provider/home_graph_provider.dart';
+import 'package:six/app/data/provider/available_credits.dart';
 
 class AvailableCreditsController extends GetxController {
   //TODO: Implement AvailableCreditsController
   RxBool isLoading = false.obs;
-  RxList<GraphData> graphDetails = <GraphData>[].obs;
-
+  RxList<GraphData> programCreditsAvailability = <GraphData>[].obs;
+  RxInt skip = 0.obs;
+  RxInt limit = 1000.obs;
   final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
-
-    assignToGraphDetails();
+    assignToAvailProgCredit();
   }
 
   @override
@@ -24,9 +24,12 @@ class AvailableCreditsController extends GetxController {
   void onClose() {}
   void increment() => count.value++;
 
-  Future<void> assignToGraphDetails() async {
+  //Function for assigning the available credits of programs to the list "programCreditsAvailability".
+  Future<void> assignToAvailProgCredit() async {
     isLoading(true);
-    graphDetails(await GraphDataProvider.getGraphProgramData());
+    programCreditsAvailability(
+        await AvailableCreditsProvider.getTotalAvailableCreditsData(
+            skip: skip().toString(), limit: limit().toString()));
     isLoading(false);
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/utils/material_prop_ext.dart';
 
 double elevation = 0;
 Widget roundedButton({
@@ -16,12 +17,12 @@ Widget roundedButton({
     onPressed: onTap,
     style: ButtonStyle(
       enableFeedback: true,
-      padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
+      padding: EdgeInsets.zero.msp,
       //overlayColor: MaterialStateProperty.all(AppColors.kE5E5E5),
-      elevation: MaterialStateProperty.all(elevation),
-      backgroundColor: MaterialStateProperty.all(Colors.transparent),
-      shape: MaterialStateProperty.all(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(75.r))),
+      elevation: elevation.msp,
+      backgroundColor: Colors.transparent.msp,
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(75.r)).msp,
     ),
     child: Ink(
       width: width,

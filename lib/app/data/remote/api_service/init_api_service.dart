@@ -123,6 +123,7 @@ class APIService {
     // _restClient.getTasks();
   }
 
+  //GET
   static Future<Response<Map<String, dynamic>?>> get({
     required String path,
     Map<String, dynamic>? params,
@@ -137,6 +138,7 @@ class APIService {
     );
   }
 
+  //POST
   static Future<Response<Map<String, dynamic>?>> post({
     required String path,
     FormData? data,

@@ -5,6 +5,7 @@ class VendorDetailsController extends GetxController {
   TabController? tabController;
   RxInt tabIndex = 0.obs;
   String whichScreen = 'screenName';
+  RxBool isLoading = false.obs;
   ScrollController scrollController = ScrollController();
   List<String> text = [
     '',

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/config/logger.dart';
+import 'package:six/app/data/models/graph_category_data.dart';
 import 'package:six/app/data/models/graph_data.dart';
 import 'package:six/app/data/provider/home_graph_provider.dart';
 import 'package:six/app/ui/components/month_picker.dart';
@@ -12,6 +13,7 @@ class CharityHomeController extends GetxController {
   RxInt? tabIndex = 0.obs;
   RxInt? currentIndex = 0.obs;
   RxInt? monthNum = 1.obs;
+  RxInt programIndex = 0.obs;
   RxString monthName = 'Sept'.obs;
   RxString totalDonation = 'Sept'.obs;
   RxString totalContributors = 'Sept'.obs;
@@ -19,6 +21,7 @@ class CharityHomeController extends GetxController {
   RxString availableCredits = 'Sept'.obs;
   DateTime selectedDate = DateTime.now();
   RxList<GraphData> graphDetails = <GraphData>[].obs;
+  RxList<GraphCategoryData> graphCategoryDetails = <GraphCategoryData>[].obs;
   Map<String, dynamic>? dashboardData;
   RxBool isLoading = false.obs;
   TabController tabController = TabController(
@@ -46,110 +49,7 @@ class CharityHomeController extends GetxController {
   ).obs;
   RxString programType = 'Support Beneficiary Fund'.obs;
 
-  List<PopupMenuEntry<Widget>> popUpWidgets = [
-    PopupMenuItem<Widget>(
-      value: monthPicker(
-        color: AppColors.kF2FEFF,
-        borderColor: AppColors.kD8FCFF,
-        whichScreen: '',
-        height: 90.h,
-        shadowColor: AppColors.kffffff,
-        textContent: Text(
-          'Support Beneficiary Fund',
-          style: TextStyle(
-            fontFamily: 'Gilroy',
-            fontSize: 35.sp,
-            fontStyle: FontStyle.normal,
-            color: AppColors.k13A89E,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        width: 627.w,
-        onTapArrow: () {},
-      ),
-      child: Container(
-        width: 525.w,
-        child: Text(
-          'Support Beneficiary Fund',
-          style: TextStyle(
-            fontFamily: 'Gilroy',
-            fontSize: 35.sp,
-            fontStyle: FontStyle.normal,
-            color: AppColors.k13A89E,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
-    ),
-    PopupMenuItem<Widget>(
-      value: monthPicker(
-        color: AppColors.kF2FEFF,
-        borderColor: AppColors.kD8FCFF,
-        height: 90.h,
-        whichScreen: '',
-        shadowColor: AppColors.kffffff,
-        textContent: Text(
-          'Covid19 Relief Fund',
-          style: TextStyle(
-            fontFamily: 'Gilroy',
-            fontSize: 35.sp,
-            fontStyle: FontStyle.normal,
-            color: AppColors.k13A89E,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        width: 627.w,
-        onTapArrow: () {},
-      ),
-      child: Container(
-        width: 525.w,
-        child: Text(
-          'Covid19 Relief Fund',
-          style: TextStyle(
-            fontFamily: 'Gilroy',
-            fontSize: 35.sp,
-            fontStyle: FontStyle.normal,
-            color: AppColors.k13A89E,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
-    ),
-    PopupMenuItem<Widget>(
-      value: monthPicker(
-        color: AppColors.kF2FEFF,
-        borderColor: AppColors.kD8FCFF,
-        height: 90.h,
-        whichScreen: '',
-        shadowColor: AppColors.kffffff,
-        textContent: Text(
-          'Serving the Elderly',
-          style: TextStyle(
-            fontFamily: 'Gilroy',
-            fontSize: 35.sp,
-            fontStyle: FontStyle.normal,
-            color: AppColors.k13A89E,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        width: 627.w,
-        onTapArrow: () {},
-      ),
-      child: Container(
-        width: 525.w,
-        child: Text(
-          'Serving the Elderly',
-          style: TextStyle(
-            fontFamily: 'Gilroy',
-            fontSize: 35.sp,
-            fontStyle: FontStyle.normal,
-            color: AppColors.k13A89E,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
-    ),
-  ];
+  List<PopupMenuEntry<Widget>> popUpWidgets = <PopupMenuEntry<Widget>>[];
 
   void assignMonth(int month) {
     switch (month) {
@@ -206,6 +106,12 @@ class CharityHomeController extends GetxController {
     isLoading(false);
   }
 
+  Future<void> assignToCategoryDetails(String programId) async {
+    graphCategoryDetails(
+        await GraphDataProvider.getGraphCategoryData(programId));
+    isLoading(false);
+  }
+
   Future<void> assignDashboardData() async {
     dashboardData = await GraphDataProvider.getDashboardData();
     logI('@@@$dashboardData');
@@ -215,3 +121,39 @@ class CharityHomeController extends GetxController {
     totalFamilyCount(dashboardData?['totalFamilyCount'].toString() ?? '');
   }
 }
+/*
+
+PopupMenuItem<Widget>(
+value: monthPicker(
+color: AppColors.kF2FEFF,
+borderColor: AppColors.kD8FCFF,
+whichScreen: '',
+height: 90.h,
+shadowColor: AppColors.kffffff,
+textContent: Text(
+'Support Beneficiary Fund',
+style: TextStyle(
+fontFamily: 'Gilroy',
+fontSize: 35.sp,
+fontStyle: FontStyle.normal,
+color: AppColors.k13A89E,
+fontWeight: FontWeight.w500,
+),
+),
+width: 627.w,
+onTapArrow: () {},
+),
+child: Container(
+width: 525.w,
+child: Text(
+'Support Beneficiary Fund',
+style: TextStyle(
+fontFamily: 'Gilroy',
+fontSize: 35.sp,
+fontStyle: FontStyle.normal,
+color: AppColors.k13A89E,
+fontWeight: FontWeight.w500,
+),
+),
+),
+),*/

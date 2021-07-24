@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/ui/components/action_dialog.dart';
 import 'package:six/app/ui/components/category_card.dart';
+import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/common_appbar.dart';
 import 'package:six/app/ui/components/purchase_bottomsheet.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
@@ -52,85 +53,96 @@ class PurchaseView extends GetView<PurchaseController> {
                     SizedBox(
                       height: 50.h,
                     ),
-                    Expanded(
-                      child: GetBuilder<PurchaseController>(
-                        builder: (_) => GridView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 34.w,
-                              mainAxisSpacing: 34.w,
-                              childAspectRatio: 628.w / 875.h,
+                    ctrl.isLoading()
+                        ? buildLoader()
+                        : Expanded(
+                            child: GetBuilder<PurchaseController>(
+                              builder: (_) => GridView.builder(
+                                  physics: const BouncingScrollPhysics(),
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 34.w,
+                                    mainAxisSpacing: 34.w,
+                                    childAspectRatio: 628.w / 875.h,
+                                  ),
+                                  itemCount: ctrl.voucherCategory.length,
+                                  // physics: BouncingScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        ctrl.selectCategory!.value = index;
+                                        ctrl.update();
+                                      },
+                                      child: Stack(
+                                        alignment: Alignment.topRight,
+                                        children: [
+                                          categoryCard(
+                                            index: index,
+                                            categoryName: ctrl
+                                                .voucherCategory()[index]
+                                                .name
+                                                .toString(),
+                                            creditsRemaining: 0,
+                                            totalCredits: 14,
+                                            image: Image.asset(
+                                              R.image.asset.food.assetName,
+                                              height: 148.h,
+                                              width: 139.w,
+                                            ),
+                                            background: AppColors.kFFF5F1,
+                                            foreground: AppColors.kECB91B,
+                                            shadow: AppColors.kEED2E0
+                                                .withOpacity(0.15),
+                                            accent: AppColors.kE2E2E2,
+                                            whichScreen: whichScreen == 'Social'
+                                                ? 'Social'
+                                                : 'Charity',
+                                            height: 672.h,
+                                            width: 558.w,
+                                            context: context,
+                                            padding: const EdgeInsets.only(
+                                                left: 20.0,
+                                                right: 20,
+                                                bottom: 35.0),
+                                          ),
+                                          Positioned(
+                                            right: 30.r,
+                                            top: 30.r,
+                                            child: Container(
+                                              width: 88.r,
+                                              height: 88.r,
+                                              decoration: BoxDecoration(
+                                                  color: AppColors.kffffff,
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                    color: AppColors.k033660
+                                                        .withOpacity(0.05),
+                                                    width: 1.w,
+                                                  )),
+                                              child:
+                                                  ctrl.selectCategory!.value ==
+                                                          index
+                                                      ? Image.asset(
+                                                          R
+                                                              .image
+                                                              .asset
+                                                              .select_voucher
+                                                              .assetName,
+                                                          height: 88.r,
+                                                          width: 88.r,
+                                                          fit: BoxFit.contain,
+                                                        )
+                                                      : const SizedBox.shrink(),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  }),
                             ),
-                            itemCount: 12,
-                            // physics: BouncingScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  ctrl.selectCategory!.value = index;
-                                  ctrl.update();
-                                },
-                                child: Stack(
-                                  alignment: Alignment.topRight,
-                                  children: [
-                                    categoryCard(
-                                      index: index,
-                                      categoryName: 'Food &\nBeverage',
-                                      creditsRemaining: 0,
-                                      totalCredits: 14,
-                                      image: Image.asset(
-                                        R.image.asset.food.assetName,
-                                        height: 148.h,
-                                        width: 139.w,
-                                      ),
-                                      background: AppColors.kFFF5F1,
-                                      foreground: AppColors.kECB91B,
-                                      shadow:
-                                          AppColors.kEED2E0.withOpacity(0.15),
-                                      accent: AppColors.kE2E2E2,
-                                      whichScreen: whichScreen == 'Social'
-                                          ? 'Social'
-                                          : 'Charity',
-                                      height: 672.h,
-                                      width: 558.w,
-                                      context: context,
-                                      padding: const EdgeInsets.only(
-                                          left: 20.0, right: 20, bottom: 35.0),
-                                    ),
-                                    Positioned(
-                                      right: 30.r,
-                                      top: 30.r,
-                                      child: Container(
-                                        width: 88.r,
-                                        height: 88.r,
-                                        decoration: BoxDecoration(
-                                            color: AppColors.kffffff,
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                              color: AppColors.k033660
-                                                  .withOpacity(0.05),
-                                              width: 1.w,
-                                            )),
-                                        child:
-                                            ctrl.selectCategory!.value == index
-                                                ? Image.asset(
-                                                    R.image.asset.select_voucher
-                                                        .assetName,
-                                                    height: 88.r,
-                                                    width: 88.r,
-                                                    fit: BoxFit.contain,
-                                                  )
-                                                : const SizedBox.shrink(),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              );
-                            }),
-                      ),
-                    ),
+                          ),
                     SizedBox(
                       height: whichScreen == 'Social' ? 2.h : 350.h,
                     ),

@@ -3,8 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/modules/charity/available_vendors/views/available_vendors_view.dart';
+import 'package:six/app/modules/charity/purchase/controllers/purchase_controller.dart';
 import 'package:six/app/ui/components/category_curved_container.dart';
 
+PurchaseController purchaseController = Get.put(PurchaseController());
 Widget categoryCard({
   required int index,
   required String categoryName,
@@ -156,9 +158,14 @@ Widget categoryCard({
                           left: 38.0, right: 38, bottom: 27),
                       child: TextButton(
                         onPressed: () {
+                          purchaseController.assignVendorList(purchaseController
+                              .voucherCategory[index].id
+                              .toString());
                           whichScreen == 'Charity'
-                              ? Get.to<void>(() =>
-                                  AvailableVendorsView(whichScreen: 'Charity'))
+                              ? Get.to<void>(() => AvailableVendorsView(
+                                    whichScreen: 'Charity',
+                                    categoryIndex: index,
+                                  ))
                               : Get.to<void>(() =>
                                   AvailableVendorsView(whichScreen: 'Social'));
                         },
