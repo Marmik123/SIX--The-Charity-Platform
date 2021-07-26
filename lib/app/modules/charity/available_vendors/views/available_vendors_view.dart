@@ -15,8 +15,12 @@ import '../controllers/available_vendors_controller.dart';
 
 class AvailableVendorsView extends GetView<AvailableVendorsController> {
   final String whichScreen;
-  int? categoryIndex;
+  final int? categoryIndex;
   final PurchaseController purchaseController = Get.put(PurchaseController());
+  @override
+  final AvailableVendorsController controller =
+      Get.put(AvailableVendorsController());
+
   AvailableVendorsView({required this.whichScreen, this.categoryIndex});
   @override
   Widget build(BuildContext context) {
@@ -91,7 +95,9 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                   child: Center(
                     child: textField(
                       initialValue: '',
+                      controller: controller.txtCtrl,
                       prefixText: '',
+                      formKey: availVendorCtrl.formKey,
                       hintText: 'Search',
                       prefixImageName: R.image.asset.search.assetName,
                       onTap: () {},
@@ -114,6 +120,7 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                         fontSize: 45.sp,
                       ),
                       contentPadding: const EdgeInsets.only(bottom: 5),
+                      whichScreen: 'VendorDetails',
                     ),
                   ),
                 )
@@ -122,13 +129,18 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
             SizedBox(
               height: 100.h,
             ),
-            Obx(() => purchaseController.isLoading()
+            Obx(() => purchaseController.isLoading() ||
+                    availVendorCtrl.isLoading()
                 ? buildLoader()
-                : purchaseController.vendorList().isEmpty
+                : (availVendorCtrl.isSearched()
+                        ? availVendorCtrl.searchedVendorList().isEmpty
+                        : availVendorCtrl.vendorList().isEmpty)
                     ? const Text('No Vendor available')
                     : Expanded(
                         child: ListView.separated(
-                            itemCount: purchaseController.vendorList().length,
+                            itemCount: availVendorCtrl.isSearched()
+                                ? availVendorCtrl.searchedVendorList().length
+                                : availVendorCtrl.vendorList().length,
                             physics: const BouncingScrollPhysics(),
                             separatorBuilder: (context, index) => h(25.h),
                             padding: const EdgeInsets.only(top: 0),
@@ -171,10 +183,17 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                               child: cacheImage(
                                                 height: 180.r,
                                                 width: 180.r,
-                                                url: purchaseController
-                                                    .vendorList()[index]
-                                                    .profileImageUrl
-                                                    .toString(),
+                                                url: availVendorCtrl
+                                                        .isSearched()
+                                                    ? availVendorCtrl
+                                                        .searchedVendorList()[
+                                                            index]
+                                                        .profileImageUrl
+                                                        .toString()
+                                                    : availVendorCtrl
+                                                        .vendorList()[index]
+                                                        .profileImageUrl
+                                                        .toString(),
                                               ),
                                             ),
                                           ),
@@ -190,10 +209,16 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                               height: 54.h,
                                             ),
                                             Text(
-                                              purchaseController
-                                                  .vendorList()[index]
-                                                  .firstName
-                                                  .toString(),
+                                              availVendorCtrl.isSearched()
+                                                  ? availVendorCtrl
+                                                      .searchedVendorList()[
+                                                          index]
+                                                      .firstName
+                                                      .toString()
+                                                  : availVendorCtrl
+                                                      .vendorList()[index]
+                                                      .firstName
+                                                      .toString(),
                                               maxLines: 1,
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy',
@@ -220,11 +245,17 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                               ),
                                               child: Center(
                                                 child: Text(
-                                                  purchaseController
-                                                      .voucherCategory[
-                                                          categoryIndex!]
-                                                      .name
-                                                      .toString(),
+                                                  availVendorCtrl.isSearched()
+                                                      ? purchaseController
+                                                          .voucherCategory[
+                                                              categoryIndex!]
+                                                          .name
+                                                          .toString()
+                                                      : purchaseController
+                                                          .voucherCategory[
+                                                              categoryIndex!]
+                                                          .name
+                                                          .toString(),
                                                   style: TextStyle(
                                                     fontFamily: 'Gilroy',
                                                     fontSize: 30.sp,
@@ -245,24 +276,27 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                           padding:
                                               const EdgeInsets.only(top: 12.0),
                                           child: roundedButton(
-                                              text: 'View Details',
-                                              onTap: () {
-                                                controller.assignVendorDetails(
-                                                    purchaseController
-                                                        .vendorList[index].id
-                                                        .toString());
-                                                whichScreen == 'Social'
-                                                    ? Get.toNamed<void>(
-                                                        Routes.VENDOR_DETAILS,
-                                                        arguments: 'Social')
-                                                    : Get.toNamed<void>(
-                                                        Routes.VENDOR_DETAILS,
-                                                        arguments: 'Charity');
-                                              },
-                                              width: 281.w,
-                                              height: 100.h,
-                                              fontSize: 35.sp),
-                                        )
+                                            text: 'View Details',
+                                            onTap: () {
+                                              controller
+                                                  .categoryIndex(categoryIndex);
+                                              controller.assignVendorDetails(
+                                                  availVendorCtrl
+                                                      .vendorList[index].id
+                                                      .toString());
+                                              whichScreen == 'Social'
+                                                  ? Get.toNamed<void>(
+                                                      Routes.VENDOR_DETAILS,
+                                                      arguments: 'Social')
+                                                  : Get.toNamed<void>(
+                                                      Routes.VENDOR_DETAILS,
+                                                      arguments: 'Charity');
+                                            },
+                                            width: 281.w,
+                                            height: 100.h,
+                                            fontSize: 35.sp,
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),

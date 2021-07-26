@@ -5,6 +5,7 @@ import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/modules/charity/available_vendors/views/available_vendors_view.dart';
 import 'package:six/app/modules/charity/purchase/controllers/purchase_controller.dart';
 import 'package:six/app/ui/components/category_curved_container.dart';
+import 'package:six/app/ui/components/common_textfield.dart';
 
 PurchaseController purchaseController = Get.put(PurchaseController());
 Widget categoryCard({
@@ -158,7 +159,7 @@ Widget categoryCard({
                           left: 38.0, right: 38, bottom: 27),
                       child: TextButton(
                         onPressed: () {
-                          purchaseController.assignVendorList(purchaseController
+                          availVendorCtrl.assignVendorList(purchaseController
                               .voucherCategory[index].id
                               .toString());
                           whichScreen == 'Charity'

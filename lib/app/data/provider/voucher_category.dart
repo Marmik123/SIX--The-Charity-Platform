@@ -1,6 +1,6 @@
-import 'package:get/get.dart';
+import 'package:dio/dio.dart';
+import 'package:get/get.dart' hide FormData;
 import 'package:six/app/data/config/logger.dart';
-import 'package:six/app/data/models/vendor_details.dart';
 import 'package:six/app/data/models/vendor_list.dart';
 import 'package:six/app/data/models/voucher_category.dart';
 import 'package:six/app/data/remote/api_service/init_api_service.dart';
@@ -24,6 +24,7 @@ class VoucherCategoryProvider {
     }
   }
 
+  //Helper function to fetch the vendors of particular category on passing categoryID.
   static Future<List<VendorList>> getVendorOfCategory(
       {String skip = '', String limit = '', String categoryId = ''}) async {
     var response = await APIService.get(
@@ -41,7 +42,8 @@ class VoucherCategoryProvider {
     }
   }
 
-  static Future<List<VendorDetails>> getVendorDetails(
+  //Helper function to fetch the vendor details on passing vendor ID as path variable.
+  static Future<Map<String, dynamic>?> getVendorDetails(
       {String userId = ''}) async {
     var response = await APIService.get(
       path: '/v1/get-other-user-detail/$userId',
@@ -49,12 +51,65 @@ class VoucherCategoryProvider {
     if (response.statusCode == 200) {
       logI('######VendorDetails########');
       logI(response.data!['data']);
-      var vendorList = response.data!['data'] as List<dynamic>;
-      return List<VendorDetails>.from(vendorList.map<VendorDetails>(
+      var vendorList = response.data!['data'] as Map<String, dynamic>;
+      return vendorList;
+      /*  return List<VendorDetails>.from(vendorList.map<VendorDetails>(
           (dynamic e) => VendorDetails.fromJson(e as Map<String, dynamic>)));
+   */
     } else {
       Get.snackbar<void>('Error in Graph Data', 'Please Try Again.');
-      return <VendorDetails>[];
+      return null;
+    }
+  }
+
+  //Helper function to display the searched vendor by name.
+  static Future<List<VendorList>> searchVendor(
+      {String searchText = '',
+      String skip = '',
+      String limit = '',
+      String categoryId = ''}) async {
+    var response = await APIService.get(
+      path:
+          '/v1/auth/list-search-vendor-category/$searchText/$categoryId/$skip/$limit',
+    );
+    if (response.statusCode == 200) {
+      logI('######Searched Vendor########');
+      logI(response.data!['data']);
+      var vendorList = response.data!['data'] as List<dynamic>;
+      return List<VendorList>.from(vendorList.map<VendorList>(
+          (dynamic e) => VendorList.fromJson(e as Map<String, dynamic>)));
+    } else {
+      Get.snackbar<void>('Error in Graph Data', 'Please Try Again.');
+      return <VendorList>[];
+    }
+  }
+
+  //Helper function to purchase the voucher of particular category.
+  static Future<String?> purchaseVoucherCategory({
+    required String categoryId,
+    required String programId,
+    required double amount,
+  }) async {
+    assert(amount > 0);
+    var response = await APIService.post(
+      path: 'v1/auth/distribute-program-amount',
+      encrypt: false,
+      data: FormData.fromMap(<String, dynamic>{
+        'charity_program_id': programId,
+        'category_id': categoryId,
+        'amount': amount,
+      }),
+    );
+    if (response.statusCode == 200) {
+      return response.statusMessage;
+      /* logI('######Purchase Category########');
+      logI(response.data!['data']);
+      var vendorList = response.data!['data'] as List<dynamic>;
+      return List<VendorList>.from(vendorList.map<VendorList>(
+          (dynamic e) => VendorList.fromJson(e as Map<String, dynamic>)));*/
+    } else {
+      Get.snackbar<void>('Error in Graph Data', 'Please Try Again.');
+      return 'Purchase failed';
     }
   }
 }

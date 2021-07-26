@@ -72,7 +72,7 @@ class PurchaseView extends GetView<PurchaseController> {
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
-                                        ctrl.selectCategory!.value = index;
+                                        ctrl.selectCategory!(index);
                                         ctrl.update();
                                       },
                                       child: Stack(
@@ -152,6 +152,9 @@ class PurchaseView extends GetView<PurchaseController> {
                             child: roundedButton(
                               text: 'Purchase Credit',
                               onTap: () {
+                                ctrl.purchaseVoucherCat(
+                                  amount: 20,
+                                );
                                 ctrl.purchasePressed.value = true;
                                 whichScreen == 'Social'
                                     ? purchaseBottomSheet(whichScreen: 'Social')

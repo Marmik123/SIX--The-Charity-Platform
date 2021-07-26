@@ -7,6 +7,7 @@ import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/models/graph_category_data.dart';
 import 'package:six/app/data/models/graph_data.dart';
 import 'package:six/app/modules/charity/purchase/controllers/purchase_controller.dart';
+import 'package:six/app/modules/needy_family/available_credits/controllers/available_credits_controller.dart';
 import 'package:six/app/modules/needy_family/available_credits/views/available_credits_view.dart';
 import 'package:six/app/modules/needy_family/profile/views/profile_view.dart';
 import 'package:six/app/ui/components/bottom_nav_bar.dart';
@@ -45,7 +46,8 @@ class CharityHomeView extends GetView<CharityHomeController> {
 
 class CharityHome extends StatelessWidget {
   final CharityHomeController ctrl = Get.put(CharityHomeController());
-
+  AvailableCreditsController creditsCtrl =
+      Get.put(AvailableCreditsController());
   @override
   Widget build(BuildContext context) {
     return NotificationListener<OverscrollIndicatorNotification>(
@@ -192,8 +194,10 @@ class CharityHome extends StatelessWidget {
                                       ),
                                       GestureDetector(
                                         onTap: () {
+                                          creditsCtrl.assignToAvailProgCredit();
                                           Get.toNamed<void>(
-                                              '/available-credits');
+                                              '/available-credits',
+                                              arguments: 'Charity');
                                         },
                                         child: const Icon(
                                           Icons.keyboard_arrow_right_sharp,
