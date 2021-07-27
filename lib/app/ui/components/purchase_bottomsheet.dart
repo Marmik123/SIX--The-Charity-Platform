@@ -11,113 +11,115 @@ import 'package:six/r.g.dart';
 
 Future<void> purchaseBottomSheet({
   required String whichScreen,
+  String? category,
 }) {
   var ctrl = Get.put(PurchaseController());
   //var socialCtrl = Get.put(SocialHomeController());
   var assignCtrl = Get.put(AssignedVoucherController());
   return Get.bottomSheet<void>(
     Container(
-        width: 1125.w,
-        height: 974.h,
-        child: BottomSheet(
-          enableDrag: false,
-          shape: OutlineInputBorder(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(80.r),
-              topRight: Radius.circular(80.r),
-            ),
-            borderSide: BorderSide.none,
+      width: 1125.w,
+      height: 974.h,
+      child: BottomSheet(
+        enableDrag: false,
+        shape: OutlineInputBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(80.r),
+            topRight: Radius.circular(80.r),
           ),
-          onClosing: () {
-            ctrl.purchasePressed(false);
-          },
-          builder: (context) => Stack(
-            alignment: Alignment.topRight,
-            children: [
-              Column(
-                children: [
-                  SizedBox(
-                    height: 70.h,
+          borderSide: BorderSide.none,
+        ),
+        onClosing: () {
+          ctrl.textEditingController.clear();
+          ctrl.purchasePressed(false);
+        },
+        builder: (context) => Stack(
+          alignment: Alignment.topRight,
+          children: [
+            Column(
+              children: [
+                SizedBox(
+                  height: 70.h,
+                ),
+                Container(
+                  height: 200.r,
+                  width: 200.r,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.kFF007A.withOpacity(0.1),
                   ),
-                  Container(
-                    height: 200.r,
-                    width: 200.r,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColors.kFF007A.withOpacity(0.1),
+                  child: Center(
+                    child: Image.asset(
+                      R.image.asset.food.assetName,
+                      height: 106.h,
+                      width: 100.w,
+                      fit: BoxFit.contain,
                     ),
-                    child: Center(
-                      child: Image.asset(
-                        R.image.asset.food.assetName,
-                        height: 106.h,
-                        width: 100.w,
-                        fit: BoxFit.contain,
+                  ),
+                ),
+                SizedBox(
+                  height: 60.h,
+                ),
+                Text(
+                  category ?? 'NA',
+                  style: TextStyle(
+                    fontFamily: 'Gilroy',
+                    fontSize: 55.sp,
+                    fontStyle: FontStyle.normal,
+                    color: AppColors.k033660,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 87.h,
+                ),
+                Container(
+                  height: 170.h,
+                  width: 1005.w,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50.r),
+                      color: AppColors.kffffff,
+                      border: Border.all(
+                        color: AppColors.kE2E2E2,
+                        width: 1.w,
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 60.h,
-                  ),
-                  Text(
-                    'Super - Market',
-                    style: TextStyle(
-                      fontFamily: 'Gilroy',
-                      fontSize: 55.sp,
-                      fontStyle: FontStyle.normal,
-                      color: AppColors.k033660,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(
-                    height: 87.h,
-                  ),
-                  Container(
-                    height: 170.h,
-                    width: 1005.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50.r),
-                        color: AppColors.kffffff,
-                        border: Border.all(
-                          color: AppColors.kE2E2E2,
-                          width: 1.w,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.k00474E.withOpacity(0.04),
+                          offset: const Offset(0, 20),
+                          blurRadius: 50.r,
                         ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.k00474E.withOpacity(0.04),
-                            offset: const Offset(0, 20),
-                            blurRadius: 50.r,
-                          ),
-                        ]),
-                    child: textField(
-                      context: context,
-                      height: 170.h,
-                      width: 1005.w,
-                      initialValue: '10,000',
-                      prefixText: '\$',
-                      hintText: '',
-                      prefixImageName: '',
-                      onTap: () {},
-                      keyBoardType: TextInputType.number,
-                      textStyle: TextStyle(
-                        color: AppColors.k13A89E,
-                        fontWeight: FontWeight.w700,
-                        fontStyle: FontStyle.normal,
-                        fontFamily: 'Gilroy',
-                        fontSize: 65.sp,
-                      ),
-                      contentPadding:
-                          const EdgeInsets.only(left: 105, bottom: 5),
-                      hintStyle: TextStyle(
-                        color: AppColors.k6886A0,
-                        fontWeight: FontWeight.w500,
-                        fontStyle: FontStyle.normal,
-                        fontFamily: 'Gilroy',
-                        fontSize: 45.sp,
-                      ),
-                      whichScreen: 'PurchaseSheet',
+                      ]),
+                  child: textField(
+                    context: context,
+                    height: 170.h,
+                    controller: ctrl.textEditingController,
+                    width: 1005.w,
+                    initialValue: '10,000',
+                    prefixText: '\$',
+                    hintText: '',
+                    prefixImageName: '',
+                    onTap: () {},
+                    keyBoardType: TextInputType.number,
+                    textStyle: TextStyle(
+                      color: AppColors.k13A89E,
+                      fontWeight: FontWeight.w700,
+                      fontStyle: FontStyle.normal,
+                      fontFamily: 'Gilroy',
+                      fontSize: 65.sp,
                     ),
-                    /*TextFormField(
+                    contentPadding: const EdgeInsets.only(left: 105, bottom: 5),
+                    hintStyle: TextStyle(
+                      color: AppColors.k6886A0,
+                      fontWeight: FontWeight.w500,
+                      fontStyle: FontStyle.normal,
+                      fontFamily: 'Gilroy',
+                      fontSize: 45.sp,
+                    ),
+                    whichScreen: 'PurchaseSheet',
+                  ),
+                  /*TextFormField(
                                               initialValue: '10,000',
                                               enabled: true,
                                               onEditingComplete: () {
@@ -153,45 +155,66 @@ Future<void> purchaseBottomSheet({
                                                 isDense: true,
                                               ),
                                             )*/
-                  ),
-                  SizedBox(
-                    height: 87.h,
-                  ),
-                  Center(
-                    child: roundedButton(
-                      text: 'Pay Now',
-                      onTap: () {
+                ),
+                SizedBox(
+                  height: 87.h,
+                ),
+                Center(
+                  child: roundedButton(
+                    text: 'Pay Now',
+                    onTap: () {
+                      if (purchaseController.textEditingController.text
+                              .trim()
+                              .isNotEmpty &&
+                          GetUtils.isNum(purchaseController
+                              .textEditingController.text
+                              .trim())) {
+                        purchaseController.purchaseVoucherCat(
+                            amount: double.tryParse(
+                                ctrl.textEditingController.text.trim()));
                         Get.back<void>();
                         whichScreen == 'Social'
                             ? assignCtrl.paid(true)
-                            : ctrl.paid.value = true;
-                      },
-                      width: 500.w,
-                      height: 150.h,
-                      fontSize: 50.sp,
-                    ),
-                  )
-                ],
-              ),
-              IconButton(
-                onPressed: () {
-                  whichScreen == 'Social'
-                      ? assignCtrl.purchasePressed(false)
-                      : ctrl.purchasePressed(false);
+                            : whichScreen == 'Charity' &&
+                                    ctrl.paymentStatusCode!() == 200
+                                ? ctrl.paid(true)
+                                : ctrl.failed(true);
+                      } else {
+                        Get.snackbar<void>(
+                          'Amount is Null',
+                          'Please enter valid amount',
+                          backgroundColor: AppColors.kffffff,
+                          overlayColor: AppColors.k14A1BE,
+                        );
+                      }
+                    },
+                    width: 500.w,
+                    height: 150.h,
+                    fontSize: 50.sp,
+                  ),
+                ),
+              ],
+            ),
+            IconButton(
+              onPressed: () {
+                whichScreen == 'Social'
+                    ? assignCtrl.purchasePressed(false)
+                    : ctrl.purchasePressed(false);
 
-                  whichScreen == 'Social'
-                      ? assignCtrl.paid(false)
-                      : ctrl.paid.value = false;
-                  Get.back<void>();
-                },
-                icon: const Icon(Icons.clear),
-                color: AppColors.k1FAF9E,
-                iconSize: 25,
-              )
-            ],
-          ),
-          backgroundColor: AppColors.kffffff,
-        )),
+                whichScreen == 'Social'
+                    ? assignCtrl.paid(false)
+                    : ctrl.paid.value = false;
+                Get.back<void>();
+              },
+              icon: const Icon(Icons.clear),
+              color: AppColors.k1FAF9E,
+              iconSize: 25,
+            ),
+          ],
+        ),
+        backgroundColor: AppColors.kffffff,
+      ),
+    ),
     isDismissible: false,
     enableDrag: false,
     isScrollControlled: false,

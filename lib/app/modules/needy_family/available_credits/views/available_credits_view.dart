@@ -5,6 +5,7 @@ import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/circular_progress_indicator.dart';
+import 'package:six/app/ui/components/sizedbox.dart';
 
 import '../controllers/available_credits_controller.dart';
 
@@ -19,45 +20,54 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
   Widget build(BuildContext context) {
     //var theme = Theme.of(context);
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.kE3FCFF,
+        elevation: 0,
+        title: Text(
+          'Available Credits',
+          style: TextStyle(
+            fontFamily: 'Gilroy',
+            fontSize: 50.sp,
+            fontStyle: FontStyle.normal,
+            color: AppColors.k033660,
+            fontWeight: FontWeight.w500,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        centerTitle: true,
+        toolbarHeight: 200.h,
+        leading: controller.disableLeading()
+            ? Container()
+            : IconButton(
+                icon: const Icon(Icons.arrow_back),
+                color: AppColors.k033660,
+                onPressed: () {
+                  Get.back<void>();
+                },
+              ),
+      ),
       backgroundColor: AppColors.kffffff,
       body: Column(
         children: [
-          Container(
-            width: 1125.w,
-            color: AppColors.kF2FEFF,
-            height: 300.h,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 35.0),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 60.w,
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    color: AppColors.k033660,
-                    onPressed: () {
-                      Get.back<void>();
-                    },
-                  ),
-                  SizedBox(
-                    width: 255.w,
-                  ),
-                  Text(
-                    'Available Credits',
-                    style: TextStyle(
-                      fontFamily: 'Gilroy',
-                      fontSize: 50.sp,
-                      fontStyle: FontStyle.normal,
-                      color: AppColors.k033660,
-                      fontWeight: FontWeight.w500,
+          Obx(() => controller.disableLeading()
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    h(70.h),
+                    Text(
+                      'Select Program Category',
+                      style: TextStyle(
+                        fontFamily: 'Gilroy',
+                        fontSize: 60.sp,
+                        fontStyle: FontStyle.normal,
+                        color: AppColors.k033660.withOpacity(0.5),
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.left,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-          ),
+                  ],
+                )
+              : Container()),
           Obx(
             () => controller.isLoading()
                 ? buildLoader()
@@ -71,6 +81,7 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
                       physics: const BouncingScrollPhysics(),
                       itemBuilder: (context, index) => GestureDetector(
                         onTap: () {
+                          controller.programIndex!(index);
                           Get.toNamed<void>(Routes.PURCHASE);
                         },
                         child: Stack(

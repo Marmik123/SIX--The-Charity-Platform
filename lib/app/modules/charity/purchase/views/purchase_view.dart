@@ -11,6 +11,7 @@ import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/common_appbar.dart';
 import 'package:six/app/ui/components/purchase_bottomsheet.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
+import 'package:six/app/ui/components/sizedbox.dart';
 import 'package:six/r.g.dart';
 
 import '../controllers/purchase_controller.dart';
@@ -36,9 +37,7 @@ class PurchaseView extends GetView<PurchaseController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 70.h,
-                    ),
+                    h(70.h),
                     Text(
                       'Select Voucher Category',
                       style: TextStyle(
@@ -67,7 +66,6 @@ class PurchaseView extends GetView<PurchaseController> {
                                     childAspectRatio: 628.w / 875.h,
                                   ),
                                   itemCount: ctrl.voucherCategory.length,
-                                  // physics: BouncingScrollPhysics(),
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
@@ -152,14 +150,17 @@ class PurchaseView extends GetView<PurchaseController> {
                             child: roundedButton(
                               text: 'Purchase Credit',
                               onTap: () {
-                                ctrl.purchaseVoucherCat(
-                                  amount: 20,
-                                );
-                                ctrl.purchasePressed.value = true;
+                                ctrl.purchasePressed(true);
                                 whichScreen == 'Social'
                                     ? purchaseBottomSheet(whichScreen: 'Social')
                                     : purchaseBottomSheet(
-                                        whichScreen: 'Charity');
+                                        whichScreen: 'Charity',
+                                        category: ctrl
+                                            .voucherCategory[
+                                                ctrl.selectCategory!()]
+                                            .name
+                                            .toString(),
+                                      );
                               },
                               width: 500.w,
                               height: 150.h,
@@ -173,7 +174,7 @@ class PurchaseView extends GetView<PurchaseController> {
                 ),
               ),
             ),
-            controller.purchasePressed.value
+            controller.purchasePressed()
                 ? BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 20.r, sigmaY: 20.r),
                     child: Container(
@@ -192,46 +193,65 @@ class PurchaseView extends GetView<PurchaseController> {
                     ),
                   )
                 : Container(),
-            controller.paid.value
-                ? BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 20.r, sigmaY: 20.r),
-                    child: Container(
-                      height: 1.sh,
-                      width: 1.sw,
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.k0087A1.withOpacity(0.6),
-                            offset: const Offset(0, 4),
-                            blurRadius: 4.r,
+            controller.paid() || ctrl.failed()
+                ? controller.paymentInProgress()
+                    ? Center(child: buildPaymentLoader())
+                    : BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 20.r, sigmaY: 20.r),
+                        child: Container(
+                          height: 1.sh,
+                          width: 1.sw,
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.k0087A1.withOpacity(0.6),
+                                offset: const Offset(0, 4),
+                                blurRadius: 4.r,
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      child: Center(
-                        child: Material(
-                          color: Colors.transparent,
-                          child: actionDialog(
-                            whichScreen: 'Charity',
-                            onTapCancel: () {
-                              controller.purchasePressed.value = false;
-                              controller.paid.value = false;
-                            },
-                            dialogTypeText: 'Oops!',
-                            assetName: R.image.asset.error_dialog.assetName,
-                            text: 'Something went wrong. Please\ntry again',
-                          ),
-                          /*successDialog(
+                          child: Center(
+                            child: Material(
+                              color: Colors.transparent,
+                              child: ctrl.failed()
+                                  ? actionDialog(
+                                      whichScreen: 'Charity',
+                                      onTapCancel: () {
+                                        controller.purchasePressed(false);
+                                        controller.paid(false);
+                                        controller.failed(false);
+                                      },
+                                      dialogTypeText: 'Oops!',
+                                      assetName:
+                                          R.image.asset.error_dialog.assetName,
+                                      text:
+                                          'Something went wrong. Please\ntry again',
+                                    )
+                                  : actionDialog(
+                                      whichScreen: 'Charity',
+                                      onTapCancel: () {
+                                        controller.purchasePressed(false);
+                                        controller.paid(false);
+                                        controller.failed(false);
+                                      },
+                                      dialogTypeText: 'Success!',
+                                      assetName:
+                                          R.image.asset.success_redem.assetName,
+                                      text:
+                                          'Congrats! You have successfully\npurchased credits for supermarket\ncategory',
+                                    ),
+                              /*successDialog(
                               text: 'Voucher has been successfully\nredeemed.',
                               assetName: R.image.asset.success_redem.assetName,
                               onTapCancel: () {
                                 controller.purchasePressed.value = false;
                                 controller.paid.value = false;
                               })*/ //SUCCESS DIALOG
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  )
+                      )
                 : Container(),
           ],
         ));

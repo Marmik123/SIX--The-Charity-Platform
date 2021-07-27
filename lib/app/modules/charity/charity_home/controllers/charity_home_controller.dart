@@ -19,6 +19,7 @@ class CharityHomeController extends GetxController {
   RxString totalContributors = 'Sept'.obs;
   RxString totalFamilyCount = 'Sept'.obs;
   RxString availableCredits = 'Sept'.obs;
+  RxString programId = ''.obs;
   DateTime selectedDate = DateTime.now();
   RxList<GraphData> graphDetails = <GraphData>[].obs;
   RxList<GraphCategoryData> graphCategoryDetails = <GraphCategoryData>[].obs;

@@ -46,7 +46,7 @@ class CharityHomeView extends GetView<CharityHomeController> {
 
 class CharityHome extends StatelessWidget {
   final CharityHomeController ctrl = Get.put(CharityHomeController());
-  AvailableCreditsController creditsCtrl =
+  final AvailableCreditsController creditsCtrl =
       Get.put(AvailableCreditsController());
   @override
   Widget build(BuildContext context) {
@@ -120,6 +120,8 @@ class CharityHome extends StatelessWidget {
                       top: 380.h,
                       child: GestureDetector(
                         onTap: () {
+                          creditsCtrl.assignToAvailProgCredit();
+                          creditsCtrl.disableLeading(false);
                           Get.to<void>(
                               () => AvailableCreditsView(whichRole: 'Charity'));
                         },
@@ -195,6 +197,7 @@ class CharityHome extends StatelessWidget {
                                       GestureDetector(
                                         onTap: () {
                                           creditsCtrl.assignToAvailProgCredit();
+                                          creditsCtrl.disableLeading(false);
                                           Get.toNamed<void>(
                                               '/available-credits',
                                               arguments: 'Charity');
@@ -503,6 +506,9 @@ class CharityHome extends StatelessWidget {
                                 // ctrl.popUpItem(widget);
                                 ctrl.programIndex(widget);
                                 logI(ctrl.programIndex);
+                                ctrl.programId(ctrl
+                                    .graphDetails[ctrl.programIndex()].id
+                                    .toString());
                                 ctrl.assignToCategoryDetails(ctrl
                                     .graphDetails[ctrl.programIndex()].id
                                     .toString());

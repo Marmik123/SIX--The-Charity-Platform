@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/modules/charity/charity_home/controllers/charity_home_controller.dart';
+import 'package:six/app/modules/needy_family/available_credits/controllers/available_credits_controller.dart';
 import 'package:six/app/modules/needy_family/home/controllers/home_controller.dart';
 import 'package:six/app/modules/social_worker/social_home/controllers/social_home_controller.dart';
 import 'package:six/app/modules/vendor/vendor_home/controllers/vendor_home_controller.dart';
@@ -14,6 +15,7 @@ Widget bottomNavBar({required String whichScreen}) {
   var charityCtrl = Get.put(CharityHomeController());
   var socialCtrl = Get.put(SocialHomeController());
   var controller = Get.put(HomeController());
+  var avail = Get.find<AvailableCreditsController>();
   return Container(
     decoration: BoxDecoration(
       color: AppColors.kffffff,
@@ -45,6 +47,9 @@ Widget bottomNavBar({required String whichScreen}) {
                 : whichScreen == 'Social'
                     ? socialCtrl.currentIndex!(index)
                     : charityCtrl.currentIndex!(index);
+        if (whichScreen == 'Charity') {
+          avail.disableLeading(true);
+        }
         //fromVoucherScreen ? (Get.offAllNamed<void>(Routes.HOME)) : null;
       },
       unselectedFontSize: 36.sp,

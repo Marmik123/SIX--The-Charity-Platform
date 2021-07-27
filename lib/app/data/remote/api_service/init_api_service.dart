@@ -67,15 +67,26 @@ InterceptorsWrapper encryptBody() {
                     AppEncryption.encrypt(plainText: jsonEncode(options.data)),
               };
             } else {
+              options.data = <String, dynamic>{
+                'data': options.data,
+              };
               logI(
                   'Skipping encryption for ${options.data.runtimeType} data type');
             }
 
             break;
           default:
+            options.data = <String, dynamic>{
+              'data': options.data,
+            };
             logWTF('Skipping encryption for $method method');
             break;
         }
+      } else {
+        options.data = <String, dynamic>{
+          'data': options.data,
+        };
+        logI('Skipping encryption');
       }
       handler.next(options); //continue
     },
@@ -127,7 +138,7 @@ class APIService {
   static Future<Response<Map<String, dynamic>?>> get({
     required String path,
     Map<String, dynamic>? params,
-    bool encrypt = false,
+    bool encrypt = true,
   }) async {
     return await _dio.get<Map<String, dynamic>?>(
       baseUrl + path,
@@ -141,7 +152,7 @@ class APIService {
   //POST
   static Future<Response<Map<String, dynamic>?>> post({
     required String path,
-    FormData? data,
+    Map<String, dynamic>? data,
     Map<String, dynamic>? params,
     bool encrypt = true,
   }) async {
