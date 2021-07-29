@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/modules/charity/available_vendors/views/available_vendors_view.dart';
 import 'package:six/app/modules/charity/purchase/controllers/purchase_controller.dart';
+import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/category_curved_container.dart';
 import 'package:six/app/ui/components/common_textfield.dart';
 
@@ -16,7 +17,7 @@ Widget categoryCard({
   required double totalCredits,
   required double width,
   required double height,
-  required Image image,
+  required String imageUrl,
   required Color background,
   required Color foreground,
   required Color shadow,
@@ -40,7 +41,11 @@ Widget categoryCard({
         SizedBox(
           height: 56.h,
         ),
-        image, // Category Icon
+        cacheImage(
+          height: 148.h,
+          width: 139.w,
+          url: imageUrl,
+        ), // Category Icon
         CustomPaint(
           size: Size(
             410.w,

@@ -3,27 +3,35 @@
 //     final graphData = graphDataFromMap(jsonString);
 
 import 'dart:convert';
+import 'dart:math';
+
+import 'package:flutter/material.dart' show Color;
+import 'package:six/app/data/config/app_colors.dart';
 
 class GraphData {
   GraphData({
     this.id,
-    this.totalDonationLeft,
+    this.value,
     this.title,
+    this.barColor,
   });
 
   String? id;
-  int? totalDonationLeft;
+  double? value;
   String? title;
+  Color? barColor;
 
   GraphData copyWith({
     String? id,
-    int? totalDonationLeft,
+    double? value,
     String? title,
+    Color? barColor,
   }) =>
       GraphData(
         id: id ?? this.id,
-        totalDonationLeft: totalDonationLeft ?? this.totalDonationLeft,
+        value: value ?? this.value,
         title: title ?? this.title,
+        barColor: barColor ?? this.barColor,
       );
 
   factory GraphData.fromJson(Map<String, dynamic> json) =>
@@ -31,17 +39,28 @@ class GraphData {
 
   String toJson() => json.encode(toMap());
 
-  factory GraphData.fromMap(Map<String, dynamic> json) => GraphData(
-        id: json['id'] == null ? null : json['id'] as String,
-        totalDonationLeft: json['total_donation_left'] == null
-            ? null
-            : json['total_donation_left'] as int,
-        title: json['title'] == null ? null : json['title'] as String,
-      );
+  factory GraphData.fromMap(Map<String, dynamic> json) {
+    var totalBalance = double.tryParse(json['total_donation_left'].toString());
+    var barColorList = <Color>[
+      AppColors.k13A89E,
+      AppColors.kFF9871,
+      AppColors.kFF007A,
+      AppColors.kFFD85E,
+    ];
+    final random = Random();
+
+    return GraphData(
+      id: json['id'] == null ? null : json['id'] as String,
+      value: json['total_donation_left'] == null ? null : totalBalance,
+      title: json['title'] == null ? null : json['title'] as String,
+      barColor: barColorList[random.nextInt(barColorList.length)],
+    );
+  }
 
   Map<String, dynamic> toMap() => <String, dynamic>{
         'id': id,
-        'total_donation_left': totalDonationLeft,
+        'total_donation_left': value,
         'title': title,
+        'barColor': barColor,
       };
 }

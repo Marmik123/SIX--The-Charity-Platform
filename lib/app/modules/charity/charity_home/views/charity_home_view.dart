@@ -12,9 +12,7 @@ import 'package:six/app/modules/needy_family/available_credits/views/available_c
 import 'package:six/app/modules/needy_family/profile/views/profile_view.dart';
 import 'package:six/app/ui/components/bottom_nav_bar.dart';
 import 'package:six/app/ui/components/circular_progress_indicator.dart';
-import 'package:six/app/ui/components/curved_container.dart';
 import 'package:six/app/ui/components/month_picker.dart';
-import 'package:six/app/ui/components/month_picker_dialog.dart';
 import 'package:six/r.g.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -84,15 +82,28 @@ class CharityHome extends StatelessWidget {
                     ),
                   ),
                 ),
-                Obx(() => Positioned(
+                //MONTH PICKER
+                /*Obx(() => Positioned(
                       top: 337.h,
                       child: GestureDetector(
                         onTap: () {
                           monthPickerDialog(
                             context: context,
-                            selectedDate: ctrl.selectedDate,
+                            selectedDate: ctrl.selectedDate!,
                           ).then((value) {
-                            ctrl.assignMonth(value?.month ?? 1);
+                            if (value != null) {
+                              ctrl.selectedDate = value;
+                              var lastDay =
+                                  DateTime(value.year, value.month + 1, 0);
+                              logI(value);
+                              logI(lastDay);
+                              ctrl.assignMonth(value.month);
+                            }
+                            */
+                /* else {
+                              ctrl.selectedDate = DateTime.now();
+                            }*/
+                /*
                           });
                         },
                         child: monthPicker(
@@ -103,7 +114,7 @@ class CharityHome extends StatelessWidget {
                           shadowColor: AppColors.k0A9988,
                           width: 390.w,
                           textContent: Text(
-                            '${ctrl.monthName()}, ${ctrl.selectedDate.year}',
+                            '${ctrl.monthName()}, ${ctrl.selectedDate!.year}',
                             style: TextStyle(
                               fontFamily: 'Gilroy',
                               fontSize: 40.sp,
@@ -115,7 +126,7 @@ class CharityHome extends StatelessWidget {
                           onTapArrow: () {},
                         ),
                       ),
-                    )),
+                    )),*/
                 Obx(() => Positioned(
                       top: 380.h,
                       child: GestureDetector(
@@ -126,92 +137,79 @@ class CharityHome extends StatelessWidget {
                               () => AvailableCreditsView(whichRole: 'Charity'));
                         },
                         child: Container(
-                          decoration: BoxDecoration(boxShadow: [
-                            BoxShadow(
-                                color: AppColors.k000000.withOpacity(0.25),
-                                blurRadius: 4.r,
-                                spreadRadius: -32.r,
-                                offset: Offset(0, 40.h))
-                          ], borderRadius: BorderRadius.circular(10.r)),
-                          child: CustomPaint(
-                              size: Size(
-                                  1005.w,
-                                  (1005.w * 0.21890547263681592)
-                                      .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                              painter: CurvedContainer(),
-                              child: Container(
-                                width: 1005.w,
-                                height: 220.h,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      SizedBox(
-                                        width: 10.w,
-                                      ),
-                                      Text(
-                                        'Available Credits',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy',
-                                          fontSize: 50.sp,
-                                          fontStyle: FontStyle.normal,
-                                          color: AppColors.kffffff,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      SizedBox(
-                                        width: 223.w,
-                                      ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            '\$',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy',
-                                              fontSize: 60.sp,
-                                              fontStyle: FontStyle.normal,
-                                              color: AppColors.kffffff,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                          Text(
-                                            ctrl.availableCredits(),
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy',
-                                              fontSize: 60.sp,
-                                              fontStyle: FontStyle.normal,
-                                              color: AppColors.kffffff,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          creditsCtrl.assignToAvailProgCredit();
-                                          creditsCtrl.disableLeading(false);
-                                          Get.toNamed<void>(
-                                              '/available-credits',
-                                              arguments: 'Charity');
-                                        },
-                                        child: const Icon(
-                                          Icons.keyboard_arrow_right_sharp,
-                                          color: AppColors.kffffff,
-                                          size: 25,
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                          width: 1005.w,
+                          height: 220.h,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                                begin: Alignment(-1, -2.8),
+                                end: Alignment(1, 10),
+                                colors: [AppColors.k1FAF9E, AppColors.k0087FF]),
+                            borderRadius: BorderRadius.circular(50.r),
+                          ),
+                          child: Center(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                SizedBox(
+                                  width: 10.w,
                                 ),
-                              )),
+                                Text(
+                                  'Available Credits',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy',
+                                    fontSize: 50.sp,
+                                    fontStyle: FontStyle.normal,
+                                    color: AppColors.kffffff,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(
+                                  width: 223.w,
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '\$',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy',
+                                        fontSize: 60.sp,
+                                        fontStyle: FontStyle.normal,
+                                        color: AppColors.kffffff,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    Text(
+                                      ctrl.availableCredits(),
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy',
+                                        fontSize: 60.sp,
+                                        fontStyle: FontStyle.normal,
+                                        color: AppColors.kffffff,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    creditsCtrl.assignToAvailProgCredit();
+                                    creditsCtrl.disableLeading(false);
+                                    Get.toNamed<void>('/available-credits',
+                                        arguments: 'Charity');
+                                  },
+                                  child: const Icon(
+                                    Icons.keyboard_arrow_right_sharp,
+                                    color: AppColors.kffffff,
+                                    size: 25,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     )),
@@ -405,12 +403,11 @@ class CharityHome extends StatelessWidget {
                                     ColumnSeries<GraphData, String>(
                                         dataSource: ctrl.graphDetails(),
                                         xValueMapper: (data, _) => data.title,
-                                        yValueMapper: (data, _) =>
-                                            data.totalDonationLeft,
-                                        /* pointColorMapper: (data, _) =>
-                                              data.c,*/
-                                        // Sets the corner radius
+                                        yValueMapper: (data, _) => data.value,
+                                        pointColorMapper: (data, _) =>
+                                            data.barColor,
                                         width: 0.15,
+                                        color: ctrl.barColor,
                                         dataLabelSettings: DataLabelSettings(
                                           // Renders the data label
                                           isVisible: true,
@@ -565,7 +562,28 @@ class CharityHome extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              child: ctrl.popUpItem(),
+                              child: monthPicker(
+                                color: AppColors.kF2FEFF,
+                                borderColor: AppColors.kD8FCFF,
+                                height: 90.h,
+                                whichScreen: '',
+                                shadowColor: AppColors.kffffff,
+                                textContent: Text(
+                                  ctrl
+                                      .graphDetails()[ctrl.programIndex()]
+                                      .title
+                                      .toString(),
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy',
+                                    fontSize: 35.sp,
+                                    fontStyle: FontStyle.normal,
+                                    color: AppColors.k13A89E,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                width: 627.w,
+                                onTapArrow: () {},
+                              ),
                             )),
                         SizedBox(
                           height: 76.h,
@@ -581,8 +599,8 @@ class CharityHome extends StatelessWidget {
                                       xValueMapper: (data, _) => data.name,
                                       yValueMapper: (data, _) =>
                                           data.totalBalance,
-                                      /* pointColorMapper: (data, _) =>
-                                              data.columnColor,*/
+                                      pointColorMapper: (data, _) =>
+                                          data.barColor,
                                       // Sets the corner radius
                                       width: 0.15,
                                       dataLabelSettings: DataLabelSettings(

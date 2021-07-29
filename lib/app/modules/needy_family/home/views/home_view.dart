@@ -274,7 +274,7 @@ class HomeContent extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 25.0),
           child: Container(
-            height: 560.h,
+            height: 580.h,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: 3,
@@ -284,11 +284,7 @@ class HomeContent extends StatelessWidget {
                 child: categoryCard(
                   index: index,
                   context: context,
-                  image: Image.asset(
-                    R.image.asset.super_market.assetName,
-                    height: 130.h,
-                    width: 120.w,
-                  ),
+                  imageUrl: R.image.asset.super_market.assetName,
                   background: AppColors.kFF007A.withOpacity(0.05),
                   categoryName: 'Supermarket',
                   creditsRemaining: 100,

@@ -132,7 +132,7 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
                                             height: 19.h,
                                           ),
                                           Text(
-                                            '\$${controller.programCreditsAvailability()[index].totalDonationLeft.toString()}',
+                                            '\$${controller.programCreditsAvailability()[index].value.toString()}',
                                             style: TextStyle(
                                               fontFamily: 'Gilroy',
                                               fontSize: 60.sp,

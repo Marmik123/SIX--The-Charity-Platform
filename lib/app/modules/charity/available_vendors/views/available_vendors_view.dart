@@ -14,8 +14,8 @@ import 'package:six/r.g.dart';
 import '../controllers/available_vendors_controller.dart';
 
 class AvailableVendorsView extends GetView<AvailableVendorsController> {
-  final String whichScreen;
-  final int? categoryIndex;
+  String whichScreen;
+  int? categoryIndex;
   final PurchaseController purchaseController = Get.put(PurchaseController());
   @override
   final AvailableVendorsController controller =
@@ -49,7 +49,7 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                       child: Row(
                         children: [
                           SizedBox(
-                            width: 60.w,
+                            width: 40.w,
                           ),
                           IconButton(
                             icon: const Icon(Icons.arrow_back),
@@ -59,7 +59,7 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                             },
                           ),
                           SizedBox(
-                            width: 247.w,
+                            width: 177.w,
                           ),
                           whichScreen == 'Charity'
                               ? Text(
@@ -119,7 +119,7 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                         fontFamily: 'Gilroy',
                         fontSize: 45.sp,
                       ),
-                      contentPadding: const EdgeInsets.only(bottom: 5),
+                      contentPadding: EdgeInsets.zero,
                       whichScreen: 'VendorDetails',
                     ),
                   ),

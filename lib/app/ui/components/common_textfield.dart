@@ -27,11 +27,13 @@ Widget textField({
   GlobalKey<FormState>? formKey,
   String? whichScreen,
 }) {
-  return Container(
-    height: height, //170.h,
-    width: width, //1005.w,
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(50.r),
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(50.r),
+    child: Container(
+      height: height, //170.h,
+      width: width, //1005.w,
+      decoration: BoxDecoration(
+        // borderRadius: BorderRadius.circular(50.r),
         color: AppColors.kffffff,
         border: Border.all(
           color: AppColors.kE2E2E2,
@@ -43,87 +45,114 @@ Widget textField({
             offset: const Offset(0, 20),
             blurRadius: 50.r,
           ),
-        ]),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        SizedBox(
-          width: 60.w,
-        ),
-        prefixImageName != ''
-            ? Image.asset(
-                prefixImageName,
-                width: 50.w,
-                height: 50.h,
-              )
-            : const SizedBox.shrink(),
-        prefixImageName != ''
-            ? SizedBox(
-                width: 41.w,
-              )
-            : const SizedBox.shrink(),
-        Container(
-          width: 825.w,
-          height: 125.h,
-          alignment: Alignment.centerLeft,
-          child: Form(
-            key: formKey,
-            child: TextFormField(
-              controller: controller,
-              enabled: true,
-              autofocus: whichScreen == 'PurchaseSheet' ? true : false,
-              textInputAction: whichScreen == 'VendorDetails'
-                  ? TextInputAction.search
-                  : TextInputAction.none,
-              validator: (value) {
-                if (GetUtils.isNull(value)) {
-                  return 'Please enter a value';
+        ],
+      ),
+      /*
+          SizedBox(
+            width: 60.w,
+          ),
+          prefixImageName != ''
+              ? Image.asset(
+                  prefixImageName,
+                  width: 50.w,
+                  height: 50.h,
+                )
+              : const SizedBox.shrink(),
+          prefixImageName != ''
+              ? SizedBox(
+                  width: 41.w,
+                )
+              : const SizedBox.shrink(),*/
+      child: Container(
+        width: 825.w,
+        height: 125.h,
+        alignment: Alignment.centerLeft,
+        child: Form(
+          key: formKey,
+          child: TextFormField(
+            textAlignVertical: TextAlignVertical.center,
+            controller: controller,
+            enabled: true,
+            autofocus: whichScreen == 'PurchaseSheet' ? true : false,
+            textInputAction: whichScreen == 'VendorDetails'
+                ? TextInputAction.search
+                : TextInputAction.none,
+            validator: (value) {
+              if (GetUtils.isNull(value)) {
+                return 'Please enter a value';
+              }
+            },
+            onFieldSubmitted: (value) {
+              if (value.isNotEmpty) {
+                availVendorCtrl.isSearched(true);
+                availVendorCtrl.isLoading(true);
+                availVendorCtrl.assignSearchedVendor(
+                    purchaseController
+                        .voucherCategory[availVendorCtrl.categoryIndex()].id
+                        .toString(),
+                    value);
+                if (controller!.text.trim().isEmpty) {
+                  availVendorCtrl.isSearched(false);
                 }
-              },
-              onFieldSubmitted: (value) {
-                if (value.isNotEmpty) {
-                  availVendorCtrl.isSearched(true);
-                  availVendorCtrl.isLoading(true);
-                  availVendorCtrl.assignSearchedVendor(
-                      purchaseController
-                          .voucherCategory[availVendorCtrl.categoryIndex()].id
-                          .toString(),
-                      value);
-                  if (controller!.text.trim().isEmpty) {
-                    availVendorCtrl.isSearched(false);
-                  }
-                }
-              },
-              onEditingComplete: () {
-                var currentFocus = FocusScope.of(context);
-                currentFocus.unfocus();
-              },
-              cursorColor: AppColors.k033660,
-              style: textStyle,
-              keyboardType: keyBoardType,
-              decoration: InputDecoration(
-                fillColor: AppColors.kffffff,
-                contentPadding: contentPadding,
-                filled: true,
-                hintText: hintText,
-                enabled: true,
-                hintStyle: hintStyle,
-                prefixText: prefixText,
-                prefixStyle: TextStyle(
-                  color: AppColors.k13A89E,
-                  fontWeight: FontWeight.w700,
-                  fontStyle: FontStyle.normal,
-                  fontFamily: 'Gilroy',
-                  fontSize: 65.sp,
+              }
+            },
+            onEditingComplete: () {
+              var currentFocus = FocusScope.of(context);
+              currentFocus.unfocus();
+            },
+            textAlign: TextAlign.center,
+            cursorColor: AppColors.k033660,
+            style: textStyle,
+            keyboardType: keyBoardType,
+            decoration: InputDecoration(
+              fillColor: AppColors.kffffff,
+              contentPadding: contentPadding,
+              suffixIcon: IconButton(
+                color: AppColors.k6886A0,
+                //padding: const EdgeInsets.only(top: 15),
+                alignment: Alignment.center,
+                iconSize: 20,
+                tooltip: 'Clear Text',
+                splashRadius: 2,
+                icon: const Icon(
+                  Icons.clear,
                 ),
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                isDense: true,
+                onPressed: () {
+                  controller?.clear();
+                  availVendorCtrl.assignVendorList(purchaseController
+                      .voucherCategory[availVendorCtrl.categoryIndex()].id
+                      .toString());
+                },
               ),
+              filled: true,
+              hintText: hintText,
+              enabled: true,
+              prefixIcon: prefixImageName != ''
+                  ? FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Image.asset(
+                        prefixImageName,
+                        width: 50.w,
+                        height: 50.h,
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+              hintStyle: hintStyle,
+              //prefixText: prefixText,
+              prefixStyle: TextStyle(
+                color: AppColors.k13A89E,
+                fontWeight: FontWeight.w700,
+                fontStyle: FontStyle.normal,
+                fontFamily: 'Gilroy',
+                fontSize: 65.sp,
+              ),
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              isDense: true,
             ),
           ),
         ),
-      ],
+      ),
     ),
   );
 }

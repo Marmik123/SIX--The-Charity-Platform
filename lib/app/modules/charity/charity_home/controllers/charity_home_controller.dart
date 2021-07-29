@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/models/graph_category_data.dart';
 import 'package:six/app/data/models/graph_data.dart';
 import 'package:six/app/data/provider/home_graph_provider.dart';
-import 'package:six/app/ui/components/month_picker.dart';
 
 class CharityHomeController extends GetxController {
   //TODO: Implement CharityHomeController
@@ -20,36 +18,18 @@ class CharityHomeController extends GetxController {
   RxString totalFamilyCount = 'Sept'.obs;
   RxString availableCredits = 'Sept'.obs;
   RxString programId = ''.obs;
-  DateTime selectedDate = DateTime.now();
+  DateTime? selectedDate = DateTime.now();
   RxList<GraphData> graphDetails = <GraphData>[].obs;
   RxList<GraphCategoryData> graphCategoryDetails = <GraphCategoryData>[].obs;
   Map<String, dynamic>? dashboardData;
   RxBool isLoading = false.obs;
+  Color barColor = Colors.blueGrey;
   TabController tabController = TabController(
     length: 2,
     vsync: NavigatorState(),
   );
-  Rx<Widget> popUpItem = monthPicker(
-    color: AppColors.kF2FEFF,
-    borderColor: AppColors.kD8FCFF,
-    height: 90.h,
-    whichScreen: '',
-    shadowColor: AppColors.kffffff,
-    textContent: Text(
-      'Support Beneficiary Fund',
-      style: TextStyle(
-        fontFamily: 'Gilroy',
-        fontSize: 35.sp,
-        fontStyle: FontStyle.normal,
-        color: AppColors.k13A89E,
-        fontWeight: FontWeight.w500,
-      ),
-    ),
-    width: 627.w,
-    onTapArrow: () {},
-  ).obs;
-  RxString programType = 'Support Beneficiary Fund'.obs;
 
+  RxString programType = 'Support Beneficiary Fund'.obs;
   List<PopupMenuEntry<Widget>> popUpWidgets = <PopupMenuEntry<Widget>>[];
 
   void assignMonth(int month) {
@@ -105,11 +85,21 @@ class CharityHomeController extends GetxController {
   Future<void> assignToGraphDetails() async {
     graphDetails(await GraphDataProvider.getGraphProgramData());
     isLoading(false);
+    graphDetails().forEach((element) {
+      element.value! > 300
+          ? barColor = AppColors.kFF9871
+          : element.value! < 300 && element.value! > 100
+              ? barColor = AppColors.kFF007A
+              : barColor = AppColors.kFFD85E;
+    });
   }
 
   Future<void> assignToCategoryDetails(String programId) async {
     graphCategoryDetails(
         await GraphDataProvider.getGraphCategoryData(programId));
+    graphCategoryDetails.forEach((element) {
+      element.copyWith(barColor: AppColors.kFFF5F1);
+    });
     isLoading(false);
   }
 

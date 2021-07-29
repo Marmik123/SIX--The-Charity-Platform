@@ -15,7 +15,7 @@ Widget bottomNavBar({required String whichScreen}) {
   var charityCtrl = Get.put(CharityHomeController());
   var socialCtrl = Get.put(SocialHomeController());
   var controller = Get.put(HomeController());
-  var avail = Get.find<AvailableCreditsController>();
+  var avail = Get.put(AvailableCreditsController());
   return Container(
     decoration: BoxDecoration(
       color: AppColors.kffffff,
