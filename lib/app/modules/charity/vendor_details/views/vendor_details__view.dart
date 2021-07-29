@@ -105,20 +105,24 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Text(
-                                      availVendorCtrl
-                                              .vendorDetails?['first_name']
-                                              .toString() ??
-                                          'null',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy',
-                                        fontSize: 65.sp,
-                                        fontStyle: FontStyle.normal,
-                                        color: AppColors.k033660,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
+                                    availVendorCtrl.vendorDetails!['first_name']
+                                            .toString()
+                                            .isEmpty
+                                        ? const SizedBox.shrink()
+                                        : Text(
+                                            availVendorCtrl.vendorDetails?[
+                                                        'first_name']
+                                                    .toString() ??
+                                                'null',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy',
+                                              fontSize: 65.sp,
+                                              fontStyle: FontStyle.normal,
+                                              color: AppColors.k033660,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
                                     h(40.h),
                                     Container(
                                       height: 64.h,
@@ -129,22 +133,28 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                             BorderRadius.circular(20.r),
                                       ),
                                       child: Center(
-                                        child: Text(
-                                          purchaseController
-                                                  .voucherCategory[
-                                                      availVendorCtrl
-                                                          .categoryIndex()]
-                                                  .name ??
-                                              'Super Market',
-                                          style: TextStyle(
-                                            fontFamily: 'Gilroy',
-                                            fontSize: 30.sp,
-                                            fontStyle: FontStyle.normal,
-                                            color: AppColors.kFF007A,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
+                                        child: purchaseController
+                                                .voucherCategory[availVendorCtrl
+                                                    .categoryIndex()]
+                                                .name!
+                                                .isEmpty
+                                            ? const SizedBox.shrink()
+                                            : Text(
+                                                purchaseController
+                                                        .voucherCategory[
+                                                            availVendorCtrl
+                                                                .categoryIndex()]
+                                                        .name ??
+                                                    'Super Market',
+                                                style: TextStyle(
+                                                  fontFamily: 'Gilroy',
+                                                  fontSize: 30.sp,
+                                                  fontStyle: FontStyle.normal,
+                                                  color: AppColors.kFF007A,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
                                       ),
                                     ),
                                     h(60.h),
@@ -188,21 +198,27 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                           SizedBox(
                                             width: 26.w,
                                           ),
-                                          Text(
-                                            availVendorCtrl.vendorDetails?[
-                                                        'user_metadata']
-                                                        ['email']
-                                                    .toString() ??
-                                                'contact@ntuc.com',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy',
-                                              fontSize: 40.sp,
-                                              fontStyle: FontStyle.normal,
-                                              color: AppColors.k033660,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
+                                          availVendorCtrl.vendorDetails![
+                                                      'user_metadata']['email']
+                                                  .toString()
+                                                  .isEmpty
+                                              ? const SizedBox.shrink()
+                                              : Text(
+                                                  availVendorCtrl
+                                                          .vendorDetails?[
+                                                              'user_metadata']
+                                                              ['email']
+                                                          .toString() ??
+                                                      'contact@ntuc.com',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy',
+                                                    fontSize: 40.sp,
+                                                    fontStyle: FontStyle.normal,
+                                                    color: AppColors.k033660,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
                                         ],
                                       ),
                                       SizedBox(
@@ -223,58 +239,73 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                           SizedBox(
                                             width: 26.w,
                                           ),
-                                          Text(
-                                            availVendorCtrl.vendorDetails?[
-                                                        'user_metadata']
-                                                        ['mobile_number']
-                                                    .toString() ??
-                                                '+1 987 654 3210',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy',
-                                              fontSize: 40.sp,
-                                              fontStyle: FontStyle.normal,
-                                              color: AppColors.k033660,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
+                                          availVendorCtrl.vendorDetails![
+                                                      'user_metadata']
+                                                      ['mobile_number']
+                                                  .toString()
+                                                  .isEmpty
+                                              ? const SizedBox.shrink()
+                                              : Text(
+                                                  availVendorCtrl
+                                                          .vendorDetails?[
+                                                              'user_metadata']
+                                                              ['mobile_number']
+                                                          .toString() ??
+                                                      '+1 987 654 3210',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy',
+                                                    fontSize: 40.sp,
+                                                    fontStyle: FontStyle.normal,
+                                                    color: AppColors.k033660,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
                                         ],
                                       ),
                                       SizedBox(
                                         height: 60.h,
                                       ),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            width: 50.w,
-                                          ),
-                                          Image.asset(
-                                            R.image.asset.location.assetName,
-                                            height: 39.h,
-                                            width: 44.w,
-                                          ),
-                                          SizedBox(
-                                            width: 26.w,
-                                          ),
-                                          Text(
-                                            availVendorCtrl.vendorDetails?[
-                                                        'user_metadata']
-                                                        ['address']
-                                                    .toString() ??
-                                                '1 Joo koon cir, 13-01 Fairprice hub, Singapore\n629117',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy',
-                                              fontSize: 40.sp,
-                                              fontStyle: FontStyle.normal,
-                                              color: AppColors.k033660,
-                                              fontWeight: FontWeight.w500,
+                                      availVendorCtrl.vendorDetails?[
+                                                      'user_metadata']
+                                                      ['address']
+                                                  .toString() ==
+                                              null
+                                          ? const SizedBox.shrink()
+                                          : Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  width: 50.w,
+                                                ),
+                                                Image.asset(
+                                                  R.image.asset.location
+                                                      .assetName,
+                                                  height: 39.h,
+                                                  width: 44.w,
+                                                ),
+                                                SizedBox(
+                                                  width: 26.w,
+                                                ),
+                                                Text(
+                                                  availVendorCtrl
+                                                          .vendorDetails?[
+                                                              'user_metadata']
+                                                              ['address']
+                                                          .toString() ??
+                                                      '1 Joo koon cir, 13-01 Fairprice hub, Singapore\n629117',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy',
+                                                    fontSize: 40.sp,
+                                                    fontStyle: FontStyle.normal,
+                                                    color: AppColors.k033660,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                  textAlign: TextAlign.left,
+                                                ),
+                                              ],
                                             ),
-                                            textAlign: TextAlign.left,
-                                          ),
-                                        ],
-                                      ),
                                     ],
                                   ),
                                 ),

@@ -26,6 +26,7 @@ Widget textField({
   TextEditingController? controller,
   GlobalKey<FormState>? formKey,
   String? whichScreen,
+  Widget? suffixIcon,
 }) {
   return ClipRRect(
     borderRadius: BorderRadius.circular(50.r),
@@ -107,23 +108,7 @@ Widget textField({
             decoration: InputDecoration(
               fillColor: AppColors.kffffff,
               contentPadding: contentPadding,
-              suffixIcon: IconButton(
-                color: AppColors.k6886A0,
-                //padding: const EdgeInsets.only(top: 15),
-                alignment: Alignment.center,
-                iconSize: 20,
-                tooltip: 'Clear Text',
-                splashRadius: 2,
-                icon: const Icon(
-                  Icons.clear,
-                ),
-                onPressed: () {
-                  controller?.clear();
-                  availVendorCtrl.assignVendorList(purchaseController
-                      .voucherCategory[availVendorCtrl.categoryIndex()].id
-                      .toString());
-                },
-              ),
+              suffixIcon: suffixIcon,
               filled: true,
               hintText: hintText,
               enabled: true,

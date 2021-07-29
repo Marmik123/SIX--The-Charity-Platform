@@ -439,7 +439,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_mailer:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_mailer
       url: "https://pub.dartlang.org"

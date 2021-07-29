@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/ui/components/category_card.dart';
 import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/common_appbar.dart';
@@ -100,6 +101,7 @@ class PurchaseView extends GetView<PurchaseController> {
                                 return GestureDetector(
                                   onTap: () {
                                     ctrl.selectCategory!(index);
+                                    logI(ctrl.selectCategory);
                                     ctrl.update();
                                   },
                                   child: Stack(

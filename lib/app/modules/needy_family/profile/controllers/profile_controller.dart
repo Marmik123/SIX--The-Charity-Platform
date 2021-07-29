@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,19 +13,21 @@ class ProfileController extends GetxController {
   final count = 0.obs;
   late File profilePicture;
   final picker = ImagePicker();
+
   @override
   void onInit() {
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  void sendMailFeedback() {
+    final mailOptions = MailOptions(
+      body: 'Add Your FeedBack Here',
+      subject: '[SIX App] ',
+      recipients: ['dharmatech.india@gmail.com'],
+      isHTML: true,
+    );
+    FlutterMailer.send(mailOptions);
   }
-
-  @override
-  void onClose() {}
-  void increment() => count.value++;
 
   void askImageSource() {
     Get.defaultDialog<void>(

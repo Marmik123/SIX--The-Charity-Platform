@@ -104,6 +104,24 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                       context: context,
                       height: 160.h,
                       width: 1005.w,
+                      suffixIcon: IconButton(
+                        color: AppColors.k6886A0,
+                        //padding: const EdgeInsets.only(top: 15),
+                        alignment: Alignment.center,
+                        iconSize: 20,
+                        tooltip: 'Clear Text',
+                        splashRadius: 2,
+                        icon: const Icon(
+                          Icons.clear,
+                        ),
+                        onPressed: () {
+                          controller.txtCtrl.clear();
+                          availVendorCtrl.assignVendorList(purchaseController
+                              .voucherCategory[categoryIndex??0]
+                              .id
+                              .toString());
+                        },
+                      ),
                       keyBoardType: TextInputType.text,
                       textStyle: TextStyle(
                         color: AppColors.k6886A0,

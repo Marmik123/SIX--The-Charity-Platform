@@ -169,6 +169,7 @@ class ProfileView extends GetView<ProfileController> {
                         ),
                         profileMenuItem(
                             R.image.asset.feedback.assetName, 'Feedback', () {
+                          controller.sendMailFeedback();
                           //Get.toNamed<void>(Routes.ONBOARDING_VENDOR);
                         }),
                         profileMenuItem(R.image.asset.term_c.assetName,

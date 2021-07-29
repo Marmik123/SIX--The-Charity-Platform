@@ -36,8 +36,6 @@ Future<void> purchaseBottomSheet({
           ctrl.purchasePressed(false);
         },
         builder: (context) {
-          ctrl.amountController.selection =
-              const TextSelection(baseOffset: 2, extentOffset: 3);
           return Stack(
             alignment: Alignment.topRight,
             children: [

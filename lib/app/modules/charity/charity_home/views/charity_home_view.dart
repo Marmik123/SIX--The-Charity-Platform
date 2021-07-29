@@ -68,7 +68,7 @@ class CharityHome extends StatelessWidget {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 162.h,
+                          height: 202.h,
                         ),
                         Image.asset(
                           R.image.asset.six_logo.assetName,
