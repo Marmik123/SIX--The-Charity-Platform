@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/config/logger.dart';
+import 'package:six/app/data/remote/provider/login_webview_process.dart';
 import 'package:six/app/modules/needy_family/sign_pass_verification/controllers/sign_pass_verification_controller.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -30,7 +31,7 @@ class WebViewScreen extends GetView<SignPassVerificationController> {
       ),
       body: GetBuilder<SignPassVerificationController>(
         builder: (_) => WebView(
-          initialUrl: controller.authorizeUrl,
+          initialUrl: LoginProvider.authorizeUrl,
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (c) {
             //logI(url);

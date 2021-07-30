@@ -49,6 +49,8 @@ Widget bottomNavBar({required String whichScreen}) {
                     : charityCtrl.currentIndex!(index);
         if (whichScreen == 'Charity') {
           avail.disableLeading(true);
+        } else if (whichScreen == 'Social') {
+          avail.disableLeading(true);
         }
         //fromVoucherScreen ? (Get.offAllNamed<void>(Routes.HOME)) : null;
       },

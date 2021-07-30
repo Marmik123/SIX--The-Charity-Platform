@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/double_shaded_container.dart';
 import 'package:six/app/ui/components/profile_options.dart';
@@ -267,6 +268,7 @@ class ProfileView extends GetView<ProfileController> {
                   child: roundedButton(
                       text: 'Logout',
                       onTap: () {
+                        UserProvider.onLogout();
                         Get.offAllNamed<void>(Routes.SIGN_PASS_VERIFICATION);
                       },
                       width: 452.w,

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/models/vendor_list.dart';
-import 'package:six/app/data/provider/voucher_category.dart';
+import 'package:six/app/data/remote/provider/voucher_category.dart';
 
 class AvailableVendorsController extends GetxController {
   //TODO: Implement AvailableVendorsController

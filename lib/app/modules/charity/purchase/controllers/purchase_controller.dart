@@ -9,7 +9,7 @@ import 'package:pedantic/pedantic.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/models/voucher_category.dart';
-import 'package:six/app/data/provider/voucher_category.dart';
+import 'package:six/app/data/remote/provider/voucher_category.dart';
 import 'package:six/app/modules/charity/charity_home/controllers/charity_home_controller.dart';
 import 'package:six/app/modules/needy_family/available_credits/controllers/available_credits_controller.dart';
 import 'package:six/app/ui/components/action_dialog.dart';

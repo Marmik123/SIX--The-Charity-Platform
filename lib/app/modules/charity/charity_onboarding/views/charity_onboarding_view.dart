@@ -60,7 +60,8 @@ class CharityOnboardingView extends GetView<CharityOnboardingController> {
                             curve: Curves.ease);
                   },
                   onTapSkip: () {
-                    Get.offAllNamed<void>(Routes.CHARITY_HOME);
+                    Get.offAllNamed<void>(Routes.CHARITY_HOME,
+                        arguments: 'Charity');
                   },
                   screenIndex: controller.index!.value.toDouble(),
                   onChangedPadding: 35.w),

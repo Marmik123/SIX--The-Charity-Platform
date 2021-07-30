@@ -17,11 +17,11 @@ Widget buildLoader() {
 
 Widget buildPaymentLoader() {
   return Container(
-    height: 0.10.sh,
-    width: 0.10.sw,
+    height: 10.h,
+    width: 10.w,
     child: const Center(
       child: CircularProgressIndicator(
-        strokeWidth: 3,
+        strokeWidth: 1,
         color: AppColors.kffffff,
       ),
     ),

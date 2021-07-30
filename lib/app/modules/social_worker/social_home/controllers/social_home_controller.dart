@@ -1,21 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:six/app/data/config/logger.dart';
+import 'package:six/app/data/remote/provider/social_worker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SocialHomeController extends GetxController {
   //TODO: Implement SocialHomeController
   RxInt? currentIndex = 0.obs;
   RxInt? tabIndex = 0.obs;
-
+  Map<String, dynamic>? dashboardData;
   RxBool paid = false.obs;
+  RxBool isLoading = false.obs;
   RxInt? monthNum = 1.obs;
   RxString monthName = 'Sept'.obs;
   DateTime selectedDate = DateTime.now();
   ScrollController scrollController = ScrollController();
-  final count = 0.obs;
+
   @override
   void onInit() {
     super.onInit();
+    assignDashboardData();
   }
 
   Future<void> launchURL() async {
@@ -29,6 +33,14 @@ class SocialHomeController extends GetxController {
     } else {
       print('Could not launch $url');
     }
+  }
+
+  Future<void> assignDashboardData() async {
+    isLoading(true);
+    dashboardData = await SocialWorkerProvider.getSWDashBoardData();
+    logI(dashboardData);
+    isLoading(false);
+    logW(dashboardData?['availableCreditData'][0]['total'] ?? '0');
   }
 
   void assignMonth(int month) {
@@ -71,13 +83,4 @@ class SocialHomeController extends GetxController {
         break;
     }
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {}
-  void increment() => count.value++;
 }

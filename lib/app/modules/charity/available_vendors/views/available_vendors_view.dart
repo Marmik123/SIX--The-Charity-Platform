@@ -117,8 +117,7 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                         onPressed: () {
                           controller.txtCtrl.clear();
                           availVendorCtrl.assignVendorList(purchaseController
-                              .voucherCategory[categoryIndex??0]
-                              .id
+                              .voucherCategory[categoryIndex ?? 0].id
                               .toString());
                         },
                       ),

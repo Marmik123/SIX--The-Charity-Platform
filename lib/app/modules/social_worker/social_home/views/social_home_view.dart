@@ -10,6 +10,7 @@ import 'package:six/app/modules/needy_family/profile/views/profile_view.dart';
 import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/bottom_nav_bar.dart';
 import 'package:six/app/ui/components/catched_image.dart';
+import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/month_picker.dart';
 import 'package:six/app/ui/components/month_picker_dialog.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
@@ -179,61 +180,150 @@ class SocialHome extends StatelessWidget {
                                         SizedBox(
                                           height: 90.h,
                                         ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                Get.toNamed<void>(
-                                                    Routes.AVAILABLE_CREDITS);
-                                              },
-                                              child: Container(
-                                                height: 220.h,
-                                                width: 452.5.w,
-                                                decoration: BoxDecoration(
-                                                  color: AppColors.kffffff
-                                                      .withOpacity(0.2),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: AppColors.k00474E
-                                                          .withOpacity(0.04),
-                                                      offset:
-                                                          const Offset(0, 20),
-                                                      blurRadius: 50.r,
+                                        Obx(() => Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    Get.toNamed<void>(Routes
+                                                        .AVAILABLE_CREDITS);
+                                                  },
+                                                  child: Container(
+                                                    height: 220.h,
+                                                    width: 452.5.w,
+                                                    decoration: BoxDecoration(
+                                                      color: AppColors.kffffff
+                                                          .withOpacity(0.2),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: AppColors
+                                                              .k00474E
+                                                              .withOpacity(
+                                                                  0.04),
+                                                          offset: const Offset(
+                                                              0, 20),
+                                                          blurRadius: 50.r,
+                                                        ),
+                                                      ],
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50.r),
                                                     ),
-                                                  ],
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          50.r),
-                                                ),
-                                                child: Center(
-                                                  child: Column(
-                                                    children: [
-                                                      SizedBox(
-                                                        height: 53.h,
-                                                      ),
-                                                      RichText(
-                                                        text: TextSpan(
-                                                            text: '\$',
+                                                    child: Center(
+                                                      child: Column(
+                                                        children: [
+                                                          SizedBox(
+                                                            height: 53.h,
+                                                          ),
+                                                          controller.isLoading()
+                                                              ? FittedBox(
+                                                            fit: BoxFit.scaleDown,
+                                                                  child:
+                                                                      buildPaymentLoader())
+                                                              : RichText(
+                                                                  text: TextSpan(
+                                                                      text: '\$',
+                                                                      style: TextStyle(
+                                                                        fontFamily:
+                                                                            'Gilroy',
+                                                                        fontSize:
+                                                                            60.sp,
+                                                                        fontStyle:
+                                                                            FontStyle.normal,
+                                                                        color: AppColors
+                                                                            .kffffff
+                                                                            .withOpacity(0.5),
+                                                                        fontWeight:
+                                                                            FontWeight.w400,
+                                                                      ),
+                                                                      children: [
+                                                                        TextSpan(
+                                                                            text: controller.dashboardData?['availableCreditData'][0]['total'].toString() ??
+                                                                                'NA',
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontFamily: 'Gilroy',
+                                                                              fontSize: 60.sp,
+                                                                              fontStyle: FontStyle.normal,
+                                                                              color: AppColors.kffffff,
+                                                                              fontWeight: FontWeight.w700,
+                                                                            ))
+                                                                      ]),
+                                                                ),
+                                                          SizedBox(
+                                                            height: 20.h,
+                                                          ),
+                                                          Text(
+                                                            'Available Credits',
+                                                            textAlign: TextAlign
+                                                                .center,
                                                             style: TextStyle(
                                                               fontFamily:
                                                                   'Gilroy',
-                                                              fontSize: 60.sp,
+                                                              fontSize: 35.sp,
                                                               fontStyle:
                                                                   FontStyle
                                                                       .normal,
                                                               color: AppColors
                                                                   .kffffff
                                                                   .withOpacity(
-                                                                      0.5),
+                                                                      0.7),
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .w400,
+                                                                      .w500,
                                                             ),
-                                                            children: [
-                                                              TextSpan(
-                                                                  text: '7,500',
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 20.5.w,
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    //Get.toNamed<void>(Routes.ADD_NOTE);
+                                                  },
+                                                  child: Container(
+                                                    height: 220.h,
+                                                    width: 452.5.w,
+                                                    decoration: BoxDecoration(
+                                                      color: AppColors.kffffff
+                                                          .withOpacity(0.2),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: AppColors
+                                                              .k00474E
+                                                              .withOpacity(
+                                                                  0.04),
+                                                          offset: const Offset(
+                                                              0, 20),
+                                                          blurRadius: 50.r,
+                                                        ),
+                                                      ],
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50.r),
+                                                    ),
+                                                    child: Center(
+                                                      child: Column(
+                                                        children: [
+                                                          SizedBox(
+                                                            height: 53.h,
+                                                          ),
+                                                          controller.isLoading()
+                                                              ? FittedBox(
+                                                              fit: BoxFit.scaleDown,
+                                                                  child:
+                                                                      buildPaymentLoader())
+                                                              : Text(
+                                                                  controller
+                                                                          .dashboardData?[
+                                                                              'beneficiaryCount']
+                                                                          .toString() ??
+                                                                      'NA',
                                                                   style:
                                                                       TextStyle(
                                                                     fontFamily:
@@ -248,106 +338,41 @@ class SocialHome extends StatelessWidget {
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w700,
-                                                                  ))
-                                                            ]),
+                                                                  ),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                          SizedBox(
+                                                            height: 20.h,
+                                                          ),
+                                                          Text(
+                                                            'Total Beneficiaries',
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Gilroy',
+                                                              fontSize: 35.sp,
+                                                              fontStyle:
+                                                                  FontStyle
+                                                                      .normal,
+                                                              color: AppColors
+                                                                  .kffffff
+                                                                  .withOpacity(
+                                                                      0.7),
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                      SizedBox(
-                                                        height: 20.h,
-                                                      ),
-                                                      Text(
-                                                        'Available Credits',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                          fontFamily: 'Gilroy',
-                                                          fontSize: 35.sp,
-                                                          fontStyle:
-                                                              FontStyle.normal,
-                                                          color: AppColors
-                                                              .kffffff
-                                                              .withOpacity(0.7),
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 20.5.w,
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                //Get.toNamed<void>(Routes.ADD_NOTE);
-                                              },
-                                              child: Container(
-                                                height: 220.h,
-                                                width: 452.5.w,
-                                                decoration: BoxDecoration(
-                                                  color: AppColors.kffffff
-                                                      .withOpacity(0.2),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: AppColors.k00474E
-                                                          .withOpacity(0.04),
-                                                      offset:
-                                                          const Offset(0, 20),
-                                                      blurRadius: 50.r,
                                                     ),
-                                                  ],
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          50.r),
-                                                ),
-                                                child: Center(
-                                                  child: Column(
-                                                    children: [
-                                                      SizedBox(
-                                                        height: 53.h,
-                                                      ),
-                                                      Text(
-                                                        '25',
-                                                        style: TextStyle(
-                                                          fontFamily: 'Gilroy',
-                                                          fontSize: 60.sp,
-                                                          fontStyle:
-                                                              FontStyle.normal,
-                                                          color:
-                                                              AppColors.kffffff,
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                        ),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                      ),
-                                                      SizedBox(
-                                                        height: 20.h,
-                                                      ),
-                                                      Text(
-                                                        'Total Beneficiaries',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                          fontFamily: 'Gilroy',
-                                                          fontSize: 35.sp,
-                                                          fontStyle:
-                                                              FontStyle.normal,
-                                                          color: AppColors
-                                                              .kffffff
-                                                              .withOpacity(0.7),
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                    ],
                                                   ),
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
+                                                )
+                                              ],
+                                            )),
                                         SizedBox(
                                           height: 40.h,
                                         ),

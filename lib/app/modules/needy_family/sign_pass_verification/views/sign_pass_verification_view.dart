@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/remote/provider/login_webview_process.dart';
 import 'package:six/app/routes/app_pages.dart';
+import 'package:six/app/ui/components/app_snackbar.dart';
 import 'package:six/app/ui/components/common_textfield.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 
@@ -203,7 +205,9 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                         roundedButton(
                           text: 'Charity',
                           onTap: () {
-                            controller.getUserDetailToLogin();
+                            LoginProvider.getUserDetailToLogin(
+                                userId: '18c7089f-0d80-4374-97b6-e266ae722d5e',
+                                role: 'charity');
                             Get.offAndToNamed<void>(Routes.CHARITY_ONBOARDING);
                           },
                           width: 452.w,
@@ -221,8 +225,44 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                         ),
                         roundedButton(
                           text: 'Social',
-                          onTap: () {
-                            Get.offAndToNamed<void>(Routes.SOCIAL_ONBOARDING);
+                          onTap: () async {
+                            LoginProvider.callAuthorizeData();
+                            var loginStatus =
+                                await LoginProvider.getUserDetailToLogin(
+                                    userId:
+                                        '742151a9-0553-44b5-8e0e-d0a33032916a',
+                                    role: 'social_worker');
+                            if (loginStatus == 200) {
+                              appSnackbar(
+                                message: 'Login Successful,Redirecting..',
+                                snackbarState: SnackbarState.success,
+                              );
+                              Future<void>.delayed(const Duration(seconds: 3),
+                                  () {
+                                Get.offAllNamed<void>(Routes.SOCIAL_ONBOARDING);
+                              });
+                            } else {
+                              appSnackbar(
+                                message: 'Login Error,Try Again',
+                                snackbarState: SnackbarState.warning,
+                              );
+                            }
+                            /* Get.toNamed<void>(Routes.WEB_VIEW)?.then<void>(
+                              (value) {
+                                controller.successLogin()
+                                    ? appSnackbar(
+                                        message:
+                                            'Login Successful,Redirecting..',
+                                        snackbarState: SnackbarState.success,
+                                      )
+                                    : appSnackbar(
+                                        message: 'Login Error,Try Again',
+                                        snackbarState: SnackbarState.warning,
+                                      );
+                                Future<void>.delayed(const Duration(seconds: 3),
+                                    () {
+
+                                });*/
                           },
                           width: 452.w,
                           height: 150.h,
@@ -234,12 +274,15 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                             Get.toNamed<void>(Routes.WEB_VIEW)?.then<void>(
                               (value) {
                                 controller.successLogin()
-                                    ? Get.snackbar<void>(
-                                        'Login Successful',
-                                        'Redirecting',
+                                    ? appSnackbar(
+                                        message:
+                                            'Login Successful,Redirecting..',
+                                        snackbarState: SnackbarState.success,
                                       )
-                                    : Get.snackbar<void>(
-                                        'Login Error', 'Try Again');
+                                    : appSnackbar(
+                                        message: 'Login Error,Try Again',
+                                        snackbarState: SnackbarState.warning,
+                                      );
                                 Future<void>.delayed(const Duration(seconds: 3),
                                     () {
                                   Get.offAllNamed<void>(Routes.CHARITY_HOME);
@@ -289,8 +332,10 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                   ? const SizedBox.shrink()
                   : TextButton(
                       onPressed: () {
-                        controller.callAuthorizeData();
-                        controller.getUserDetailToLogin();
+                        LoginProvider.callAuthorizeData();
+                        LoginProvider.getUserDetailToLogin(
+                            userId: '18c7089f-0d80-4374-97b6-e266ae722d5e',
+                            role: 'charity');
                         controller.isVerified.value = true;
                       },
                       child: const Text('Next'),

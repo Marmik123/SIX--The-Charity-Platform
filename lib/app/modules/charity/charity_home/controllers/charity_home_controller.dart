@@ -4,7 +4,7 @@ import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/models/graph_category_data.dart';
 import 'package:six/app/data/models/graph_data.dart';
-import 'package:six/app/data/provider/home_graph_provider.dart';
+import 'package:six/app/data/remote/provider/home_graph_provider.dart';
 
 class CharityHomeController extends GetxController {
   //TODO: Implement CharityHomeController
@@ -13,11 +13,12 @@ class CharityHomeController extends GetxController {
   RxInt? monthNum = 1.obs;
   RxInt programIndex = 0.obs;
   RxString monthName = 'Sept'.obs;
-  RxString totalDonation = 'Sept'.obs;
-  RxString totalContributors = 'Sept'.obs;
-  RxString totalFamilyCount = 'Sept'.obs;
-  RxString availableCredits = 'Sept'.obs;
+  RxString totalDonation = ''.obs;
+  RxString totalContributors = ''.obs;
+  RxString totalFamilyCount = ''.obs;
+  RxString availableCredits = ''.obs;
   RxString programId = ''.obs;
+  String whichScreen = 'screenName';
   DateTime? selectedDate = DateTime.now();
   RxList<GraphData> graphDetails = <GraphData>[].obs;
   RxList<GraphCategoryData> graphCategoryDetails = <GraphCategoryData>[].obs;
@@ -73,15 +74,28 @@ class CharityHomeController extends GetxController {
     }
   }
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
     isLoading(true);
-    assignToGraphDetails();
-    assignDashboardData();
+    logW(Get.arguments);
+    if (Get.arguments != null) {
+      whichScreen = Get.arguments as String;
+    }
+    /*Checking whichScreen as this screen is used in multiple module the functions
+    in init method will get called according to which screen else error will come.*/
+    switch (whichScreen) {
+      case 'Charity':
+        assignToGraphDetails();
+        assignDashboardData();
+        break;
+      default:
+        logI('Default Case');
+        break;
+    }
   }
 
+  //Credits by Program Graph
   Future<void> assignToGraphDetails() async {
     graphDetails(await GraphDataProvider.getGraphProgramData());
     isLoading(false);
@@ -94,6 +108,7 @@ class CharityHomeController extends GetxController {
     });
   }
 
+  //Credits by Category Graph
   Future<void> assignToCategoryDetails(String programId) async {
     graphCategoryDetails(
         await GraphDataProvider.getGraphCategoryData(programId));
@@ -103,6 +118,7 @@ class CharityHomeController extends GetxController {
     isLoading(false);
   }
 
+  //Charity Home Dashboard Data
   Future<void> assignDashboardData() async {
     dashboardData = await GraphDataProvider.getDashboardData();
     logI('@@@$dashboardData');
@@ -112,39 +128,3 @@ class CharityHomeController extends GetxController {
     totalFamilyCount(dashboardData?['totalFamilyCount'].toString() ?? '');
   }
 }
-/*
-
-PopupMenuItem<Widget>(
-value: monthPicker(
-color: AppColors.kF2FEFF,
-borderColor: AppColors.kD8FCFF,
-whichScreen: '',
-height: 90.h,
-shadowColor: AppColors.kffffff,
-textContent: Text(
-'Support Beneficiary Fund',
-style: TextStyle(
-fontFamily: 'Gilroy',
-fontSize: 35.sp,
-fontStyle: FontStyle.normal,
-color: AppColors.k13A89E,
-fontWeight: FontWeight.w500,
-),
-),
-width: 627.w,
-onTapArrow: () {},
-),
-child: Container(
-width: 525.w,
-child: Text(
-'Support Beneficiary Fund',
-style: TextStyle(
-fontFamily: 'Gilroy',
-fontSize: 35.sp,
-fontStyle: FontStyle.normal,
-color: AppColors.k13A89E,
-fontWeight: FontWeight.w500,
-),
-),
-),
-),*/
