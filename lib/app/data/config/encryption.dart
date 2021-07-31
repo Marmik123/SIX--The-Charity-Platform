@@ -87,17 +87,11 @@ class AppEncryption {
     padding: null,
   ));
 
-  static String encrypt({required String plainText}) {
-    final encrypted = encrypter.encrypt(plainText, iv: iv);
+  static String encrypt({required String plainText}) =>
+      encrypter.encrypt(plainText, iv: iv).base16;
 
-    return encrypted.base16;
-  }
-
-  static String decrypt({required String cipherText}) {
-    final decrypted = encrypter.decrypt16(cipherText, iv: iv);
-
-    return decrypted;
-  }
+  static String decrypt({required String cipherText}) =>
+      encrypter.decrypt16(cipherText, iv: iv);
 
   static void testEncryption() {
     final plainText = jsonEncode({
