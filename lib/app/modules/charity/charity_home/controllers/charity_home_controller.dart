@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/config/logger.dart';
+import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/data/models/graph_category_data.dart';
 import 'package:six/app/data/models/graph_data.dart';
 import 'package:six/app/data/remote/provider/home_graph_provider.dart';
@@ -82,17 +83,15 @@ class CharityHomeController extends GetxController {
     if (Get.arguments != null) {
       whichScreen = Get.arguments as String;
     }
+    if (UserProvider.role == 'charity') {
+      assignToGraphDetails();
+      assignDashboardData();
+    } else {
+      logI('Not Charity');
+    }
+
     /*Checking whichScreen as this screen is used in multiple module the functions
     in init method will get called according to which screen else error will come.*/
-    switch (whichScreen) {
-      case 'Charity':
-        assignToGraphDetails();
-        assignDashboardData();
-        break;
-      default:
-        logI('Default Case');
-        break;
-    }
   }
 
   //Credits by Program Graph

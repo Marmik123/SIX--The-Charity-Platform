@@ -10,6 +10,7 @@ import 'package:six/app/data/config/error_handling.dart';
 import 'package:six/app/data/config/initialize_app.dart';
 import 'package:six/app/data/config/translation_api.dart';
 import 'package:six/app/data/local/locale_provider.dart';
+import 'package:six/app/utils/main_utils.dart';
 
 import 'app/routes/app_pages.dart';
 
@@ -96,29 +97,34 @@ class StartTheApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(
-        DesignConfig.kDesignWidth,
-        DesignConfig.kDesignHeight,
-      ),
-      builder: () {
-        return GetMaterialApp(
-          title: 'SIX-The Charity Platform',
-          navigatorKey: Catcher.navigatorKey,
-          theme: ThemeData(
-            primarySwatch: Colors.blueGrey,
-          ),
-          initialRoute: AppPages.INITIAL,
-          getPages: AppPages.routes,
-          debugShowCheckedModeBanner: false,
-          translationsKeys: Get.find<AppTranslations>().keys,
-          translations: Get.find<AppTranslations>(),
-          locale: LocaleProvider.currentLocale,
-          fallbackLocale: const Locale('en_US'),
-          defaultTransition: Transition.cupertino,
-          themeMode: ThemeMode.system,
-        );
+    return GestureDetector(
+      onTap: () {
+        hideKeyboard();
       },
+      child: ScreenUtilInit(
+        designSize: const Size(
+          DesignConfig.kDesignWidth,
+          DesignConfig.kDesignHeight,
+        ),
+        builder: () {
+          return GetMaterialApp(
+            title: 'SIX-The Charity Platform',
+            navigatorKey: Catcher.navigatorKey,
+            theme: ThemeData(
+              primarySwatch: Colors.blueGrey,
+            ),
+            initialRoute: AppPages.INITIAL,
+            getPages: AppPages.routes,
+            debugShowCheckedModeBanner: false,
+            translationsKeys: Get.find<AppTranslations>().keys,
+            translations: Get.find<AppTranslations>(),
+            locale: LocaleProvider.currentLocale,
+            fallbackLocale: const Locale('en_US'),
+            defaultTransition: Transition.cupertino,
+            themeMode: ThemeMode.system,
+          );
+        },
+      ),
     );
   }
 }

@@ -12,7 +12,6 @@ import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 import 'package:six/r.g.dart';
 
 Future<void> purchaseBottomSheet({
-  required String whichScreen,
   String? category,
 }) {
   var ctrl = Get.find<PurchaseController>();
@@ -104,6 +103,8 @@ Future<void> purchaseBottomSheet({
                       hintText: '',
                       prefixImageName: '',
                       onTap: () {},
+                      textAction: TextInputAction.search,
+                      autofocus: true,
                       keyBoardType: TextInputType.number,
                       textStyle: TextStyle(
                         color: AppColors.k13A89E,
@@ -120,44 +121,8 @@ Future<void> purchaseBottomSheet({
                         fontFamily: 'Gilroy',
                         fontSize: 45.sp,
                       ),
-                      whichScreen: 'PurchaseSheet',
+                      //whichScreen: 'PurchaseSheet',
                     ),
-                    /*TextFormField(
-                                              initialValue: '10,000',
-                                              enabled: true,
-                                              onEditingComplete: () {
-                                                FocusScopeNode currentFocus =
-                                                    FocusScope.of(context);
-                                                currentFocus.unfocus();
-                                              },
-                                              style: TextStyle(
-                                                color: AppColors.k13A89E,
-                                                fontWeight: FontWeight.w700,
-                                                fontStyle: FontStyle.normal,
-                                                fontFamily: 'Gilroy',
-                                                fontSize: 65.sp,
-                                              ),
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              decoration: InputDecoration(
-                                                fillColor: AppColors.kffffff,
-                                                contentPadding:
-                                                    const EdgeInsets.only(
-                                                        left: 120, top: 15),
-                                                filled: true,
-                                                prefixText: '\$',
-                                                prefixStyle: TextStyle(
-                                                  color: AppColors.k13A89E,
-                                                  fontWeight: FontWeight.w700,
-                                                  fontStyle: FontStyle.normal,
-                                                  fontFamily: 'Gilroy',
-                                                  fontSize: 65.sp,
-                                                ),
-                                                enabledBorder: InputBorder.none,
-                                                focusedBorder: InputBorder.none,
-                                                isDense: true,
-                                              ),
-                                            )*/
                   ),
                   SizedBox(
                     height: 87.h,
@@ -175,11 +140,11 @@ Future<void> purchaseBottomSheet({
                             amount: ctrl.amountController.numberValue,
                           );
                           Get.back<void>();
-                          whichScreen == 'Social'
+                          /* whichScreen == 'Social'
                               ? assignCtrl.paid(true)
                               : whichScreen == 'Charity'
                                   ? ctrl.paid(true)
-                                  : ctrl.paid(false);
+                                  : ctrl.paid(false);*/
                         } else {
                           appSnackbar(
                             message: 'Please enter valid amount',
@@ -197,13 +162,14 @@ Future<void> purchaseBottomSheet({
               IconButton(
                 onPressed: () {
                   ctrl.textEditingController.clear();
-                  whichScreen == 'Social'
+
+                  /* whichScreen == 'Social'
                       ? assignCtrl.purchasePressed(false)
                       : ctrl.purchasePressed(false);
 
                   whichScreen == 'Social'
                       ? assignCtrl.paid(false)
-                      : ctrl.paid.value = false;
+                      : ctrl.paid.value = false;*/
                   Get.back<void>();
                 },
                 icon: const Icon(Icons.clear),

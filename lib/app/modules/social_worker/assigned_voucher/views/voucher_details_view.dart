@@ -391,7 +391,7 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                         text: 'Pay Now',
                         onTap: () {
                           controller.purchasePressed(true);
-                          purchaseBottomSheet(whichScreen: 'Social');
+                          purchaseBottomSheet();
                         },
                         width: 500.w,
                         height: 150.h,
@@ -442,7 +442,6 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                       child: Material(
                         color: Colors.transparent,
                         child: actionDialog(
-                          whichScreen: 'Charity',
                           onTapCancel: () {
                             controller.purchasePressed.value = false;
                             controller.paid.value = false;

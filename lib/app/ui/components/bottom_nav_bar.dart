@@ -3,6 +3,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/modules/charity/charity_home/controllers/charity_home_controller.dart';
 import 'package:six/app/modules/needy_family/available_credits/controllers/available_credits_controller.dart';
 import 'package:six/app/modules/needy_family/home/controllers/home_controller.dart';
@@ -10,7 +11,7 @@ import 'package:six/app/modules/social_worker/social_home/controllers/social_hom
 import 'package:six/app/modules/vendor/vendor_home/controllers/vendor_home_controller.dart';
 import 'package:six/r.g.dart';
 
-Widget bottomNavBar({required String whichScreen}) {
+Widget bottomNavBar() {
   var vendorCtrl = Get.put(VendorHomeController());
   var charityCtrl = Get.put(CharityHomeController());
   var socialCtrl = Get.put(SocialHomeController());
@@ -30,26 +31,26 @@ Widget bottomNavBar({required String whichScreen}) {
       backgroundColor: AppColors.kffffff,
       elevation: 45,
       iconSize: 25,
-      currentIndex: whichScreen == 'Vendor'
+      currentIndex: UserProvider.role == 'vendor'
           ? vendorCtrl.currentIndex!.value
-          : whichScreen == 'Needy Family'
+          : UserProvider.role == 'needy'
               ? controller.currentIndex!.value
-              : whichScreen == 'Social'
+              : UserProvider.role == 'social_worker'
                   ? socialCtrl.currentIndex!()
                   : charityCtrl.currentIndex!.value,
       type: BottomNavigationBarType.fixed,
       showUnselectedLabels: true,
       onTap: (index) {
-        whichScreen == 'Vendor'
+        UserProvider.role == 'vendor'
             ? vendorCtrl.currentIndex!(index)
-            : whichScreen == 'Needy Family'
+            : UserProvider.role == 'needy'
                 ? controller.currentIndex!(index)
-                : whichScreen == 'Social'
+                : UserProvider.role == 'social_worker'
                     ? socialCtrl.currentIndex!(index)
                     : charityCtrl.currentIndex!(index);
-        if (whichScreen == 'Charity') {
+        if (UserProvider.role == 'charity') {
           avail.disableLeading(true);
-        } else if (whichScreen == 'Social') {
+        } else if (UserProvider.role == 'social_worker') {
           avail.disableLeading(true);
         }
         //fromVoucherScreen ? (Get.offAllNamed<void>(Routes.HOME)) : null;
@@ -105,11 +106,11 @@ Widget bottomNavBar({required String whichScreen}) {
           icon: Padding(
             padding: const EdgeInsets.only(bottom: 5),
             child: Image.asset(
-              whichScreen == 'Vendor'
+              UserProvider.role == 'vendor'
                   ? R.image.asset.ticket.assetName
-                  : whichScreen == 'Charity'
+                  : UserProvider.role == 'charity'
                       ? R.image.asset.charity_ticket.assetName
-                      : whichScreen == 'Social'
+                      : UserProvider.role == 'social_worker'
                           ? R.image.asset.purchase_social.assetName
                           : R.image.discount().assetName,
               height: 61.h,
@@ -127,11 +128,11 @@ Widget bottomNavBar({required String whichScreen}) {
                     offset: const Offset(5, 5))
               ]),
               child: Image.asset(
-                whichScreen == 'Vendor'
+                UserProvider.role == 'vendor'
                     ? R.image.asset.ticket_click.assetName
-                    : whichScreen == 'Charity'
+                    : UserProvider.role == 'charity'
                         ? R.image.purchase_icon().assetName
-                        : whichScreen == 'Social'
+                        : UserProvider.role == 'social_worker'
                             ? R.image.asset.buy.assetName
                             : R.image.discoun_active().assetName,
                 height: 61.h,
@@ -140,9 +141,10 @@ Widget bottomNavBar({required String whichScreen}) {
               ),
             ),
           ),
-          label: whichScreen == 'Vendor'
+          label: UserProvider.role == 'vendor'
               ? 'Redeem'
-              : whichScreen == 'Charity' || whichScreen == 'Social'
+              : UserProvider.role == 'charity' ||
+                      UserProvider.role == 'social_worker'
                   ? 'Purchase'
                   : 'Voucher',
         ),

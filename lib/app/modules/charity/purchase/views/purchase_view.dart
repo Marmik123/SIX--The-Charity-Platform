@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/config/logger.dart';
+import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/ui/components/category_card.dart';
 import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/common_appbar.dart';
@@ -26,7 +27,7 @@ class PurchaseView extends GetView<PurchaseController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
-          floatingActionButton: whichScreen == 'Social'
+          floatingActionButton: UserProvider.role == 'social_worker'
               ? const SizedBox.shrink()
               : ctrl.paymentInProgress()
                   ? FittedBox(child: buildLoader())
@@ -34,10 +35,9 @@ class PurchaseView extends GetView<PurchaseController> {
                       text: 'Purchase Credit',
                       onTap: () {
                         ctrl.amountController.clear();
-                        whichScreen == 'Social'
-                            ? purchaseBottomSheet(whichScreen: 'Social')
+                        UserProvider.role == 'social_worker'
+                            ? purchaseBottomSheet()
                             : purchaseBottomSheet(
-                                whichScreen: 'Charity',
                                 category: ctrl
                                     .voucherCategory[ctrl.selectCategory!()]
                                     .name
@@ -123,9 +123,6 @@ class PurchaseView extends GetView<PurchaseController> {
                                         shadow:
                                             AppColors.kEED2E0.withOpacity(0.15),
                                         accent: accent,
-                                        whichScreen: whichScreen == 'Social'
-                                            ? 'Social'
-                                            : 'Charity',
                                         height: 622.h,
                                         width: 558.w,
                                         context: context,

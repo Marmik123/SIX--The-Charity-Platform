@@ -264,7 +264,6 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                         child: Material(
                           color: Colors.transparent,
                           child: actionDialog(
-                            whichScreen: 'Needy Family',
                             dialogTypeText: 'Success!',
                             text:
                                 'Congrats! You have successfully\nredemeed your e-voucher',

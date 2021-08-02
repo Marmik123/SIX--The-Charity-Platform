@@ -25,7 +25,8 @@ Widget textField({
   required TextInputType keyBoardType,
   TextEditingController? controller,
   GlobalKey<FormState>? formKey,
-  String? whichScreen,
+  bool autofocus = false,
+  TextInputAction textAction = TextInputAction.none,
   Widget? suffixIcon,
 }) {
   return ClipRRect(
@@ -48,22 +49,7 @@ Widget textField({
           ),
         ],
       ),
-      /*
-          SizedBox(
-            width: 60.w,
-          ),
-          prefixImageName != ''
-              ? Image.asset(
-                  prefixImageName,
-                  width: 50.w,
-                  height: 50.h,
-                )
-              : const SizedBox.shrink(),
-          prefixImageName != ''
-              ? SizedBox(
-                  width: 41.w,
-                )
-              : const SizedBox.shrink(),*/
+
       child: Container(
         width: 825.w,
         height: 125.h,
@@ -74,10 +60,8 @@ Widget textField({
             textAlignVertical: TextAlignVertical.center,
             controller: controller,
             enabled: true,
-            autofocus: whichScreen == 'PurchaseSheet' ? true : false,
-            textInputAction: whichScreen == 'VendorDetails'
-                ? TextInputAction.search
-                : TextInputAction.none,
+            autofocus: autofocus,
+            textInputAction: textAction,
             validator: (value) {
               if (GetUtils.isNull(value)) {
                 return 'Please enter a value';

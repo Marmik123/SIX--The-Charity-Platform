@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/modules/charity/purchase/controllers/purchase_controller.dart';
 import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/catched_image.dart';
@@ -14,8 +15,8 @@ import 'package:six/r.g.dart';
 import '../controllers/available_vendors_controller.dart';
 
 class AvailableVendorsView extends GetView<AvailableVendorsController> {
-  String whichScreen;
-  int? categoryIndex;
+  final String whichScreen;
+  final int? categoryIndex;
   final PurchaseController purchaseController = Get.put(PurchaseController());
   @override
   final AvailableVendorsController controller =
@@ -61,7 +62,7 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                           SizedBox(
                             width: 177.w,
                           ),
-                          whichScreen == 'Charity'
+                          UserProvider.role == 'charity'
                               ? Text(
                                   'Available Vendors',
                                   maxLines: 1,
@@ -137,7 +138,6 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                         fontSize: 45.sp,
                       ),
                       contentPadding: EdgeInsets.zero,
-                      whichScreen: 'VendorDetails',
                     ),
                   ),
                 )
@@ -301,7 +301,8 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                                   availVendorCtrl
                                                       .vendorList[index].id
                                                       .toString());
-                                              whichScreen == 'Social'
+                                              UserProvider.role ==
+                                                      'social_worker'
                                                   ? Get.toNamed<void>(
                                                       Routes.VENDOR_DETAILS,
                                                       arguments: 'Social')

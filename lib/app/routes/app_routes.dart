@@ -34,6 +34,7 @@ abstract class Routes {
   static const PURCHASE_SOCIAL = _Paths.PURCHASE_SOCIAL;
   static const HISTORY_SW = _Paths.HISTORY_SW;
   static const WEB_VIEW = _Paths.WEB_VIEW;
+  static const AVAILABLE_CREDITS_SW = _Paths.AVAILABLE_CREDITS_SW;
 }
 
 abstract class _Paths {
@@ -68,4 +69,5 @@ abstract class _Paths {
   static const PURCHASE_SOCIAL = '/purchase-social';
   static const HISTORY_SW = '/history-sw';
   static const WEB_VIEW = '/web-view';
+  static const AVAILABLE_CREDITS_SW = '/available-credits-sw';
 }

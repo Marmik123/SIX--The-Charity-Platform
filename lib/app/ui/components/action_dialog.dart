@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/modules/social_worker/distribute_voucher/controllers/distribute_voucher_controller.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
@@ -11,7 +12,6 @@ Widget actionDialog({
   required String text,
   required String dialogTypeText,
   required String assetName,
-  required String whichScreen,
   required VoidCallback onTapCancel,
 }) {
   return Column(
@@ -20,7 +20,8 @@ Widget actionDialog({
         height: 778.h,
       ),
       Container(
-        height: whichScreen == 'SW' ? 1106.h : 881.h,
+        height:
+            UserProvider.currentUser?.role == 'social_worker' ? 1106.h : 881.h,
         width: 1005.w,
         decoration: BoxDecoration(
           color: AppColors.kffffff,
@@ -75,7 +76,7 @@ Widget actionDialog({
               ),
               textAlign: TextAlign.center,
             ),
-            whichScreen == 'SW'
+            UserProvider.currentUser?.role == 'social_worker'
                 ? Column(
                     children: [
                       h(45.h),
@@ -97,7 +98,7 @@ Widget actionDialog({
       SizedBox(
         height: 484.h,
       ),
-      whichScreen == 'SW'
+      UserProvider.currentUser?.role == 'social_worker'
           ? const SizedBox.shrink()
           : GestureDetector(
               onTap: onTapCancel,

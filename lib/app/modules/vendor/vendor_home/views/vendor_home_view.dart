@@ -30,7 +30,7 @@ class VendorHomeView extends GetView<VendorHomeController> {
         backgroundColor: AppColors.kffffff,
         bottomNavigationBar:
             !vendorRCtrl.redeemNow.value && !vendorRCtrl.redeemThroughNum.value
-                ? bottomNavBar(whichScreen: 'Vendor')
+                ? bottomNavBar()
                 : const SizedBox.shrink(),
         body: bottomNavScreen.elementAt(
           controller.currentIndex!.value,

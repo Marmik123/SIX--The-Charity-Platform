@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/config/logger.dart';
+import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/data/remote/provider/login_webview_process.dart';
 import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/app_snackbar.dart';
@@ -196,6 +198,7 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                         roundedButton(
                           text: 'Login',
                           onTap: () {
+                            UserProvider.staticRole = 'needy';
                             Get.offAndToNamed<void>('/home');
                           },
                           width: 452.w,
@@ -217,6 +220,8 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                         roundedButton(
                           text: 'Vendor',
                           onTap: () {
+                            UserProvider.staticRole = 'vendor';
+                            logI(UserProvider.role);
                             Get.offAndToNamed<void>(Routes.ONBOARDING_VENDOR);
                           },
                           width: 452.w,
@@ -333,9 +338,9 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                   : TextButton(
                       onPressed: () {
                         LoginProvider.callAuthorizeData();
-                        LoginProvider.getUserDetailToLogin(
+                        /* LoginProvider.getUserDetailToLogin(
                             userId: '18c7089f-0d80-4374-97b6-e266ae722d5e',
-                            role: 'charity');
+                            role: 'charity');*/
                         controller.isVerified.value = true;
                       },
                       child: const Text('Next'),

@@ -290,7 +290,6 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                       child: Material(
                         color: Colors.transparent,
                         child: actionDialog(
-                            whichScreen: 'SW',
                             dialogTypeText: 'Voucher Successfully\nAssigned',
                             text:
                                 'You have successfully assigned the\nvoucher to the beneficiary',

@@ -1,4 +1,5 @@
 import 'package:six/app/data/config/logger.dart';
+import 'package:six/app/data/models/available_credits_sw.dart';
 import 'package:six/app/data/models/beneficiary_list_details.dart';
 import 'package:six/app/data/remote/api_service/init_api_service.dart';
 import 'package:six/app/ui/components/app_snackbar.dart';
@@ -37,6 +38,25 @@ class SocialWorkerProvider {
     } else {
       appSnackbar(message: 'Error');
       return <BeneficiaryListDetails>[];
+    }
+  }
+
+  //Helper Function to fetch the available credits of the category.
+  static Future<List<AvailableCredits>> availableCreditsCategory(
+      {required String? skip, required String? limit}) async {
+    var response = await APIService.get(
+      path: '/v1/auth/worker-list-available-credits/$skip/$limit',
+    );
+    if (response.statusCode == 200) {
+      logI('######AvailableCreditsCateg########');
+      logI(response.data!['data']);
+      var availCredits = response.data!['data'] as List<dynamic>;
+      logI(availCredits);
+      return List<AvailableCredits>.from(availCredits.map<AvailableCredits>(
+          (dynamic e) => AvailableCredits.fromMap(e as Map<String, dynamic>)));
+    } else {
+      appSnackbar(message: 'Error');
+      return <AvailableCredits>[];
     }
   }
 }

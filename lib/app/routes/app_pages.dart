@@ -34,6 +34,8 @@ import 'package:six/app/modules/social_worker/add_note/bindings/add_note_binding
 import 'package:six/app/modules/social_worker/add_note/views/add_note_view.dart';
 import 'package:six/app/modules/social_worker/assigned_voucher/bindings/assigned_voucher_binding.dart';
 import 'package:six/app/modules/social_worker/assigned_voucher/views/assigned_voucher_view.dart';
+import 'package:six/app/modules/social_worker/available_credits_sw/bindings/available_credits_sw_binding.dart';
+import 'package:six/app/modules/social_worker/available_credits_sw/views/available_credits_sw_view.dart';
 import 'package:six/app/modules/social_worker/beneficiary_details/bindings/beneficiary_details_binding.dart';
 import 'package:six/app/modules/social_worker/beneficiary_details/views/beneficiary_details_view.dart';
 import 'package:six/app/modules/social_worker/connected_organization/bindings/connected_organization_binding.dart';
@@ -90,9 +92,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.AVAILABLE_CREDITS,
-      page: () => AvailableCreditsView(
-        whichRole: '',
-      ),
+      page: () => AvailableCreditsView(),
       binding: AvailableCreditsBinding(),
     ),
     GetPage(
@@ -232,6 +232,11 @@ class AppPages {
       name: _Paths.WEB_VIEW,
       page: () => WebViewScreen(),
       binding: SignPassVerificationBinding(),
-    )
+    ),
+    GetPage(
+      name: _Paths.AVAILABLE_CREDITS_SW,
+      page: () => AvailableCreditsViewSW(),
+      binding: AvailableCreditsSwBinding(),
+    ),
   ];
 }

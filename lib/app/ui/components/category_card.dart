@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/modules/charity/available_vendors/views/available_vendors_view.dart';
 import 'package:six/app/modules/charity/purchase/controllers/purchase_controller.dart';
 import 'package:six/app/ui/components/catched_image.dart';
@@ -12,7 +13,7 @@ PurchaseController purchaseController = Get.put(PurchaseController());
 Widget categoryCard({
   required int index,
   required String categoryName,
-  required String whichScreen,
+  //required String whichScreen,
   required double creditsRemaining,
   required double totalCredits,
   required double width,
@@ -68,7 +69,7 @@ Widget categoryCard({
                 ),
                 textAlign: TextAlign.center,
               ),
-              whichScreen == 'Needy Family'
+              UserProvider.role == 'needy'
                   ? Column(
                       children: [
                         SizedBox(
@@ -167,7 +168,7 @@ Widget categoryCard({
                           availVendorCtrl.assignVendorList(purchaseController
                               .voucherCategory[index].id
                               .toString());
-                          whichScreen == 'Charity'
+                          UserProvider.role == 'charity'
                               ? Get.to<void>(() => AvailableVendorsView(
                                     whichScreen: 'Charity',
                                     categoryIndex: index,

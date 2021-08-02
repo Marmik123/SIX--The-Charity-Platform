@@ -10,10 +10,18 @@ class UserProvider {
   static UserEntity? _userEntity;
   static String? _authToken;
   static late bool _isLoggedIn;
+  static String? _staticRole;
 
   static UserEntity? get currentUser => _userEntity;
   static String? get authToken => _authToken ?? '';
+  static String? get role => currentUser?.role ?? _staticRole;
   static bool get isLoggedIn => _isLoggedIn;
+
+  static set staticRole(String currentRole) {
+    logWTF(currentRole);
+    logW(currentUser.runtimeType);
+    _staticRole = currentRole;
+  }
 
   ///Set [currentUser] and [authToken]
   static Future<void> onLogin(UserEntity user, String userAuthToken) async {

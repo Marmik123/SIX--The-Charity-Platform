@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/logger.dart';
+import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/data/models/beneficiary_list_details.dart';
 import 'package:six/app/data/remote/provider/social_worker.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -25,8 +26,11 @@ class SocialHomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    assignDashboardData();
-    assignBeneficiaryList();
+    if (UserProvider.role == 'social_worker') {
+      assignDashboardData();
+      assignBeneficiaryList();
+    }
+    logI(UserProvider.role);
   }
 
   Future<void> launchURL() async {

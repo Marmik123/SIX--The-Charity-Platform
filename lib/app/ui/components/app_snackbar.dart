@@ -29,6 +29,7 @@ void appSnackbar({
     backgroundColor: _snackbarColor(snackbarState),
     borderRadius: 10.0,
     snackStyle: SnackStyle.FLOATING,
+    snackPosition: SnackPosition.TOP,
     duration: const Duration(seconds: 2),
   );
 }

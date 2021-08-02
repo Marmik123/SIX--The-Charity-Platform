@@ -2,20 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/modules/social_worker/available_credits_sw/controllers/available_credits_sw_controller.dart';
 import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/circular_progress_indicator.dart';
-import 'package:six/app/ui/components/sizedbox.dart';
 
-import '../controllers/available_credits_controller.dart';
-
-class AvailableCreditsView extends GetView<AvailableCreditsController> {
-  /*final String whichRole;
-  AvailableCreditsView({required this.whichRole});*/
-  @override
-  final AvailableCreditsController controller =
-      Get.put(AvailableCreditsController());
-
+class AvailableCreditsViewSW extends GetView<AvailableCreditsSwController> {
   @override
   Widget build(BuildContext context) {
     //var theme = Theme.of(context);
@@ -36,54 +28,31 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
         ),
         centerTitle: true,
         toolbarHeight: 200.h,
-        leading: controller.disableLeading()
-            ? Container()
-            : IconButton(
-                icon: const Icon(Icons.arrow_back),
-                color: AppColors.k033660,
-                onPressed: () {
-                  Get.back<void>();
-                },
-              ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          color: AppColors.k033660,
+          onPressed: () {
+            Get.back<void>();
+          },
+        ),
       ),
       backgroundColor: AppColors.kffffff,
       body: Column(
         children: [
-          Obx(() => controller.disableLeading()
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    h(70.h),
-                    Text(
-                      'Select Program Category',
-                      style: TextStyle(
-                        fontFamily: 'Gilroy',
-                        fontSize: 60.sp,
-                        fontStyle: FontStyle.normal,
-                        color: AppColors.k033660.withOpacity(0.5),
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ],
-                )
-              : Container()),
           Obx(
             () => controller.isLoading()
-                ? buildLoader()
-                : controller.programCreditsAvailability().isEmpty
+                ? Center(child: buildLoader())
+                : controller.availCreditsSW().isEmpty
                     ? const Text('No Data Available')
                     : Expanded(
                         child: ListView.builder(
-                          itemCount: controller.whichScreen == 'Charity'
-                              ? controller.programCreditsAvailability().length
-                              : 2,
+                          itemCount: controller.availCreditsSW().length,
                           shrinkWrap: true,
                           padding: const EdgeInsets.only(top: 20, left: 50),
                           physics: const BouncingScrollPhysics(),
                           itemBuilder: (context, index) => GestureDetector(
                             onTap: () {
-                              controller.programIndex!(index);
+                              // controller.programIndex!(index);
                               Get.toNamed<void>(Routes.PURCHASE);
                             },
                             child: Stack(
@@ -116,10 +85,8 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
                                                 height: 66.h,
                                               ),
                                               Text(
-                                                controller
-                                                    .programCreditsAvailability()[
-                                                        index]
-                                                    .title
+                                                controller.availCreditsSW[index]
+                                                    .category!.name
                                                     .toString(),
                                                 style: TextStyle(
                                                   fontFamily: 'Gilroy',
@@ -134,7 +101,7 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
                                                 height: 19.h,
                                               ),
                                               Text(
-                                                '\$${controller.programCreditsAvailability()[index].value.toString()}',
+                                                '\$${controller.availCreditsSW[index].totalBalance.toString()}', //'\$${controller.programCreditsAvailability()[index].value.toString()}',
                                                 style: TextStyle(
                                                   fontFamily: 'Gilroy',
                                                   fontSize: 60.sp,
@@ -172,10 +139,12 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(50),
                                       child: cacheImage(
-                                          height: 180.r,
-                                          width: 180.r,
-                                          url:
-                                              'https://picsum.photos/id/1011/180'),
+                                        height: 180.r,
+                                        width: 180.r,
+                                        url: controller.availCreditsSW[index]
+                                            .category!.iconUrl
+                                            .toString(),
+                                      ),
                                     ),
                                   ),
                                 )

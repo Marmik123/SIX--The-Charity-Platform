@@ -40,7 +40,7 @@ class SocialHomeView extends GetView<SocialHomeController> {
           bottomNavigationBar: controller.paid()
               ? const SizedBox.shrink()
               : bottomNavBar(
-                  whichScreen: 'Social',
+
                 ),
           backgroundColor: AppColors.kffffff,
           body: bottomScreen.elementAt(controller.currentIndex!())),
@@ -189,8 +189,10 @@ class SocialHome extends StatelessWidget {
                                               children: [
                                                 GestureDetector(
                                                   onTap: () {
-                                                    Get.toNamed<void>(Routes
-                                                        .AVAILABLE_CREDITS);
+                                                    Get.toNamed<void>(
+                                                      Routes
+                                                          .AVAILABLE_CREDITS_SW,
+                                                    );
                                                   },
                                                   child: Container(
                                                     height: 220.h,

@@ -72,113 +72,37 @@ class PurchaseController extends GetxController {
     logI(amount);
 
     var selectedProgramIndex = programListingCtrl.programIndex!();
+    logWTF(programListingCtrl
+        .programCreditsAvailability[selectedProgramIndex].value!);
     var fundsAvailable = programListingCtrl
             .programCreditsAvailability[selectedProgramIndex].value! >
         amount!;
+    logI(fundsAvailable);
     if (!fundsAvailable) {
       paymentInProgress(false);
+      logI('INSUFFICIENT FUNDS');
       appSnackbar(
-        message: 'Insufficient Funds in This Program',
+        message: 'Insufficient funds in this program',
         snackbarState: SnackbarState.danger,
       );
-    }
-    var success = fundsAvailable
-        ? await VoucherCategoryProvider.purchaseVoucherCategory(
-            categoryId: voucherCategory[selectCategory!()].id.toString(),
-            programId: charityHomeController
-                .graphDetails[programListingCtrl.programIndex!()].id
-                .toString(),
-            amount: amount,
-          )
-        : null;
-    logI(success);
-    if (success ?? false) {
-      paymentInProgress(false);
-      var purchasedCategory =
-          voucherCategory[selectCategory!()].name.toString();
-      unawaited(
-        Get.dialog<void>(
-          SizedBox(
-            height: Get.height,
-            width: Get.width,
-            child: Stack(
-              children: [
-                BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 20.r, sigmaY: 20.r),
-                  child: Container(
-                    height: 1.sh,
-                    width: 1.sw,
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.k0087A1.withOpacity(0.4),
-                          offset: const Offset(0, 2),
-                          blurRadius: 40.r,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 20.r, sigmaY: 20.r),
-                  child: Container(
-                    height: 1.sh,
-                    width: 1.sw,
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.k0087A1.withOpacity(0.6),
-                          offset: const Offset(0, 4),
-                          blurRadius: 4.r,
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                      child: Material(
-                        color: Colors.transparent,
-                        child: paid()
-                            ? actionDialog(
-                                whichScreen: 'Charity',
-                                onTapCancel: () {
-                                  paid(false);
-                                  Get.back<void>();
-                                },
-                                dialogTypeText: 'Success!',
-                                assetName:
-                                    R.image.asset.success_redem.assetName,
-                                text:
-                                    'Congrats! You have successfully\npurchased credits for ${purchasedCategory}\ncategory',
-                              )
-                            : actionDialog(
-                                whichScreen: 'Charity',
-                                onTapCancel: () {
-                                  paid(false);
-                                  Get.back<void>();
-                                },
-                                dialogTypeText: 'Oops!',
-                                assetName: R.image.asset.error_dialog.assetName,
-                                text: 'Something went wrong. Please\ntry again',
-                              ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          useSafeArea: false,
-        ),
-      );
-      refreshHomeScreenData();
     } else {
-      paymentInProgress(false);
-      unawaited(
-        Get.dialog<void>(
-          Scaffold(
-            extendBody: true,
-            body: SizedBox(
+      var success = fundsAvailable
+          ? await VoucherCategoryProvider.purchaseVoucherCategory(
+              categoryId: voucherCategory[selectCategory!()].id.toString(),
+              programId: charityHomeController
+                  .graphDetails[programListingCtrl.programIndex!()].id
+                  .toString(),
+              amount: amount,
+            )
+          : null;
+      logI(success);
+      if (success ?? false) {
+        paymentInProgress(false);
+        var purchasedCategory =
+            voucherCategory[selectCategory!()].name.toString();
+        unawaited(
+          Get.dialog<void>(
+            SizedBox(
               height: Get.height,
               width: Get.width,
               child: Stack(
@@ -219,14 +143,14 @@ class PurchaseController extends GetxController {
                         child: Material(
                           color: Colors.transparent,
                           child: actionDialog(
-                            whichScreen: 'Charity',
                             onTapCancel: () {
                               paid(false);
                               Get.back<void>();
                             },
-                            dialogTypeText: 'Oops!',
-                            assetName: R.image.asset.error_dialog.assetName,
-                            text: 'Something went wrong. Please\ntry again',
+                            dialogTypeText: 'Success!',
+                            assetName: R.image.asset.success_redem.assetName,
+                            text:
+                                'Congrats! You have successfully\npurchased credits for $purchasedCategory\ncategory',
                           ),
                         ),
                       ),
@@ -235,12 +159,79 @@ class PurchaseController extends GetxController {
                 ],
               ),
             ),
+            useSafeArea: false,
           ),
-          useSafeArea: false,
-        ),
-      );
-      logW('Cannot refresh data as error in payment process');
-      return null;
+        );
+        refreshHomeScreenData();
+      } else {
+        paymentInProgress(false);
+        unawaited(
+          Get.dialog<void>(
+            Scaffold(
+              extendBody: true,
+              body: SizedBox(
+                height: Get.height,
+                width: Get.width,
+                child: Stack(
+                  children: [
+                    BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 20.r, sigmaY: 20.r),
+                      child: Container(
+                        height: 1.sh,
+                        width: 1.sw,
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.k0087A1.withOpacity(0.4),
+                              offset: const Offset(0, 2),
+                              blurRadius: 40.r,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 20.r, sigmaY: 20.r),
+                      child: Container(
+                        height: 1.sh,
+                        width: 1.sw,
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.k0087A1.withOpacity(0.6),
+                              offset: const Offset(0, 4),
+                              blurRadius: 4.r,
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Material(
+                            color: Colors.transparent,
+                            child: actionDialog(
+                              onTapCancel: () {
+                                paid(false);
+                                Get.back<void>();
+                              },
+                              dialogTypeText: 'Oops!',
+                              assetName: R.image.asset.error_dialog.assetName,
+                              text: 'Something went wrong. Please\ntry again',
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            useSafeArea: false,
+          ),
+        );
+        logW('Cannot refresh data as error in payment process');
+        return null;
+      }
     }
   }
 
