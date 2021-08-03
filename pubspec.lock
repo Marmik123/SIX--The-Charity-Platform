@@ -460,7 +460,7 @@ packages:
     source: hosted
     version: "5.0.0+2"
   flutter_svg:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_svg
       url: "https://pub.dartlang.org"
@@ -595,6 +595,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  jovial_misc:
+    dependency: transitive
+    description:
+      name: jovial_misc
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.0"
+  jovial_svg:
+    dependency: "direct main"
+    description:
+      name: jovial_svg
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.6"
   js:
     dependency: transitive
     description:

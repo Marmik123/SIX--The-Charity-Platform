@@ -34,14 +34,14 @@ class PurchaseView extends GetView<PurchaseController> {
                       text: 'Purchase Credit',
                       onTap: () {
                         ctrl.amountController.clear();
-                        UserProvider.role == 'social_worker'
+                        /*UserProvider.role == 'social_worker'
                             ? purchaseBottomSheet()
-                            : purchaseBottomSheet(
-                                category: ctrl
-                                    .voucherCategory[ctrl.selectCategory!()]
-                                    .name
-                                    .toString(),
-                              );
+                            :*/
+                        purchaseBottomSheet(
+                          category: ctrl
+                              .voucherCategory[ctrl.selectCategory!()].name
+                              .toString(),
+                        );
                       },
                       width: 500.w,
                       height: 150.h,

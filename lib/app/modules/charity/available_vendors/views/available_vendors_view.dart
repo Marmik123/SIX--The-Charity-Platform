@@ -301,14 +301,11 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                                   availVendorCtrl
                                                       .vendorList[index].id
                                                       .toString());
-                                              UserProvider.role ==
-                                                      'social_worker'
-                                                  ? Get.toNamed<void>(
-                                                      Routes.VENDOR_DETAILS,
-                                                      arguments: 'Social')
-                                                  : Get.toNamed<void>(
-                                                      Routes.VENDOR_DETAILS,
-                                                      arguments: 'Charity');
+                                              Get.toNamed<void>(
+                                                Routes.VENDOR_DETAILS,
+                                                arguments: availVendorCtrl
+                                                    .vendorList[index].id,
+                                              );
                                             },
                                             width: 281.w,
                                             height: 100.h,

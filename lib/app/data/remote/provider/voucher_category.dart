@@ -11,10 +11,10 @@ class VoucherCategoryProvider {
     var response = await APIService.get(
       path: '/v1/auth/list-type-active-category-application/$type/$skip/$limit',
     );
-    if (response.statusCode == 200) {
+    if (response?.statusCode == 200) {
       logI('######Voucher Category########');
-      logI(response.data!['data']);
-      var voucherCategory = response.data!['data'] as List<dynamic>;
+      logI(response?.data!['data']);
+      var voucherCategory = response?.data!['data'] as List<dynamic>;
       return List<VoucherCategory>.from(voucherCategory.map<VoucherCategory>(
           (dynamic e) => VoucherCategory.fromJson(e as Map<String, dynamic>)));
     } else {
@@ -29,10 +29,10 @@ class VoucherCategoryProvider {
     var response = await APIService.get(
       path: '/v1/auth/list-vendor-category/$categoryId/$skip/$limit',
     );
-    if (response.statusCode == 200) {
+    if (response?.statusCode == 200) {
       logI('######Vendor of Category########');
-      logI(response.data!['data']);
-      var vendorList = response.data!['data'] as List<dynamic>;
+      logI(response?.data!['data']);
+      var vendorList = response?.data!['data'] as List<dynamic>;
       return List<VendorList>.from(vendorList.map<VendorList>(
           (dynamic e) => VendorList.fromJson(e as Map<String, dynamic>)));
     } else {
@@ -47,10 +47,10 @@ class VoucherCategoryProvider {
     var response = await APIService.get(
       path: '/v1/get-other-user-detail/$userId',
     );
-    if (response.statusCode == 200) {
+    if (response?.statusCode == 200) {
       logI('######VendorDetails########');
-      logI(response.data!['data']);
-      var vendorList = response.data!['data'] as Map<String, dynamic>;
+      logI(response?.data!['data']);
+      var vendorList = response?.data!['data'] as Map<String, dynamic>;
       return vendorList;
       /*  return List<VendorDetails>.from(vendorList.map<VendorDetails>(
           (dynamic e) => VendorDetails.fromJson(e as Map<String, dynamic>)));
@@ -71,10 +71,10 @@ class VoucherCategoryProvider {
       path:
           '/v1/auth/list-search-vendor-category/$searchText/$categoryId/$skip/$limit',
     );
-    if (response.statusCode == 200) {
+    if (response?.statusCode == 200) {
       logI('######Searched Vendor########');
-      logI(response.data!['data']);
-      var vendorList = response.data!['data'] as List<dynamic>;
+      logI(response?.data!['data']);
+      var vendorList = response?.data!['data'] as List<dynamic>;
       return List<VendorList>.from(vendorList.map<VendorList>(
           (dynamic e) => VendorList.fromJson(e as Map<String, dynamic>)));
     } else {
@@ -98,6 +98,6 @@ class VoucherCategoryProvider {
         'amount': amount,
       },
     );
-    return response.statusCode == 200;
+    return response?.statusCode == 200;
   }
 }

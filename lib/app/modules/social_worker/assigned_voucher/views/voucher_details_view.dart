@@ -5,19 +5,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/modules/charity/purchase/controllers/purchase_controller.dart';
+import 'package:six/app/modules/charity/vendor_details/controllers/vendor_details_controller.dart';
 import 'package:six/app/modules/social_worker/assigned_voucher/controllers/assigned_voucher_controller.dart';
-import 'package:six/app/ui/components/action_dialog.dart';
+import 'package:six/app/ui/components/app_snackbar.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/common_appbar.dart';
 import 'package:six/app/ui/components/purchase_bottomsheet.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
-import 'package:six/r.g.dart';
 
 class VoucherDetailsView extends GetView<AssignedVoucherController> {
+  final int? voucherIndex;
+
   @override
   final AssignedVoucherController controller =
       Get.put(AssignedVoucherController());
+  final VendorDetailsController vDetailsCont =
+      Get.put(VendorDetailsController());
+
+  final PurchaseController ctrl = Get.put(PurchaseController());
+
+  VoucherDetailsView({this.voucherIndex});
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -84,7 +93,11 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                                   BorderRadius.circular(50.r)),
                                           child: Center(
                                             child: Text(
-                                              'NTUC Fairprice',
+                                              vDetailsCont
+                                                  .availableVouchers[
+                                                      voucherIndex ?? 0]
+                                                  .name
+                                                  .toString(),
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy',
                                                 fontSize: 50.sp,
@@ -109,7 +122,12 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                                   height: 121.r,
                                                   width: 121.r,
                                                   url:
-                                                      'https://picsum.photos/id/1011/180',
+                                                      'https://picsum.photos/200/300',
+                                                  /*vDetailsCont
+                                                      .availableVouchers[
+                                                          voucherIndex ?? 0]
+                                                      .iconUrl
+                                                      .toString()*/
                                                 ),
                                               ),
                                             ),
@@ -128,7 +146,7 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                           width: 60.w,
                                         ),
                                         Text(
-                                          '\$${10.toString()}',
+                                          '\$${vDetailsCont.availableVouchers[voucherIndex ?? 0].amount}',
                                           style: TextStyle(
                                             fontFamily: 'Gilroy',
                                             fontSize: 100.sp,
@@ -153,6 +171,8 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                         FittedBox(
                                           fit: BoxFit.contain,
                                           child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
                                               FittedBox(
                                                 child: RichText(
@@ -172,7 +192,10 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                                       ),
                                                     ),
                                                     TextSpan(
-                                                      text: '1, Nov 2021',
+                                                      text:
+                                                          vDetailsCont.getDate(
+                                                              voucherIndex ??
+                                                                  0),
                                                       style: TextStyle(
                                                         fontFamily: 'Gilroy',
                                                         fontSize: 40.sp,
@@ -187,8 +210,8 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                                   ]),
                                                 ),
                                               ),
-                                              h(14.h),
-                                              FittedBox(
+                                              //VOUCHER CODE
+                                              /*FittedBox(
                                                 fit: BoxFit.contain,
                                                 child: Column(
                                                   children: [
@@ -237,7 +260,7 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                                     ),
                                                   ],
                                                 ),
-                                              ),
+                                              ),*/
                                             ],
                                           ),
                                         ),
@@ -253,7 +276,7 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                       Positioned(
                         bottom: -15,
                         child: DottedBorder(
-                          radius: Radius.circular(40.r),
+                          radius: Radius.circular(60.r),
                           color: AppColors.k14A1BE,
                           strokeCap: StrokeCap.round,
                           dashPattern: const [3, 3],
@@ -265,40 +288,52 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                 /*border: Border.all(
                                 color: AppColors.kD7FBFF,
                               ),*/
-                                borderRadius: BorderRadius.circular(30.r)),
+                                borderRadius: BorderRadius.circular(60.r)),
                             height: 105.h,
                             width: 920.w,
                             alignment: Alignment.center,
                             child: Obx(() => Row(
+                                  mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        if (controller.voucherCount() > 0) {
+                                    IconButton(
+                                      onPressed: () {
+                                        if (controller.voucherCount() > 1) {
                                           controller.voucherCount.value--;
                                         }
+                                        controller.totalAmount(
+                                            controller.voucherCount() *
+                                                vDetailsCont
+                                                    .availableVouchers[
+                                                        voucherIndex ?? 0]
+                                                    .amount!
+                                                    .toDouble());
                                       },
-                                      child: Container(
+                                      icon: Container(
                                         height: 70.r,
                                         width: 70.r,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color: controller.voucherCount() == 0
+                                          color: controller.voucherCount() ==
+                                                      0 ||
+                                                  controller.voucherCount() == 1
                                               ? AppColors.kffffff
                                               : AppColors.k14A1BE,
                                         ),
                                         child: Icon(
                                           Icons.remove,
                                           size: 15,
-                                          color: controller.voucherCount() == 0
+                                          color: controller.voucherCount() ==
+                                                      0 ||
+                                                  controller.voucherCount() == 1
                                               ? AppColors.k14A1BE
                                               : AppColors.kffffff,
                                         ),
                                       ),
                                     ),
                                     Text(
-                                      controller.voucherCount.value.toString(),
+                                      controller.voucherCount().toString(),
                                       style: TextStyle(
                                         fontFamily: 'Gilroy',
                                         fontSize: 50.sp,
@@ -308,25 +343,28 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                       ),
                                       textAlign: TextAlign.center,
                                     ),
-                                    GestureDetector(
-                                      onTap: () {
+                                    IconButton(
+                                      onPressed: () {
                                         controller.voucherCount.value++;
+                                        controller.totalAmount(
+                                            controller.voucherCount() *
+                                                vDetailsCont
+                                                    .availableVouchers[
+                                                        voucherIndex ?? 0]
+                                                    .amount!
+                                                    .toDouble());
                                       },
-                                      child: Container(
+                                      icon: Container(
                                         height: 70.r,
                                         width: 70.r,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color: controller.voucherCount() == 0
-                                              ? AppColors.kffffff
-                                              : AppColors.k14A1BE,
+                                          color: AppColors.k14A1BE,
                                         ),
-                                        child: Icon(
+                                        child: const Icon(
                                           Icons.add,
                                           size: 15,
-                                          color: controller.voucherCount() == 0
-                                              ? AppColors.k14A1BE
-                                              : AppColors.kffffff,
+                                          color: AppColors.kffffff,
                                         ),
                                       ),
                                     ),
@@ -371,7 +409,9 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                       child: Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Text(
-                          'Excepteur sint occaecat cupidatat non proident,\nsunt in culpa qui officia deserunt mollit anim id est\nlaborum.',
+                          vDetailsCont
+                              .availableVouchers[voucherIndex ?? 0].terms
+                              .toString(),
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontFamily: 'Gilroy',
@@ -387,10 +427,30 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                     Padding(
                       padding: const EdgeInsets.only(left: 85.0),
                       child: roundedButton(
-                        text: 'Pay Now',
+                        text: 'Pay \$${controller.totalAmount.toString()}',
                         onTap: () {
-                          controller.purchasePressed(true);
-                          purchaseBottomSheet();
+                          // controller.purchasePressed(true);
+                          if (controller.voucherCount() != 0) {
+                            purchaseBottomSheet(
+                              category: ctrl
+                                  .voucherCategory[ctrl.selectCategory!()].name
+                                  .toString(),
+                              categoryId: ctrl
+                                  .voucherCategory[ctrl.selectCategory!()].id
+                                  .toString(),
+                              amount: vDetailsCont
+                                  .availableVouchers[voucherIndex ?? 0].amount,
+                              totalAmount: controller.totalAmount(),
+                              quantity: controller.voucherCount(),
+                              voucherId: vDetailsCont
+                                  .availableVouchers[voucherIndex ?? 0].id,
+                            );
+                          } else {
+                            appSnackbar(
+                              message: 'Please increase quantity',
+                              snackbarState: SnackbarState.info,
+                            );
+                          }
                         },
                         width: 500.w,
                         height: 150.h,
@@ -402,7 +462,7 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
               ],
             ),
           ),
-          controller.purchasePressed.value
+          /* controller.purchasePressed.value
               ? BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 20.r, sigmaY: 20.r),
                   child: Container(
@@ -442,26 +502,22 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                         color: Colors.transparent,
                         child: actionDialog(
                           onTapCancel: () {
-                            controller.purchasePressed.value = false;
-                            controller.paid.value = false;
+                            controller.purchasePressed(false);
+                            controller.paid(false);
                           },
                           dialogTypeText: 'Success!',
                           assetName: R.image.asset.success_redem.assetName,
                           text:
                               'You have successfully purchased NTUC\nFairprice vouchers',
                         ),
-                        /*successDialog(
+                        */
+          /*successDialog(
                               text: 'Voucher has been successfully\nredeemed.',
                               assetName: R.image.asset.success_redem.assetName,
                               onTapCancel: () {
                                 controller.purchasePressed.value = false;
                                 controller.paid.value = false;
-                              })*/ //SUCCESS DIALOG
-                      ),
-                    ),
-                  ),
-                )
-              : Container(),
+                              })*/
         ],
       ),
     );

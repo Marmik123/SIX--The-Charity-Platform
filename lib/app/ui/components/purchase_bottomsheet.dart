@@ -4,15 +4,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/config/logger.dart';
+import 'package:six/app/data/local/user_provider.dart';
+import 'package:six/app/data/remote/provider/social_worker.dart';
 import 'package:six/app/modules/charity/purchase/controllers/purchase_controller.dart';
 import 'package:six/app/modules/social_worker/assigned_voucher/controllers/assigned_voucher_controller.dart';
 import 'package:six/app/ui/components/app_snackbar.dart';
 import 'package:six/app/ui/components/common_textfield.dart';
+import 'package:six/app/ui/components/get_dialog.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 import 'package:six/r.g.dart';
 
 Future<void> purchaseBottomSheet({
   String? category,
+  String? categoryId,
+  String? voucherId,
+  double? totalAmount,
+  double? amount,
+  int? quantity,
 }) {
   var ctrl = Get.find<PurchaseController>();
   //var socialCtrl = Get.put(SocialHomeController());
@@ -32,7 +40,7 @@ Future<void> purchaseBottomSheet({
         ),
         onClosing: () {
           ctrl.textEditingController.clear();
-          ctrl.purchasePressed(false);
+          //ctrl.purchasePressed(false);
         },
         builder: (context) {
           return Stack(
@@ -98,7 +106,7 @@ Future<void> purchaseBottomSheet({
                       height: 170.h,
                       controller: ctrl.amountController,
                       width: 1005.w,
-                      initialValue: '10,000',
+                      initialValue: '\$${totalAmount}',
                       prefixText: '\$',
                       hintText: '',
                       prefixImageName: '',
@@ -121,6 +129,10 @@ Future<void> purchaseBottomSheet({
                         fontFamily: 'Gilroy',
                         fontSize: 45.sp,
                       ),
+                      enableInitialValue:
+                          UserProvider.role == 'social_worker' ? true : false,
+                      readOnly:
+                          UserProvider.role == 'social_worker' ? true : false,
                     ),
                   ),
                   SizedBox(
@@ -129,10 +141,38 @@ Future<void> purchaseBottomSheet({
                   Center(
                     child: roundedButton(
                       text: 'Pay Now',
-                      onTap: () {
+                      onTap: () async{
                         logI(ctrl.amountController.text);
                         logI(ctrl.amountController.numberValue);
-                        if (ctrl.amountController.text.isNotEmpty &&
+                        if (UserProvider.role == 'social_worker') {
+
+                          var success =await SocialWorkerProvider.purchaseVoucher(
+                            skip: ctrl.skip
+                                .toString(), //NOT FROM SOCIAL WORKER FROM PURCHASE VIEW CONTRO
+                            limit: ctrl.limit
+                                .toString(), //NOT FROM SOCIAL WORKER FROM PURCHASE VIEW CONTRO
+                            categoryAmount: [
+                              <String, dynamic>{
+                                'category_id': categoryId,
+                                'amount': totalAmount,
+                              }
+                            ],
+                            vouchers: [
+                              <String, dynamic>{
+                                'category_id': categoryId,
+                                'voucher_id': voucherId,
+                                'amount': amount,
+                                'quantity': quantity,
+                              }
+                            ],
+                          );
+
+                          if (success == true) {
+                            dialog(success: true);
+                          } else {
+                            dialog(success: false);
+                          }
+                        } else if (ctrl.amountController.text.isNotEmpty &&
                             GetUtils.isGreaterThan(
                                 ctrl.amountController.numberValue, 0)) {
                           purchaseController.purchaseVoucherCat(

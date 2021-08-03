@@ -1,20 +1,15 @@
-import 'dart:ui';
-
 import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pedantic/pedantic.dart';
-import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/models/voucher_category.dart';
 import 'package:six/app/data/remote/provider/voucher_category.dart';
 import 'package:six/app/modules/charity/charity_home/controllers/charity_home_controller.dart';
 import 'package:six/app/modules/needy_family/available_credits/controllers/available_credits_controller.dart';
-import 'package:six/app/ui/components/action_dialog.dart';
 import 'package:six/app/ui/components/app_snackbar.dart';
-import 'package:six/r.g.dart';
+import 'package:six/app/ui/components/get_dialog.dart';
 
 class PurchaseController extends GetxController {
   late RxInt? selectCategory = 0.obs;
@@ -101,7 +96,8 @@ class PurchaseController extends GetxController {
         var purchasedCategory =
             voucherCategory[selectCategory!()].name.toString();
         unawaited(
-          Get.dialog<void>(
+          dialog(success: true, purchasedCategory: purchasedCategory),
+          /*Get.dialog<void>(
             SizedBox(
               height: Get.height,
               width: Get.width,
@@ -160,12 +156,14 @@ class PurchaseController extends GetxController {
               ),
             ),
             useSafeArea: false,
-          ),
+          ),*/
         );
         refreshHomeScreenData();
       } else {
         paymentInProgress(false);
         unawaited(
+          dialog(success: false),
+/*
           Get.dialog<void>(
             Scaffold(
               extendBody: true,
@@ -228,6 +226,7 @@ class PurchaseController extends GetxController {
             ),
             useSafeArea: false,
           ),
+*/
         );
         logW('Cannot refresh data as error in payment process');
         return null;

@@ -8,6 +8,8 @@ dependencies:
   cupertino_icons: ^1.0.3
   pedantic: ^1.11.1
   get: ^4.3.0
+  flutter_svg: ^0.21.0
+  jovial_svg: ^1.0.6
   extended_masked_text: ^2.2.1
   flutter_mailer: ^2.0.0
   flutter_screenutil: 5.0.0+2

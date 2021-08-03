@@ -14,7 +14,9 @@ Widget textField({
   required BuildContext context,
   required double height,
   required double width,
-  required String initialValue,
+  String? initialValue,
+  bool? enableInitialValue = false,
+  bool? readOnly = false,
   required String prefixText,
   required String hintText,
   required String prefixImageName,
@@ -58,8 +60,10 @@ Widget textField({
           key: formKey,
           child: TextFormField(
             textAlignVertical: TextAlignVertical.center,
-            controller: controller,
+            controller: enableInitialValue! ? null : controller,
             enabled: true,
+            readOnly: readOnly!,
+            initialValue: enableInitialValue ? initialValue : null,
             autofocus: autofocus,
             textInputAction: textAction,
             validator: (value) {

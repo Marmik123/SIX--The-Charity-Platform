@@ -19,7 +19,7 @@ void appSnackbar({
       color: Colors.white,
     ),
     margin: const EdgeInsets.all(8),
-    overlayBlur: 1.0,
+    // overlayBlur: 1.0,
     messageText: Text(
       message,
       style: const TextStyle(

@@ -10,10 +10,10 @@ class AvailableCreditsProvider {
     var response = await APIService.get(
       path: '/v1/auth/charity-program-list-available-credits/$skip/$limit',
     );
-    if (response.statusCode == 200) {
+    if (response?.statusCode == 200) {
       logI('######Avail Credits########');
-      logI(response.data!['data']);
-      var availCredits = response.data!['data'] as List<dynamic>;
+      logI(response?.data!['data']);
+      var availCredits = response?.data!['data'] as List<dynamic>;
       return List<GraphData>.from(availCredits.map<GraphData>(
           (dynamic e) => GraphData.fromJson(e as Map<String, dynamic>)));
     } else {

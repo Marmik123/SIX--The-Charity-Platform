@@ -16,10 +16,10 @@ class LoginProvider {
   static Future<void> getEnvData() async {
     //isLoading = false;
     var response = await APIService.get(path: '/v1/getEnv');
-    if (response.statusCode == 200) {
+    if (response?.statusCode == 200) {
       logI('Data########');
       envResponse.clear();
-      envResponse = response.data as Map<String, dynamic>;
+      envResponse = response?.data as Map<String, dynamic>;
     } else {
       Get.snackbar<void>('Error in Env Data', 'Please Try Again.');
     }
@@ -45,17 +45,17 @@ class LoginProvider {
       {required String userId, required String role}) async {
     var response = await APIService.get(
         path: '/v1/get-user-login-detail-to-login/$userId/$role');
-    if (response.statusCode == 200) {
+    if (response?.statusCode == 200) {
       logI('UserDetails########');
 
       await UserProvider.onLogin(
-          UserEntity.fromMap(response.data!['data'] as Map<String, dynamic>),
-          response.data!['authToken'] as String);
-      logI(response.data);
-      //envResponse = response.data as Map<String, dynamic>;
+          UserEntity.fromMap(response?.data!['data'] as Map<String, dynamic>),
+          response?.data!['authToken'] as String);
+      logI(response?.data);
+      //envResponse = response?.data as Map<String, dynamic>;
     } else {
       Get.snackbar<void>('Error in Env Data', 'Please Try Again.');
     }
-    return response.statusCode;
+    return response?.statusCode;
   }
 }

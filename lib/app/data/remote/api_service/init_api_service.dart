@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:six/app/data/config/encryption.dart';
+import 'package:six/app/data/config/error_handling.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/local/user_provider.dart';
 
@@ -61,7 +62,7 @@ InterceptorsWrapper encryptBody() {
             logW('encrypting $method method');
             if (options.data.runtimeType.toString() ==
                 '_InternalLinkedHashMap<String, dynamic>') {
-              logI('Data will be encrypted before sending request');
+              logI(options.data);
               options.data = <String, dynamic>{
                 'data':
                     AppEncryption.encrypt(plainText: jsonEncode(options.data)),
@@ -135,34 +136,44 @@ class APIService {
   }
 
   //GET
-  static Future<Response<Map<String, dynamic>?>> get({
+  static Future<Response<dynamic>?> get({
     required String path,
     Map<String, dynamic>? params,
     bool encrypt = true,
   }) async {
-    return await _dio.get<Map<String, dynamic>?>(
-      baseUrl + path,
-      queryParameters: params,
-      options: Options(headers: <String, dynamic>{
-        'encrypt': encrypt,
-      }),
-    );
+    try {
+      return await _dio.get<Map<String, dynamic>?>(
+        baseUrl + path,
+        queryParameters: params,
+        options: Options(headers: <String, dynamic>{
+          'encrypt': encrypt,
+        }),
+      );
+    } on DioError catch (e, t) {
+      letMeHandleAllErrors(e, t);
+      return e.response;
+    }
   }
 
   //POST
-  static Future<Response<Map<String, dynamic>?>> post({
+  static Future<Response<dynamic>?> post({
     required String path,
     Map<String, dynamic>? data,
     Map<String, dynamic>? params,
     bool encrypt = true,
   }) async {
-    return await _dio.post<Map<String, dynamic>?>(
-      baseUrl + path,
-      data: data,
-      queryParameters: params,
-      options: Options(headers: <String, dynamic>{
-        'encrypt': encrypt,
-      }),
-    );
+    try {
+      return await _dio.post<Map<String, dynamic>?>(
+        baseUrl + path,
+        data: data,
+        queryParameters: params,
+        options: Options(headers: <String, dynamic>{
+          'encrypt': encrypt,
+        }),
+      );
+    } on DioError catch (e, t) {
+      letMeHandleAllErrors(e, t);
+      return e.response;
+    }
   }
 }

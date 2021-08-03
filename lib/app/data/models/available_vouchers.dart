@@ -99,12 +99,15 @@ class AvailableVouchers {
             json['description'] == null ? null : json['description'] as String,
         terms: json['terms'] == null ? null : json['terms'] as String,
         instructions: json['instructions'],
-        amount: json['amount'] == null ? null : json['amount'] as double,
+        amount: json['amount'] == null
+            ? null
+            : double.tryParse(json['amount'].toString()),
         availableCount: json['available_count'] == null
             ? null
-            : json['available_count'] as double,
-        soldCount:
-            json['sold_count'] == null ? null : json['sold_count'] as double,
+            : double.tryParse(json['available_count'].toString()),
+        soldCount: json['sold_count'] == null
+            ? null
+            : double.tryParse(json['sold_count'].toString()),
         iconName:
             json['icon_name'] == null ? null : json['icon_name'] as String,
         iconUrl: json['icon_url'] == null ? null : json['icon_url'] as String,
