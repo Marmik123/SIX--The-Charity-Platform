@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/modules/social_worker/distribute_voucher/controllers/distribute_voucher_controller.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/dialog_vocher_redeem.dart';
@@ -15,7 +16,6 @@ enum VoucherState {
   expired,
   redeemed,
 }
-final LayerLink link = LayerLink();
 DistributeVoucherController voucherCtrlSW =
     Get.put(DistributeVoucherController());
 Widget voucherCard({
@@ -336,7 +336,7 @@ Widget voucherCard({
                                         ]),
                                       ),
                                     ),
-                                    whichScreen == 'Social Worker'
+                                    UserProvider.role == 'social_worker'
                                         ? const SizedBox.shrink()
                                         : FittedBox(
                                             child: RichText(
@@ -455,7 +455,7 @@ Widget voucherCard({
                           ? 920.h
                           : 920.w,
                   alignment: Alignment.center,
-                  child: whichScreen != 'Social Worker'
+                  child: UserProvider.role != 'social_worker'
                       ? Text(
                           btnText,
                           style: TextStyle(

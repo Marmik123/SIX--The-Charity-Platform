@@ -70,14 +70,4 @@ class AvailableVendorsController extends GetxController {
     );
     isLoading(false);
   }
-
-/*
-  void navigateToDetails(int categoryIndex,int index) {
-    categoryIndex(categoryIndex);
-    assignVendorDetails(availVendorCtrl.vendorList[index].id.toString());
-    whichScreen == 'Social'
-        ? Get.toNamed<void>(Routes.VENDOR_DETAILS, arguments: 'Social')
-        : Get.toNamed<void>(Routes.VENDOR_DETAILS, arguments: 'Charity');
-  }
-*/
 }

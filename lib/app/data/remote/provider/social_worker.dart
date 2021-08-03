@@ -59,4 +59,26 @@ class SocialWorkerProvider {
       return <AvailableCredits>[];
     }
   }
+
+  //Helper Function to fetch the available vouchers of a particular vendor.
+  static Future<List<BeneficiaryListDetails>> getAvailableVouchers(
+      {required String? vendorId,
+      required String? skip,
+      required String? limit}) async {
+    var response = await APIService.get(
+      path: '/v1/auth/list-vendor-voucher/$vendorId/$skip/$limit',
+    );
+    if (response.statusCode == 200) {
+      logI('######Available Vouchers########');
+      logI(response.data!['data']);
+      var vouchers = response.data!['data'] as List<dynamic>;
+      logI(vouchers);
+      return List<BeneficiaryListDetails>.from(
+          vouchers.map<BeneficiaryListDetails>((dynamic e) =>
+              BeneficiaryListDetails.fromMap(e as Map<String, dynamic>)));
+    } else {
+      appSnackbar(message: 'Error');
+      return <BeneficiaryListDetails>[];
+    }
+  }
 }

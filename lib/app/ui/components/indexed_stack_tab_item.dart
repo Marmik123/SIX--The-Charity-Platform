@@ -4,7 +4,7 @@ import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
 
 Widget indexedStackTabItem(String text, String textNewLine, int index,
-    String whichScreen, int currentIndex) {
+    int currentIndex, double contWidth) {
   return Column(
     children: [
       Text(
@@ -33,7 +33,7 @@ Widget indexedStackTabItem(String text, String textNewLine, int index,
       AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         curve: Curves.elasticInOut,
-        width: whichScreen == 'Details' ? 410.w : 300.w,
+        width: contWidth,
         height: 30.h,
         decoration: UnderlineTabIndicator(
           borderSide: BorderSide(

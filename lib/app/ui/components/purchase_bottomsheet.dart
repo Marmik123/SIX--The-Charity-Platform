@@ -121,7 +121,6 @@ Future<void> purchaseBottomSheet({
                         fontFamily: 'Gilroy',
                         fontSize: 45.sp,
                       ),
-                      //whichScreen: 'PurchaseSheet',
                     ),
                   ),
                   SizedBox(
@@ -140,11 +139,6 @@ Future<void> purchaseBottomSheet({
                             amount: ctrl.amountController.numberValue,
                           );
                           Get.back<void>();
-                          /* whichScreen == 'Social'
-                              ? assignCtrl.paid(true)
-                              : whichScreen == 'Charity'
-                                  ? ctrl.paid(true)
-                                  : ctrl.paid(false);*/
                         } else {
                           appSnackbar(
                             message: 'Please enter valid amount',
@@ -163,13 +157,6 @@ Future<void> purchaseBottomSheet({
                 onPressed: () {
                   ctrl.textEditingController.clear();
 
-                  /* whichScreen == 'Social'
-                      ? assignCtrl.purchasePressed(false)
-                      : ctrl.purchasePressed(false);
-
-                  whichScreen == 'Social'
-                      ? assignCtrl.paid(false)
-                      : ctrl.paid.value = false;*/
                   Get.back<void>();
                 },
                 icon: const Icon(Icons.clear),

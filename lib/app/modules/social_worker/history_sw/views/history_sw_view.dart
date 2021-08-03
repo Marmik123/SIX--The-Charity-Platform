@@ -285,7 +285,6 @@ class HistorySwView extends GetView<HistorySwController> {
                                   color: AppColors.kffffff,
                                   borderColor: AppColors.kE3FCFF,
                                   height: 100.h,
-                                  whichScreen: 'Social',
                                   shadowColor: Colors.transparent,
                                   width: 380.w,
                                   textContent: Text(
@@ -336,8 +335,8 @@ class HistorySwView extends GetView<HistorySwController> {
                                         controller.text[index],
                                         controller.textNewLine[index],
                                         index,
-                                        'History',
                                         controller.tabIndex(),
+                                        300.w,
                                       ),
                                     ),
                                   ),

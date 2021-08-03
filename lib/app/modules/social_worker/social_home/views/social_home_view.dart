@@ -26,22 +26,15 @@ import '../controllers/social_home_controller.dart';
 class SocialHomeView extends GetView<SocialHomeController> {
   final List<Widget> bottomScreen = <Widget>[
     SocialHome(),
-    PurchaseView(
-      whichScreen: 'Social',
-    ),
-    ProfileView(
-      whichScreen: 'Social Worker',
-    ),
+    PurchaseView(),
+    ProfileView(),
   ];
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
-          bottomNavigationBar: controller.paid()
-              ? const SizedBox.shrink()
-              : bottomNavBar(
-
-                ),
+          bottomNavigationBar:
+              controller.paid() ? const SizedBox.shrink() : bottomNavBar(),
           backgroundColor: AppColors.kffffff,
           body: bottomScreen.elementAt(controller.currentIndex!())),
     );
@@ -145,7 +138,6 @@ class SocialHome extends StatelessWidget {
                               height: 80.h,
                               shadowColor: AppColors.k0A9988,
                               width: 390.w,
-                              whichScreen: '',
                               textContent: Text(
                                 '${controller.monthName()}, ${controller.selectedDate.year}',
                                 style: TextStyle(

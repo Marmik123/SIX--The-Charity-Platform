@@ -267,8 +267,7 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                               ),*/
                                 borderRadius: BorderRadius.circular(30.r)),
                             height: 105.h,
-                            width: /*whichScreen == 'QRScreen' ? 880.w : */ 920
-                                .w,
+                            width: 920.w,
                             alignment: Alignment.center,
                             child: Obx(() => Row(
                                   mainAxisAlignment:

@@ -61,7 +61,7 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                   ),
                 ),
                 /*bottomNavigationBar:
-                    bottomNavBar(fromVoucherScreen: true, vendorHome: false,whichScreen: 'Needy Family'),
+                    bottomNavBar(fromVoucherScreen: true, vendorHome: false,),
                */
                 backgroundColor: AppColors.kffffff,
                 extendBodyBehindAppBar: true,

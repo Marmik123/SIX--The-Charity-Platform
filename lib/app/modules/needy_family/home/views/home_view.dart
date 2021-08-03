@@ -18,9 +18,7 @@ class HomeView extends GetView<HomeController> {
   final List<Widget> bottomNavScreen = <Widget>[
     const HomeContent(),
     VoucherView(),
-    ProfileView(
-      whichScreen: 'Needy Family',
-    ),
+    ProfileView(),
   ];
   @override
   Widget build(BuildContext context) {

@@ -15,14 +15,13 @@ import 'package:six/r.g.dart';
 import '../controllers/available_vendors_controller.dart';
 
 class AvailableVendorsView extends GetView<AvailableVendorsController> {
-  final String whichScreen;
   final int? categoryIndex;
   final PurchaseController purchaseController = Get.put(PurchaseController());
   @override
   final AvailableVendorsController controller =
       Get.put(AvailableVendorsController());
 
-  AvailableVendorsView({required this.whichScreen, this.categoryIndex});
+  AvailableVendorsView({this.categoryIndex});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,6 +121,7 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                               .toString());
                         },
                       ),
+                      textAction: TextInputAction.search,
                       keyBoardType: TextInputType.text,
                       textStyle: TextStyle(
                         color: AppColors.k6886A0,

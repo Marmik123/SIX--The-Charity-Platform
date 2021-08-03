@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/circular_progress_indicator.dart';
@@ -75,7 +76,7 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
                     ? const Text('No Data Available')
                     : Expanded(
                         child: ListView.builder(
-                          itemCount: controller.whichScreen == 'Charity'
+                          itemCount: UserProvider.role == 'charity'
                               ? controller.programCreditsAvailability().length
                               : 2,
                           shrinkWrap: true,

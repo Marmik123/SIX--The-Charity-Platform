@@ -19,7 +19,6 @@ class CharityHomeController extends GetxController {
   RxString totalFamilyCount = ''.obs;
   RxString availableCredits = ''.obs;
   RxString programId = ''.obs;
-  String whichScreen = 'screenName';
   DateTime? selectedDate = DateTime.now();
   RxList<GraphData> graphDetails = <GraphData>[].obs;
   RxList<GraphCategoryData> graphCategoryDetails = <GraphCategoryData>[].obs;
@@ -79,19 +78,12 @@ class CharityHomeController extends GetxController {
   void onInit() {
     super.onInit();
     isLoading(true);
-    logW(Get.arguments);
-    if (Get.arguments != null) {
-      whichScreen = Get.arguments as String;
-    }
     if (UserProvider.role == 'charity') {
       assignToGraphDetails();
       assignDashboardData();
     } else {
       logI('Not Charity');
     }
-
-    /*Checking whichScreen as this screen is used in multiple module the functions
-    in init method will get called according to which screen else error will come.*/
   }
 
   //Credits by Program Graph

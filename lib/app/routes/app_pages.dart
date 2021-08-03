@@ -107,9 +107,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PROFILE,
-      page: () => ProfileView(
-        whichScreen: '',
-      ),
+      page: () => ProfileView(),
       binding: ProfileBinding(),
     ),
     GetPage(
@@ -154,23 +152,17 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PURCHASE,
-      page: () => PurchaseView(
-        whichScreen: '',
-      ),
+      page: () => PurchaseView(),
       binding: PurchaseBinding(),
     ),
     GetPage(
       name: _Paths.AVAILABLE_VENDORS,
-      page: () => AvailableVendorsView(
-        whichScreen: '',
-      ),
+      page: () => AvailableVendorsView(),
       binding: AvailableVendorsBinding(),
     ),
     GetPage(
       name: _Paths.VENDOR_DETAILS,
-      page: () => VendorDetailsView(
-        whichScreen: '',
-      ),
+      page: () => VendorDetailsView(),
       binding: VendorDetailsBinding(),
     ),
     GetPage(

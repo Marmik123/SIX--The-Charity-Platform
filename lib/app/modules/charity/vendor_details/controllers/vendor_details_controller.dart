@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 class VendorDetailsController extends GetxController {
   TabController? tabController;
   RxInt tabIndex = 0.obs;
-  String whichScreen = 'screenName';
   RxBool isLoading = false.obs;
   ScrollController scrollController = ScrollController();
   List<String> text = [
@@ -19,7 +18,6 @@ class VendorDetailsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    whichScreen = Get.arguments as String;
     tabController = TabController(
       length: 2,
       vsync: NavigatorState(),

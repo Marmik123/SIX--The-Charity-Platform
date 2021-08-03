@@ -20,7 +20,6 @@ class VendorHomeView extends GetView<VendorHomeController> {
     VendorHome(),
     VendorRedeemView(),
     ProfileView(
-      whichScreen: 'Vendor',
     )
   ];
   @override
@@ -113,7 +112,6 @@ class VendorHome extends StatelessWidget {
                                     color: AppColors.kffffff,
                                     borderColor: AppColors.kE3FCFF,
                                     height: 80.h,
-                                    whichScreen: '',
                                     shadowColor: AppColors.k0A9988,
                                     width: 390.w,
                                     textContent: Text(

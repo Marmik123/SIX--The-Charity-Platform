@@ -24,9 +24,7 @@ class CharityHomeView extends GetView<CharityHomeController> {
   final List<Widget> bottomScreen = <Widget>[
     CharityHome(),
     AvailableCreditsView(),
-    ProfileView(
-      whichScreen: 'Charity',
-    ),
+    ProfileView(),
   ];
 
   @override
@@ -108,7 +106,7 @@ class CharityHome extends StatelessWidget {
                           color: AppColors.kffffff,
                           borderColor: AppColors.kE3FCFF,
                           height: 80.h,
-                          whichScreen: '',
+
                           shadowColor: AppColors.k0A9988,
                           width: 390.w,
                           textContent: Text(
@@ -521,7 +519,7 @@ class CharityHome extends StatelessWidget {
                                   /*value: monthPicker(
                                     color: AppColors.kF2FEFF,
                                     borderColor: AppColors.kD8FCFF,
-                                    whichScreen: '',
+
                                     height: 90.h,
                                     shadowColor: AppColors.kffffff,
                                     textContent: Text(
@@ -564,7 +562,6 @@ class CharityHome extends StatelessWidget {
                                 color: AppColors.kF2FEFF,
                                 borderColor: AppColors.kD8FCFF,
                                 height: 90.h,
-                                whichScreen: '',
                                 shadowColor: AppColors.kffffff,
                                 textContent: Text(
                                   ctrl

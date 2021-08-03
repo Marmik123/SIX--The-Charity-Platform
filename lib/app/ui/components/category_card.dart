@@ -168,13 +168,12 @@ Widget categoryCard({
                           availVendorCtrl.assignVendorList(purchaseController
                               .voucherCategory[index].id
                               .toString());
-                          UserProvider.role == 'charity'
+                          UserProvider.role == 'charity' ||
+                                  UserProvider.role == 'social_worker'
                               ? Get.to<void>(() => AvailableVendorsView(
-                                    whichScreen: 'Charity',
                                     categoryIndex: index,
                                   ))
-                              : Get.to<void>(() =>
-                                  AvailableVendorsView(whichScreen: 'Social'));
+                              : Get.to<void>(() => AvailableVendorsView());
                         },
                         child: Text(
                           'View Vendors',

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/data/models/sliver_persistent_header.dart';
 import 'package:six/app/modules/charity/available_vendors/controllers/available_vendors_controller.dart';
 import 'package:six/app/modules/charity/purchase/controllers/purchase_controller.dart';
@@ -18,7 +19,7 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
   final AvailableVendorsController availVendorCtrl =
       Get.put(AvailableVendorsController());
   final PurchaseController purchaseController = Get.put(PurchaseController());
-  VendorDetailsView({required String whichScreen});
+  VendorDetailsView();
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -316,7 +317,7 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                         ],
                       ),
                     ),
-                    controller.whichScreen == 'Charity'
+                    UserProvider.role == 'charity'
                         ? SliverPersistentHeader(
                             pinned: true,
                             delegate: SliverAppBarDelegate(
@@ -368,8 +369,8 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                                   controller.text[index],
                                                   controller.textNewLine[index],
                                                   index,
-                                                  'Details',
                                                   controller.tabIndex(),
+                                                  410.w,
                                                 ),
                                               ),
                                             ),
@@ -393,7 +394,7 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                     SliverList(
                       delegate: SliverChildListDelegate(
                         [
-                          controller.whichScreen == 'Charity'
+                          UserProvider.role == 'charity'
                               ? Padding(
                                   padding: const EdgeInsets.only(left: 20.0),
                                   child: Text(

@@ -14,172 +14,171 @@ import 'package:six/r.g.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
-  final String whichScreen;
   final ProfileController profileCtrl = Get.put(ProfileController());
 
-  ProfileView({required this.whichScreen});
+  ProfileView();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColors.kffffff,
-        body: Column(
-          children: [
-            Stack(
-              alignment: Alignment.bottomCenter,
-              clipBehavior: Clip.none,
-              children: [
-                Container(
-                  color: Colors.transparent,
-                  width: 1.sw,
-                  height: 0.91.sh,
-                ),
-                Positioned(
-                  top: 0,
-                  child: Container(
-                    color: AppColors.kE3FCFF,
-                    height: 1423.h,
-                    width: 1125.w,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 170.h,
+      backgroundColor: AppColors.kffffff,
+      body: Column(
+        children: [
+          Stack(
+            alignment: Alignment.bottomCenter,
+            clipBehavior: Clip.none,
+            children: [
+              Container(
+                color: Colors.transparent,
+                width: 1.sw,
+                height: 0.91.sh,
+              ),
+              Positioned(
+                top: 0,
+                child: Container(
+                  color: AppColors.kE3FCFF,
+                  height: 1423.h,
+                  width: 1125.w,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 170.h,
+                      ),
+                      Text(
+                        'Profile',
+                        style: TextStyle(
+                          fontFamily: 'Gilroy',
+                          fontSize: 50.sp,
+                          fontStyle: FontStyle.normal,
+                          color: AppColors.k033660,
+                          fontWeight: FontWeight.w500,
                         ),
-                        Text(
-                          'Profile',
-                          style: TextStyle(
-                            fontFamily: 'Gilroy',
-                            fontSize: 50.sp,
-                            fontStyle: FontStyle.normal,
-                            color: AppColors.k033660,
-                            fontWeight: FontWeight.w500,
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        height: 93.h,
+                      ),
+                      Stack(
+                        alignment: Alignment.bottomRight,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              profileCtrl
+                                  .pickProfilePicture(ImageSource.gallery);
+                            },
+                            onLongPress: () {},
+                            child: doubleShadedCont(
+                                'https://picsum.photos/id/1027/400'),
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(
-                          height: 93.h,
-                        ),
-                        Stack(
-                          alignment: Alignment.bottomRight,
-                          children: [
-                            GestureDetector(
+                          Positioned(
+                            right: 385.w,
+                            top: 355.h,
+                            child: GestureDetector(
                               onTap: () {
                                 profileCtrl
                                     .pickProfilePicture(ImageSource.gallery);
                               },
-                              onLongPress: () {},
-                              child: doubleShadedCont(
-                                  'https://picsum.photos/id/1027/400'),
+                              child: UserProvider.role == 'needy'
+                                  ? Image.asset(
+                                      R.image.asset.camera_only.assetName,
+                                      width: 43.w,
+                                      height: 33.h,
+                                    )
+                                  : Image.asset(
+                                      R.image.asset.image_picker.assetName,
+                                      height: 105.h,
+                                      width: 104.w,
+                                    ),
                             ),
-                            Positioned(
-                              right: 385.w,
-                              top: 355.h,
-                              child: GestureDetector(
-                                onTap: () {
-                                  profileCtrl
-                                      .pickProfilePicture(ImageSource.gallery);
-                                },
-                                child: whichScreen == 'Needy Family'
-                                    ? Image.asset(
-                                        R.image.asset.camera_only.assetName,
-                                        width: 43.w,
-                                        height: 33.h,
-                                      )
-                                    : Image.asset(
-                                        R.image.asset.image_picker.assetName,
-                                        height: 105.h,
-                                        width: 104.w,
-                                      ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 83.h,
-                        ),
-                        Text(
-                          'Peter Lim',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Gilroy',
-                            fontSize: 65.sp,
-                            fontStyle: FontStyle.normal,
-                            color: AppColors.k033660,
-                            fontWeight: FontWeight.w500,
                           ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 83.h,
+                      ),
+                      Text(
+                        'Peter Lim',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Gilroy',
+                          fontSize: 65.sp,
+                          fontStyle: FontStyle.normal,
+                          color: AppColors.k033660,
+                          fontWeight: FontWeight.w500,
                         ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        whichScreen == 'Needy Family' ||
-                                whichScreen == 'Social Worker'
-                            ? Text(
-                                'peterlim@gmail.com',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy',
-                                  fontSize: 40.sp,
-                                  fontStyle: FontStyle.normal,
-                                  color: AppColors.k033660,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              )
-                            : const SizedBox.shrink(),
-                      ],
-                    ),
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      UserProvider.role == 'needy' ||
+                              UserProvider.role == 'social_worker'
+                          ? Text(
+                              'peterlim@gmail.com',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'Gilroy',
+                                fontSize: 40.sp,
+                                fontStyle: FontStyle.normal,
+                                color: AppColors.k033660,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            )
+                          : const SizedBox.shrink(),
+                    ],
                   ),
                 ),
-                Positioned(
-                  top: 1108.h,
-                  child: Container(
-                    width: 1005.w,
-                    height: whichScreen == 'Social Worker' ? 869.h : 719.h,
-                    decoration: BoxDecoration(
-                      color: AppColors.kffffff,
-                      borderRadius: BorderRadius.circular(50.r),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.k00474E.withOpacity(0.04),
-                          blurRadius: 50.r,
-                          offset: const Offset(0, 20),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 75.h,
-                        ),
-                        whichScreen == 'Social Worker'
-                            ? profileMenuItem(
-                                R.image.asset.history.assetName,
-                                'History',
-                                () {
-                                  Get.toNamed<void>(Routes.HISTORY_SW);
-                                },
-                              )
-                            : const SizedBox.shrink(),
-                        /*profileMenuItem(R.image.asset.term_c.assetName,
+              ),
+              Positioned(
+                top: 1108.h,
+                child: Container(
+                  width: 1005.w,
+                  height: UserProvider.role == 'social_worker' ? 869.h : 719.h,
+                  decoration: BoxDecoration(
+                    color: AppColors.kffffff,
+                    borderRadius: BorderRadius.circular(50.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.k00474E.withOpacity(0.04),
+                        blurRadius: 50.r,
+                        offset: const Offset(0, 20),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 75.h,
+                      ),
+                      UserProvider.role == 'social_worker'
+                          ? profileMenuItem(
+                              R.image.asset.history.assetName,
+                              'History',
+                              () {
+                                Get.toNamed<void>(Routes.HISTORY_SW);
+                              },
+                            )
+                          : const SizedBox.shrink(),
+                      /*profileMenuItem(R.image.asset.term_c.assetName,
                             'My Previous Request', () {}),
                         */
-                        GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          child: profileMenuItem(
-                              R.image.asset.support.assetName, 'Support', () {
-                            Get.toNamed<void>(Routes.SUPPORT);
-                          }),
-                        ),
-                        profileMenuItem(
-                            R.image.asset.feedback.assetName, 'Feedback', () {
-                          controller.sendMailFeedback();
-                          //Get.toNamed<void>(Routes.ONBOARDING_VENDOR);
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        child: profileMenuItem(
+                            R.image.asset.support.assetName, 'Support', () {
+                          Get.toNamed<void>(Routes.SUPPORT);
                         }),
-                        profileMenuItem(R.image.asset.term_c.assetName,
-                            'Term & Condition', () {}),
-                        profileMenuItem(R.image.asset.privacy.assetName,
-                            'Privacy Policy', () {}),
-                      ],
-                    )
-                    /*Container(
+                      ),
+                      profileMenuItem(
+                          R.image.asset.feedback.assetName, 'Feedback', () {
+                        controller.sendMailFeedback();
+                        //Get.toNamed<void>(Routes.ONBOARDING_VENDOR);
+                      }),
+                      profileMenuItem(R.image.asset.term_c.assetName,
+                          'Term & Condition', () {}),
+                      profileMenuItem(R.image.asset.privacy.assetName,
+                          'Privacy Policy', () {}),
+                    ],
+                  )
+                  /*Container(
                     height: 1011.h,
                     width: 1005.w,
                     child: Padding(
@@ -221,7 +220,7 @@ class ProfileView extends GetView<ProfileController> {
                                 ),
                               )
                           */
-                    /*Row(
+                  /*Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   SizedBox(
@@ -256,28 +255,27 @@ class ProfileView extends GetView<ProfileController> {
                                     iconSize: 14,
                                   )
                                 ],
-                              )*/ /*
-                          ),
-                    ),
-                  )*/
-                    ,
-                  ),
+                              )*/
+
+                  ,
                 ),
-                Positioned(
-                  top: whichScreen == 'Social Worker' ? 1890.h : 1740.h,
-                  child: roundedButton(
-                      text: 'Logout',
-                      onTap: () {
-                        UserProvider.onLogout();
-                        Get.offAllNamed<void>(Routes.SIGN_PASS_VERIFICATION);
-                      },
-                      width: 452.w,
-                      height: 150.h,
-                      fontSize: 50.sp),
-                )
-              ],
-            ),
-          ],
-        ));
+              ),
+              Positioned(
+                top: UserProvider.role == 'social_worker' ? 1890.h : 1740.h,
+                child: roundedButton(
+                    text: 'Logout',
+                    onTap: () {
+                      UserProvider.onLogout();
+                      Get.offAllNamed<void>(Routes.SIGN_PASS_VERIFICATION);
+                    },
+                    width: 452.w,
+                    height: 150.h,
+                    fontSize: 50.sp),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
