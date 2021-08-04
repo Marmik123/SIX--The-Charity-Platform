@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/local/user_provider.dart';
@@ -111,7 +112,7 @@ Future<void> purchaseBottomSheet({
                       hintText: '',
                       prefixImageName: '',
                       onTap: () {},
-                      textAction: TextInputAction.search,
+                      textAction: TextInputAction.done,
                       autofocus: true,
                       keyBoardType: TextInputType.number,
                       textStyle: TextStyle(
@@ -121,7 +122,10 @@ Future<void> purchaseBottomSheet({
                         fontFamily: 'Gilroy',
                         fontSize: 65.sp,
                       ),
-                      contentPadding: const EdgeInsets.only(bottom: 5),
+                      contentPadding: const EdgeInsets.only(
+                        bottom: 5,
+                        right: 40,
+                      ),
                       hintStyle: TextStyle(
                         color: AppColors.k6886A0,
                         fontWeight: FontWeight.w500,
@@ -141,12 +145,13 @@ Future<void> purchaseBottomSheet({
                   Center(
                     child: roundedButton(
                       text: 'Pay Now',
-                      onTap: () async{
+                      onTap: () async {
                         logI(ctrl.amountController.text);
                         logI(ctrl.amountController.numberValue);
                         if (UserProvider.role == 'social_worker') {
-
-                          var success =await SocialWorkerProvider.purchaseVoucher(
+                          ctrl.isLoading(true);
+                          var success =
+                              await SocialWorkerProvider.purchaseVoucher(
                             skip: ctrl.skip
                                 .toString(), //NOT FROM SOCIAL WORKER FROM PURCHASE VIEW CONTRO
                             limit: ctrl.limit
@@ -166,19 +171,28 @@ Future<void> purchaseBottomSheet({
                               }
                             ],
                           );
-
+                          ctrl.isLoading(false);
                           if (success == true) {
-                            dialog(success: true);
-                          } else {
-                            dialog(success: false);
+                            var purchasedCategory = ctrl
+                                .voucherCategory[ctrl.selectCategory!()].name
+                                .toString();
+                            unawaited(dialog(
+                                success: true,
+                                message:
+                                    'Congrats! You have successfully\npurchased the voucher of $purchasedCategory'));
                           }
+                          /*else {
+                            unawaited(dialog(
+                              success: false,
+                            ));
+                          }*/
                         } else if (ctrl.amountController.text.isNotEmpty &&
                             GetUtils.isGreaterThan(
                                 ctrl.amountController.numberValue, 0)) {
-                          purchaseController.purchaseVoucherCat(
+                          Get.back<void>();
+                          await purchaseController.purchaseVoucherCat(
                             amount: ctrl.amountController.numberValue,
                           );
-                          Get.back<void>();
                         } else {
                           appSnackbar(
                             message: 'Please enter valid amount',

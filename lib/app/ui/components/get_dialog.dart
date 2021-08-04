@@ -7,7 +7,11 @@ import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/ui/components/action_dialog.dart';
 import 'package:six/r.g.dart';
 
-Future<void> dialog({required bool? success, String? purchasedCategory}) {
+Future<void> dialog({
+  required bool? success,
+  String? purchasedCategory,
+  String? message,
+}) {
   return Get.dialog<void>(
     SizedBox(
       height: Get.height,
@@ -48,28 +52,21 @@ Future<void> dialog({required bool? success, String? purchasedCategory}) {
               ),
               child: Center(
                 child: Material(
-                  color: Colors.transparent,
-                  child: success!
-                      ? actionDialog(
-                          onTapCancel: () {
-                            //paid(false);
-                            Get.back<void>();
-                          },
-                          dialogTypeText: 'Success!',
-                          assetName: R.image.asset.success_redem.assetName,
-                          text:
-                              'Congrats! You have successfully\npurchased credits for $purchasedCategory\ncategory',
-                        )
-                      : actionDialog(
-                          onTapCancel: () {
-                            //paid(false);
-                            Get.back<void>();
-                          },
-                          dialogTypeText: 'Oops!',
-                          assetName: R.image.asset.error_dialog.assetName,
-                          text: 'Something went wrong. Please\ntry again',
-                        ),
-                ),
+                    color: Colors.transparent,
+                    child: actionDialog(
+                      onTapCancel: () {
+                        //paid(false);
+                        Get.back<void>();
+                      },
+                      dialogTypeText: success! ? 'Success!' : 'Oops!',
+                      assetName: success
+                          ? R.image.asset.success_redem.assetName
+                          : R.image.asset.error_dialog.assetName,
+                      text: message ??
+                          (success
+                              ? 'Congrats! You have successfully\npurchased the voucher.'
+                              : 'Something went wrong. Please\ntry again'),
+                    )),
               ),
             ),
           ),

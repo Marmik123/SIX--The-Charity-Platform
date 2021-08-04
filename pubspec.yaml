@@ -12,6 +12,7 @@ dependencies:
   jovial_svg: ^1.0.6
   extended_masked_text: ^2.2.1
   flutter_mailer: ^2.0.0
+  sqflite: ^2.0.0+3
   flutter_screenutil: 5.0.0+2
   get_storage: ^2.0.3
   firebase_core: ^1.3.0
@@ -110,6 +111,19 @@ flutter:
   - assets/images/
   - assets/locales/
   uses-material-design: true
+  fonts:
+    - family: Gilroy
+      fonts:
+        - asset: fonts/Gilroy-Regular.otf
+        - asset: fonts/Gilroy-Bold.otf
+        - asset: fonts/Gilroy-ExtraBold.otf
+        - asset: fonts/Gilroy-SemiBold.otf
+        - asset: fonts/Gilroy-Thin.otf
+        - asset: fonts/Gilroy-Heavy.otf
+        - asset: fonts/Gilroy-UltraLight.otf
+        - asset: fonts/Gilroy-Light.otf
+        - asset: fonts/Gilroy-Medium.otf
+          style: normal
 flr:
   core_version: 3.2.0
   dartfmt_line_length: 80

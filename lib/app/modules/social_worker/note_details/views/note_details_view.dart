@@ -17,7 +17,7 @@ class NoteDetailsView extends GetView<NoteDetailsController> {
       padding: const EdgeInsets.only(
         left: 20,
         right: 20,
-        bottom: 0,
+        bottom: 80,
       ),
       physics: const ClampingScrollPhysics(),
       children: [
@@ -40,7 +40,9 @@ class NoteDetailsView extends GetView<NoteDetailsController> {
             roundedButton(
               text: 'New Note',
               onTap: () {
-                Get.toNamed<void>(Routes.ADD_NOTE);
+                Get.toNamed<void>(
+                  Routes.ADD_NOTE,
+                );
               },
               width: 264.w,
               height: 100.h,
@@ -52,7 +54,7 @@ class NoteDetailsView extends GetView<NoteDetailsController> {
         ListView.separated(
           padding: const EdgeInsets.all(0),
           shrinkWrap: true,
-          itemCount: 15,
+          itemCount: controller.notesList().length,
           physics: const ClampingScrollPhysics(),
           separatorBuilder: (context, index) => h(15.h),
           itemBuilder: (context, index) => Container(
@@ -79,56 +81,62 @@ class NoteDetailsView extends GetView<NoteDetailsController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Image.asset(
-                        R.image.asset.calendar.assetName,
-                        height: 33.h,
-                        width: 30.w,
-                      ),
-                      w(15.w),
-                      Text(
-                        '12 Apr, 2021 06:32pm',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'Gilroy',
-                          fontSize: 38.sp,
-                          fontStyle: FontStyle.normal,
-                          color: AppColors.k6886A0,
-                          fontWeight: FontWeight.w400,
+                  FittedBox(
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          R.image.asset.calendar.assetName,
+                          height: 33.h,
+                          width: 30.w,
                         ),
-                      ),
-                      w(460.w),
-                      GestureDetector(
-                        onTap: () {
-                          Get.toNamed<void>(Routes.EDIT_NOTE);
-                        },
-                        child: Container(
-                          width: 80.r,
-                          height: 80.r,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColors.kE3FCFF,
-                            border: Border.all(
-                              color: AppColors.kffffff,
-                              width: 1.w,
-                            ),
-                          ),
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Image.asset(
-                              R.image.asset.edit_icon.assetName,
-                              height: 40.r,
-                              width: 40.r,
-                            ),
+                        w(15.w),
+                        Text(
+                          DateTime.fromMillisecondsSinceEpoch(int.tryParse(
+                                  controller
+                                      .notesList()[index]['createdOn']
+                                      .toString())!)
+                              .toString(),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'Gilroy',
+                            fontSize: 38.sp,
+                            fontStyle: FontStyle.normal,
+                            color: AppColors.k6886A0,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
-                      ),
-                    ],
+                        w(460.w),
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed<void>(Routes.EDIT_NOTE);
+                          },
+                          child: Container(
+                            width: 80.r,
+                            height: 80.r,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColors.kE3FCFF,
+                              border: Border.all(
+                                color: AppColors.kffffff,
+                                width: 1.w,
+                              ),
+                            ),
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Image.asset(
+                                R.image.asset.edit_icon.assetName,
+                                height: 40.r,
+                                width: 40.r,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   h(4.h),
                   Text(
-                    'It is a long established fact that a reader will\nbe distracted by the readable content of a\npage when looking at its layout.',
+                    controller.notesList()[index]['note'].toString(),
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       fontFamily: 'Gilroy',

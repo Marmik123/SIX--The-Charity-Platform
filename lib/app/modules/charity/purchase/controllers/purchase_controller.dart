@@ -91,12 +91,15 @@ class PurchaseController extends GetxController {
             )
           : null;
       logI(success);
-      if (success ?? false) {
+      if (success!) {
         paymentInProgress(false);
         var purchasedCategory =
             voucherCategory[selectCategory!()].name.toString();
         unawaited(
-          dialog(success: true, purchasedCategory: purchasedCategory),
+          dialog(
+              success: true,
+              message:
+                  'Congrats! You have successfully\npurchased credits for $purchasedCategory category.'),
           /*Get.dialog<void>(
             SizedBox(
               height: Get.height,

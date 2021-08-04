@@ -442,6 +442,7 @@ class SocialHome extends StatelessWidget {
                             physics: const ClampingScrollPhysics(),
                             separatorBuilder: (context, index) => h(15.h),
                             itemBuilder: (context, index) {
+                              controller.beneIndex!(index);
                               controller.address = jsonDecode(controller
                                   .beneficiaryList()[index]
                                   .familyUserForWorker!
@@ -451,7 +452,14 @@ class SocialHome extends StatelessWidget {
                               logI(controller.address);
                               return GestureDetector(
                                 onTap: () {
-                                  Get.toNamed<void>(Routes.BENEFICIARY_DETAILS);
+                                  controller.assignNotesList(index);
+                                  Get.toNamed<void>(Routes.BENEFICIARY_DETAILS,
+                                      arguments: controller
+                                          .beneficiaryList()[index]
+                                          .familyUserForWorker!
+                                          .userMetadata!
+                                          .id
+                                          .toString());
                                 },
                                 child: Container(
                                   width: 1.sw,

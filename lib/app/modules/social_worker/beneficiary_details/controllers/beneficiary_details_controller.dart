@@ -5,6 +5,7 @@ class BeneficiaryDetailsController extends GetxController {
   //TODO: Implement BeneficiaryDetailsController
   RxInt tabIndex = 0.obs;
   RxBool snap = true.obs;
+  RxString beneficiaryId = ''.obs;
   RxBool tabBarVisibility = true.obs;
   RxBool titleVisible = true.obs;
   RxDouble top = 0.0.obs;
@@ -27,6 +28,9 @@ class BeneficiaryDetailsController extends GetxController {
     super.onInit();
     titleVisible(false);
     scrollViewController.addListener(dataScrollController);
+    if (Get.arguments != null) {
+      beneficiaryId(Get.arguments as String);
+    }
   }
 
   void dataScrollController() {

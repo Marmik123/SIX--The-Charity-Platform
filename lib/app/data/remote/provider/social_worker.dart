@@ -1,9 +1,11 @@
+import 'package:pedantic/pedantic.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/models/available_credits_sw.dart';
 import 'package:six/app/data/models/available_vouchers.dart';
 import 'package:six/app/data/models/beneficiary_list_details.dart';
 import 'package:six/app/data/remote/api_service/init_api_service.dart';
 import 'package:six/app/ui/components/app_snackbar.dart';
+import 'package:six/app/ui/components/get_dialog.dart';
 
 class SocialWorkerProvider {
   //Helper Function to fetch the social worker dashboard data .
@@ -96,6 +98,11 @@ class SocialWorkerProvider {
           'category_amount': categoryAmount,
           'vouchers': vouchers,
         });
+    logI(response);
+    if (response?.statusCode != 200) {
+      unawaited(dialog(
+          success: false, message: response!.data['message'].toString()));
+    }
     logWTF(response?.statusMessage);
     return response?.statusCode == 200;
   }

@@ -53,7 +53,8 @@ class PurchaseView extends GetView<PurchaseController> {
           appBar: appBar(
             title: 'Select Category',
             height: 200.h,
-            disableBackIcon: false,
+            disableBackIcon:
+                UserProvider.role == 'social_worker' ? true : false,
           ),
           body: Padding(
             padding: const EdgeInsets.only(left: 20.0, right: 20),

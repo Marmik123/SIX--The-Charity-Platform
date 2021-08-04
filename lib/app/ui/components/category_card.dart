@@ -165,6 +165,7 @@ Widget categoryCard({
                           left: 38.0, right: 38, bottom: 27),
                       child: TextButton(
                         onPressed: () {
+                          purchaseController.selectCategory!(index);
                           availVendorCtrl.assignVendorList(purchaseController
                               .voucherCategory[index].id
                               .toString());

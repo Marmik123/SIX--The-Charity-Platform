@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
 
 class NoteDetailsController extends GetxController {
-  //TODO: Implement NoteDetailsController
-
+  RxList<Map<String, Object?>> notesList = <Map<String, Object?>>[].obs;
   @override
   void onInit() {
     super.onInit();

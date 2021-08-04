@@ -173,6 +173,8 @@ class APIService {
       );
     } on DioError catch (e, t) {
       letMeHandleAllErrors(e, t);
+      logW(e.response?.data['message']);
+      logW(e.response?.statusCode);
       return e.response;
     }
   }
