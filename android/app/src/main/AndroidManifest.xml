@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- FLUTTER LOCALNOTIFICATION  PERMISSIONS END-->
    <application
-        android:label="six"
+        android:label="SIX"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
