@@ -70,15 +70,10 @@ class HomeContent extends StatelessWidget {
                         SizedBox(
                           width: 66.w,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Get.toNamed<void>(Routes.VENDOR_HOME);
-                          },
-                          child: Image.asset(
-                            R.image.six_logo().assetName,
-                            height: 77.h,
-                            width: 170.w,
-                          ),
+                        Image.asset(
+                          R.image.six_logo().assetName,
+                          height: 77.h,
+                          width: 170.w,
                         ),
                         SizedBox(
                           width: 669.w,
@@ -282,7 +277,8 @@ class HomeContent extends StatelessWidget {
                 child: categoryCard(
                   index: index,
                   context: context,
-                  imageUrl: R.image.asset.super_market.assetName,
+                  imageUrl:
+                      'https://six.api.dharmatech.in/category/icon/icon_1627446976021.png',
                   background: AppColors.kFF007A.withOpacity(0.05),
                   categoryName: 'Supermarket',
                   creditsRemaining: 100,

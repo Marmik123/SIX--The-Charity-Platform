@@ -80,10 +80,11 @@ class QrScreenController extends GetxController {
   }
 
   void onTimeout(EventSink barcode) {
-    if(qrScanned()){
+    if (qrScanned()) {
       cannotDetect.value = true;
+    } else {
+      qrCtrl.resumeCamera();
     }
-    qrCtrl.resumeCamera();
   }
 
   @override

@@ -30,6 +30,7 @@ Widget textField({
   bool autofocus = false,
   TextInputAction textAction = TextInputAction.none,
   Widget? suffixIcon,
+  ValueChanged<String>? onChanged,
 }) {
   return ClipRRect(
     borderRadius: BorderRadius.circular(50.r),
@@ -59,6 +60,7 @@ Widget textField({
         child: Form(
           key: formKey,
           child: TextFormField(
+            onChanged: onChanged,
             textAlignVertical: TextAlignVertical.center,
             controller: enableInitialValue! ? null : controller,
             enabled: true,
@@ -79,7 +81,7 @@ Widget textField({
                     purchaseController
                         .voucherCategory[availVendorCtrl.categoryIndex()].id
                         .toString(),
-                    value);
+                    value.trim());
                 if (controller!.text.trim().isEmpty) {
                   availVendorCtrl.isSearched(false);
                 }

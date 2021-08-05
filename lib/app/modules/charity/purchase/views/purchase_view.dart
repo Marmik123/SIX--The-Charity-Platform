@@ -28,25 +28,25 @@ class PurchaseView extends GetView<PurchaseController> {
     return Obx(() => Scaffold(
           floatingActionButton: UserProvider.role == 'social_worker'
               ? const SizedBox.shrink()
-              : ctrl.paymentInProgress()
-                  ? FittedBox(child: buildLoader())
-                  : roundedButton(
-                      text: 'Purchase Credit',
-                      onTap: () {
-                        ctrl.amountController.clear();
-                        /*UserProvider.role == 'social_worker'
-                            ? purchaseBottomSheet()
-                            :*/
-                        purchaseBottomSheet(
-                          category: ctrl
-                              .voucherCategory[ctrl.selectCategory!()].name
-                              .toString(),
-                        );
-                      },
-                      width: 500.w,
-                      height: 150.h,
-                      fontSize: 50.sp,
-                    ),
+              : roundedButton(
+                  text: 'Purchase Credit',
+                  isLoading: ctrl.paymentInProgress(),
+                  onTap: () {
+                    ctrl.amountController.clear();
+                    purchaseBottomSheet(
+                      category: ctrl
+                          .voucherCategory[ctrl.selectCategory!()].name
+                          .toString(),
+                      imgUrl:
+                          ctrl.voucherCategory[ctrl.selectCategory!()].iconUrl,
+                      background: HexColor.fromHex(ctrl
+                          .voucherCategory[ctrl.selectCategory!()].background!),
+                    );
+                  },
+                  width: 500.w,
+                  height: 150.h,
+                  fontSize: 50.sp,
+                ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
           backgroundColor: AppColors.kffffff,
@@ -87,7 +87,7 @@ class PurchaseView extends GetView<PurchaseController> {
                                 crossAxisCount: 2,
                                 crossAxisSpacing: 34.w,
                                 mainAxisSpacing: 34.w,
-                                childAspectRatio: 638.w / 855.h,
+                                childAspectRatio: 638.w / 715.h,
                               ),
                               itemCount: ctrl.voucherCategory.length,
                               shrinkWrap: true,
@@ -123,7 +123,7 @@ class PurchaseView extends GetView<PurchaseController> {
                                         shadow:
                                             AppColors.kEED2E0.withOpacity(0.15),
                                         accent: accent,
-                                        height: 622.h,
+                                        height: 522.h,
                                         width: 558.w,
                                         context: context,
                                         padding: const EdgeInsets.only(
@@ -145,8 +145,7 @@ class PurchaseView extends GetView<PurchaseController> {
                                                     .withOpacity(0.05),
                                                 width: 1.w,
                                               )),
-                                          child: ctrl.selectCategory!.value ==
-                                                  index
+                                          child: ctrl.selectCategory!() == index
                                               ? Image.asset(
                                                   R.image.asset.select_voucher
                                                       .assetName,

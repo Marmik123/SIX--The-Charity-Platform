@@ -58,7 +58,12 @@ class EditNoteView extends GetView<EditNoteController> {
                           ),
                           w(15.w),
                           Text(
-                            '12 Apr, 2021 06:32pm',
+                            DateTime.fromMillisecondsSinceEpoch(int.tryParse(
+                                    controller.notesDetail
+                                        .notesList()[controller.noteIndex()]
+                                            ['createdOn']
+                                        .toString())!)
+                                .toString(),
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: 'Gilroy',
@@ -72,8 +77,10 @@ class EditNoteView extends GetView<EditNoteController> {
                         ],
                       ),
                       h(4.h),
-                      Text(
-                        'It is a long established fact that a reader will\nbe distracted by the readable content of a\npage when looking at its layout.',
+                      SelectableText(
+                        controller.notesDetail
+                            .notesList()[controller.noteIndex()]['note']
+                            .toString(),
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontFamily: 'Gilroy',
@@ -107,9 +114,12 @@ class EditNoteView extends GetView<EditNoteController> {
                     scrollPhysics: const BouncingScrollPhysics(),
                     enabled: true,
                     autofocus: true,
+                    textInputAction: TextInputAction.done,
+                    controller: controller.editingController,
                     onEditingComplete: () {
                       var currentFocus = FocusScope.of(context);
                       currentFocus.unfocus();
+                      controller.editNote();
                     },
                     cursorColor: AppColors.k033660,
                     style: TextStyle(
@@ -151,7 +161,9 @@ class EditNoteView extends GetView<EditNoteController> {
               h(405.h),
               roundedButton(
                   text: 'Save',
-                  onTap: () {},
+                  onTap: () {
+                    controller.editNote();
+                  },
                   width: 452.w,
                   height: 150.h,
                   fontSize: 50.sp)

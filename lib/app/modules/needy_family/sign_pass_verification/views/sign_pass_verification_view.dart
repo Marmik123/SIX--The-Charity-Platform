@@ -136,7 +136,7 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                                 width: 1005.w,
                                 keyBoardType: TextInputType.text,
                                 contentPadding:
-                                    const EdgeInsets.only(bottom: 5),
+                                    EdgeInsets.only(bottom: 5, right: 110.w),
                                 hintStyle: TextStyle(
                                   color: AppColors.k6886A0,
                                   fontWeight: FontWeight.w500,

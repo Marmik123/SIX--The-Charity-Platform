@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/utils/material_prop_ext.dart';
 
 double elevation = 0;
@@ -12,6 +13,7 @@ Widget roundedButton({
   required double width,
   required double height,
   required double fontSize,
+  bool? isLoading = false,
 }) {
   return ElevatedButton(
     onPressed: onTap,
@@ -35,17 +37,19 @@ Widget roundedButton({
       child: Container(
         height: height,
         child: Center(
-          child: Text(
-            text,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'Gilroy',
-              fontSize: fontSize,
-              fontStyle: FontStyle.normal,
-              color: AppColors.kffffff,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+          child: isLoading!
+              ? buildPaymentLoader()
+              : Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Gilroy',
+                    fontSize: fontSize,
+                    fontStyle: FontStyle.normal,
+                    color: AppColors.kffffff,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
         ),
       ),
     ),

@@ -55,16 +55,19 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     h(70.h),
-                    Text(
-                      'Select Program Category',
-                      style: TextStyle(
-                        fontFamily: 'Gilroy',
-                        fontSize: 60.sp,
-                        fontStyle: FontStyle.normal,
-                        color: AppColors.k033660.withOpacity(0.5),
-                        fontWeight: FontWeight.w500,
+                    Padding(
+                      padding: EdgeInsets.only(right: 600.w),
+                      child: Text(
+                        'Select Program',
+                        style: TextStyle(
+                          fontFamily: 'Gilroy',
+                          fontSize: 60.sp,
+                          fontStyle: FontStyle.normal,
+                          color: AppColors.k033660.withOpacity(0.5),
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: TextAlign.left,
                       ),
-                      textAlign: TextAlign.left,
                     ),
                   ],
                 )

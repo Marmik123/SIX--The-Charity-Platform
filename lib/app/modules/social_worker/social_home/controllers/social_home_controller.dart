@@ -37,10 +37,10 @@ class SocialHomeController extends GetxController {
     logI(UserProvider.role);
   }
 
-  Future<void> launchURL() async {
+  Future<void> launchURL(String mailId) async {
     final params = Uri(
       scheme: 'mailto',
-      path: 'raymondwong@gmail.com',
+      path: mailId,
     );
     var url = params.toString();
     if (await canLaunch(url)) {

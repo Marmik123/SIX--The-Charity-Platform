@@ -10,10 +10,10 @@ import 'package:six/app/data/remote/provider/social_worker.dart';
 import 'package:six/app/modules/charity/purchase/controllers/purchase_controller.dart';
 import 'package:six/app/modules/social_worker/assigned_voucher/controllers/assigned_voucher_controller.dart';
 import 'package:six/app/ui/components/app_snackbar.dart';
+import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/common_textfield.dart';
 import 'package:six/app/ui/components/get_dialog.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
-import 'package:six/r.g.dart';
 
 Future<void> purchaseBottomSheet({
   String? category,
@@ -22,6 +22,8 @@ Future<void> purchaseBottomSheet({
   double? totalAmount,
   double? amount,
   int? quantity,
+  String? imgUrl,
+  Color background = AppColors.kE3FCFF,
 }) {
   var ctrl = Get.find<PurchaseController>();
   //var socialCtrl = Get.put(SocialHomeController());
@@ -57,14 +59,13 @@ Future<void> purchaseBottomSheet({
                     width: 200.r,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: AppColors.kFF007A.withOpacity(0.1),
+                      color: background,
                     ),
                     child: Center(
-                      child: Image.asset(
-                        R.image.asset.food.assetName,
+                      child: cacheImage(
+                        url: imgUrl!,
                         height: 106.h,
                         width: 100.w,
-                        fit: BoxFit.contain,
                       ),
                     ),
                   ),

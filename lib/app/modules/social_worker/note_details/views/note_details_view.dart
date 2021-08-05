@@ -51,106 +51,107 @@ class NoteDetailsView extends GetView<NoteDetailsController> {
           ],
         ),
         h(25.h),
-        ListView.separated(
-          padding: const EdgeInsets.all(0),
-          shrinkWrap: true,
-          itemCount: controller.notesList().length,
-          physics: const ClampingScrollPhysics(),
-          separatorBuilder: (context, index) => h(15.h),
-          itemBuilder: (context, index) => Container(
-            width: 1005.w,
-            height: 300.h,
-            decoration: BoxDecoration(
-              color: AppColors.kffffff,
-              boxShadow: [
-                BoxShadow(
-                  offset: const Offset(0, 20),
-                  blurRadius: 50.r,
-                  color: AppColors.k00474E.withOpacity(0.04),
+        Obx(() => ListView.separated(
+              padding: const EdgeInsets.all(0),
+              shrinkWrap: true,
+              itemCount: controller.notesList().length,
+              physics: const ClampingScrollPhysics(),
+              separatorBuilder: (context, index) => h(15.h),
+              itemBuilder: (context, index) => Container(
+                width: 1005.w,
+                height: 300.h,
+                decoration: BoxDecoration(
+                  color: AppColors.kffffff,
+                  boxShadow: [
+                    BoxShadow(
+                      offset: const Offset(0, 20),
+                      blurRadius: 50.r,
+                      color: AppColors.k00474E.withOpacity(0.04),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(50.r),
                 ),
-              ],
-              borderRadius: BorderRadius.circular(50.r),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 12,
-                right: 10,
-                top: 10,
-                bottom: 5,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  FittedBox(
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          R.image.asset.calendar.assetName,
-                          height: 33.h,
-                          width: 30.w,
-                        ),
-                        w(15.w),
-                        Text(
-                          DateTime.fromMillisecondsSinceEpoch(int.tryParse(
-                                  controller
-                                      .notesList()[index]['createdOn']
-                                      .toString())!)
-                              .toString(),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Gilroy',
-                            fontSize: 38.sp,
-                            fontStyle: FontStyle.normal,
-                            color: AppColors.k6886A0,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        w(460.w),
-                        GestureDetector(
-                          onTap: () {
-                            Get.toNamed<void>(Routes.EDIT_NOTE);
-                          },
-                          child: Container(
-                            width: 80.r,
-                            height: 80.r,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColors.kE3FCFF,
-                              border: Border.all(
-                                color: AppColors.kffffff,
-                                width: 1.w,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 12,
+                    right: 10,
+                    top: 10,
+                    bottom: 5,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      FittedBox(
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              R.image.asset.calendar.assetName,
+                              height: 33.h,
+                              width: 30.w,
+                            ),
+                            w(15.w),
+                            Text(
+                              DateTime.fromMillisecondsSinceEpoch(int.tryParse(
+                                      controller
+                                          .notesList()[index]['createdOn']
+                                          .toString())!)
+                                  .toString(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'Gilroy',
+                                fontSize: 38.sp,
+                                fontStyle: FontStyle.normal,
+                                color: AppColors.k6886A0,
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Image.asset(
-                                R.image.asset.edit_icon.assetName,
-                                height: 40.r,
-                                width: 40.r,
+                            w(460.w),
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed<void>(Routes.EDIT_NOTE,
+                                    arguments: index);
+                              },
+                              child: Container(
+                                width: 80.r,
+                                height: 80.r,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColors.kE3FCFF,
+                                  border: Border.all(
+                                    color: AppColors.kffffff,
+                                    width: 1.w,
+                                  ),
+                                ),
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Image.asset(
+                                    R.image.asset.edit_icon.assetName,
+                                    height: 40.r,
+                                    width: 40.r,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      h(4.h),
+                      SelectableText(
+                        controller.notesList()[index]['note'].toString(),
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontFamily: 'Gilroy',
+                          fontSize: 42.sp,
+                          fontStyle: FontStyle.normal,
+                          color: AppColors.k033660,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
                   ),
-                  h(4.h),
-                  Text(
-                    controller.notesList()[index]['note'].toString(),
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontFamily: 'Gilroy',
-                      fontSize: 42.sp,
-                      fontStyle: FontStyle.normal,
-                      color: AppColors.k033660,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-          ),
-        ),
+            )),
       ],
     );
   }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
-import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/ui/components/common_appbar.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
@@ -90,21 +89,7 @@ class AddNoteView extends GetView<AddNoteController> {
               roundedButton(
                 text: 'Save',
                 onTap: () {
-                  var beneficiaryId = controller.socialHomeController
-                      .beneficiaryList()[
-                          controller.socialHomeController.beneIndex!()]
-                      .familyUserForWorker!
-                      .userMetadata!
-                      .id
-                      .toString();
-                  var response = controller.dbHelper.createNote(
-                    beneficiaryId: beneficiaryId,
-                    note: controller.textCtrl.text.trim(),
-                  );
-                  logI(response.toString());
-                  controller.textCtrl.clear();
-                  controller.dbHelper.getNotes(beneficiaryId: beneficiaryId);
-                  Get.back<void>();
+                  controller.addNote();
                 },
                 width: 452.w,
                 height: 150.h,

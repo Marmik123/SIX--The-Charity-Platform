@@ -62,34 +62,41 @@ class ProfileView extends GetView<ProfileController> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              profileCtrl
-                                  .pickProfilePicture(ImageSource.gallery);
+                              if (UserProvider.role != 'charity' ||
+                                  UserProvider.role != 'vendor') {
+                                profileCtrl
+                                    .pickProfilePicture(ImageSource.gallery);
+                              }
                             },
                             onLongPress: () {},
                             child: doubleShadedCont(
                                 'https://picsum.photos/id/1027/400'),
                           ),
-                          Positioned(
-                            right: 385.w,
-                            top: 355.h,
-                            child: GestureDetector(
-                              onTap: () {
-                                profileCtrl
-                                    .pickProfilePicture(ImageSource.gallery);
-                              },
-                              child: UserProvider.role == 'needy'
-                                  ? Image.asset(
-                                      R.image.asset.camera_only.assetName,
-                                      width: 43.w,
-                                      height: 33.h,
-                                    )
-                                  : Image.asset(
-                                      R.image.asset.image_picker.assetName,
-                                      height: 105.h,
-                                      width: 104.w,
-                                    ),
-                            ),
-                          ),
+                          UserProvider.role == 'charity' ||
+                                  UserProvider.role == 'vendor'
+                              ? const SizedBox.shrink()
+                              : Positioned(
+                                  right: 385.w,
+                                  top: 355.h,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      profileCtrl.pickProfilePicture(
+                                          ImageSource.gallery);
+                                    },
+                                    child: UserProvider.role == 'needy'
+                                        ? Image.asset(
+                                            R.image.asset.camera_only.assetName,
+                                            width: 43.w,
+                                            height: 33.h,
+                                          )
+                                        : Image.asset(
+                                            R.image.asset.image_picker
+                                                .assetName,
+                                            height: 105.h,
+                                            width: 104.w,
+                                          ),
+                                  ),
+                                ),
                         ],
                       ),
                       SizedBox(
@@ -170,7 +177,6 @@ class ProfileView extends GetView<ProfileController> {
                       profileMenuItem(
                           R.image.asset.feedback.assetName, 'Feedback', () {
                         controller.sendMailFeedback();
-                        //Get.toNamed<void>(Routes.ONBOARDING_VENDOR);
                       }),
                       profileMenuItem(R.image.asset.term_c.assetName,
                           'Term & Condition', () {}),

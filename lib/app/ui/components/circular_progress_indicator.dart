@@ -17,8 +17,8 @@ Widget buildLoader() {
 
 Widget buildPaymentLoader() {
   return Container(
-    height: 10.h,
-    width: 10.w,
+    height: 60.r,
+    width: 60.r,
     child: const Center(
       child: CircularProgressIndicator(
         strokeWidth: 1,

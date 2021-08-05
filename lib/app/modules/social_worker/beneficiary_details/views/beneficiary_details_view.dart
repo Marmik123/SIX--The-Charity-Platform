@@ -13,6 +13,7 @@ import 'package:six/app/ui/components/indexed_stack_tab_item.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
 import 'package:six/r.g.dart';
+import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
 import '../controllers/beneficiary_details_controller.dart';
 
@@ -102,7 +103,15 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                         ),
                         w(30.w),
                         Text(
-                          'Peter Lim',
+                          controller
+                                  .socialHome
+                                  .beneficiaryList[
+                                      controller.beneficiaryIndex()]
+                                  .familyUserForWorker
+                                  ?.userMetadata
+                                  ?.principalName
+                                  .toString() ??
+                              'Beneficiary Name',
                           style: TextStyle(
                             fontFamily: 'Gilroy',
                             fontSize: 55.sp,
@@ -124,42 +133,55 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                       right: 8,
                       left: 20,
                     ),
-                    child: Container(
-                      height: 70.h,
-                      width: 338.w,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100.r),
-                          color: AppColors.kffffff,
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.k00474E.withOpacity(0.14),
-                              offset: const Offset(5, 8),
-                              blurRadius: 50.r,
-                            ),
-                          ]),
-                      child: Center(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            w(35.w),
-                            Image.asset(
-                              R.image.asset.call.assetName,
-                              height: 35.r,
-                              width: 35.r,
-                            ),
-                            w(12.w),
-                            Text(
-                              '+65-9324573',
-                              style: TextStyle(
-                                fontFamily: 'Gilroy',
-                                fontSize: 38.sp,
-                                fontStyle: FontStyle.normal,
-                                color: AppColors.k13A89E.withOpacity(0.7),
-                                fontWeight: FontWeight.w500,
+                    child: GestureDetector(
+                      onTap: () {
+                        url_launcher.launch(
+                            'tel://${controller.socialHome.beneficiaryList()[controller.beneficiaryIndex()].familyUserForWorker?.userMetadata?.mobileNumber.toString() ?? ''}');
+                      },
+                      child: Container(
+                        height: 70.h,
+                        width: 338.w,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100.r),
+                            color: AppColors.kffffff,
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.k00474E.withOpacity(0.14),
+                                offset: const Offset(5, 8),
+                                blurRadius: 50.r,
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
+                            ]),
+                        child: Center(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              w(35.w),
+                              Image.asset(
+                                R.image.asset.call.assetName,
+                                height: 35.r,
+                                width: 35.r,
+                              ),
+                              w(12.w),
+                              Text(
+                                controller.socialHome
+                                        .beneficiaryList()[
+                                            controller.beneficiaryIndex()]
+                                        .familyUserForWorker
+                                        ?.userMetadata
+                                        ?.mobileNumber
+                                        .toString() ??
+                                    '',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy',
+                                  fontSize: 38.sp,
+                                  fontStyle: FontStyle.normal,
+                                  color: AppColors.k13A89E.withOpacity(0.7),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -227,7 +249,15 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                             child: Column(
                               children: [
                                 Text(
-                                  'Peter Lim',
+                                  controller
+                                          .socialHome
+                                          .beneficiaryList[
+                                              controller.beneficiaryIndex()]
+                                          .familyUserForWorker
+                                          ?.userMetadata
+                                          ?.principalName
+                                          .toString() ??
+                                      'Beneficiary Name',
                                   style: TextStyle(
                                     fontFamily: 'Gilroy',
                                     fontSize: 65.sp,
@@ -238,61 +268,84 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                                   textAlign: TextAlign.center,
                                 ),
                                 SizedBox(
-                                  height: 40.h,
+                                  height: 20.h,
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width: 50.w,
-                                    ),
-                                    Image.asset(
-                                      R.image.asset.message.assetName,
-                                      height: 33.h,
-                                      width: 37.w,
-                                    ),
-                                    w(15.w),
-                                    Text(
-                                      'peterlim@gmail.com',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy',
-                                        fontSize: 38.sp,
-                                        fontStyle: FontStyle.normal,
-                                        color:
-                                            AppColors.k033660.withOpacity(0.7),
-                                        fontWeight: FontWeight.w500,
+                                GestureDetector(
+                                  onTap: () {
+                                    controller.socialHome.launchURL(controller
+                                            .socialHome
+                                            .beneficiaryList()[
+                                                controller.beneficiaryIndex()]
+                                            .familyUserForWorker
+                                            ?.userMetadata
+                                            ?.email
+                                            .toString() ??
+                                        'mail@dharmatech.in');
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        width: 50.w,
                                       ),
-                                      textAlign: TextAlign.center,
-                                    )
-                                  ],
+                                      Image.asset(
+                                        R.image.asset.message.assetName,
+                                        height: 33.h,
+                                        width: 37.w,
+                                      ),
+                                      w(15.w),
+                                      Text(
+                                        controller.socialHome
+                                                .beneficiaryList()[controller
+                                                    .beneficiaryIndex()]
+                                                .familyUserForWorker
+                                                ?.userMetadata
+                                                ?.email
+                                                .toString() ??
+                                            'email',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy',
+                                          fontSize: 38.sp,
+                                          fontStyle: FontStyle.normal,
+                                          color: AppColors.k033660
+                                              .withOpacity(0.7),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      )
+                                    ],
+                                  ),
                                 ),
                                 h(20.h),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width: 50.w,
-                                    ),
-                                    Image.asset(
-                                      R.image.asset.location.assetName,
-                                      height: 37.h,
-                                      width: 31.w,
-                                    ),
-                                    w(15.w),
-                                    Text(
-                                      '231, Bedok Reservoir Rd, Singapore, 429333',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy',
-                                        fontSize: 38.sp,
-                                        fontStyle: FontStyle.normal,
-                                        color:
-                                            AppColors.k033660.withOpacity(0.7),
-                                        fontWeight: FontWeight.w500,
+                                FittedBox(
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        width: 50.w,
                                       ),
-                                      textAlign: TextAlign.left,
-                                    )
-                                  ],
+                                      Image.asset(
+                                        R.image.asset.location.assetName,
+                                        height: 37.h,
+                                        width: 31.w,
+                                      ),
+                                      w(15.w),
+                                      Text(
+                                        '${controller.socialHome.address!['floor']['value']},${controller.socialHome.address!['building']['value']},${controller.socialHome.address!['street']['value']},\n${controller.socialHome.address!['block']['value']},${controller.socialHome.address!['country']['desc']},${controller.socialHome.address!['postal']['value']}.',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy',
+                                          fontSize: 38.sp,
+                                          fontStyle: FontStyle.normal,
+                                          color: AppColors.k033660
+                                              .withOpacity(0.7),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),

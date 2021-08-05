@@ -21,6 +21,8 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
   final AvailableVendorsController controller =
       Get.put(AvailableVendorsController());
 
+  var currentFocus = FocusScope.of(Get.context!);
+
   AvailableVendorsView({this.categoryIndex});
   @override
   Widget build(BuildContext context) {
@@ -93,51 +95,61 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                   left: 60.w,
                   top: 290.h,
                   child: Center(
-                    child: textField(
-                      initialValue: '',
-                      controller: controller.txtCtrl,
-                      prefixText: '',
-                      formKey: availVendorCtrl.formKey,
-                      hintText: 'Search',
-                      prefixImageName: R.image.asset.search.assetName,
-                      onTap: () {},
-                      context: context,
-                      height: 160.h,
-                      width: 1005.w,
-                      suffixIcon: IconButton(
-                        color: AppColors.k6886A0,
-                        //padding: const EdgeInsets.only(top: 15),
-                        alignment: Alignment.center,
-                        iconSize: 20,
-                        tooltip: 'Clear Text',
-                        splashRadius: 2,
-                        icon: const Icon(
-                          Icons.clear,
-                        ),
-                        onPressed: () {
-                          controller.txtCtrl.clear();
-                          availVendorCtrl.assignVendorList(purchaseController
-                              .voucherCategory[categoryIndex ?? 0].id
-                              .toString());
+                    child: GetBuilder<AvailableVendorsController>(
+                      builder: (_) => textField(
+                        onChanged: (value) {
+                          controller.update();
                         },
+                        initialValue: '',
+                        controller: controller.txtCtrl,
+                        prefixText: '',
+                        formKey: availVendorCtrl.formKey,
+                        hintText: 'Search',
+                        prefixImageName: R.image.asset.search.assetName,
+                        onTap: () {},
+                        context: context,
+                        height: 160.h,
+                        width: 1005.w,
+                        suffixIcon: controller.txtCtrl.text.trim().isEmpty
+                            ? const SizedBox.shrink()
+                            : IconButton(
+                                color: AppColors.k6886A0,
+                                //padding: const EdgeInsets.only(top: 15),
+                                alignment: Alignment.center,
+                                iconSize: 20,
+                                tooltip: 'Clear Text',
+                                splashRadius: 2,
+                                icon: const Icon(
+                                  Icons.clear,
+                                ),
+                                onPressed: () {
+                                  controller.txtCtrl.clear();
+                                  controller.update();
+                                  availVendorCtrl.assignVendorList(
+                                      purchaseController
+                                          .voucherCategory[categoryIndex ?? 0]
+                                          .id
+                                          .toString());
+                                },
+                              ),
+                        textAction: TextInputAction.search,
+                        keyBoardType: TextInputType.text,
+                        textStyle: TextStyle(
+                          color: AppColors.k6886A0,
+                          fontWeight: FontWeight.w500,
+                          fontStyle: FontStyle.normal,
+                          fontFamily: 'Gilroy',
+                          fontSize: 45.sp,
+                        ),
+                        hintStyle: TextStyle(
+                          color: AppColors.k6886A0,
+                          fontWeight: FontWeight.w500,
+                          fontStyle: FontStyle.normal,
+                          fontFamily: 'Gilroy',
+                          fontSize: 45.sp,
+                        ),
+                        contentPadding: EdgeInsets.zero,
                       ),
-                      textAction: TextInputAction.search,
-                      keyBoardType: TextInputType.text,
-                      textStyle: TextStyle(
-                        color: AppColors.k6886A0,
-                        fontWeight: FontWeight.w500,
-                        fontStyle: FontStyle.normal,
-                        fontFamily: 'Gilroy',
-                        fontSize: 45.sp,
-                      ),
-                      hintStyle: TextStyle(
-                        color: AppColors.k6886A0,
-                        fontWeight: FontWeight.w500,
-                        fontStyle: FontStyle.normal,
-                        fontFamily: 'Gilroy',
-                        fontSize: 45.sp,
-                      ),
-                      contentPadding: EdgeInsets.zero,
                     ),
                   ),
                 )

@@ -453,13 +453,10 @@ class SocialHome extends StatelessWidget {
                               return GestureDetector(
                                 onTap: () {
                                   controller.assignNotesList(index);
-                                  Get.toNamed<void>(Routes.BENEFICIARY_DETAILS,
-                                      arguments: controller
-                                          .beneficiaryList()[index]
-                                          .familyUserForWorker!
-                                          .userMetadata!
-                                          .id
-                                          .toString());
+                                  Get.toNamed<void>(
+                                    Routes.BENEFICIARY_DETAILS,
+                                    arguments: index,
+                                  );
                                 },
                                 child: Container(
                                   width: 1.sw,
@@ -619,7 +616,12 @@ class SocialHome extends StatelessWidget {
                                                             GestureDetector(
                                                               onTap: () {
                                                                 controller
-                                                                    .launchURL();
+                                                                    .launchURL(controller
+                                                                    .beneficiaryList()[index]
+                                                                    .familyUserForWorker
+                                                                    ?.userMetadata
+                                                                    ?.email
+                                                                    .toString() ?? 'mail@dharmtech.in ');
                                                               },
                                                               child: Row(
                                                                 crossAxisAlignment:
@@ -695,7 +697,7 @@ class SocialHome extends StatelessWidget {
                                                                   fit: BoxFit
                                                                       .scaleDown,
                                                                   child: Text(
-                                                                    '${controller.address!['floor']['value']},${controller.address!['building']['value']},${controller.address!['unit']['value']},\n${controller.address!['street']['value']},${controller.address!['block']['value']},${controller.address!['country']['desc']},\n${controller.address!['postal']['value']}',
+                                                                    '${controller.address!['floor']['value']},${controller.address!['building']['value']},\n${controller.address!['street']['value']},${controller.address!['block']['value']},${controller.address!['country']['desc']},\n${controller.address!['postal']['value']}',
                                                                     style:
                                                                         TextStyle(
                                                                       fontFamily:
