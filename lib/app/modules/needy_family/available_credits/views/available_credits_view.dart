@@ -22,7 +22,7 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
     //var theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.kE3FCFF,
+        backgroundColor: AppColors.kF2FEFF,
         elevation: 0,
         title: Text(
           'Available Credits',

@@ -171,7 +171,8 @@ class ProfileView extends GetView<ProfileController> {
                         behavior: HitTestBehavior.translucent,
                         child: profileMenuItem(
                             R.image.asset.support.assetName, 'Support', () {
-                          Get.toNamed<void>(Routes.SUPPORT);
+                          controller.supportMail();
+                          //.toNamed<void>(Routes.SUPPORT);
                         }),
                       ),
                       profileMenuItem(

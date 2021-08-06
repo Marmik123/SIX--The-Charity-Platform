@@ -35,7 +35,9 @@ class GraphCategoryData {
 
   String toJson() => json.encode(toMap());
 
-  factory GraphCategoryData.fromMap(Map<String, dynamic> json) {
+  factory GraphCategoryData.fromMap(
+    Map<String, dynamic> json,
+  ) {
     var totalBalance = double.tryParse(json['total_balance'].toString());
     var barColorList = <Color>[
       AppColors.k13A89E,
@@ -48,7 +50,7 @@ class GraphCategoryData {
     return GraphCategoryData(
       name: json['name'] == null ? null : json['name'] as String,
       totalBalance: json['total_balance'] == null ? null : totalBalance,
-      barColor: barColorList[random.nextInt(barColorList.length)],
+      barColor: barColorList[0],
     );
   }
 

@@ -23,7 +23,16 @@ class ProfileController extends GetxController {
     final mailOptions = MailOptions(
       body: 'Add Your FeedBack Here',
       subject: '[SIX App] ',
-      recipients: ['dharmatech.india@gmail.com'],
+      recipients: ['jeremy@sixtech.org'],
+    );
+    FlutterMailer.send(mailOptions);
+  }
+
+  void supportMail() {
+    final mailOptions = MailOptions(
+      body: '',
+      subject: '[SIX App] - Support ',
+      recipients: ['jeremy@sixtech.org'],
     );
     FlutterMailer.send(mailOptions);
   }

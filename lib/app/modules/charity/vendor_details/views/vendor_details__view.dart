@@ -325,7 +325,7 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                 maxHeight: 100.h,
                                 child: Padding(
                                   padding:
-                                      const EdgeInsets.only(left: 22, top: 5),
+                                      const EdgeInsets.only(left: 22, top: 15),
                                   child: Text(
                                     'About Us',
                                     style: TextStyle(
@@ -396,7 +396,8 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                         [
                           UserProvider.role == 'charity'
                               ? Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
+                                  padding:
+                                      EdgeInsets.only(left: 20.0, top: 40.h),
                                   child: Text(
                                     availVendorCtrl
                                             .vendorDetails?['user_metadata']

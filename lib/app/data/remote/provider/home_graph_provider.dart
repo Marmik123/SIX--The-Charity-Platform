@@ -32,9 +32,10 @@ class GraphDataProvider {
       logI('######GraphCategory Details########');
       logI(response?.data!['data']);
       var graphCategoryData = response?.data!['data'] as List<dynamic>;
-      return List<GraphCategoryData>.from(
-          graphCategoryData.map<GraphCategoryData>((dynamic e) =>
-              GraphCategoryData.fromJson(e as Map<String, dynamic>)));
+      return List<GraphCategoryData>.from(graphCategoryData
+          .map<GraphCategoryData>((dynamic e) => GraphCategoryData.fromJson(
+                e as Map<String, dynamic>,
+              )));
     } else {
       Get.snackbar<void>('Error in Graph Data', 'Please Try Again.');
       return <GraphCategoryData>[];

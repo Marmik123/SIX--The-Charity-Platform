@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/data/models/graph_category_data.dart';
@@ -89,23 +88,18 @@ class CharityHomeController extends GetxController {
   //Credits by Program Graph
   Future<void> assignToGraphDetails() async {
     graphDetails(await GraphDataProvider.getGraphProgramData());
+    graphDetails().add(graphDetails[1]);
+    logWTF(graphDetails);
     isLoading(false);
-    graphDetails().forEach((element) {
-      element.value! > 300
-          ? barColor = AppColors.kFF9871
-          : element.value! < 300 && element.value! > 100
-              ? barColor = AppColors.kFF007A
-              : barColor = AppColors.kFFD85E;
-    });
   }
 
   //Credits by Category Graph
   Future<void> assignToCategoryDetails(String programId) async {
     graphCategoryDetails(
         await GraphDataProvider.getGraphCategoryData(programId));
-    graphCategoryDetails.forEach((element) {
+    /*graphCategoryDetails.forEach((element) {
       element.copyWith(barColor: AppColors.kFFF5F1);
-    });
+    });*/
     isLoading(false);
   }
 
