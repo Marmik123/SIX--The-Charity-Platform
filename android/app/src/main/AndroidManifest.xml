@@ -18,6 +18,7 @@
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
+            android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -50,8 +51,12 @@
             </intent-filter>
         </activity>
        <!-- FLUTTER LOCALNOTIFICATION  PERMISSIONS RECIEVER STARTS-->
-       <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
-       <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+       <receiver
+           android:exported="true"
+           android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
+       <receiver
+           android:exported="true"
+           android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
            <intent-filter>
                <action android:name="android.intent.action.BOOT_COMPLETED"/>
                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
