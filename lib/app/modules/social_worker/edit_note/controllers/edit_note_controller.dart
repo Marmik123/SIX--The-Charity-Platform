@@ -23,7 +23,6 @@ class EditNoteController extends GetxController {
   Future<void> updateNoteDetails() async {
     var beneficiaryId = socialHomeController
         .beneficiaryList()[socialHomeController.beneIndex!()]
-        .familyUserForWorker!
         .userMetadata!
         .id
         .toString();

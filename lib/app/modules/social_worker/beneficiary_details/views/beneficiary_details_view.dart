@@ -18,12 +18,6 @@ import 'package:url_launcher/url_launcher.dart' as url_launcher;
 import '../controllers/beneficiary_details_controller.dart';
 
 class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
-  final List<Widget> tabsContent = <Widget>[
-    NoteDetailsView(),
-    ConnectedOrganizationView(),
-    AssignedVoucherView(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,13 +97,7 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                         ),
                         w(30.w),
                         Text(
-                          controller
-                                  .socialHome
-                                  .beneficiaryList[
-                                      controller.beneficiaryIndex()]
-                                  .familyUserForWorker
-                                  ?.userMetadata
-                                  ?.principalName
+                          controller.beneficiary.userMetadata?.principalName
                                   .toString() ??
                               'Beneficiary Name',
                           style: TextStyle(
@@ -136,7 +124,7 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                     child: GestureDetector(
                       onTap: () {
                         url_launcher.launch(
-                            'tel://${controller.socialHome.beneficiaryList()[controller.beneficiaryIndex()].familyUserForWorker?.userMetadata?.mobileNumber.toString() ?? ''}');
+                            'tel://${controller.beneficiary.userMetadata?.mobileNumber.toString() ?? ''}');
                       },
                       child: Container(
                         height: 70.h,
@@ -163,12 +151,8 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                               ),
                               w(12.w),
                               Text(
-                                controller.socialHome
-                                        .beneficiaryList()[
-                                            controller.beneficiaryIndex()]
-                                        .familyUserForWorker
-                                        ?.userMetadata
-                                        ?.mobileNumber
+                                controller
+                                        .beneficiary.userMetadata?.mobileNumber
                                         .toString() ??
                                     '',
                                 style: TextStyle(
@@ -249,12 +233,7 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                             child: Column(
                               children: [
                                 Text(
-                                  controller
-                                          .socialHome
-                                          .beneficiaryList[
-                                              controller.beneficiaryIndex()]
-                                          .familyUserForWorker
-                                          ?.userMetadata
+                                  controller.beneficiary.userMetadata
                                           ?.principalName
                                           .toString() ??
                                       'Beneficiary Name',
@@ -273,12 +252,7 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                                 GestureDetector(
                                   onTap: () {
                                     controller.socialHome.launchURL(controller
-                                            .socialHome
-                                            .beneficiaryList()[
-                                                controller.beneficiaryIndex()]
-                                            .familyUserForWorker
-                                            ?.userMetadata
-                                            ?.email
+                                            .beneficiary.userMetadata?.email
                                             .toString() ??
                                         'mail@dharmatech.in');
                                   },
@@ -295,12 +269,8 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                                       ),
                                       w(15.w),
                                       Text(
-                                        controller.socialHome
-                                                .beneficiaryList()[controller
-                                                    .beneficiaryIndex()]
-                                                .familyUserForWorker
-                                                ?.userMetadata
-                                                ?.email
+                                        controller
+                                                .beneficiary.userMetadata?.email
                                                 .toString() ??
                                             'email',
                                         style: TextStyle(

@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/modules/social_worker/beneficiary_details/controllers/beneficiary_details_controller.dart';
 import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
+import 'package:six/app/utils/material_prop_ext.dart';
 import 'package:six/r.g.dart';
 
-import '../controllers/note_details_controller.dart';
+class NoteDetailsView extends GetView<BeneficiaryDetailsController> {
+  /*@override
+  final NoteDetailsController controller = Get.put(NoteDetailsController());*/
 
-class NoteDetailsView extends GetView<NoteDetailsController> {
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -108,8 +111,10 @@ class NoteDetailsView extends GetView<NoteDetailsController> {
                             w(460.w),
                             GestureDetector(
                               onTap: () {
-                                Get.toNamed<void>(Routes.EDIT_NOTE,
-                                    arguments: index);
+                                Get.toNamed<void>(
+                                  Routes.EDIT_NOTE,
+                                  arguments: index,
+                                );
                               },
                               child: Container(
                                 width: 80.r,
@@ -130,6 +135,88 @@ class NoteDetailsView extends GetView<NoteDetailsController> {
                                     width: 40.r,
                                   ),
                                 ),
+                              ),
+                            ),
+                            w(40.w),
+                            GestureDetector(
+                              onTap: () {
+                                Get.defaultDialog<bool?>(
+                                  title: 'Are you sure you want to delete?',
+                                  titleStyle: TextStyle(
+                                    fontFamily: 'Gilroy',
+                                    fontSize: 50.sp,
+                                    fontStyle: FontStyle.normal,
+                                    color: AppColors.k033660,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  backgroundColor: AppColors.kE3FCFF,
+                                  content: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Get.back<void>(result: true);
+                                        },
+                                        style: ButtonStyle(
+                                          tapTargetSize:
+                                              MaterialTapTargetSize.shrinkWrap,
+                                          padding: EdgeInsets.zero.msp,
+                                        ),
+                                        child: Text(
+                                          'Yes',
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy',
+                                            fontSize: 40.sp,
+                                            fontStyle: FontStyle.normal,
+                                            color: AppColors.k033660,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                      w(15.w),
+                                      TextButton(
+                                        onPressed: () {
+                                          Get.back<void>(result: false);
+                                        },
+                                        child: Text(
+                                          'No',
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy',
+                                            fontSize: 40.sp,
+                                            fontStyle: FontStyle.normal,
+                                            color: AppColors.k033660,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ).then((value) {
+                                  if (value ?? false) {
+                                    controller.deleteNote(index);
+                                  }
+                                });
+                              },
+                              child: Container(
+                                width: 80.r,
+                                height: 80.r,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColors.kE3FCFF,
+                                  border: Border.all(
+                                    color: AppColors.kffffff,
+                                    width: 1.w,
+                                  ),
+                                ),
+                                child: const FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Icon(
+                                      Icons.delete_outline,
+                                      color: AppColors.k13A89E,
+                                      size: 18,
+                                    )),
                               ),
                             ),
                           ],

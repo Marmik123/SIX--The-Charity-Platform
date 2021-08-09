@@ -29,6 +29,7 @@ class SocialHomeView extends GetView<SocialHomeController> {
     PurchaseView(),
     ProfileView(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -445,17 +446,16 @@ class SocialHome extends StatelessWidget {
                               controller.beneIndex!(index);
                               controller.address = jsonDecode(controller
                                   .beneficiaryList()[index]
-                                  .familyUserForWorker!
                                   .userMetadata!
                                   .address
                                   .toString()) as Map<String, dynamic>;
                               logI(controller.address);
                               return GestureDetector(
                                 onTap: () {
-                                  controller.assignNotesList(index);
                                   Get.toNamed<void>(
                                     Routes.BENEFICIARY_DETAILS,
-                                    arguments: index,
+                                    arguments:
+                                        controller.beneficiaryList()[index],
                                   );
                                 },
                                 child: Container(
@@ -516,8 +516,7 @@ class SocialHome extends StatelessWidget {
                                                                   controller
                                                                           .beneficiaryList()[
                                                                               index]
-                                                                          .familyUserForWorker
-                                                                          ?.userMetadata
+                                                                          .userMetadata
                                                                           ?.principalName
                                                                           .toString() ??
                                                                       'Peter Lim',
@@ -545,7 +544,7 @@ class SocialHome extends StatelessWidget {
                                                                   onTap: () {
                                                                     url_launcher
                                                                         .launch(
-                                                                            'tel://${controller.beneficiaryList()[index].familyUserForWorker?.userMetadata?.mobileNumber.toString()}');
+                                                                            'tel://${controller.beneficiaryList()[index].userMetadata?.mobileNumber.toString()}');
                                                                   },
                                                                   child:
                                                                       Container(
@@ -581,7 +580,7 @@ class SocialHome extends StatelessWidget {
                                                                           ),
                                                                           w(10.w),
                                                                           Text(
-                                                                            '${controller.beneficiaryList()[index].familyUserForWorker?.userMetadata?.mobileNumber}',
+                                                                            '${controller.beneficiaryList()[index].userMetadata?.mobileNumber}',
                                                                             style:
                                                                                 TextStyle(
                                                                               fontFamily: 'Gilroy',
@@ -615,13 +614,13 @@ class SocialHome extends StatelessWidget {
                                                             h(10.h),
                                                             GestureDetector(
                                                               onTap: () {
-                                                                controller
-                                                                    .launchURL(controller
-                                                                    .beneficiaryList()[index]
-                                                                    .familyUserForWorker
-                                                                    ?.userMetadata
-                                                                    ?.email
-                                                                    .toString() ?? 'mail@dharmtech.in ');
+                                                                controller.launchURL(controller
+                                                                        .beneficiaryList()[
+                                                                            index]
+                                                                        .userMetadata
+                                                                        ?.email
+                                                                        .toString() ??
+                                                                    'mail@dharmtech.in ');
                                                               },
                                                               child: Row(
                                                                 crossAxisAlignment:
@@ -645,8 +644,7 @@ class SocialHome extends StatelessWidget {
                                                                   Text(
                                                                     controller
                                                                             .beneficiaryList()[index]
-                                                                            .familyUserForWorker
-                                                                            ?.userMetadata
+                                                                            .userMetadata
                                                                             ?.email
                                                                             .toString() ??
                                                                         'email',

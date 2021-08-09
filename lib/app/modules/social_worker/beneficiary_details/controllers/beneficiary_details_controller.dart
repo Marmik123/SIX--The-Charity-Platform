@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/logger.dart';
+import 'package:six/app/data/local/note_details_helper.dart';
+import 'package:six/app/data/models/user_entity.dart';
 import 'package:six/app/modules/social_worker/social_home/controllers/social_home_controller.dart';
 
 class BeneficiaryDetailsController extends GetxController {
-  //TODO: Implement BeneficiaryDetailsController
   RxInt tabIndex = 0.obs;
   RxBool snap = true.obs;
-  RxInt beneficiaryIndex = 0.obs;
+  late UserEntity beneficiary;
   RxBool tabBarVisibility = true.obs;
   RxBool titleVisible = true.obs;
   RxDouble top = 0.0.obs;
   RxDouble opacity = 0.0.obs;
-  final count = 0.obs;
   SocialHomeController socialHome = Get.find<SocialHomeController>();
   ScrollController scrollViewController = ScrollController();
+
+  RxList<Map<String, Object?>> notesList = <Map<String, Object?>>[].obs;
+  final dbHelper = DatabaseHelper.instance;
 
   List<String> text = [
     'Note',
@@ -32,9 +35,19 @@ class BeneficiaryDetailsController extends GetxController {
     titleVisible(false);
     scrollViewController.addListener(dataScrollController);
     if (Get.arguments != null) {
-      beneficiaryIndex(Get.arguments as int);
+      beneficiary = Get.arguments as UserEntity;
     }
-    logWTF(beneficiaryIndex);
+    getNotes();
+    logWTF(beneficiary.toJson());
+  }
+
+  Future<void> deleteNote(int index) async {
+    await dbHelper.deleteNote(noteId: notesList[index]['id'] as int);
+    await updateNoteDetails();
+  }
+
+  Future<void> updateNoteDetails() async {
+    notesList(await dbHelper.getNotes(beneficiaryId: beneficiary.id));
   }
 
   void dataScrollController() {
@@ -50,14 +63,11 @@ class BeneficiaryDetailsController extends GetxController {
   }
 
   @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {
     scrollViewController.removeListener(dataScrollController);
   }
 
-  void increment() => count.value++;
+  Future<void> getNotes() async {
+    notesList(await dbHelper.getNotes(beneficiaryId: beneficiary.id));
+  }
 }

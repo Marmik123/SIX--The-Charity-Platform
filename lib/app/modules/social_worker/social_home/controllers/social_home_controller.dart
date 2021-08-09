@@ -3,9 +3,8 @@ import 'package:get/get.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/local/note_details_helper.dart';
 import 'package:six/app/data/local/user_provider.dart';
-import 'package:six/app/data/models/beneficiary_list_details.dart';
+import 'package:six/app/data/models/user_entity.dart';
 import 'package:six/app/data/remote/provider/social_worker.dart';
-import 'package:six/app/modules/social_worker/note_details/controllers/note_details_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SocialHomeController extends GetxController {
@@ -22,10 +21,9 @@ class SocialHomeController extends GetxController {
   RxInt? monthNum = 1.obs;
   RxString monthName = 'Sept'.obs;
   DateTime selectedDate = DateTime.now();
-  RxList<BeneficiaryListDetails> beneficiaryList =
-      <BeneficiaryListDetails>[].obs;
+  RxList<UserEntity> beneficiaryList = <UserEntity>[].obs;
   ScrollController scrollController = ScrollController();
-  final NoteDetailsController notesCtrl = Get.put(NoteDetailsController());
+  // final NoteDetailsController notesCtrl = Get.put(NoteDetailsController());
   final dbHelper = DatabaseHelper.instance;
   @override
   void onInit() {
@@ -107,16 +105,5 @@ class SocialHomeController extends GetxController {
         monthName('Dec');
         break;
     }
-  }
-
-  Future<void> assignNotesList(int index) async {
-    notesCtrl.notesList(await dbHelper.getNotes(
-        beneficiaryId: beneficiaryList()[index]
-            .familyUserForWorker!
-            .userMetadata!
-            .id
-            .toString()));
-    logI('notes');
-    logI(notesCtrl.notesList);
   }
 }

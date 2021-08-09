@@ -13,7 +13,6 @@ class AddNoteController extends GetxController {
   final dbHelper = DatabaseHelper.instance;
   String beneficiaryId = socialHomeController
       .beneficiaryList()[socialHomeController.beneIndex!()]
-      .familyUserForWorker!
       .userMetadata!
       .id
       .toString();

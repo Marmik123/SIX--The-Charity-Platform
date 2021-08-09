@@ -62,15 +62,16 @@ class ProfileView extends GetView<ProfileController> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              if (UserProvider.role != 'charity' ||
+                              if (UserProvider.role != 'charity' &&
                                   UserProvider.role != 'vendor') {
                                 profileCtrl
                                     .pickProfilePicture(ImageSource.gallery);
                               }
                             },
                             onLongPress: () {},
-                            child: doubleShadedCont(
-                                'https://picsum.photos/id/1027/400'),
+                            child: doubleShadedCont(UserProvider
+                                .currentUser!.profileImageUrl
+                                .toString()),
                           ),
                           UserProvider.role == 'charity' ||
                                   UserProvider.role == 'vendor'
@@ -103,7 +104,9 @@ class ProfileView extends GetView<ProfileController> {
                         height: 83.h,
                       ),
                       Text(
-                        'Peter Lim',
+                        /*UserProvider.currentUser?.userMetadata?.principalName
+                                .toString() ?? */
+                        'South East CDC',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: 'Gilroy',

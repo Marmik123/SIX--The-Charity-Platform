@@ -6,7 +6,7 @@ import 'dart:convert';
 
 class UserEntity {
   UserEntity({
-    this.id,
+    required this.id,
     this.singpassId,
     this.corppassId,
     this.role,
@@ -26,7 +26,7 @@ class UserEntity {
     this.userMetadata,
   });
 
-  String? id;
+  String id;
   dynamic singpassId;
   String? corppassId;
   String? role;
@@ -92,7 +92,7 @@ class UserEntity {
   String toJson() => json.encode(toMap());
 
   factory UserEntity.fromMap(Map<String, dynamic> json) => UserEntity(
-        id: json['id'] == null ? null : json['id'] as String,
+        id: json['id']! as String,
         singpassId: json['singpass_id'],
         corppassId:
             json['corppass_id'] == null ? null : json['corppass_id'] as String,
