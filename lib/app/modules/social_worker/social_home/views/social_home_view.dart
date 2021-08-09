@@ -6,7 +6,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
-import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/models/sliver_persistent_header.dart';
 import 'package:six/app/modules/charity/purchase/views/purchase_view.dart';
 import 'package:six/app/modules/needy_family/profile/views/profile_view.dart';
@@ -444,327 +443,324 @@ class SocialHome extends StatelessWidget {
                             separatorBuilder: (context, index) => h(15.h),
                             itemBuilder: (context, index) {
                               controller.beneIndex!(index);
-                              controller.address = jsonDecode(controller
-                                  .beneficiaryList()[index]
-                                  .userMetadata!
-                                  .address
-                                  .toString()) as Map<String, dynamic>;
-                              logI(controller.address);
-                              return GestureDetector(
-                                onTap: () {
-                                  Get.toNamed<void>(
-                                    Routes.BENEFICIARY_DETAILS,
-                                    arguments:
-                                        controller.beneficiaryList()[index],
-                                  );
-                                },
-                                child: Container(
-                                  width: 1.sw,
-                                  child: Stack(
-                                    clipBehavior: Clip.none,
-                                    alignment: Alignment.topLeft,
-                                    children: [
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 38.0),
-                                        child: Column(
+                              if (controller
+                                      .beneficiaryList[index].userMetadata !=
+                                  null) {
+                                controller.assignAddress(jsonDecode(controller
+                                        .beneficiaryList[index]
+                                        .userMetadata
+                                        ?.address
+                                        .toString() ??
+                                    '{}') as Map<String, dynamic>);
+                              }
+                              return controller.beneficiaryList[index]
+                                          .userMetadata ==
+                                      null
+                                  ? const SizedBox.shrink()
+                                  : GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed<void>(
+                                          Routes.BENEFICIARY_DETAILS,
+                                          arguments: [
+                                            controller.beneficiaryList()[index],
+                                            index
+                                          ],
+                                        );
+                                      },
+                                      child: Container(
+                                        width: 1.sw,
+                                        child: Stack(
+                                          clipBehavior: Clip.none,
+                                          alignment: Alignment.topLeft,
                                           children: [
                                             Padding(
                                               padding: const EdgeInsets.only(
-                                                  left: 0.0),
-                                              child: Container(
-                                                  height: 339.h,
-                                                  width: 970.w,
-                                                  decoration: BoxDecoration(
-                                                      color: AppColors.kffffff,
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                            color: AppColors
-                                                                .k00474E
-                                                                .withOpacity(
-                                                                    0.04),
-                                                            blurRadius: 50.r,
-                                                            offset:
-                                                                const Offset(
-                                                                    0, 20))
-                                                      ],
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50.r)),
-                                                  child: FittedBox(
-                                                    child: Row(
-                                                      children: [
-                                                        w(81.w),
-                                                        Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            h(30.h),
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                w(50.w),
-                                                                Text(
-                                                                  controller
-                                                                          .beneficiaryList()[
-                                                                              index]
-                                                                          .userMetadata
-                                                                          ?.principalName
-                                                                          .toString() ??
-                                                                      'Peter Lim',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Gilroy',
-                                                                    fontSize:
-                                                                        50.sp,
-                                                                    fontStyle:
-                                                                        FontStyle
-                                                                            .normal,
-                                                                    color: AppColors
-                                                                        .k033660,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                  ),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                ),
-                                                                w(80.w),
-                                                                GestureDetector(
-                                                                  onTap: () {
-                                                                    url_launcher
-                                                                        .launch(
-                                                                            'tel://${controller.beneficiaryList()[index].userMetadata?.mobileNumber.toString()}');
-                                                                  },
-                                                                  child:
-                                                                      Container(
-                                                                    height:
-                                                                        80.w,
-                                                                    width:
-                                                                        388.h,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              100.r),
+                                                  left: 38.0),
+                                              child: Column(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 0.0),
+                                                    child: Container(
+                                                        height: 339.h,
+                                                        width: 970.w,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                color: AppColors
+                                                                    .kffffff,
+                                                                boxShadow: [
+                                                                  BoxShadow(
                                                                       color: AppColors
-                                                                          .k13A89E
+                                                                          .k00474E
                                                                           .withOpacity(
-                                                                              0.1),
-                                                                    ),
-                                                                    child:
-                                                                        Center(
-                                                                      child:
-                                                                          Row(
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
-                                                                        children: [
-                                                                          w(35.w),
-                                                                          Image
-                                                                              .asset(
-                                                                            R.image.asset.call.assetName,
-                                                                            height:
-                                                                                35.r,
-                                                                            width:
-                                                                                35.r,
-                                                                          ),
-                                                                          w(10.w),
-                                                                          Text(
-                                                                            '${controller.beneficiaryList()[index].userMetadata?.mobileNumber}',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontFamily: 'Gilroy',
-                                                                              fontSize: 38.sp,
-                                                                              fontStyle: FontStyle.normal,
-                                                                              color: AppColors.k13A89E.withOpacity(0.7),
-                                                                              fontWeight: FontWeight.w500,
-                                                                            ),
-                                                                            textAlign:
-                                                                                TextAlign.center,
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                w(35.w),
-                                                                GestureDetector(
-                                                                  onTap: () {},
-                                                                  child:
-                                                                      const Icon(
-                                                                    Icons
-                                                                        .keyboard_arrow_right_sharp,
-                                                                    color: AppColors
-                                                                        .k4F7290,
-                                                                    size: 25,
-                                                                  ),
-                                                                )
-                                                              ],
-                                                            ),
-                                                            h(10.h),
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                controller.launchURL(controller
-                                                                        .beneficiaryList()[
-                                                                            index]
-                                                                        .userMetadata
-                                                                        ?.email
-                                                                        .toString() ??
-                                                                    'mail@dharmtech.in ');
-                                                              },
-                                                              child: Row(
+                                                                              0.04),
+                                                                      blurRadius:
+                                                                          50.r,
+                                                                      offset:
+                                                                          const Offset(
+                                                                              0,
+                                                                              20))
+                                                                ],
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            50.r)),
+                                                        child: FittedBox(
+                                                          child: Row(
+                                                            children: [
+                                                              w(81.w),
+                                                              Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
                                                                 crossAxisAlignment:
                                                                     CrossAxisAlignment
-                                                                        .center,
+                                                                        .start,
                                                                 children: [
-                                                                  SizedBox(
-                                                                    width: 50.w,
+                                                                  h(30.h),
+                                                                  Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      w(50.w),
+                                                                      Text(
+                                                                        controller.beneficiaryList()[index].userMetadata?.principalName.toString() ??
+                                                                            'Peter Lim',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontFamily:
+                                                                              'Gilroy',
+                                                                          fontSize:
+                                                                              50.sp,
+                                                                          fontStyle:
+                                                                              FontStyle.normal,
+                                                                          color:
+                                                                              AppColors.k033660,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                      ),
+                                                                      w(80.w),
+                                                                      GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          url_launcher
+                                                                              .launch('tel://${controller.beneficiaryList()[index].userMetadata?.mobileNumber.toString()}');
+                                                                        },
+                                                                        child:
+                                                                            Container(
+                                                                          height:
+                                                                              80.w,
+                                                                          width:
+                                                                              388.h,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(100.r),
+                                                                            color:
+                                                                                AppColors.k13A89E.withOpacity(0.1),
+                                                                          ),
+                                                                          child:
+                                                                              Center(
+                                                                            child:
+                                                                                Row(
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                w(35.w),
+                                                                                Image.asset(
+                                                                                  R.image.asset.call.assetName,
+                                                                                  height: 35.r,
+                                                                                  width: 35.r,
+                                                                                ),
+                                                                                w(10.w),
+                                                                                Text(
+                                                                                  '${controller.beneficiaryList()[index].userMetadata?.mobileNumber}',
+                                                                                  style: TextStyle(
+                                                                                    fontFamily: 'Gilroy',
+                                                                                    fontSize: 38.sp,
+                                                                                    fontStyle: FontStyle.normal,
+                                                                                    color: AppColors.k13A89E.withOpacity(0.7),
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                  ),
+                                                                                  textAlign: TextAlign.center,
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      w(35.w),
+                                                                      GestureDetector(
+                                                                        onTap:
+                                                                            () {},
+                                                                        child:
+                                                                            const Icon(
+                                                                          Icons
+                                                                              .keyboard_arrow_right_sharp,
+                                                                          color:
+                                                                              AppColors.k4F7290,
+                                                                          size:
+                                                                              25,
+                                                                        ),
+                                                                      )
+                                                                    ],
                                                                   ),
-                                                                  Image.asset(
-                                                                    R
-                                                                        .image
-                                                                        .asset
-                                                                        .message
-                                                                        .assetName,
-                                                                    height:
-                                                                        33.h,
-                                                                    width: 37.w,
-                                                                  ),
-                                                                  w(15.w),
-                                                                  Text(
-                                                                    controller
-                                                                            .beneficiaryList()[index]
-                                                                            .userMetadata
-                                                                            ?.email
-                                                                            .toString() ??
-                                                                        'email',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontFamily:
-                                                                          'Gilroy',
-                                                                      fontSize:
-                                                                          38.sp,
-                                                                      fontStyle:
-                                                                          FontStyle
-                                                                              .normal,
-                                                                      color: AppColors
-                                                                          .k033660
-                                                                          .withOpacity(
-                                                                              0.7),
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
+                                                                  h(10.h),
+                                                                  GestureDetector(
+                                                                    onTap: () {
+                                                                      controller.launchURL(controller
+                                                                              .beneficiaryList()[index]
+                                                                              .userMetadata
+                                                                              ?.email
+                                                                              .toString() ??
+                                                                          'mail@dharmtech.in ');
+                                                                    },
+                                                                    child: Row(
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        SizedBox(
+                                                                          width:
+                                                                              50.w,
+                                                                        ),
+                                                                        Image
+                                                                            .asset(
+                                                                          R
+                                                                              .image
+                                                                              .asset
+                                                                              .message
+                                                                              .assetName,
+                                                                          height:
+                                                                              33.h,
+                                                                          width:
+                                                                              37.w,
+                                                                        ),
+                                                                        w(15.w),
+                                                                        Text(
+                                                                          controller.beneficiaryList()[index].userMetadata?.email.toString() ??
+                                                                              'email',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontFamily:
+                                                                                'Gilroy',
+                                                                            fontSize:
+                                                                                38.sp,
+                                                                            fontStyle:
+                                                                                FontStyle.normal,
+                                                                            color:
+                                                                                AppColors.k033660.withOpacity(0.7),
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                          ),
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                        )
+                                                                      ],
                                                                     ),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                  )
+                                                                  ),
+                                                                  h(25.h),
+                                                                  Row(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      SizedBox(
+                                                                        width:
+                                                                            50.w,
+                                                                      ),
+                                                                      Image
+                                                                          .asset(
+                                                                        R
+                                                                            .image
+                                                                            .asset
+                                                                            .location
+                                                                            .assetName,
+                                                                        height:
+                                                                            37.h,
+                                                                        width:
+                                                                            31.w,
+                                                                      ),
+                                                                      w(15.w),
+                                                                      FittedBox(
+                                                                        fit: BoxFit
+                                                                            .scaleDown,
+                                                                        child:
+                                                                            Text(
+                                                                          controller
+                                                                              .returnAddress(),
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontFamily:
+                                                                                'Gilroy',
+                                                                            fontSize:
+                                                                                38.sp,
+                                                                            fontStyle:
+                                                                                FontStyle.normal,
+                                                                            color:
+                                                                                AppColors.k033660.withOpacity(0.7),
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                          ),
+                                                                          textAlign:
+                                                                              TextAlign.left,
+                                                                        ),
+                                                                      )
+                                                                    ],
+                                                                  ),
                                                                 ],
                                                               ),
-                                                            ),
-                                                            h(25.h),
-                                                            Row(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: 50.w,
-                                                                ),
-                                                                Image.asset(
-                                                                  R
-                                                                      .image
-                                                                      .asset
-                                                                      .location
-                                                                      .assetName,
-                                                                  height: 37.h,
-                                                                  width: 31.w,
-                                                                ),
-                                                                w(15.w),
-                                                                FittedBox(
-                                                                  fit: BoxFit
-                                                                      .scaleDown,
-                                                                  child: Text(
-                                                                    '${controller.address!['floor']['value']},${controller.address!['building']['value']},\n${controller.address!['street']['value']},${controller.address!['block']['value']},${controller.address!['country']['desc']},\n${controller.address!['postal']['value']}',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontFamily:
-                                                                          'Gilroy',
-                                                                      fontSize:
-                                                                          38.sp,
-                                                                      fontStyle:
-                                                                          FontStyle
-                                                                              .normal,
-                                                                      color: AppColors
-                                                                          .k033660
-                                                                          .withOpacity(
-                                                                              0.7),
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                    ),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .left,
-                                                                  ),
-                                                                )
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
+                                                            ],
+                                                          ),
+                                                        )),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 25.h,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Positioned(
+                                              bottom: 129.h,
+                                              right: 0.81.sw,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                      color: AppColors.kffffff,
+                                                      width: 8.w,
                                                     ),
-                                                  )),
-                                            ),
-                                            SizedBox(
-                                              height: 25.h,
-                                            ),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: AppColors.k001F22
+                                                            .withOpacity(0.03),
+                                                        blurRadius: 25.r,
+                                                        offset: Offset(
+                                                            10.sp, 25.sp),
+                                                      ),
+                                                    ]),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                  child: cacheImage(
+                                                      height: 180.r,
+                                                      width: 180.r,
+                                                      url:
+                                                          'https://picsum.photos/id/1027/180'),
+                                                ),
+                                              ),
+                                            )
                                           ],
                                         ),
                                       ),
-                                      Positioned(
-                                        bottom: 129.h,
-                                        right: 0.81.sw,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                color: AppColors.kffffff,
-                                                width: 8.w,
-                                              ),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: AppColors.k001F22
-                                                      .withOpacity(0.03),
-                                                  blurRadius: 25.r,
-                                                  offset: Offset(10.sp, 25.sp),
-                                                ),
-                                              ]),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                            child: cacheImage(
-                                                height: 180.r,
-                                                width: 180.r,
-                                                url:
-                                                    'https://picsum.photos/id/1027/180'),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              );
+                                    );
                             },
                           ),
                         )),

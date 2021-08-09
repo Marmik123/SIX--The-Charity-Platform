@@ -13,7 +13,7 @@ class SocialHomeController extends GetxController {
   RxInt? beneIndex = 0.obs;
   RxInt? tabIndex = 0.obs;
   Map<String, dynamic>? dashboardData;
-  Map<String, dynamic>? address;
+  Map<String, dynamic>? decodedAddress;
   RxBool paid = false.obs;
   String skip = '0';
   String limit = '1000';
@@ -33,6 +33,17 @@ class SocialHomeController extends GetxController {
       assignBeneficiaryList();
     }
     logI(UserProvider.role);
+  }
+
+  void assignAddress(Map<String, dynamic> address) {
+    logWTF('!!!!$address');
+    decodedAddress = address;
+    logW('@@@$address');
+  }
+
+  String returnAddress() {
+    logI(decodedAddress);
+    return '${decodedAddress!['floor']['value']},${decodedAddress!['building']['value']},${decodedAddress!['street']['value']},\n${decodedAddress!['block']['value']},${decodedAddress!['country']['desc']},${decodedAddress!['postal']['value']}.';
   }
 
   Future<void> launchURL(String mailId) async {

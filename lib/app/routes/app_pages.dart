@@ -30,7 +30,6 @@ import 'package:six/app/modules/needy_family/voucher_redemption/bindings/voucher
 import 'package:six/app/modules/needy_family/voucher_redemption/views/voucher_redemption_view.dart';
 import 'package:six/app/modules/purchase_social/bindings/purchase_social_binding.dart';
 import 'package:six/app/modules/purchase_social/views/purchase_social_view.dart';
-import 'package:six/app/modules/social_worker/add_note/bindings/add_note_binding.dart';
 import 'package:six/app/modules/social_worker/add_note/views/add_note_view.dart';
 import 'package:six/app/modules/social_worker/assigned_voucher/bindings/assigned_voucher_binding.dart';
 import 'package:six/app/modules/social_worker/assigned_voucher/views/assigned_voucher_view.dart';
@@ -178,7 +177,7 @@ class AppPages {
     GetPage(
       name: _Paths.ADD_NOTE,
       page: () => AddNoteView(),
-      binding: AddNoteBinding(),
+      //binding: AddNoteBinding(),
     ),
     GetPage(
       name: _Paths.BENEFICIARY_DETAILS,

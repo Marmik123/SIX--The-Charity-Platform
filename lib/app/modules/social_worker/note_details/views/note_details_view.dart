@@ -10,9 +10,6 @@ import 'package:six/app/utils/material_prop_ext.dart';
 import 'package:six/r.g.dart';
 
 class NoteDetailsView extends GetView<BeneficiaryDetailsController> {
-  /*@override
-  final NoteDetailsController controller = Get.put(NoteDetailsController());*/
-
   @override
   Widget build(BuildContext context) {
     return ListView(

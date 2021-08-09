@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/modules/social_worker/beneficiary_details/controllers/beneficiary_details_controller.dart';
 import 'package:six/app/ui/components/common_appbar.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
 
-import '../controllers/add_note_controller.dart';
-
-class AddNoteView extends GetView<AddNoteController> {
+class AddNoteView extends GetView<BeneficiaryDetailsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +47,7 @@ class AddNoteView extends GetView<AddNoteController> {
                       currentFocus.unfocus();
                     },
                     cursorColor: AppColors.k033660,
-                    controller: controller.textCtrl,
+                    controller: controller.addNoteCtrl,
                     style: TextStyle(
                       fontFamily: 'Gilroy',
                       fontSize: 45.sp,

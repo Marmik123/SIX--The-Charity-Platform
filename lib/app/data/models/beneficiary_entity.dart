@@ -1,3 +1,4 @@
+/*
 // To parse this JSON data, do
 //
 //     final vendorDetails = vendorDetailsFromMap(jsonString);
@@ -138,3 +139,4 @@ class FamilyUserForWorker {
         'user_metadata': userMetadata == null ? null : userMetadata?.toMap(),
       };
 }
+*/

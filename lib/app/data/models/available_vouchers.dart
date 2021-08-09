@@ -21,6 +21,7 @@ class AvailableVouchers {
     this.isFeature,
     this.isActive,
     this.deleted,
+    this.total,
   });
 
   String? id;
@@ -29,6 +30,7 @@ class AvailableVouchers {
   String? terms;
   dynamic instructions;
   double? amount;
+  double? total;
   double? availableCount;
   double? soldCount;
   String? iconName;
@@ -50,6 +52,7 @@ class AvailableVouchers {
     String? terms,
     dynamic instructions,
     double? amount,
+    double? total,
     double? availableCount,
     double? soldCount,
     String? iconName,
@@ -78,6 +81,7 @@ class AvailableVouchers {
         thumbIconName: thumbIconName ?? this.thumbIconName,
         thumbIconUrl: thumbIconUrl ?? this.thumbIconUrl,
         startDate: startDate ?? this.startDate,
+        total: total ?? this.total,
         endDate: endDate ?? this.endDate,
         validity: validity ?? this.validity,
         isPaid: isPaid ?? this.isPaid,
@@ -102,6 +106,9 @@ class AvailableVouchers {
         amount: json['amount'] == null
             ? null
             : double.tryParse(json['amount'].toString()),
+        total: json['total'] == null
+            ? null
+            : double.tryParse(json['total'].toString()),
         availableCount: json['available_count'] == null
             ? null
             : double.tryParse(json['available_count'].toString()),
@@ -134,6 +141,7 @@ class AvailableVouchers {
         'terms': terms,
         'instructions': instructions,
         'amount': amount,
+        'total': total,
         'available_count': availableCount,
         'sold_count': soldCount,
         'icon_name': iconName,

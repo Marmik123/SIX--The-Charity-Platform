@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/ui/components/action_dialog.dart';
+import 'package:six/app/ui/components/catched_image.dart';
+import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/common_appbar.dart';
 import 'package:six/app/ui/components/common_textfield.dart';
 import 'package:six/app/ui/components/common_voucher_card.dart';
@@ -97,101 +100,110 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                       left: -60,
                       right: 0,
                       top: 15,
-                      child: Obx(
-                        () => Container(
-                          height: controller.height().h,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            padding: const EdgeInsets.only(
-                              top: 10,
-                              left: 70,
-                              right: 10,
-                            ),
-                            itemCount: 10,
-                            scrollDirection: Axis.horizontal,
-                            physics: const BouncingScrollPhysics(),
-                            itemBuilder: (context, index) => Row(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    controller.selectedCategory(index);
-                                    controller.update();
-                                  },
-                                  child: Container(
-                                    width: 380.w,
-                                    height: 271.h,
-                                    decoration: BoxDecoration(
-                                        color: AppColors.kffffff,
-                                        borderRadius:
-                                            BorderRadius.circular(50.r),
-                                        gradient:
-                                            controller.selectedCategory.value ==
-                                                    index
-                                                ? const LinearGradient(
-                                                    begin: Alignment(-1, -2.8),
-                                                    end: Alignment(1, 2),
-                                                    colors: [
-                                                        AppColors.k1FAF9E,
-                                                        AppColors.k0087FF
-                                                      ])
-                                                : const LinearGradient(colors: [
-                                                    AppColors.kffffff,
-                                                    AppColors.kffffff
-                                                  ]),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: AppColors.k000000
-                                                  .withOpacity(0.04),
-                                              blurRadius: 50.r,
-                                              offset: const Offset(0, 20))
-                                        ]),
-                                    child: Column(
+                      child: Container(
+                        child: controller.isLoading()
+                            ? buildLoader()
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                padding: const EdgeInsets.only(
+                                  top: 10,
+                                  left: 70,
+                                  right: 10,
+                                ),
+                                itemCount: controller.categoryList.length,
+                                scrollDirection: Axis.horizontal,
+                                physics: const BouncingScrollPhysics(),
+                                itemBuilder: (context, index) => Obx(() => Row(
                                       children: [
-                                        SizedBox(
-                                          height: 40.h,
-                                        ),
-                                        Image.asset(
-                                          controller.selectedCategory.value ==
-                                                  index
-                                              ? R.image.asset.voucher_card_1
-                                                  .assetName
-                                              : R.image.asset.super_market
-                                                  .assetName,
-                                          height: 113.h,
-                                          width: 104.w,
-                                        ),
-                                        SizedBox(
-                                          height: 30.5.h,
-                                        ),
-                                        Text(
-                                          'Super - Market',
-                                          style: TextStyle(
-                                            fontFamily: 'Gilroy',
-                                            fontSize: 40.sp,
-                                            fontStyle: FontStyle.normal,
-                                            color: controller.selectedCategory
-                                                        .value ==
-                                                    index
-                                                ? AppColors.kffffff
-                                                : AppColors.k033660,
-                                            fontWeight: FontWeight.w500,
+                                        GestureDetector(
+                                          onTap: () {
+                                            controller.selectedCategory(index);
+                                            controller.update();
+                                            controller.categoryId(controller
+                                                .categoryList[index].id);
+                                            controller.assignVoucherList(
+                                                controller
+                                                    .categoryList[index].id!);
+                                          },
+                                          child: Container(
+                                            width: 380.w,
+                                            height: 271.h,
+                                            decoration: BoxDecoration(
+                                                color: AppColors.kffffff,
+                                                borderRadius:
+                                                    BorderRadius.circular(50.r),
+                                                gradient: controller
+                                                            .selectedCategory
+                                                            .value ==
+                                                        index
+                                                    ? const LinearGradient(
+                                                        begin:
+                                                            Alignment(-1, -2.8),
+                                                        end: Alignment(1, 2),
+                                                        colors: [
+                                                            AppColors.k1FAF9E,
+                                                            AppColors.k0087FF
+                                                          ])
+                                                    : const LinearGradient(
+                                                        colors: [
+                                                            AppColors.kffffff,
+                                                            AppColors.kffffff
+                                                          ]),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: AppColors.k000000
+                                                          .withOpacity(0.04),
+                                                      blurRadius: 50.r,
+                                                      offset:
+                                                          const Offset(0, 20))
+                                                ]),
+                                            child: Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 40.h,
+                                                ),
+                                                cacheImage(
+                                                  height: 113.h,
+                                                  width: 104.w,
+                                                  url: controller
+                                                      .categoryList[index]
+                                                      .iconUrl
+                                                      .toString(),
+                                                ),
+                                                SizedBox(
+                                                  height: 30.5.h,
+                                                ),
+                                                Text(
+                                                  controller.categoryList[index]
+                                                          .name ??
+                                                      'Super - Market',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy',
+                                                    fontSize: 40.sp,
+                                                    fontStyle: FontStyle.normal,
+                                                    color: controller
+                                                                .selectedCategory
+                                                                .value ==
+                                                            index
+                                                        ? AppColors.kffffff
+                                                        : AppColors.k033660,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                SizedBox(
+                                                  height: 40.h,
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                          textAlign: TextAlign.center,
                                         ),
                                         SizedBox(
-                                          height: 40.h,
+                                          width: 25.w,
                                         ),
                                       ],
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 25.w,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                                    )),
+                              ),
                       ),
                     ),
                   ],
@@ -199,74 +211,48 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                 SizedBox(
                   height: 5.h,
                 ),
-                Expanded(
-                  child: ListView(
-                    padding: const EdgeInsets.all(0),
-                    physics: const BouncingScrollPhysics(),
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 60.w,
-                          ),
-                          voucherCard(
-                            title: 'NTUC Fairprice',
-                            amount: 10,
-                            date: '31,Nov 2021',
-                            imgUrl: 'https://picsum.photos/id/1011/200/300',
-                            whichScreen: 'Social Worker',
-                            onTap: () {
-                              //homeController.currentIndex!.value = 1;
-                              //Get.toNamed<void>(Routes.VOUCHER_REDEMPTION);
-                            },
-                            voucherCode: '15015403',
-                            btnText: 'Redeem Now',
-                            voucherState: VoucherState.active,
-                            isQRScreen: false,
-                          ), //Common Voucher Card
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 60.w,
-                          ),
-                          voucherCard(
-                            title: 'Sheng Siong',
-                            amount: 20,
-                            date: '1,Oct 2021',
-                            imgUrl: 'https://picsum.photos/id/1012/200/300',
-                            onTap: () {},
-                            voucherCode: '15015403',
-                            btnText: 'Already Redeemed',
-                            whichScreen: 'Social Worker',
-                            voucherState: VoucherState.active,
-                            isQRScreen: false,
-                          ), //Common Voucher Card
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 60.w,
-                          ),
-                          voucherCard(
-                            title: 'NTUC Fairprice',
-                            amount: 15,
-                            date: '1,Jan 2021',
-                            imgUrl: 'https://picsum.photos/id/1013/200/300',
-                            voucherCode: '15015403',
-                            onTap: () {},
-                            whichScreen: 'Social Worker',
-                            btnText: 'Expired Voucher',
-                            voucherState: VoucherState.active,
-                            isQRScreen: false,
-                          ), //Common Voucher Card
-                        ],
+                controller.isVoucherLoading()
+                    ? buildLoader()
+                    : Expanded(
+                        child: controller.vouchers.isEmpty
+                            ? const Text('No Voucher Available')
+                            : ListView.builder(
+                                itemCount: controller.vouchers.length,
+                                padding: const EdgeInsets.all(0),
+                                physics: const BouncingScrollPhysics(),
+                                itemBuilder: (context, index) => Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 60.w,
+                                    ),
+                                    voucherCard(
+                                      title: controller.vouchers[index].name ??
+                                          'NTUC Fairprice',
+                                      amount:
+                                          controller.vouchers[index].amount ??
+                                              0,
+                                      date: '31,Nov 2021',
+                                      imgUrl:
+                                          'https://picsum.photos/id/1011/200/300',
+                                      whichScreen: 'Social Worker',
+                                      onTap: () {
+                                        controller.voucherIndex(index);
+                                        logW(controller.voucherIndex());
+                                        //homeController.currentIndex!.value = 1;
+                                        //Get.toNamed<void>(Routes.VOUCHER_REDEMPTION);
+                                      },
+                                      voucherCode: '15015403',
+                                      btnText: 'Redeem Now',
+                                      voucherState: VoucherState.active,
+                                      isQRScreen: false,
+                                      totalAvailable:
+                                          controller.vouchers[index].total,
+                                      index: index,
+                                    ), //Common Voucher Card
+                                  ],
+                                ),
+                              ),
                       )
-                    ],
-                  ),
-                )
               ],
             ),
           ),
@@ -308,3 +294,19 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
     );
   }
 }
+
+//ON TAP CATEGORY IMAGE COLOR CHANGES
+/*Image.asset(
+                                        controller.selectedCategory
+                                            .value ==
+                                            index
+                                            ? R
+                                            .image
+                                            .asset
+                                            .voucher_card_1
+                                            .assetName
+                                            : R.image.asset.super_market
+                                            .assetName,
+                                        height: 113.h,
+                                        width: 104.w,
+                                      ),*/

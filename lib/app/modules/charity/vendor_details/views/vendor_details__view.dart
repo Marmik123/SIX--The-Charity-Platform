@@ -83,7 +83,7 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                   url: availVendorCtrl
                                           .vendorDetails?['profile_image_url']
                                           .toString() ??
-                                      '',
+                                      'https://picsum.photos/200/300',
                                 ),
                               ),
                             ),
@@ -210,7 +210,7 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                                               'user_metadata']
                                                               ['email']
                                                           .toString() ??
-                                                      'contact@ntuc.com',
+                                                      'contact@dh.com',
                                                   style: TextStyle(
                                                     fontFamily: 'Gilroy',
                                                     fontSize: 40.sp,
@@ -571,7 +571,7 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                                                                   child: cacheImage(
                                                                                     height: 121.r,
                                                                                     width: 121.r,
-                                                                                    url: 'https://picsum.photos/200/300',
+                                                                                    url: controller.availableVouchers[index].iconUrl ?? 'https://picsum.photos/200/300',
                                                                                   ),
                                                                                 ),
                                                                               ),

@@ -69,9 +69,15 @@ class ProfileView extends GetView<ProfileController> {
                               }
                             },
                             onLongPress: () {},
-                            child: doubleShadedCont(UserProvider
-                                .currentUser!.profileImageUrl
-                                .toString()),
+                            child: doubleShadedCont(
+                              UserProvider.currentUser?.profileImageUrl
+                                          .toString() ==
+                                      null
+                                  ? 'https://picsum.photos/200/300'
+                                  : UserProvider.currentUser?.profileImageUrl
+                                          .toString() ??
+                                      'https://picsum.photos/200/300',
+                            ),
                           ),
                           UserProvider.role == 'charity' ||
                                   UserProvider.role == 'vendor'
@@ -104,9 +110,8 @@ class ProfileView extends GetView<ProfileController> {
                         height: 83.h,
                       ),
                       Text(
-                        /*UserProvider.currentUser?.userMetadata?.principalName
-                                .toString() ?? */
-                        'South East CDC',
+                        UserProvider.currentUser?.userMetadata?.entityName ??
+                            'Charity Name',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: 'Gilroy',

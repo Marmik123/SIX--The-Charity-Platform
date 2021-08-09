@@ -37,8 +37,9 @@ class PurchaseView extends GetView<PurchaseController> {
                       category: ctrl
                           .voucherCategory[ctrl.selectCategory!()].name
                           .toString(),
-                      imgUrl:
-                          ctrl.voucherCategory[ctrl.selectCategory!()].iconUrl,
+                      imgUrl: ctrl.voucherCategory[ctrl.selectCategory!()]
+                              .iconUrl ??
+                          'https://picsum.photos/200/300',
                       background: HexColor.fromHex(ctrl
                           .voucherCategory[ctrl.selectCategory!()].background!),
                     );

@@ -1,5 +1,6 @@
 import 'package:get/get.dart' hide FormData;
 import 'package:six/app/data/config/logger.dart';
+import 'package:six/app/data/models/available_vouchers.dart';
 import 'package:six/app/data/models/vendor_list.dart';
 import 'package:six/app/data/models/voucher_category.dart';
 import 'package:six/app/data/remote/api_service/init_api_service.dart';
@@ -18,8 +19,28 @@ class VoucherCategoryProvider {
       return List<VoucherCategory>.from(voucherCategory.map<VoucherCategory>(
           (dynamic e) => VoucherCategory.fromJson(e as Map<String, dynamic>)));
     } else {
-      Get.snackbar<void>('Error in Graph Data', 'Please Try Again.');
+      Get.snackbar<void>(
+          'Error in voucher category fetching', 'Please Try Again.');
       return <VoucherCategory>[];
+    }
+  }
+
+  //Helper function to fetch the vouchers of particular category on passing categoryID.
+  static Future<List<AvailableVouchers>> getVoucherList(
+      {String skip = '', String limit = '', required String categoryId}) async {
+    var response = await APIService.get(
+      path: '/v1/auth/worker-purchase-voucher-list/$categoryId/$skip/$limit',
+    );
+    if (response?.statusCode == 200) {
+      logI('######Voucher Lists########');
+      logI(response?.data!['data']);
+      var voucherCategory = response?.data!['data'] as List<dynamic>;
+      return List<AvailableVouchers>.from(
+          voucherCategory.map<AvailableVouchers>((dynamic e) =>
+              AvailableVouchers.fromJson(e as Map<String, dynamic>)));
+    } else {
+      // Get.snackbar<void>('Error in voucher list fetching', 'Please Try Again.');
+      return <AvailableVouchers>[];
     }
   }
 

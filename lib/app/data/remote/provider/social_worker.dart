@@ -24,7 +24,7 @@ class SocialWorkerProvider {
     }
   }
 
-  //Helper Function to fetch the social worker dashboard data .
+  //Helper Function to fetch the beneficiaries associated with SW.
   static Future<List<UserEntity>> getBeneficiaryList(
       {required String? skip, required String? limit}) async {
     var response = await APIService.get(
@@ -80,6 +80,26 @@ class SocialWorkerProvider {
     } else {
       appSnackbar(message: 'Error');
       return <AvailableVouchers>[];
+    }
+  }
+
+  static Future<List<UserEntity>> getBeneficiaryOrganization(
+      {required String? needyFamilyId,
+      required String? skip,
+      required String? limit}) async {
+    var response = await APIService.get(
+      path: '/v1/auth/beneficiary-charity-list/$needyFamilyId/$skip/$limit',
+    );
+    if (response?.statusCode == 200) {
+      logI('######Available Vouchers########');
+      logI(response?.data!['data']);
+      var vouchers = response?.data!['data'] as List<dynamic>;
+      logI(vouchers);
+      return List<UserEntity>.from(vouchers.map<UserEntity>(
+          (dynamic e) => UserEntity.fromMap(e as Map<String, dynamic>)));
+    } else {
+      appSnackbar(message: 'Error');
+      return <UserEntity>[];
     }
   }
 

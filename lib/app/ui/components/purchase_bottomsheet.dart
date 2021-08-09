@@ -22,7 +22,7 @@ Future<void> purchaseBottomSheet({
   double? totalAmount,
   double? amount,
   int? quantity,
-  String? imgUrl,
+  String imgUrl = 'https://picsum.photos/200/300',
   Color background = AppColors.kE3FCFF,
 }) {
   var ctrl = Get.find<PurchaseController>();
@@ -63,7 +63,7 @@ Future<void> purchaseBottomSheet({
                     ),
                     child: Center(
                       child: cacheImage(
-                        url: imgUrl!,
+                        url: imgUrl,
                         height: 106.h,
                         width: 100.w,
                       ),

@@ -303,7 +303,7 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                                       ),
                                       w(15.w),
                                       Text(
-                                        '${controller.socialHome.address!['floor']['value']},${controller.socialHome.address!['building']['value']},${controller.socialHome.address!['street']['value']},\n${controller.socialHome.address!['block']['value']},${controller.socialHome.address!['country']['desc']},${controller.socialHome.address!['postal']['value']}.',
+                                        controller.socialHome.returnAddress(),
                                         style: TextStyle(
                                           fontFamily: 'Gilroy',
                                           fontSize: 38.sp,

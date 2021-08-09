@@ -59,7 +59,7 @@ class EditNoteView extends GetView<EditNoteController> {
                           w(15.w),
                           Text(
                             DateTime.fromMillisecondsSinceEpoch(int.tryParse(
-                                    controller.notesDetail
+                                    controller.beneCtrl
                                         .notesList()[controller.noteIndex()]
                                             ['createdOn']
                                         .toString())!)
@@ -78,7 +78,7 @@ class EditNoteView extends GetView<EditNoteController> {
                       ),
                       h(4.h),
                       SelectableText(
-                        controller.notesDetail
+                        controller.beneCtrl
                             .notesList()[controller.noteIndex()]['note']
                             .toString(),
                         textAlign: TextAlign.left,
@@ -115,11 +115,11 @@ class EditNoteView extends GetView<EditNoteController> {
                     enabled: true,
                     autofocus: true,
                     textInputAction: TextInputAction.done,
-                    controller: controller.editingController,
+                    controller: controller.beneCtrl.editNoteCtrl,
                     onEditingComplete: () {
                       var currentFocus = FocusScope.of(context);
                       currentFocus.unfocus();
-                      controller.editNote();
+                      controller.beneCtrl.editNote(controller.noteIndex());
                     },
                     cursorColor: AppColors.k033660,
                     style: TextStyle(
@@ -162,7 +162,7 @@ class EditNoteView extends GetView<EditNoteController> {
               roundedButton(
                   text: 'Save',
                   onTap: () {
-                    controller.editNote();
+                    controller.beneCtrl.editNote(controller.noteIndex());
                   },
                   width: 452.w,
                   height: 150.h,

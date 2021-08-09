@@ -29,6 +29,8 @@ Widget voucherCard({
   required String btnText,
   required String whichScreen,
   required bool isQRScreen,
+  double? totalAvailable,
+  int index = 0,
 }) {
   return Stack(
     clipBehavior: Clip.none,
@@ -476,8 +478,14 @@ Widget voucherCard({
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  if (voucherCtrlSW.voucherCount() == 0) {
+                                  voucherCtrlSW.voucherCount(0);
+                                  if (voucherCtrlSW.initialVoucherCount[
+                                          voucherCtrlSW.voucherIndex()] >
+                                      0) {
                                     voucherCtrlSW.voucherCount.value--;
+                                    voucherCtrlSW.initialVoucherCount[
+                                            voucherCtrlSW.voucherIndex()] =
+                                        voucherCtrlSW.voucherCount();
                                   }
                                 },
                                 child: Container(
@@ -499,7 +507,8 @@ Widget voucherCard({
                                 ),
                               ),
                               Text(
-                                voucherCtrlSW.voucherCount.value.toString(),
+                                voucherCtrlSW.initialVoucherCount[index]
+                                    .toString(),
                                 style: TextStyle(
                                   fontFamily: 'Gilroy',
                                   fontSize: 50.sp,
@@ -515,7 +524,13 @@ Widget voucherCard({
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  voucherCtrlSW.voucherCount.value++;
+                                  voucherCtrlSW.voucherCount(0);
+                                  if (voucherCtrlSW.initialVoucherCount[index] <
+                                      totalAvailable!.toInt()) {
+                                    voucherCtrlSW.voucherCount.value++;
+                                    voucherCtrlSW.initialVoucherCount[index] =
+                                        voucherCtrlSW.voucherCount();
+                                  }
                                 },
                                 child: Container(
                                   height: 70.r,

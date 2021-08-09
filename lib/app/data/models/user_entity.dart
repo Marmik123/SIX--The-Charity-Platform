@@ -50,6 +50,7 @@ class UserEntity {
     dynamic singpassId,
     String? corppassId,
     String? role,
+    Map<String, dynamic>? userData,
     dynamic profileImage,
     dynamic profileImageUrl,
     dynamic thumbProfileImage,
@@ -157,6 +158,7 @@ class UserMetadata {
     this.dob,
     this.nationality,
     this.mobileNumber,
+    this.userData,
     this.address,
     this.typeOfHdb,
     this.typeOfHousing,
@@ -173,6 +175,7 @@ class UserMetadata {
   String? id;
   String? userId;
   String? nricFin;
+  Map<String, dynamic>? userData;
   dynamic partialNricFin;
   dynamic principalName;
   dynamic sex;
@@ -197,6 +200,7 @@ class UserMetadata {
     String? id,
     String? userId,
     String? nricFin,
+    Map<String, dynamic>? userData,
     dynamic partialNricFin,
     dynamic principalName,
     dynamic sex,
@@ -221,6 +225,7 @@ class UserMetadata {
         id: id ?? this.id,
         userId: userId ?? this.userId,
         nricFin: nricFin ?? this.nricFin,
+        userData: userData ?? this.userData,
         partialNricFin: partialNricFin ?? this.partialNricFin,
         principalName: principalName ?? this.principalName,
         sex: sex ?? this.sex,
@@ -283,6 +288,7 @@ class UserMetadata {
         'nric_fin': nricFin,
         'partial_nric_fin': partialNricFin,
         'principal_name': principalName,
+        'user_metadata': userData,
         'sex': sex,
         'race': race,
         'email': email,
