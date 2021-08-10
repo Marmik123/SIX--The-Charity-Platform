@@ -15,6 +15,7 @@ class AvailableVouchers {
     this.thumbIconName,
     this.thumbIconUrl,
     this.startDate,
+    this.voucherId,
     this.endDate,
     this.validity,
     this.isPaid,
@@ -35,6 +36,7 @@ class AvailableVouchers {
   double? soldCount;
   String? iconName;
   String? iconUrl;
+  String? voucherId;
   dynamic thumbIconName;
   dynamic thumbIconUrl;
   DateTime? startDate;
@@ -47,6 +49,7 @@ class AvailableVouchers {
 
   AvailableVouchers copyWith({
     String? id,
+    String? voucherId,
     String? name,
     String? description,
     String? terms,
@@ -72,6 +75,7 @@ class AvailableVouchers {
         name: name ?? this.name,
         description: description ?? this.description,
         terms: terms ?? this.terms,
+        voucherId: voucherId ?? this.voucherId,
         instructions: instructions ?? this.instructions,
         amount: amount ?? this.amount,
         availableCount: availableCount ?? this.availableCount,
@@ -98,6 +102,8 @@ class AvailableVouchers {
   factory AvailableVouchers.fromMap(Map<String, dynamic> json) =>
       AvailableVouchers(
         id: json['id'] == null ? null : json['id'] as String,
+        voucherId:
+            json['voucher_id'] == null ? null : json['voucher_id'] as String,
         name: json['name'] == null ? null : json['name'] as String,
         description:
             json['description'] == null ? null : json['description'] as String,
@@ -139,6 +145,7 @@ class AvailableVouchers {
         'name': name,
         'description': description,
         'terms': terms,
+        'voucher_id': voucherId,
         'instructions': instructions,
         'amount': amount,
         'total': total,

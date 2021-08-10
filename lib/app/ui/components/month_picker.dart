@@ -30,13 +30,10 @@ Widget monthPicker({
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         textContent, //Text widget
-        GestureDetector(
-          onTap: onTapArrow,
-          child: const Icon(
-            Icons.keyboard_arrow_down_sharp,
-            color: AppColors.k033660,
-            size: 20,
-          ),
+        const Icon(
+          Icons.keyboard_arrow_down_sharp,
+          color: AppColors.k033660,
+          size: 20,
         )
       ],
     ),

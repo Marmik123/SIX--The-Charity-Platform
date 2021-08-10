@@ -2,19 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pedantic/pedantic.dart';
 import 'package:six/app/data/config/app_colors.dart';
-import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/local/user_provider.dart';
-import 'package:six/app/data/remote/provider/social_worker.dart';
 import 'package:six/app/modules/charity/purchase/controllers/purchase_controller.dart';
 import 'package:six/app/modules/social_worker/assigned_voucher/controllers/assigned_voucher_controller.dart';
-import 'package:six/app/ui/components/app_snackbar.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/common_textfield.dart';
-import 'package:six/app/ui/components/get_dialog.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 
+var ctrl = Get.find<PurchaseController>();
+var assignCtrl = Get.put(AssignedVoucherController());
 Future<void> purchaseBottomSheet({
   String? category,
   String? categoryId,
@@ -25,9 +22,6 @@ Future<void> purchaseBottomSheet({
   String imgUrl = 'https://picsum.photos/200/300',
   Color background = AppColors.kE3FCFF,
 }) {
-  var ctrl = Get.find<PurchaseController>();
-  //var socialCtrl = Get.put(SocialHomeController());
-  var assignCtrl = Get.put(AssignedVoucherController());
   return Get.bottomSheet<void>(
     Container(
       width: 1.sw,
@@ -146,60 +140,20 @@ Future<void> purchaseBottomSheet({
                   Center(
                     child: roundedButton(
                       text: 'Pay Now',
-                      onTap: () async {
-                        logI(ctrl.amountController.text);
-                        logI(ctrl.amountController.numberValue);
+                      onTap: () {
                         if (UserProvider.role == 'social_worker') {
-                          ctrl.isLoading(true);
-                          var success =
-                              await SocialWorkerProvider.purchaseVoucher(
-                            skip: ctrl.skip
-                                .toString(), //NOT FROM SOCIAL WORKER FROM PURCHASE VIEW CONTRO
-                            limit: ctrl.limit
-                                .toString(), //NOT FROM SOCIAL WORKER FROM PURCHASE VIEW CONTRO
-                            categoryAmount: [
-                              <String, dynamic>{
-                                'category_id': categoryId,
-                                'amount': totalAmount,
-                              }
-                            ],
-                            vouchers: [
-                              <String, dynamic>{
-                                'category_id': categoryId,
-                                'voucher_id': voucherId,
-                                'amount': amount,
-                                'quantity': quantity,
-                              }
-                            ],
+                          ctrl.payNow(
+                            category: category!,
+                            categoryId: categoryId!,
+                            voucherId: voucherId!,
+                            totalAmount: totalAmount!,
+                            amount: amount!,
+                            quantity: quantity!,
                           );
-                          ctrl.isLoading(false);
-                          if (success == true) {
-                            var purchasedCategory = ctrl
-                                .voucherCategory[ctrl.selectCategory!()].name
-                                .toString();
-                            unawaited(dialog(
-                                success: true,
-                                message:
-                                    'Congrats! You have successfully\npurchased the voucher of $purchasedCategory'));
-                          }
-                          /*else {
-                            unawaited(dialog(
-                              success: false,
-                            ));
-                          }*/
-                        } else if (ctrl.amountController.text.isNotEmpty &&
-                            GetUtils.isGreaterThan(
-                                ctrl.amountController.numberValue, 0)) {
-                          Get.back<void>();
-                          await purchaseController.purchaseVoucherCat(
-                            amount: ctrl.amountController.numberValue,
-                          );
-                        } else {
-                          appSnackbar(
-                            message: 'Please enter valid amount',
-                            snackbarState: SnackbarState.warning,
-                          );
+                        } else if (UserProvider.role == 'charity') {
+                          ctrl.payNow();
                         }
+                        //logI(categoryId);
                       },
                       width: 500.w,
                       height: 150.h,

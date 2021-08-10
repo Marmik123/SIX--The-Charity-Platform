@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:six/app/data/config/logger.dart';
+import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/data/models/voucher_category.dart';
+import 'package:six/app/data/remote/provider/social_worker.dart';
 import 'package:six/app/data/remote/provider/voucher_category.dart';
 import 'package:six/app/modules/charity/charity_home/controllers/charity_home_controller.dart';
 import 'package:six/app/modules/needy_family/available_credits/controllers/available_credits_controller.dart';
@@ -63,8 +65,8 @@ class PurchaseController extends GetxController {
     paymentInProgress(true);
     // logI('This is paystatusCode$paymentStatusCode');
     logI(voucherCategory[selectCategory!()].id.toString());
-    logI(charityHomeController.graphDetails[0].id.toString());
-    logI(amount);
+    // logI(charityHomeController.graphDetails[0].id.toString());
+    logI('##$amount');
 
     var selectedProgramIndex = programListingCtrl.programIndex!();
     logWTF(programListingCtrl
@@ -244,5 +246,60 @@ class PurchaseController extends GetxController {
         .toString());
     charityHomeController.assignDashboardData();
     programListingCtrl.assignToAvailProgCredit();
+  }
+
+  Future<void> payNow({
+    String? category,
+    String? categoryId,
+    String? voucherId,
+    double? totalAmount,
+    double? amount,
+    int? quantity,
+  }) async {
+    logI(amountController.text);
+    logI(amountController.numberValue);
+    if (UserProvider.role == 'social_worker') {
+      isLoading(true);
+      var success = await SocialWorkerProvider.purchaseVoucher(
+        skip:
+            skip.toString(), //NOT FROM SOCIAL WORKER FROM PURCHASE VIEW CONTRO
+        limit:
+            limit.toString(), //NOT FROM SOCIAL WORKER FROM PURCHASE VIEW CONTRO
+        categoryAmount: [
+          <String, dynamic>{
+            'category_id': categoryId,
+            'amount': totalAmount,
+          }
+        ],
+        vouchers: [
+          <String, dynamic>{
+            'category_id': categoryId,
+            'voucher_id': voucherId,
+            'amount': amount,
+            'quantity': quantity,
+          }
+        ],
+      );
+      isLoading(false);
+      if (success == true) {
+        var purchasedCategory =
+            voucherCategory[selectCategory!()].name.toString();
+        unawaited(dialog(
+            success: true,
+            message:
+                'Congrats! You have successfully\npurchased the voucher of $purchasedCategory'));
+      }
+    } else if (amountController.text.isNotEmpty &&
+        GetUtils.isGreaterThan(amountController.numberValue, 0)) {
+      Get.back<void>();
+      await purchaseVoucherCat(
+        amount: amountController.numberValue,
+      );
+    } else {
+      appSnackbar(
+        message: 'Please enter valid amount',
+        snackbarState: SnackbarState.warning,
+      );
+    }
   }
 }

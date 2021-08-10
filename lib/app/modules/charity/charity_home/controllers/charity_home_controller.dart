@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/data/models/graph_category_data.dart';
-import 'package:six/app/data/models/graph_data.dart';
 import 'package:six/app/data/remote/provider/home_graph_provider.dart';
 
 class CharityHomeController extends GetxController {
@@ -19,7 +18,7 @@ class CharityHomeController extends GetxController {
   RxString availableCredits = ''.obs;
   RxString programId = ''.obs;
   DateTime? selectedDate = DateTime.now();
-  RxList<GraphData> graphDetails = <GraphData>[].obs;
+  RxList<GraphCategoryData> graphDetails = <GraphCategoryData>[].obs;
   RxList<GraphCategoryData> graphCategoryDetails = <GraphCategoryData>[].obs;
   Map<String, dynamic>? dashboardData;
   RxBool isLoading = false.obs;
@@ -88,8 +87,6 @@ class CharityHomeController extends GetxController {
   //Credits by Program Graph
   Future<void> assignToGraphDetails() async {
     graphDetails(await GraphDataProvider.getGraphProgramData());
-    graphDetails().add(graphDetails[1]);
-    logWTF(graphDetails);
     isLoading(false);
   }
 

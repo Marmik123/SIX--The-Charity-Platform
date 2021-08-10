@@ -2,14 +2,15 @@ import 'package:get/get.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/data/models/available_credits_sw.dart';
-import 'package:six/app/data/models/graph_data.dart';
+import 'package:six/app/data/models/graph_category_data.dart';
 import 'package:six/app/data/remote/provider/available_credits.dart';
 
 class AvailableCreditsController extends GetxController {
   //TODO: Implement AvailableCreditsController
   RxBool isLoading = false.obs;
   RxBool disableLeading = true.obs;
-  RxList<GraphData> programCreditsAvailability = <GraphData>[].obs;
+  RxList<GraphCategoryData> programCreditsAvailability =
+      <GraphCategoryData>[].obs;
   RxList<AvailableCredits> availCreditsSW = <AvailableCredits>[].obs;
   RxInt skip = 0.obs;
   RxInt limit = 1000.obs;

@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/models/graph_category_data.dart';
-import 'package:six/app/data/models/graph_data.dart';
 import 'package:six/app/modules/charity/purchase/controllers/purchase_controller.dart';
 import 'package:six/app/modules/needy_family/available_credits/controllers/available_credits_controller.dart';
 import 'package:six/app/modules/needy_family/available_credits/views/available_credits_view.dart';
@@ -396,9 +395,9 @@ class CharityHome extends StatelessWidget {
                                 height: 710.h,
                                 child: SfCartesianChart(
                                   series: <ChartSeries>[
-                                    ColumnSeries<GraphData, String>(
+                                    ColumnSeries<GraphCategoryData, String>(
                                         dataSource: ctrl.graphDetails(),
-                                        xValueMapper: (data, _) => data.title,
+                                        xValueMapper: (data, _) => data.name,
                                         yValueMapper: (data, _) => data.value,
                                         pointColorMapper: (data, _) =>
                                             data.barColor,
@@ -468,6 +467,9 @@ class CharityHome extends StatelessWidget {
                                       color: AppColors.kDCDCDC,
                                       width: 2.w,
                                     ),
+                                    //maximumLabelWidth: 200.w,
+                                    labelIntersectAction:
+                                        AxisLabelIntersectAction.wrap,
                                     labelStyle: TextStyle(
                                         color: AppColors.k033660,
                                         fontFamily: 'Gilroy',
@@ -544,7 +546,7 @@ class CharityHome extends StatelessWidget {
                                     child: Text(
                                       ctrl
                                           .graphDetails()[index]
-                                          .title
+                                          .name
                                           .toString(),
 //'Support Beneficiary Fund',
                                       style: TextStyle(
@@ -566,7 +568,7 @@ class CharityHome extends StatelessWidget {
                                 textContent: Text(
                                   ctrl
                                       .graphDetails()[ctrl.programIndex()]
-                                      .title
+                                      .name
                                       .toString(),
                                   style: TextStyle(
                                     fontFamily: 'Gilroy',
@@ -592,8 +594,7 @@ class CharityHome extends StatelessWidget {
                                     ColumnSeries<GraphCategoryData, String>(
                                       dataSource: ctrl.graphCategoryDetails(),
                                       xValueMapper: (data, _) => data.name,
-                                      yValueMapper: (data, _) =>
-                                          data.totalBalance,
+                                      yValueMapper: (data, _) => data.value,
                                       pointColorMapper: (data, _) =>
                                           data.barColor,
                                       // Sets the corner radius
@@ -655,6 +656,8 @@ class CharityHome extends StatelessWidget {
                                           fontStyle: FontStyle.normal,
                                           fontWeight: FontWeight.normal)),
                                   primaryXAxis: CategoryAxis(
+                                    labelIntersectAction:
+                                        AxisLabelIntersectAction.wrap,
                                     majorTickLines: const MajorTickLines(
                                       size: 5,
                                       width: 0,

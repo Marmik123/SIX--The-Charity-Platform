@@ -53,6 +53,7 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                             icon: const Icon(Icons.arrow_back),
                             color: AppColors.k033660,
                             onPressed: () {
+                              controller.txtCtrl.clear();
                               Get.back<void>();
                             },
                           ),
@@ -169,184 +170,212 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                 : availVendorCtrl.vendorList().length,
                             physics: const BouncingScrollPhysics(),
                             separatorBuilder: (context, index) => h(25.h),
-                            padding: const EdgeInsets.only(top: 0),
+                            padding: const EdgeInsets.only(
+                                top: 0, left: 10, right: 5),
                             itemBuilder: (context, index) {
-                              return availVendorCtrl
-                                      .vendorList()[index]
-                                      .firstName
-                                      .toString()
-                                      .isEmpty
+                              return (availVendorCtrl.isSearched()
+                                          ? availVendorCtrl
+                                                  .searchedVendorList()[index]
+                                                  .firstName ==
+                                              null
+                                          : availVendorCtrl
+                                                  .vendorList()[index]
+                                                  .firstName ==
+                                              null) &&
+                                      (availVendorCtrl.isSearched()
+                                          ? availVendorCtrl
+                                              .searchedVendorList()
+                                              .isNotEmpty
+                                          : availVendorCtrl
+                                              .vendorList()
+                                              .isNotEmpty) &&
+                                      availVendorCtrl.vendorList().length != 1
                                   ? const SizedBox.shrink()
-                                  : Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, right: 5),
-                                      child: Container(
-                                        width: 1005.w,
-                                        height: 240.h,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(50.r),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: AppColors.k00474E
-                                                  .withOpacity(0.04),
-                                              blurRadius: 50.r,
-                                              offset: const Offset(0, 20),
-                                            ),
-                                          ],
-                                          color: AppColors.kffffff,
-                                        ),
-                                        child: Center(
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                width: 30.w,
+                                  : (availVendorCtrl
+                                                  .vendorList()[index]
+                                                  .firstName ==
+                                              null &&
+                                          availVendorCtrl.vendorList().length ==
+                                              1)
+                                      ? const Center(
+                                          child: Text('No Vendor available'))
+                                      : Container(
+                                          width: 1005.w,
+                                          height: 240.h,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(50.r),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: AppColors.k00474E
+                                                    .withOpacity(0.04),
+                                                blurRadius: 50.r,
+                                                offset: const Offset(0, 20),
                                               ),
-                                              Container(
-                                                decoration: const BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: AppColors.kffffff,
+                                            ],
+                                            color: AppColors.kffffff,
+                                          ),
+                                          child: Center(
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  width: 30.w,
                                                 ),
-                                                child: Center(
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            100.r),
-                                                    child: cacheImage(
-                                                      height: 180.r,
-                                                      width: 180.r,
-                                                      url: availVendorCtrl
+                                                Container(
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: AppColors.kffffff,
+                                                  ),
+                                                  child: Center(
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              100.r),
+                                                      child: cacheImage(
+                                                        height: 180.r,
+                                                        width: 180.r,
+                                                        url: availVendorCtrl
+                                                                .isSearched()
+                                                            ? availVendorCtrl
+                                                                .searchedVendorList()[
+                                                                    index]
+                                                                .profileImageUrl
+                                                                .toString()
+                                                            : availVendorCtrl
+                                                                .vendorList()[
+                                                                    index]
+                                                                .profileImageUrl
+                                                                .toString(),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 30.w,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    SizedBox(
+                                                      height: 54.h,
+                                                    ),
+                                                    Text(
+                                                      availVendorCtrl
                                                               .isSearched()
                                                           ? availVendorCtrl
                                                               .searchedVendorList()[
                                                                   index]
-                                                              .profileImageUrl
+                                                              .firstName
                                                               .toString()
                                                           : availVendorCtrl
                                                               .vendorList()[
                                                                   index]
-                                                              .profileImageUrl
+                                                              .firstName
                                                               .toString(),
+                                                      maxLines: 1,
+                                                      style: TextStyle(
+                                                        fontFamily: 'Gilroy',
+                                                        fontSize: 50.sp,
+                                                        fontStyle:
+                                                            FontStyle.normal,
+                                                        color:
+                                                            AppColors.k033660,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
                                                     ),
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 30.w,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  SizedBox(
-                                                    height: 54.h,
-                                                  ),
-                                                  Text(
-                                                    availVendorCtrl.isSearched()
-                                                        ? availVendorCtrl
-                                                            .searchedVendorList()[
-                                                                index]
-                                                            .firstName
-                                                            .toString()
-                                                        : availVendorCtrl
-                                                            .vendorList()[index]
-                                                            .firstName
-                                                            .toString(),
-                                                    maxLines: 1,
-                                                    style: TextStyle(
-                                                      fontFamily: 'Gilroy',
-                                                      fontSize: 50.sp,
-                                                      fontStyle:
-                                                          FontStyle.normal,
-                                                      color: AppColors.k033660,
-                                                      fontWeight:
-                                                          FontWeight.w500,
+                                                    SizedBox(
+                                                      height: 20.h,
                                                     ),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                  SizedBox(
-                                                    height: 20.h,
-                                                  ),
-                                                  Container(
-                                                    height: 64.h,
-                                                    width: 226.w,
-                                                    decoration: BoxDecoration(
-                                                      color: AppColors.kFFEFF7,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.r),
-                                                      border: Border.all(
-                                                          color:
-                                                              AppColors.kE2E2E2,
-                                                          width: 1.w),
-                                                    ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        availVendorCtrl
-                                                                .isSearched()
-                                                            ? purchaseController
-                                                                .voucherCategory[
-                                                                    categoryIndex!]
-                                                                .name
-                                                                .toString()
-                                                            : purchaseController
-                                                                .voucherCategory[
-                                                                    categoryIndex!]
-                                                                .name
-                                                                .toString(),
-                                                        style: TextStyle(
-                                                          fontFamily: 'Gilroy',
-                                                          fontSize: 30.sp,
-                                                          fontStyle:
-                                                              FontStyle.normal,
-                                                          color:
-                                                              AppColors.kFF007A,
-                                                          fontWeight:
-                                                              FontWeight.w500,
+                                                    Container(
+                                                      height: 64.h,
+                                                      width: 226.w,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            AppColors.kFFEFF7,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20.r),
+                                                        border: Border.all(
+                                                            color: AppColors
+                                                                .kE2E2E2,
+                                                            width: 1.w),
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          availVendorCtrl
+                                                                  .isSearched()
+                                                              ? purchaseController
+                                                                  .voucherCategory[
+                                                                      categoryIndex!]
+                                                                  .name
+                                                                  .toString()
+                                                              : purchaseController
+                                                                  .voucherCategory[
+                                                                      categoryIndex!]
+                                                                  .name
+                                                                  .toString(),
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Gilroy',
+                                                            fontSize: 30.sp,
+                                                            fontStyle: FontStyle
+                                                                .normal,
+                                                            color: AppColors
+                                                                .kFF007A,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                          textAlign:
+                                                              TextAlign.center,
                                                         ),
-                                                        textAlign:
-                                                            TextAlign.center,
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                width: 147.w,
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 12.0),
-                                                child: roundedButton(
-                                                  text: 'View Details',
-                                                  onTap: () {
-                                                    controller.categoryIndex(
-                                                        categoryIndex);
-                                                    controller
-                                                        .assignVendorDetails(
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  width: 147.w,
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 12.0),
+                                                  child: roundedButton(
+                                                    text: 'View Details',
+                                                    onTap: () {
+                                                      controller.categoryIndex(
+                                                          categoryIndex);
+                                                      controller
+                                                          .assignVendorDetails(
+                                                              availVendorCtrl
+                                                                  .vendorList[
+                                                                      index]
+                                                                  .id
+                                                                  .toString());
+                                                      Get.toNamed<void>(
+                                                        Routes.VENDOR_DETAILS,
+                                                        arguments:
                                                             availVendorCtrl
                                                                 .vendorList[
                                                                     index]
-                                                                .id
-                                                                .toString());
-                                                    Get.toNamed<void>(
-                                                      Routes.VENDOR_DETAILS,
-                                                      arguments: availVendorCtrl
-                                                          .vendorList[index].id,
-                                                    );
-                                                  },
-                                                  width: 281.w,
-                                                  height: 100.h,
-                                                  fontSize: 35.sp,
+                                                                .id,
+                                                      );
+                                                    },
+                                                    width: 281.w,
+                                                    height: 100.h,
+                                                    fontSize: 35.sp,
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                    );
+                                        );
                             }),
                       )),
           ],

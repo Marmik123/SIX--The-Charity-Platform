@@ -179,136 +179,157 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                       ),
                                     ],
                                   ),
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 54.h,
-                                      ),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            width: 50.w,
-                                          ),
-                                          Image.asset(
-                                            R.image.asset.message.assetName,
-                                            height: 39.h,
-                                            width: 44.w,
-                                          ),
-                                          SizedBox(
-                                            width: 26.w,
-                                          ),
-                                          availVendorCtrl.vendorDetails![
-                                                      'user_metadata']['email']
-                                                  .toString()
-                                                  .isEmpty
-                                              ? const SizedBox.shrink()
-                                              : Text(
-                                                  availVendorCtrl
-                                                          .vendorDetails?[
-                                                              'user_metadata']
-                                                              ['email']
-                                                          .toString() ??
-                                                      'contact@dh.com',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Gilroy',
-                                                    fontSize: 40.sp,
-                                                    fontStyle: FontStyle.normal,
-                                                    color: AppColors.k033660,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 50.h,
-                                      ),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            width: 50.w,
-                                          ),
-                                          Image.asset(
-                                            R.image.asset.call.assetName,
-                                            height: 39.h,
-                                            width: 44.w,
-                                          ),
-                                          SizedBox(
-                                            width: 26.w,
-                                          ),
-                                          availVendorCtrl.vendorDetails![
+                                  child: availVendorCtrl.vendorDetails![
                                                       'user_metadata']
-                                                      ['mobile_number']
-                                                  .toString()
-                                                  .isEmpty
-                                              ? const SizedBox.shrink()
-                                              : Text(
-                                                  availVendorCtrl
-                                                          .vendorDetails?[
-                                                              'user_metadata']
-                                                              ['mobile_number']
-                                                          .toString() ??
-                                                      '+1 987 654 3210',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Gilroy',
-                                                    fontSize: 40.sp,
-                                                    fontStyle: FontStyle.normal,
-                                                    color: AppColors.k033660,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 60.h,
-                                      ),
-                                      availVendorCtrl.vendorDetails?[
-                                                      'user_metadata']
-                                                      ['address']
-                                                  .toString() ==
+                                                  ['mobile_number'] ==
+                                              null &&
+                                          availVendorCtrl.vendorDetails?[
+                                                  'user_metadata']['address'] ==
+                                              null &&
+                                          availVendorCtrl.vendorDetails![
+                                                  'user_metadata']['email'] ==
                                               null
-                                          ? const SizedBox.shrink()
-                                          : Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                SizedBox(
-                                                  width: 50.w,
-                                                ),
-                                                Image.asset(
-                                                  R.image.asset.location
-                                                      .assetName,
-                                                  height: 39.h,
-                                                  width: 44.w,
-                                                ),
-                                                SizedBox(
-                                                  width: 26.w,
-                                                ),
-                                                Text(
-                                                  availVendorCtrl
-                                                          .vendorDetails?[
-                                                              'user_metadata']
-                                                              ['address']
-                                                          .toString() ??
-                                                      '1 Joo koon cir, 13-01 Fairprice hub, Singapore\n629117',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Gilroy',
-                                                    fontSize: 40.sp,
-                                                    fontStyle: FontStyle.normal,
-                                                    color: AppColors.k033660,
-                                                    fontWeight: FontWeight.w500,
+                                      ? const Center(
+                                          child: Text('No Data Available'))
+                                      : Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            availVendorCtrl.vendorDetails![
+                                                            'user_metadata']
+                                                        ['email'] ==
+                                                    null
+                                                ? const SizedBox.shrink()
+                                                : Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      SizedBox(
+                                                        width: 50.w,
+                                                      ),
+                                                      Image.asset(
+                                                        R.image.asset.message
+                                                            .assetName,
+                                                        height: 39.h,
+                                                        width: 44.w,
+                                                      ),
+                                                      SizedBox(
+                                                        width: 26.w,
+                                                      ),
+                                                      Text(
+                                                        availVendorCtrl
+                                                                .vendorDetails?[
+                                                                    'user_metadata']
+                                                                    ['email']
+                                                                .toString() ??
+                                                            'contact@dh.com',
+                                                        style: TextStyle(
+                                                          fontFamily: 'Gilroy',
+                                                          fontSize: 40.sp,
+                                                          fontStyle:
+                                                              FontStyle.normal,
+                                                          color:
+                                                              AppColors.k033660,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
+                                                    ],
                                                   ),
-                                                  textAlign: TextAlign.left,
-                                                ),
-                                              ],
-                                            ),
-                                    ],
-                                  ),
+                                            availVendorCtrl.vendorDetails![
+                                                            'user_metadata']
+                                                        ['mobile_number'] ==
+                                                    null
+                                                ? const SizedBox.shrink()
+                                                : Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      SizedBox(
+                                                        width: 50.w,
+                                                      ),
+                                                      Image.asset(
+                                                        R.image.asset.call
+                                                            .assetName,
+                                                        height: 39.h,
+                                                        width: 44.w,
+                                                      ),
+                                                      SizedBox(
+                                                        width: 26.w,
+                                                      ),
+                                                      Text(
+                                                        availVendorCtrl
+                                                                .vendorDetails?[
+                                                                    'user_metadata']
+                                                                    [
+                                                                    'mobile_number']
+                                                                .toString() ??
+                                                            '+1 987 654 3210',
+                                                        style: TextStyle(
+                                                          fontFamily: 'Gilroy',
+                                                          fontSize: 40.sp,
+                                                          fontStyle:
+                                                              FontStyle.normal,
+                                                          color:
+                                                              AppColors.k033660,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
+                                                    ],
+                                                  ),
+                                            availVendorCtrl.vendorDetails?[
+                                                            'user_metadata']
+                                                        ['address'] ==
+                                                    null
+                                                ? const SizedBox.shrink()
+                                                : Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      SizedBox(
+                                                        width: 50.w,
+                                                      ),
+                                                      Image.asset(
+                                                        R.image.asset.location
+                                                            .assetName,
+                                                        height: 39.h,
+                                                        width: 44.w,
+                                                      ),
+                                                      SizedBox(
+                                                        width: 26.w,
+                                                      ),
+                                                      Text(
+                                                        availVendorCtrl
+                                                                .vendorDetails?[
+                                                                    'user_metadata']
+                                                                    ['address']
+                                                                .toString() ??
+                                                            '1 Joo koon cir, 13-01 Fairprice hub, Singapore\n629117',
+                                                        style: TextStyle(
+                                                          fontFamily: 'Gilroy',
+                                                          fontSize: 40.sp,
+                                                          fontStyle:
+                                                              FontStyle.normal,
+                                                          color:
+                                                              AppColors.k033660,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                      ),
+                                                    ],
+                                                  ),
+                                          ],
+                                        ),
                                 ),
                               ),
                             ],
@@ -427,9 +448,9 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                                     physics:
                                                         const BouncingScrollPhysics(),
                                                     child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 20.0),
+                                                      padding: EdgeInsets.only(
+                                                          left: 60.w,
+                                                          right: 77.w),
                                                       child: Text(
                                                         availVendorCtrl
                                                                 .vendorDetails?[

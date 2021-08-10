@@ -103,6 +103,33 @@ class SocialWorkerProvider {
     }
   }
 
+  //Helper Function to assign a purchased voucher to  selected beneficiary.
+  static Future<bool> assignVoucher({
+    required String familyUserId,
+    required String voucherId,
+    required String name,
+    required double quantity,
+    required double amount,
+  }) async {
+    var response = await APIService.post(
+        path: '/v1/auth/assign-beneficiery',
+        encrypt: true,
+        data: <String, dynamic>{
+          'familyUserId': familyUserId,
+          'voucherId': voucherId,
+          'name': name,
+          'quantity': quantity,
+          'amount': amount,
+        });
+    logI(response);
+    if (response?.statusCode != 200) {
+      unawaited(dialog(
+          success: false, message: response!.data['message'].toString()));
+    }
+    logWTF(response?.statusMessage);
+    return response?.statusCode == 200;
+  }
+
   //Helper Function to purchase a voucher from available vouchers.
   static Future<bool> purchaseVoucher({
     String? skip,

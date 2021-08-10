@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/modules/social_worker/distribute_voucher/controllers/distribute_voucher_controller.dart';
+import 'package:six/app/ui/components/app_snackbar.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/dialog_vocher_redeem.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
@@ -389,7 +391,7 @@ Widget voucherCard({
         left: whichScreen == 'QRScreen'
             ? 81.w
             : whichScreen == 'Social Worker'
-                ? 30.w
+                ? 20.w
                 : whichScreen == 'History'
                     ? 100.w
                     : whichScreen == 'Assign Voucher'
@@ -418,7 +420,7 @@ Widget voucherCard({
         right: whichScreen == 'QRScreen'
             ? 86.w
             : whichScreen == 'Social Worker'
-                ? 105.w
+                ? 99.w
                 : whichScreen == 'History'
                     ? 130.h
                     : whichScreen == 'Assign Voucher'
@@ -476,31 +478,32 @@ Widget voucherCard({
                       : Obx(() => Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              GestureDetector(
-                                onTap: () {
-                                  voucherCtrlSW.voucherCount(0);
-                                  if (voucherCtrlSW.initialVoucherCount[
-                                          voucherCtrlSW.voucherIndex()] >
+                              IconButton(
+                                onPressed: () {
+                                  logI(index);
+                                  voucherCtrlSW.voucherIndex(index);
+                                  if (voucherCtrlSW.initialVoucherCount[index] >
                                       0) {
-                                    voucherCtrlSW.voucherCount.value--;
-                                    voucherCtrlSW.initialVoucherCount[
-                                            voucherCtrlSW.voucherIndex()] =
-                                        voucherCtrlSW.voucherCount();
+                                    voucherCtrlSW.initialVoucherCount[index]--;
                                   }
                                 },
-                                child: Container(
+                                icon: Container(
                                   height: 70.r,
                                   width: 70.r,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: voucherCtrlSW.voucherCount() == 0
+                                    color: voucherCtrlSW
+                                                .initialVoucherCount[index] ==
+                                            0
                                         ? AppColors.kffffff
                                         : AppColors.k14A1BE,
                                   ),
                                   child: Icon(
                                     Icons.remove,
                                     size: 15,
-                                    color: voucherCtrlSW.voucherCount() == 0
+                                    color: voucherCtrlSW
+                                                .initialVoucherCount[index] ==
+                                            0
                                         ? AppColors.k14A1BE
                                         : AppColors.kffffff,
                                   ),
@@ -522,29 +525,41 @@ Widget voucherCard({
                                 ),
                                 textAlign: TextAlign.center,
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  voucherCtrlSW.voucherCount(0);
+                              IconButton(
+                                onPressed: () {
+                                  logI(index);
+                                  voucherCtrlSW.voucherIndex(index);
                                   if (voucherCtrlSW.initialVoucherCount[index] <
                                       totalAvailable!.toInt()) {
-                                    voucherCtrlSW.voucherCount.value++;
-                                    voucherCtrlSW.initialVoucherCount[index] =
-                                        voucherCtrlSW.voucherCount();
+                                    voucherCtrlSW.initialVoucherCount[index]++;
                                   }
+                                  if (voucherCtrlSW
+                                          .initialVoucherCount[index] ==
+                                      totalAvailable.toInt()) {
+                                    appSnackbar(
+                                      message: 'Maximum Limit Reached',
+                                      snackbarState: SnackbarState.info,
+                                    );
+                                  }
+                                  logWTF(voucherCtrlSW.initialVoucherCount);
                                 },
-                                child: Container(
+                                icon: Container(
                                   height: 70.r,
                                   width: 70.r,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: voucherCtrlSW.voucherCount() == 0
+                                    color: voucherCtrlSW
+                                                .initialVoucherCount[index] ==
+                                            0
                                         ? AppColors.kffffff
                                         : AppColors.k14A1BE,
                                   ),
                                   child: Icon(
                                     Icons.add,
                                     size: 15,
-                                    color: voucherCtrlSW.voucherCount() == 0
+                                    color: voucherCtrlSW
+                                                .initialVoucherCount[index] ==
+                                            0
                                         ? AppColors.k14A1BE
                                         : AppColors.kffffff,
                                   ),

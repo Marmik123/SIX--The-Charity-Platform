@@ -123,7 +123,7 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
                                                 controller
                                                     .programCreditsAvailability()[
                                                         index]
-                                                    .title
+                                                    .name
                                                     .toString(),
                                                 style: TextStyle(
                                                   fontFamily: 'Gilroy',
