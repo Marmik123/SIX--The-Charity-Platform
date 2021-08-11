@@ -9,6 +9,7 @@ import 'package:six/app/modules/social_worker/connected_organization/views/conne
 import 'package:six/app/modules/social_worker/note_details/views/note_details_view.dart';
 import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/catched_image.dart';
+import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/indexed_stack_tab_item.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
@@ -339,70 +340,75 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                               child: Padding(
                                 padding: const EdgeInsets.only(
                                     left: 20.0, right: 20),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          'Total Received Credits :',
-                                          style: TextStyle(
-                                            fontFamily: 'Gilroy',
-                                            fontSize: 40.sp,
-                                            fontStyle: FontStyle.normal,
-                                            color: AppColors.k033660,
-                                            fontWeight: FontWeight.w500,
+                                child: Obx(() => controller.isLoading()
+                                    ? buildLoader()
+                                    : Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                'Total Received Credits :',
+                                                style: TextStyle(
+                                                  fontFamily: 'Gilroy',
+                                                  fontSize: 40.sp,
+                                                  fontStyle: FontStyle.normal,
+                                                  color: AppColors.k033660,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              Text(
+                                                '\$${controller.beneDashboard?['totalCredits'] ?? 0}',
+                                                style: TextStyle(
+                                                  fontFamily: 'Gilroy',
+                                                  fontSize: 40.sp,
+                                                  fontStyle: FontStyle.normal,
+                                                  color: AppColors.k13A89E,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              )
+                                            ],
                                           ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        Text(
-                                          '\$8,500',
-                                          style: TextStyle(
-                                            fontFamily: 'Gilroy',
-                                            fontSize: 40.sp,
-                                            fontStyle: FontStyle.normal,
-                                            color: AppColors.k13A89E,
-                                            fontWeight: FontWeight.w700,
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                'Monthly Received Credits :',
+                                                style: TextStyle(
+                                                  fontFamily: 'Gilroy',
+                                                  fontSize: 40.sp,
+                                                  fontStyle: FontStyle.normal,
+                                                  color: AppColors.k033660,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              Text(
+                                                '\$${controller.beneDashboard?['totalMonthlyCredits'] ?? 0}',
+                                                style: TextStyle(
+                                                  fontFamily: 'Gilroy',
+                                                  fontSize: 40.sp,
+                                                  fontStyle: FontStyle.normal,
+                                                  color: AppColors.k13A89E,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              )
+                                            ],
                                           ),
-                                          textAlign: TextAlign.center,
-                                        )
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          'Monthly Received Credits :',
-                                          style: TextStyle(
-                                            fontFamily: 'Gilroy',
-                                            fontSize: 40.sp,
-                                            fontStyle: FontStyle.normal,
-                                            color: AppColors.k033660,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        Text(
-                                          '\$500',
-                                          style: TextStyle(
-                                            fontFamily: 'Gilroy',
-                                            fontSize: 40.sp,
-                                            fontStyle: FontStyle.normal,
-                                            color: AppColors.k13A89E,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        )
-                                      ],
-                                    ),
-                                    Row(
+
+                                          ///REQUEST MADE ROW
+                                          /*Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -430,38 +436,38 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                                           textAlign: TextAlign.center,
                                         )
                                       ],
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          'Household Size :',
-                                          style: TextStyle(
-                                            fontFamily: 'Gilroy',
-                                            fontSize: 40.sp,
-                                            fontStyle: FontStyle.normal,
-                                            color: AppColors.k033660,
-                                            fontWeight: FontWeight.w500,
+                                    ),*/
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                'Household Size :',
+                                                style: TextStyle(
+                                                  fontFamily: 'Gilroy',
+                                                  fontSize: 40.sp,
+                                                  fontStyle: FontStyle.normal,
+                                                  color: AppColors.k033660,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              Text(
+                                                '${controller.beneDashboard?['houseHoldSize'] ?? 0}',
+                                                style: TextStyle(
+                                                  fontFamily: 'Gilroy',
+                                                  fontSize: 40.sp,
+                                                  fontStyle: FontStyle.normal,
+                                                  color: AppColors.k13A89E,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              )
+                                            ],
                                           ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        Text(
-                                          '4',
-                                          style: TextStyle(
-                                            fontFamily: 'Gilroy',
-                                            fontSize: 40.sp,
-                                            fontStyle: FontStyle.normal,
-                                            color: AppColors.k13A89E,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                        ],
+                                      )),
                               ),
                             ),
                           ),

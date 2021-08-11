@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/modules/social_worker/beneficiary_details/controllers/beneficiary_details_controller.dart';
 import 'package:six/app/ui/components/common_voucher_card.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
 
@@ -9,6 +10,9 @@ import '../controllers/assigned_voucher_controller.dart';
 
 class AssignedVoucherView extends GetView<AssignedVoucherController> {
   @override
+  final BeneficiaryDetailsController ctrl =
+      Get.put(BeneficiaryDetailsController());
+
   Widget build(BuildContext context) {
     return ListView(
       shrinkWrap: true,
@@ -82,20 +86,32 @@ class AssignedVoucherView extends GetView<AssignedVoucherController> {
           shrinkWrap: true,
           physics: const ClampingScrollPhysics(),
           padding: const EdgeInsets.only(left: 15),
-          itemBuilder: (context, index) => voucherCard(
-            title: 'NTUC Fairprice',
-            imgUrl: 'https://picsum.photos/id/1011/180',
-            amount: 10,
-            whichScreen: 'Assign Voucher',
-            voucherCode: '15015403',
-            date: '1, Nov 2021',
-            onTap: () {},
-            voucherState: VoucherState.active,
-            btnText: 'Active Voucher',
-            isQRScreen: false,
-          ),
+          itemBuilder: (context, index) {
+            var expiryDate = ctrl.getDate(index);
+
+            return voucherCard(
+              title: ctrl.assignedVouchers[index].name ?? 'NTUC Fairprice',
+              imgUrl: 'https://picsum.photos/id/1011/180',
+              amount: ctrl.assignedVouchers[index].amount ?? 0,
+              whichScreen: 'Assign Voucher',
+              voucherCode: ctrl.assignedVouchers[index].voucherId ?? '15015403',
+              date: expiryDate ?? '1, Nov 2021',
+              onTap: () {},
+              voucherState: ctrl.checkIsExpired(index)
+                  ? VoucherState.expired
+                  : (ctrl.assignedVouchers[index].isActive ?? false
+                      ? VoucherState.redeemed
+                      : VoucherState.active),
+              btnText: ctrl.checkIsExpired(index)
+                  ? 'Expired Voucher'
+                  : (ctrl.assignedVouchers[index].isActive ?? false
+                      ? 'Already Redeemed'
+                      : 'Active Voucher'),
+              isQRScreen: false,
+            );
+          },
           separatorBuilder: (context, index) => h(1.h),
-          itemCount: 10,
+          itemCount: ctrl.assignedVouchers.length,
         ),
       ],
     );

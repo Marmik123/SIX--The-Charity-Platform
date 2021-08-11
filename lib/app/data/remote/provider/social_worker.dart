@@ -24,6 +24,23 @@ class SocialWorkerProvider {
     }
   }
 
+  //Helper Function to fetch the beneficiary dashboard data .
+  static Future<Map<String, dynamic>?> getBeneDashBoardData(
+      String beneficiaryId) async {
+    var response = await APIService.get(
+      path: '/v1/auth/beneficiary-dashboard-data/$beneficiaryId',
+    );
+    if (response?.statusCode == 200) {
+      logI('######Beneficiary Dashboard########');
+      logI(response?.data!['data']);
+      var availCredits = response?.data!['data'] as Map<String, dynamic>;
+      return availCredits;
+    } else {
+      appSnackbar(message: 'Error');
+      return null;
+    }
+  }
+
   //Helper Function to fetch the beneficiaries associated with SW.
   static Future<List<UserEntity>> getBeneficiaryList(
       {required String? skip, required String? limit}) async {
@@ -83,6 +100,7 @@ class SocialWorkerProvider {
     }
   }
 
+  //Helper Function to get the connected organization of beneficiary.
   static Future<List<UserEntity>> getBeneficiaryOrganization(
       {required String? needyFamilyId,
       required String? skip,
@@ -103,23 +121,37 @@ class SocialWorkerProvider {
     }
   }
 
+  //Helper Function to get the assigned vouchers to beneficiary.
+  static Future<List<AvailableVouchers>> getAssignedVouchers(
+      {required String? needyFamilyId,
+      required String? skip,
+      required String? limit}) async {
+    var response = await APIService.get(
+      path:
+          '/v1/auth/beneficiary-assigned-voucher-list/$needyFamilyId/$skip/$limit',
+    );
+    if (response?.statusCode == 200) {
+      logI('######Assigned Vouchers########');
+      logI(response?.data!['data']);
+      var vouchers = response?.data!['data'] as List<dynamic>;
+      logI(vouchers);
+      return List<AvailableVouchers>.from(vouchers.map<AvailableVouchers>(
+          (dynamic e) => AvailableVouchers.fromMap(e as Map<String, dynamic>)));
+    } else {
+      appSnackbar(message: 'Error');
+      return <AvailableVouchers>[];
+    }
+  }
+
   //Helper Function to assign a purchased voucher to  selected beneficiary.
   static Future<bool> assignVoucher({
-    required String familyUserId,
-    required String voucherId,
-    required String name,
-    required double quantity,
-    required double amount,
+    required List vouchers,
   }) async {
     var response = await APIService.post(
         path: '/v1/auth/assign-beneficiery',
         encrypt: true,
         data: <String, dynamic>{
-          'familyUserId': familyUserId,
-          'voucherId': voucherId,
-          'name': name,
-          'quantity': quantity,
-          'amount': amount,
+          'vouchers': vouchers,
         });
     logI(response);
     if (response?.statusCode != 200) {

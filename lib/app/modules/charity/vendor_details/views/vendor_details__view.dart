@@ -80,10 +80,14 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                 child: cacheImage(
                                   height: 380.r,
                                   width: 380.r,
-                                  url: availVendorCtrl
-                                          .vendorDetails?['profile_image_url']
-                                          .toString() ??
-                                      'https://picsum.photos/200/300',
+                                  url: availVendorCtrl.vendorDetails?[
+                                              'profile_image_url'] ==
+                                          null
+                                      ? 'https://picsum.photos/200/300'
+                                      : availVendorCtrl.vendorDetails?[
+                                                  'profile_image_url']
+                                              .toString() ??
+                                          'https://picsum.photos/200/300',
                                 ),
                               ),
                             ),
@@ -106,15 +110,15 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    availVendorCtrl.vendorDetails!['first_name']
-                                            .toString()
-                                            .isEmpty
+                                    availVendorCtrl
+                                                .vendorDetails!['first_name'] ==
+                                            null
                                         ? const SizedBox.shrink()
                                         : Text(
                                             availVendorCtrl.vendorDetails?[
                                                         'first_name']
                                                     .toString() ??
-                                                'null',
+                                                'Vendor Name',
                                             style: TextStyle(
                                               fontFamily: 'Gilroy',
                                               fontSize: 65.sp,
@@ -125,22 +129,22 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                             textAlign: TextAlign.center,
                                           ),
                                     h(40.h),
-                                    Container(
-                                      height: 64.h,
-                                      width: 226.w,
-                                      decoration: BoxDecoration(
-                                        color: AppColors.kffffff,
-                                        borderRadius:
-                                            BorderRadius.circular(20.r),
-                                      ),
-                                      child: Center(
-                                        child: purchaseController
+                                    purchaseController
                                                 .voucherCategory[availVendorCtrl
                                                     .categoryIndex()]
-                                                .name!
-                                                .isEmpty
-                                            ? const SizedBox.shrink()
-                                            : Text(
+                                                .name ==
+                                            null
+                                        ? const SizedBox.shrink()
+                                        : Container(
+                                            height: 64.h,
+                                            width: 226.w,
+                                            decoration: BoxDecoration(
+                                              color: AppColors.kffffff,
+                                              borderRadius:
+                                                  BorderRadius.circular(20.r),
+                                            ),
+                                            child: Center(
+                                              child: Text(
                                                 purchaseController
                                                         .voucherCategory[
                                                             availVendorCtrl
@@ -156,8 +160,8 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                                 ),
                                                 textAlign: TextAlign.center,
                                               ),
-                                      ),
-                                    ),
+                                            ),
+                                          ),
                                     h(60.h),
                                   ],
                                 ),

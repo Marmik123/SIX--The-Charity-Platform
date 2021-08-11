@@ -416,7 +416,9 @@ Widget voucherCard({
             ? 195.h
             : whichScreen == 'History'
                 ? 185.w
-                : 95.h,
+                : whichScreen == 'Assign Voucher'
+                    ? -20.w
+                    : 95.h,
         right: whichScreen == 'QRScreen'
             ? 86.w
             : whichScreen == 'Social Worker'
@@ -459,7 +461,8 @@ Widget voucherCard({
                           ? 920.h
                           : 920.w,
                   alignment: Alignment.center,
-                  child: UserProvider.role != 'social_worker'
+                  child: UserProvider.role != 'social_worker' ||
+                          whichScreen == 'Assign Voucher'
                       ? Text(
                           btnText,
                           style: TextStyle(
@@ -575,16 +578,19 @@ Widget voucherCard({
             ),
             whichScreen == 'History'
                 ? const SizedBox.shrink()
-                : Text(
-                    'Click here for Terms & Conditions',
-                    style: TextStyle(
-                        fontFamily: 'Gilroy',
-                        fontSize: 35.sp,
-                        fontStyle: FontStyle.normal,
-                        color: AppColors.k033660,
-                        fontWeight: FontWeight.w500,
-                        decoration: TextDecoration.underline),
-                    textAlign: TextAlign.center,
+                : TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Click here for Terms & Conditions',
+                      style: TextStyle(
+                          fontFamily: 'Gilroy',
+                          fontSize: 35.sp,
+                          fontStyle: FontStyle.normal,
+                          color: AppColors.k033660,
+                          fontWeight: FontWeight.w500,
+                          decoration: TextDecoration.underline),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
           ],
         ),

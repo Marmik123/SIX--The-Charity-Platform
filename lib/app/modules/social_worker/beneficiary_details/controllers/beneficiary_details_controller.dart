@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/local/note_details_helper.dart';
+import 'package:six/app/data/models/available_vouchers.dart';
 import 'package:six/app/data/models/user_entity.dart';
 import 'package:six/app/data/remote/provider/social_worker.dart';
 import 'package:six/app/modules/social_worker/social_home/controllers/social_home_controller.dart';
+import 'package:six/app/utils/get_month_name.dart';
 
 class BeneficiaryDetailsController extends GetxController {
   RxInt tabIndex = 0.obs;
@@ -18,12 +20,15 @@ class BeneficiaryDetailsController extends GetxController {
   RxInt skip = 0.obs;
   RxInt limit = 1000.obs;
   RxDouble opacity = 0.0.obs;
+  Map<String, dynamic>? beneDashboard;
   SocialHomeController socialHome = Get.find<SocialHomeController>();
   ScrollController scrollViewController = ScrollController();
   TextEditingController addNoteCtrl = TextEditingController();
   TextEditingController editNoteCtrl = TextEditingController();
   RxList<Map<String, Object?>> notesList = <Map<String, Object?>>[].obs;
   RxList<UserEntity> connectedOrg = <UserEntity>[].obs;
+  RxList<AvailableVouchers> assignedVouchers = <AvailableVouchers>[].obs;
+
   final dbHelper = DatabaseHelper.instance;
 
   List<String> text = [
@@ -48,6 +53,8 @@ class BeneficiaryDetailsController extends GetxController {
     getNotes();
     logWTF(beneficiary.toJson());
     assignConnectedOrg();
+    assignBeneDashboardData();
+    getAssignedVouchers();
   }
 
   Future<void> addNote() async {
@@ -75,6 +82,43 @@ class BeneficiaryDetailsController extends GetxController {
 
   Future<void> updateNoteDetails() async {
     notesList(await dbHelper.getNotes(beneficiaryId: beneficiary.id));
+  }
+
+  bool checkIsExpired(int index) {
+    var isAfter = DateTime.now().compareTo(assignedVouchers[index].endDate!);
+    if (isAfter > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<void> getAssignedVouchers() async {
+    isLoading(true);
+    assignedVouchers(await SocialWorkerProvider.getAssignedVouchers(
+      needyFamilyId: beneficiary.id,
+      skip: skip().toString(),
+      limit: limit().toString(),
+    ));
+    isLoading(false);
+  }
+
+  Future<void> assignBeneDashboardData() async {
+    isLoading(true);
+    beneDashboard =
+        await SocialWorkerProvider.getBeneDashBoardData(beneficiary.id);
+    logI(beneDashboard);
+    isLoading(false);
+  }
+
+  String? getDate(int index) {
+    var formattedDate =
+        DateTime.parse(assignedVouchers[index].endDate.toString());
+    var date = formattedDate.day;
+    var year = formattedDate.year;
+    var month = assignMonth(formattedDate.month);
+    var finalDate = '$date,$month $year';
+    return finalDate;
   }
 
   Future<void> assignConnectedOrg() async {

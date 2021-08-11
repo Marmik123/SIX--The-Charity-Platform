@@ -23,6 +23,7 @@ class AvailableVouchers {
     this.isActive,
     this.deleted,
     this.total,
+    this.voucher,
   });
 
   String? id;
@@ -46,6 +47,7 @@ class AvailableVouchers {
   bool? isFeature;
   bool? isActive;
   bool? deleted;
+  Map<String, dynamic>? voucher;
 
   AvailableVouchers copyWith({
     String? id,
@@ -69,6 +71,7 @@ class AvailableVouchers {
     bool? isFeature,
     bool? isActive,
     bool? deleted,
+    Map<String, dynamic>? voucher,
   }) =>
       AvailableVouchers(
         id: id ?? this.id,
@@ -92,6 +95,7 @@ class AvailableVouchers {
         isFeature: isFeature ?? this.isFeature,
         isActive: isActive ?? this.isActive,
         deleted: deleted ?? this.deleted,
+        voucher: voucher ?? this.voucher,
       );
 
   factory AvailableVouchers.fromJson(Map<String, dynamic> json) =>
@@ -102,8 +106,7 @@ class AvailableVouchers {
   factory AvailableVouchers.fromMap(Map<String, dynamic> json) =>
       AvailableVouchers(
         id: json['id'] == null ? null : json['id'] as String,
-        voucherId:
-            json['voucher_id'] == null ? null : json['voucher_id'] as String,
+        voucherId: (json['voucher_id'] ?? json['redeem_code']) as String?,
         name: json['name'] == null ? null : json['name'] as String,
         description:
             json['description'] == null ? null : json['description'] as String,
@@ -127,17 +130,22 @@ class AvailableVouchers {
         thumbIconName: json['thumb_icon_name'],
         thumbIconUrl: json['thumb_icon_url'],
         startDate: json['start_date'] == null
-            ? null
+            ? DateTime.parse(json['user_start_date'] as String)
             : DateTime.parse(json['start_date'] as String),
         endDate: json['end_date'] == null
-            ? null
+            ? DateTime.parse(json['user_end_date'] as String)
             : DateTime.parse(json['end_date'] as String),
         validity: json['validity'] == null ? null : json['validity'] as String,
         isPaid: json['is_paid'] == null ? null : json['is_paid'] as bool,
         isFeature:
             json['is_feature'] == null ? null : json['is_feature'] as bool,
-        isActive: json['is_active'] == null ? null : json['is_active'] as bool,
+        isActive: json['is_active'] == null
+            ? json['is_redeemed'] as bool
+            : json['is_active'] as bool,
         deleted: json['_deleted'] == null ? null : json['_deleted'] as bool,
+        voucher: json['voucher'] == null
+            ? null
+            : json['voucher'] as Map<String, dynamic>,
       );
 
   Map<String, dynamic> toMap() => <String, dynamic>{
@@ -162,5 +170,6 @@ class AvailableVouchers {
         'is_feature': isFeature,
         'is_active': isActive,
         '_deleted': deleted,
+        'voucher': voucher,
       };
 }

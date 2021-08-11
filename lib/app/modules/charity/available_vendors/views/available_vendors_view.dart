@@ -240,15 +240,27 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                                         url: availVendorCtrl
                                                                 .isSearched()
                                                             ? availVendorCtrl
-                                                                .searchedVendorList()[
-                                                                    index]
-                                                                .profileImageUrl
-                                                                .toString()
+                                                                        .searchedVendorList()[
+                                                                            index]
+                                                                        .profileImageUrl ==
+                                                                    null
+                                                                ? 'https://picsum.photos/200/300'
+                                                                : availVendorCtrl
+                                                                    .searchedVendorList()[
+                                                                        index]
+                                                                    .profileImageUrl
+                                                                    .toString()
                                                             : availVendorCtrl
-                                                                .vendorList()[
-                                                                    index]
-                                                                .profileImageUrl
-                                                                .toString(),
+                                                                        .vendorList()[
+                                                                            index]
+                                                                        .profileImageUrl ==
+                                                                    null
+                                                                ? 'https://picsum.photos/200/300'
+                                                                : availVendorCtrl
+                                                                    .vendorList()[
+                                                                        index]
+                                                                    .profileImageUrl
+                                                                    .toString(),
                                                       ),
                                                     ),
                                                   ),

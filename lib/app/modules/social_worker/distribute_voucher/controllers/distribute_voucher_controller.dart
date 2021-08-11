@@ -6,7 +6,6 @@ import 'package:six/app/data/models/voucher_category.dart';
 import 'package:six/app/data/remote/provider/social_worker.dart';
 import 'package:six/app/data/remote/provider/voucher_category.dart';
 import 'package:six/app/modules/social_worker/beneficiary_details/controllers/beneficiary_details_controller.dart';
-import 'package:six/app/ui/components/app_snackbar.dart';
 import 'package:six/app/ui/components/get_dialog.dart';
 
 class DistributeVoucherController extends GetxController {
@@ -14,11 +13,13 @@ class DistributeVoucherController extends GetxController {
   RxInt selectedCategory = 0.obs;
   RxInt voucherIndex = 0.obs;
   RxInt height = 280.obs;
+  RxInt voucherToBeAssignCount = 0.obs;
   RxList<VoucherCategory> categoryList = <VoucherCategory>[].obs;
   RxList<AvailableVouchers> vouchers = <AvailableVouchers>[].obs;
   RxList<int> initialVoucherCount = <int>[].obs;
   RxInt voucherCount = 0.obs;
   RxBool voucherAssigned = false.obs;
+  RxBool voucherAssignLoading = false.obs;
   RxBool isLoading = false.obs;
   RxBool isVoucherLoading = false.obs;
   RxInt skip = 0.obs;
@@ -59,38 +60,28 @@ class DistributeVoucherController extends GetxController {
     vouchers.forEach((element) {
       initialVoucherCount.add(0);
     });
-    logI(initialVoucherCount);
+    logWTF(initialVoucherCount);
     logI(categoryList);
     isVoucherLoading(false);
   }
 
   Future<void> assignNow({
-    String? familyUserId,
-    String? voucherId,
-    String? name,
-    double? quantity,
-    double? amount,
+    required List vouchers,
   }) async {
     // isLoading(true);
-    var check =
+    /* var check =
         initialVoucherCount.singleWhere((element) => element != 0, orElse: () {
       appSnackbar(
         message: 'Set quantity more than zero',
         snackbarState: SnackbarState.warning,
       );
       return 0;
-    });
+    });*/
     if (initialVoucherCount.any((element) => element != 0)) {
-      var success = await SocialWorkerProvider.assignVoucher(
-        familyUserId: familyUserId!,
-        voucherId: voucherId!,
-        name: name!,
-        quantity: quantity!,
-        amount: amount!,
-      );
-
+      var success =
+          await SocialWorkerProvider.assignVoucher(vouchers: vouchers);
       if (success) {
-        //isLoading(false);
+        voucherAssignLoading(false);
         unawaited(
           dialog(
             success: true,

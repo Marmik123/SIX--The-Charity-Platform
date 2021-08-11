@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/config/logger.dart';
+import 'package:six/app/ui/components/app_snackbar.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/common_appbar.dart';
@@ -22,20 +23,52 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: roundedButton(
         text: 'Confirm Now',
+        isLoading: controller.voucherAssignLoading(),
         onTap: () {
-          logW(controller.vouchers[controller.voucherIndex()].voucherId);
-          logW(controller.voucherIndex());
-          controller.assignNow(
-            quantity: double.tryParse(controller
-                .initialVoucherCount[controller.voucherIndex()]
-                .toString()),
-            amount: controller.vouchers[controller.voucherIndex()].amount,
-            familyUserId: controller.beneCtrl.beneficiary.id,
-            name: controller.vouchers[controller.voucherIndex()].name,
-            voucherId: controller.vouchers[controller.voucherIndex()].voucherId,
-          );
-          // controller.voucherAssigned(true);
-          //Get.toNamed<void>(Routes.DISTRIBUTE_VOUCHER);
+          if (controller.vouchers.isNotEmpty) {
+            logW(controller.vouchers[controller.voucherIndex()].voucherId);
+            logW(controller.voucherIndex());
+            var quantityZero =
+                controller.initialVoucherCount.every((element) => element == 0);
+            if (quantityZero) {
+              appSnackbar(
+                message: 'Please increase quantity',
+                snackbarState: SnackbarState.warning,
+              );
+            } else {
+              var voucherList =
+                  List.generate(controller.vouchers.length, (index) {
+                if (controller.initialVoucherCount[index] != 0) {
+                  return <String, dynamic>{
+                    'quantity': double.tryParse(
+                        controller.initialVoucherCount[index].toString()),
+                    'amount': controller.vouchers[index].amount,
+                    'familyUserId': controller.beneCtrl.beneficiary.id,
+                    'name': controller.vouchers[index].name,
+                    'voucherId': controller.vouchers[index].voucherId,
+                  };
+                } else {
+                  return 0;
+                }
+              });
+              voucherList.removeWhere((element) => element == 0);
+              logWTF(voucherList);
+              logI(voucherList.runtimeType);
+              if (voucherList.isNotEmpty) {
+                controller.voucherAssignLoading(true);
+                controller.assignNow(
+                  vouchers: voucherList,
+                );
+              }
+            }
+            // controller.voucherAssigned(true);
+            //Get.toNamed<void>(Routes.DISTRIBUTE_VOUCHER);
+          } else {
+            appSnackbar(
+              message: 'No Voucher Available',
+              snackbarState: SnackbarState.danger,
+            );
+          }
         },
         width: 452.w,
         height: 150.h,
@@ -75,7 +108,7 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                   height: 160.h,
                   child: textField(
                     context: context,
-                    height: 250.h,
+                    height: 50.h,
                     width: 1005.w,
                     initialValue: '',
                     prefixText: '',
@@ -83,7 +116,7 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                     prefixImageName: R.image.asset.search.assetName,
                     onTap: () {},
                     contentPadding: const EdgeInsets.only(
-                      bottom: 5.0,
+                      right: 50,
                     ),
                     textStyle: TextStyle(
                       fontSize: 35.sp,
