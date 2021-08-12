@@ -12,14 +12,14 @@ import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/dialog_vocher_redeem.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
 import 'package:six/app/ui/components/voucher_container_paint.dart';
+import 'package:six/app/utils/material_prop_ext.dart';
 
 enum VoucherState {
   active,
   expired,
   redeemed,
 }
-DistributeVoucherController voucherCtrlSW =
-    Get.put(DistributeVoucherController());
+
 Widget voucherCard({
   required String title,
   required String imgUrl,
@@ -33,7 +33,13 @@ Widget voucherCard({
   required bool isQRScreen,
   double? totalAvailable,
   int index = 0,
+  DistributeVoucherController? voucherCtrlSW,
+  String? beneficiaryName,
+  String? beneProfileUrl,
 }) {
+  /*DistributeVoucherController voucherCtrlSW =
+      Get.put(DistributeVoucherController());
+  */
   return Stack(
     clipBehavior: Clip.none,
     alignment: Alignment.bottomCenter,
@@ -171,7 +177,7 @@ Widget voucherCard({
                                         ]),
                                       ),
                                     ),
-                                    FittedBox(
+                                    /*  FittedBox(
                                       child: RichText(
                                         text: TextSpan(children: <TextSpan>[
                                           TextSpan(
@@ -197,7 +203,7 @@ Widget voucherCard({
                                           )
                                         ]),
                                       ),
-                                    )
+                                    )*/
                                   ],
                                 ),
                               ),
@@ -415,9 +421,10 @@ Widget voucherCard({
         bottom: whichScreen == 'QRScreen'
             ? 195.h
             : whichScreen == 'History'
-                ? 185.w
-                : whichScreen == 'Assign Voucher'
-                    ? -20.w
+                ? 220.w
+                : whichScreen == 'Assign Voucher' ||
+                        whichScreen == 'Social Worker'
+                    ? 45.w
                     : 95.h,
         right: whichScreen == 'QRScreen'
             ? 86.w
@@ -462,7 +469,8 @@ Widget voucherCard({
                           : 920.w,
                   alignment: Alignment.center,
                   child: UserProvider.role != 'social_worker' ||
-                          whichScreen == 'Assign Voucher'
+                          whichScreen == 'Assign Voucher' ||
+                          whichScreen == 'History'
                       ? Text(
                           btnText,
                           style: TextStyle(
@@ -484,8 +492,9 @@ Widget voucherCard({
                               IconButton(
                                 onPressed: () {
                                   logI(index);
-                                  voucherCtrlSW.voucherIndex(index);
-                                  if (voucherCtrlSW.initialVoucherCount[index] >
+                                  voucherCtrlSW?.voucherIndex(index);
+                                  if (voucherCtrlSW!
+                                          .initialVoucherCount[index] >
                                       0) {
                                     voucherCtrlSW.initialVoucherCount[index]--;
                                   }
@@ -496,7 +505,7 @@ Widget voucherCard({
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: voucherCtrlSW
-                                                .initialVoucherCount[index] ==
+                                                ?.initialVoucherCount[index] ==
                                             0
                                         ? AppColors.kffffff
                                         : AppColors.k14A1BE,
@@ -505,7 +514,7 @@ Widget voucherCard({
                                     Icons.remove,
                                     size: 15,
                                     color: voucherCtrlSW
-                                                .initialVoucherCount[index] ==
+                                                ?.initialVoucherCount[index] ==
                                             0
                                         ? AppColors.k14A1BE
                                         : AppColors.kffffff,
@@ -513,8 +522,9 @@ Widget voucherCard({
                                 ),
                               ),
                               Text(
-                                voucherCtrlSW.initialVoucherCount[index]
-                                    .toString(),
+                                voucherCtrlSW?.initialVoucherCount[index]
+                                        .toString() ??
+                                    '0',
                                 style: TextStyle(
                                   fontFamily: 'Gilroy',
                                   fontSize: 50.sp,
@@ -531,8 +541,9 @@ Widget voucherCard({
                               IconButton(
                                 onPressed: () {
                                   logI(index);
-                                  voucherCtrlSW.voucherIndex(index);
-                                  if (voucherCtrlSW.initialVoucherCount[index] <
+                                  voucherCtrlSW?.voucherIndex(index);
+                                  if (voucherCtrlSW!
+                                          .initialVoucherCount[index] <
                                       totalAvailable!.toInt()) {
                                     voucherCtrlSW.initialVoucherCount[index]++;
                                   }
@@ -552,7 +563,7 @@ Widget voucherCard({
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: voucherCtrlSW
-                                                .initialVoucherCount[index] ==
+                                                ?.initialVoucherCount[index] ==
                                             0
                                         ? AppColors.kffffff
                                         : AppColors.k14A1BE,
@@ -561,7 +572,7 @@ Widget voucherCard({
                                     Icons.add,
                                     size: 15,
                                     color: voucherCtrlSW
-                                                .initialVoucherCount[index] ==
+                                                ?.initialVoucherCount[index] ==
                                             0
                                         ? AppColors.k14A1BE
                                         : AppColors.kffffff,
@@ -573,13 +584,15 @@ Widget voucherCard({
                 ),
               ),
             ),
-            SizedBox(
-              height: 30.h,
-            ),
             whichScreen == 'History'
                 ? const SizedBox.shrink()
                 : TextButton(
                     onPressed: () {},
+                    style: ButtonStyle(
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      padding: EdgeInsets.zero.msp,
+                      overlayColor: Colors.transparent.msp,
+                    ),
                     child: Text(
                       'Click here for Terms & Conditions',
                       style: TextStyle(
@@ -610,14 +623,15 @@ Widget voucherCard({
                         child: cacheImage(
                           height: 119.r,
                           width: 119.r,
-                          url: 'https://picsum.photos/id/1010/180',
+                          url: beneProfileUrl ??
+                              'https://picsum.photos/id/1011/180',
                         ),
                       ),
                     ),
                   ),
                   w(37.w),
                   Text(
-                    title,
+                    beneficiaryName ?? 'NA',
                     style: TextStyle(
                       fontFamily: 'Gilroy',
                       fontSize: 50.sp,

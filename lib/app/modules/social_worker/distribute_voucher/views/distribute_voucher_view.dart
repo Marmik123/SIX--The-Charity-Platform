@@ -101,39 +101,6 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                   child: Container(),
                 ),
               ),
-              Positioned(
-                top: 0,
-                child: Container(
-                  width: 985.w,
-                  height: 160.h,
-                  child: textField(
-                    context: context,
-                    height: 50.h,
-                    width: 1005.w,
-                    initialValue: '',
-                    prefixText: '',
-                    hintText: 'Search',
-                    prefixImageName: R.image.asset.search.assetName,
-                    onTap: () {},
-                    contentPadding: const EdgeInsets.only(
-                      right: 50,
-                    ),
-                    textStyle: TextStyle(
-                      fontSize: 35.sp,
-                      fontFamily: 'Gilroy',
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.k6886A0,
-                    ),
-                    hintStyle: TextStyle(
-                      fontSize: 45.sp,
-                      fontFamily: 'Gilroy',
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.k6886A0,
-                    ),
-                    keyBoardType: TextInputType.text,
-                  ),
-                ),
-              ),
               Obx(() => Positioned(
                     bottom: -30,
                     left: -60,
@@ -147,7 +114,7 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                               : ListView.builder(
                                   shrinkWrap: true,
                                   padding: const EdgeInsets.only(
-                                    top: 10,
+                                    top: 0,
                                     left: 70,
                                     right: 10,
                                   ),
@@ -266,52 +233,139 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                                 ),
                     ),
                   )),
+              Positioned(
+                top: 0,
+                child: Container(
+                  width: 985.w,
+                  height: 160.h,
+                  child: GetBuilder<DistributeVoucherController>(
+                    builder: (_) => textField(
+                      context: context,
+                      onChanged: (value) {
+                        controller.update();
+                      },
+                      height: 120.h,
+                      width: 1005.w,
+                      initialValue: '',
+                      prefixText: '',
+                      hintText: 'Search',
+                      controller: controller.voucherSearch,
+                      prefixImageName: R.image.asset.search.assetName,
+                      onTap: () {},
+                      textAction: TextInputAction.search,
+                      contentPadding: const EdgeInsets.only(
+                          //right: 50,
+                          ),
+                      textStyle: TextStyle(
+                        fontSize: 35.sp,
+                        fontFamily: 'Gilroy',
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.k6886A0,
+                      ),
+                      suffixIcon: controller.voucherSearch.text.trim().isEmpty
+                          ? const SizedBox.shrink()
+                          : IconButton(
+                              color: AppColors.k6886A0,
+                              //padding: const EdgeInsets.only(top: 15),
+                              alignment: Alignment.center,
+                              iconSize: 20,
+                              tooltip: 'Clear Text',
+                              splashRadius: 2,
+                              icon: const Icon(
+                                Icons.clear,
+                              ),
+                              onPressed: () {
+                                controller.isSearched(false);
+                                controller.voucherSearch.clear();
+                                controller.update();
+                                controller.assignVoucherList(controller
+                                    .categoryList[controller.selectedCategory()]
+                                    .id!);
+                              },
+                            ),
+                      hintStyle: TextStyle(
+                        fontSize: 45.sp,
+                        fontFamily: 'Gilroy',
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.k6886A0,
+                      ),
+                      keyBoardType: TextInputType.text,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
           SizedBox(
             height: 5.h,
           ),
-          Obx(() => controller.isVoucherLoading()
+          Obx(() => (controller.isSearched()
+                  ? controller.isSVoucherLoading()
+                  : controller.isVoucherLoading())
               ? Padding(
                   padding: EdgeInsets.only(top: 0.20.sh),
                   child: buildLoader(),
                 )
               : Expanded(
-                  child: controller.vouchers.isEmpty
-                      ? Padding(
-                          padding: EdgeInsets.only(top: 0.20.sh),
-                          child: const Text('No Voucher Available'),
-                        )
-                      : ListView.builder(
-                          itemCount: controller.vouchers.length,
-                          padding: const EdgeInsets.all(0),
-                          physics: const BouncingScrollPhysics(),
-                          itemBuilder: (context, index) => Row(
-                            children: [
-                              SizedBox(
-                                width: 60.w,
+                  child: controller.isLoading()
+                      ? buildLoader()
+                      : (controller.isSearched()
+                              ? controller.searchedVoucherList().isEmpty
+                              : controller.vouchers().isEmpty)
+                          ? Padding(
+                              padding: EdgeInsets.only(top: 0.20.sh),
+                              child: Text(
+                                'No Voucher Available',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy',
+                                  fontSize: 50.sp,
+                                  fontStyle: FontStyle.normal,
+                                  color: AppColors.k033660,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                              voucherCard(
-                                title: controller.vouchers[index].name ??
-                                    'NTUC Fairprice',
-                                amount: controller.vouchers[index].amount ?? 0,
-                                date: '31,Nov 2021',
-                                imgUrl: 'https://picsum.photos/id/1011/200/300',
-                                whichScreen: 'Social Worker',
-                                onTap: () {
-                                  controller.voucherIndex(index);
-                                },
-                                voucherCode: '15015403',
-                                btnText: 'Redeem Now',
-                                voucherState: VoucherState.active,
-                                isQRScreen: false,
-                                totalAvailable:
-                                    controller.vouchers[index].total,
-                                index: index,
-                              ), //Common Voucher Card
-                            ],
-                          ),
-                        ),
+                            )
+                          : ListView.builder(
+                              itemCount: controller.isSearched()
+                                  ? controller.searchedVoucherList.length
+                                  : controller.vouchers.length,
+                              padding: const EdgeInsets.all(0),
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (context, index) => Row(
+                                children: [
+                                  SizedBox(
+                                    width: 60.w,
+                                  ),
+                                  voucherCard(
+                                    title: controller.vouchers[index].name ??
+                                        'NTUC Fairprice',
+                                    amount: double.tryParse(controller
+                                        .vouchers[index].amount
+                                        .toString())!,
+                                    date: '31,Nov 2021',
+                                    imgUrl: controller
+                                                .vouchers[index].iconUrl ==
+                                            null
+                                        ? 'https://picsum.photos/200/300'
+                                        : controller.vouchers[index].iconUrl ??
+                                            'https://picsum.photos/id/1011/200/300',
+                                    whichScreen: 'Social Worker',
+                                    onTap: () {
+                                      controller.voucherIndex(index);
+                                    },
+                                    voucherCtrlSW: controller,
+                                    voucherCode: '15015403',
+                                    btnText: 'Redeem Now',
+                                    voucherState: VoucherState.active,
+                                    isQRScreen: false,
+                                    totalAvailable: double.tryParse(controller
+                                        .vouchers[index].total
+                                        .toString()),
+                                    index: index,
+                                  ), //Common Voucher Card
+                                ],
+                              ),
+                            ),
                 )),
         ],
       ),

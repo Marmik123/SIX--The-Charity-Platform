@@ -107,7 +107,7 @@ Future<void> purchaseBottomSheet({
                       hintText: '',
                       prefixImageName: '',
                       onTap: () {},
-                      textAction: TextInputAction.done,
+                      textAction: TextInputAction.go,
                       autofocus: true,
                       keyBoardType: TextInputType.number,
                       textStyle: TextStyle(

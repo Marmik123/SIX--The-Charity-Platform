@@ -20,9 +20,7 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
   @override
   final AvailableVendorsController controller =
       Get.put(AvailableVendorsController());
-
-  var currentFocus = FocusScope.of(Get.context!);
-
+  final currentFocus = FocusScope.of(Get.context!);
   AvailableVendorsView({this.categoryIndex});
   @override
   Widget build(BuildContext context) {

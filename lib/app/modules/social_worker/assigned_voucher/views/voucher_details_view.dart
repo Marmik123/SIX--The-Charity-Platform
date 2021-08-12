@@ -119,16 +119,19 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                               child: FittedBox(
                                                 fit: BoxFit.fill,
                                                 child: cacheImage(
-                                                  height: 121.r,
-                                                  width: 121.r,
-                                                  url:
-                                                      'https://picsum.photos/200/300',
-                                                  /*vDetailsCont
-                                                      .availableVouchers[
-                                                          voucherIndex ?? 0]
-                                                      .iconUrl
-                                                      .toString()*/
-                                                ),
+                                                    height: 121.r,
+                                                    width: 121.r,
+                                                    url: vDetailsCont
+                                                                .availableVouchers[
+                                                                    voucherIndex!]
+                                                                .iconUrl ==
+                                                            null
+                                                        ? 'https://picsum.photos/200/300'
+                                                        : vDetailsCont
+                                                            .availableVouchers[
+                                                                voucherIndex!]
+                                                            .iconUrl
+                                                            .toString()),
                                               ),
                                             ),
                                           ),
@@ -302,13 +305,7 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                         if (controller.voucherCount() > 1) {
                                           controller.voucherCount.value--;
                                         }
-                                        controller.totalAmount(
-                                            controller.voucherCount() *
-                                                vDetailsCont
-                                                    .availableVouchers[
-                                                        voucherIndex ?? 0]
-                                                    .amount!
-                                                    .toDouble());
+                                        // controller.totalAmount();
                                       },
                                       icon: Container(
                                         height: 70.r,
@@ -346,13 +343,14 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                     IconButton(
                                       onPressed: () {
                                         controller.voucherCount.value++;
-                                        controller.totalAmount(
+                                        /*controller.totalAmount(
                                             controller.voucherCount() *
                                                 vDetailsCont
                                                     .availableVouchers[
                                                         voucherIndex ?? 0]
                                                     .amount!
                                                     .toDouble());
+                                      */
                                       },
                                       icon: Container(
                                         height: 70.r,
@@ -427,7 +425,8 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                     Padding(
                       padding: const EdgeInsets.only(left: 85.0),
                       child: roundedButton(
-                        text: 'Pay \$${controller.totalAmount.toString()}',
+                        text:
+                            'Pay \$${controller.voucherCount() * vDetailsCont.availableVouchers[voucherIndex ?? 0].amount!.toDouble()}',
                         onTap: () {
                           // controller.purchasePressed(true);
                           if (controller.voucherCount() != 0) {
@@ -455,6 +454,7 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                         width: 500.w,
                         height: 150.h,
                         fontSize: 50.sp,
+                        isLoading: controller.purCtrl.isLoading(),
                       ),
                     )
                   ],

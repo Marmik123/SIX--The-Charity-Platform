@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:six/app/modules/social_worker/social_home/controllers/social_home_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HistorySwController extends GetxController
@@ -9,6 +10,7 @@ class HistorySwController extends GetxController
   ScrollController scrollViewController = ScrollController();
   RxBool titleVisible = true.obs;
   RxInt tabIndex = 0.obs;
+  SocialHomeController socialCtrl = Get.find<SocialHomeController>();
   List<String> text = [
     '',
     '',

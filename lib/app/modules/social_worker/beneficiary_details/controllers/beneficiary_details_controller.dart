@@ -20,7 +20,7 @@ class BeneficiaryDetailsController extends GetxController {
   RxInt skip = 0.obs;
   RxInt limit = 1000.obs;
   RxDouble opacity = 0.0.obs;
-  Map<String, dynamic>? beneDashboard;
+  RxMap<String, dynamic> beneDashboard = <String, dynamic>{}.obs;
   SocialHomeController socialHome = Get.find<SocialHomeController>();
   ScrollController scrollViewController = ScrollController();
   TextEditingController addNoteCtrl = TextEditingController();
@@ -105,9 +105,9 @@ class BeneficiaryDetailsController extends GetxController {
 
   Future<void> assignBeneDashboardData() async {
     isLoading(true);
-    beneDashboard =
-        await SocialWorkerProvider.getBeneDashBoardData(beneficiary.id);
-    logI(beneDashboard);
+    beneDashboard(
+        await SocialWorkerProvider.getBeneDashBoardData(beneficiary.id));
+    // logI(beneDashboard);
     isLoading(false);
   }
 

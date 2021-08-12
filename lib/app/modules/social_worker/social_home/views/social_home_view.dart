@@ -17,6 +17,7 @@ import 'package:six/app/ui/components/month_picker.dart';
 import 'package:six/app/ui/components/month_picker_dialog.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
 import 'package:six/app/ui/components/vendor_home_curved_cont.dart';
+import 'package:six/app/utils/get_month_name.dart';
 import 'package:six/r.g.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
@@ -130,7 +131,8 @@ class SocialHome extends StatelessWidget {
                                 context: context,
                                 selectedDate: controller.selectedDate,
                               ).then((value) =>
-                                  controller.assignMonth(value?.month ?? 1));
+                                  /*controller.*/ assignMonth(
+                                      value?.month ?? 1));
                             },
                             child: monthPicker(
                               color: AppColors.kffffff,
@@ -218,36 +220,50 @@ class SocialHome extends StatelessWidget {
                                                                   fit: BoxFit
                                                                       .scaleDown,
                                                                   child:
-                                                                      buildPaymentLoader())
+                                                                      buildPaymentLoader(),
+                                                                )
                                                               : RichText(
-                                                                  text: TextSpan(
-                                                                      text: '\$',
-                                                                      style: TextStyle(
-                                                                        fontFamily:
-                                                                            'Gilroy',
-                                                                        fontSize:
-                                                                            60.sp,
-                                                                        fontStyle:
-                                                                            FontStyle.normal,
-                                                                        color: AppColors
-                                                                            .kffffff
-                                                                            .withOpacity(0.5),
-                                                                        fontWeight:
-                                                                            FontWeight.w400,
+                                                                  text:
+                                                                      TextSpan(
+                                                                    text: '\$',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontFamily:
+                                                                          'Gilroy',
+                                                                      fontSize:
+                                                                          60.sp,
+                                                                      fontStyle:
+                                                                          FontStyle
+                                                                              .normal,
+                                                                      color: AppColors
+                                                                          .kffffff
+                                                                          .withOpacity(
+                                                                              0.5),
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400,
+                                                                    ),
+                                                                    children: [
+                                                                      TextSpan(
+                                                                        text: controller
+                                                                            .availableCredits()
+                                                                            .toString(),
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontFamily:
+                                                                              'Gilroy',
+                                                                          fontSize:
+                                                                              60.sp,
+                                                                          fontStyle:
+                                                                              FontStyle.normal,
+                                                                          color:
+                                                                              AppColors.kffffff,
+                                                                          fontWeight:
+                                                                              FontWeight.w700,
+                                                                        ),
                                                                       ),
-                                                                      children: [
-                                                                        TextSpan(
-                                                                            text: controller.dashboardData?['availableCreditData'][0]['total'].toString() ??
-                                                                                'NA',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontFamily: 'Gilroy',
-                                                                              fontSize: 60.sp,
-                                                                              fontStyle: FontStyle.normal,
-                                                                              color: AppColors.kffffff,
-                                                                              fontWeight: FontWeight.w700,
-                                                                            ))
-                                                                      ]),
+                                                                    ],
+                                                                  ),
                                                                 ),
                                                           SizedBox(
                                                             height: 20.h,
@@ -319,10 +335,8 @@ class SocialHome extends StatelessWidget {
                                                                       buildPaymentLoader())
                                                               : Text(
                                                                   controller
-                                                                          .dashboardData?[
-                                                                              'beneficiaryCount']
-                                                                          .toString() ??
-                                                                      'NA',
+                                                                      .beneficiaryCount()
+                                                                      .toString(),
                                                                   style:
                                                                       TextStyle(
                                                                     fontFamily:
@@ -440,7 +454,11 @@ class SocialHome extends StatelessWidget {
                             shrinkWrap: true,
                             padding: const EdgeInsets.all(0),
                             physics: const ClampingScrollPhysics(),
-                            separatorBuilder: (context, index) => h(15.h),
+                            separatorBuilder: (context, index) => controller
+                                        .beneficiaryList[index].userMetadata ==
+                                    null
+                                ? const SizedBox.shrink()
+                                : h(15.h),
                             itemBuilder: (context, index) {
                               controller.beneIndex!(index);
                               if (controller

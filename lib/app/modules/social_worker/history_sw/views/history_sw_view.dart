@@ -6,7 +6,7 @@ import 'package:six/app/data/models/sliver_persistent_header.dart';
 import 'package:six/app/modules/social_worker/history_sw/views/already_assigned_view.dart';
 import 'package:six/app/modules/social_worker/history_sw/views/history_all_voucher_view.dart';
 import 'package:six/app/modules/social_worker/history_sw/views/redeemed_voucher.dart';
-import 'package:six/app/ui/components/common_voucher_card.dart';
+import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/indexed_stack_tab_item.dart';
 import 'package:six/app/ui/components/month_picker.dart';
 import 'package:six/app/ui/components/month_picker_dialog.dart';
@@ -15,38 +15,6 @@ import 'package:six/app/ui/components/sizedbox.dart';
 import '../controllers/history_sw_controller.dart';
 
 class HistorySwView extends GetView<HistorySwController> {
-  final List<Widget> tabsContent = <Widget>[
-    HistoryAllVoucherView(),
-    AlreadyAssignedView(),
-    ListView(
-      physics: const ClampingScrollPhysics(),
-      shrinkWrap: true,
-      padding: EdgeInsets.zero,
-      children: [
-        Container(
-          height: 1.sh,
-          width: 1005.w,
-          child: ListView.separated(
-            physics: const BouncingScrollPhysics(),
-            itemBuilder: (context, index) => voucherCard(
-              title: 'Sheng Siong',
-              imgUrl: 'https://picsum.photos/id/1011/180',
-              amount: 20,
-              voucherCode: '15015783',
-              date: '1, Oct 2021',
-              onTap: () {},
-              voucherState: VoucherState.active,
-              btnText: 'Already Redeemed',
-              whichScreen: 'History',
-              isQRScreen: false,
-            ),
-            separatorBuilder: (context, index) => h(10.h),
-            itemCount: 10,
-          ),
-        ),
-      ],
-    ),
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,107 +98,50 @@ class HistorySwView extends GetView<HistorySwController> {
                                 ],
                               ),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    //Get.toNamed<void>(Routes.AVAILABLE_CREDITS);
-                                  },
-                                  child: Container(
-                                    height: 220.h,
-                                    width: 452.5.w,
-                                    decoration: BoxDecoration(
-                                      color: AppColors.kffffff.withOpacity(0.2),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: AppColors.k00474E
-                                              .withOpacity(0.04),
-                                          offset: const Offset(0, 20),
-                                          blurRadius: 50.r,
-                                        ),
-                                      ],
-                                      borderRadius: BorderRadius.circular(50.r),
-                                    ),
-                                    child: Center(
-                                      child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 53.h,
-                                          ),
-                                          Text(
-                                            '25',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy',
-                                              fontSize: 60.sp,
-                                              fontStyle: FontStyle.normal,
-                                              color: AppColors.kffffff,
-                                              fontWeight: FontWeight.w700,
+                            child: Obx(() => Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        //Get.toNamed<void>(Routes.AVAILABLE_CREDITS);
+                                      },
+                                      child: Container(
+                                        height: 220.h,
+                                        width: 452.5.w,
+                                        decoration: BoxDecoration(
+                                          color: AppColors.kffffff
+                                              .withOpacity(0.2),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: AppColors.k00474E
+                                                  .withOpacity(0.04),
+                                              offset: const Offset(0, 20),
+                                              blurRadius: 50.r,
                                             ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          SizedBox(
-                                            height: 20.h,
-                                          ),
-                                          Text(
-                                            'Total Assigned Voucher',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy',
-                                              fontSize: 35.sp,
-                                              fontStyle: FontStyle.normal,
-                                              color: AppColors.kffffff
-                                                  .withOpacity(0.7),
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 20.5.w,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    //Get.toNamed<void>(Routes.ADD_NOTE);
-                                  },
-                                  child: Container(
-                                    height: 220.h,
-                                    width: 452.5.w,
-                                    decoration: BoxDecoration(
-                                      color: AppColors.kffffff.withOpacity(0.2),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: AppColors.k00474E
-                                              .withOpacity(0.04),
-                                          offset: const Offset(0, 20),
-                                          blurRadius: 50.r,
+                                          ],
+                                          borderRadius:
+                                              BorderRadius.circular(50.r),
                                         ),
-                                      ],
-                                      borderRadius: BorderRadius.circular(50.r),
-                                    ),
-                                    child: Center(
-                                      child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 53.h,
-                                          ),
-                                          RichText(
-                                            text: TextSpan(
-                                                text: '\$',
-                                                style: TextStyle(
-                                                  fontFamily: 'Gilroy',
-                                                  fontSize: 60.sp,
-                                                  fontStyle: FontStyle.normal,
-                                                  color: AppColors.kffffff
-                                                      .withOpacity(0.5),
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                                children: [
-                                                  TextSpan(
-                                                      text: '7,500',
+                                        child: Center(
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 53.h,
+                                              ),
+                                              controller.socialCtrl.isLoading()
+                                                  ? buildLoader()
+                                                  : Text(
+                                                      controller.socialCtrl
+                                                                      .historyDashData?[
+                                                                  'assignedCreditCount'] ==
+                                                              null
+                                                          ? 'NA'
+                                                          : controller
+                                                                  .socialCtrl
+                                                                  .historyDashData?[
+                                                                      'assignedCreditCount']
+                                                                  .toString() ??
+                                                              'NA',
                                                       style: TextStyle(
                                                         fontFamily: 'Gilroy',
                                                         fontSize: 60.sp,
@@ -240,31 +151,129 @@ class HistorySwView extends GetView<HistorySwController> {
                                                             AppColors.kffffff,
                                                         fontWeight:
                                                             FontWeight.w700,
-                                                      ))
-                                                ]),
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                              SizedBox(
+                                                height: 20.h,
+                                              ),
+                                              Text(
+                                                'Total Assigned Voucher',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontFamily: 'Gilroy',
+                                                  fontSize: 35.sp,
+                                                  fontStyle: FontStyle.normal,
+                                                  color: AppColors.kffffff
+                                                      .withOpacity(0.7),
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          SizedBox(
-                                            height: 20.h,
-                                          ),
-                                          Text(
-                                            'Total Redeemed Amount',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy',
-                                              fontSize: 35.sp,
-                                              fontStyle: FontStyle.normal,
-                                              color: AppColors.kffffff
-                                                  .withOpacity(0.7),
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                )
-                              ],
-                            ),
+                                    SizedBox(
+                                      width: 20.5.w,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        //Get.toNamed<void>(Routes.ADD_NOTE);
+                                      },
+                                      child: Container(
+                                        height: 220.h,
+                                        width: 452.5.w,
+                                        decoration: BoxDecoration(
+                                          color: AppColors.kffffff
+                                              .withOpacity(0.2),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: AppColors.k00474E
+                                                  .withOpacity(0.04),
+                                              offset: const Offset(0, 20),
+                                              blurRadius: 50.r,
+                                            ),
+                                          ],
+                                          borderRadius:
+                                              BorderRadius.circular(50.r),
+                                        ),
+                                        child: Center(
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 53.h,
+                                              ),
+                                              controller.socialCtrl.isLoading()
+                                                  ? buildLoader()
+                                                  : RichText(
+                                                      text: TextSpan(
+                                                          text: '\$',
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Gilroy',
+                                                            fontSize: 60.sp,
+                                                            fontStyle: FontStyle
+                                                                .normal,
+                                                            color: AppColors
+                                                                .kffffff
+                                                                .withOpacity(
+                                                                    0.5),
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                          children: [
+                                                            TextSpan(
+                                                                text: controller.socialCtrl.historyDashData?[
+                                                                            'redeemedCreditCount'] ==
+                                                                        null
+                                                                    ? 'NA'
+                                                                    : controller
+                                                                            .socialCtrl
+                                                                            .historyDashData?[
+                                                                                'redeemedCreditCount']
+                                                                            .toString() ??
+                                                                        'NA',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy',
+                                                                  fontSize:
+                                                                      60.sp,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .normal,
+                                                                  color: AppColors
+                                                                      .kffffff,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                ))
+                                                          ]),
+                                                    ),
+                                              SizedBox(
+                                                height: 20.h,
+                                              ),
+                                              Text(
+                                                'Total Redeemed Amount',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontFamily: 'Gilroy',
+                                                  fontSize: 35.sp,
+                                                  fontStyle: FontStyle.normal,
+                                                  color: AppColors.kffffff
+                                                      .withOpacity(0.7),
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )),
                           ),
                         ),
                         Positioned(
@@ -330,6 +339,23 @@ class HistorySwView extends GetView<HistorySwController> {
                                     (index) => TextButton(
                                       onPressed: () {
                                         controller.tabIndex(index);
+                                        switch (index) {
+                                          case 0:
+                                            controller.socialCtrl
+                                                .getHistoryOfAssignVoucher(
+                                                    'all');
+                                            break;
+                                          case 1:
+                                            controller.socialCtrl
+                                                .getHistoryOfAssignVoucher(
+                                                    'assigned');
+                                            break;
+                                          case 2:
+                                            controller.socialCtrl
+                                                .getHistoryOfAssignVoucher(
+                                                    'redeemed');
+                                            break;
+                                        }
                                       },
                                       child: indexedStackTabItem(
                                         controller.text[index],
@@ -365,13 +391,19 @@ class HistorySwView extends GetView<HistorySwController> {
                             index: controller.tabIndex(),
                             children: <Widget>[
                               controller.tabIndex() == 0
-                                  ? HistoryAllVoucherView()
+                                  ? controller.socialCtrl.vouchersLoading()
+                                      ? Center(child: buildLoader())
+                                      : HistoryAllVoucherView()
                                   : const SizedBox.shrink(),
                               controller.tabIndex() == 1
-                                  ? AlreadyAssignedView()
+                                  ? controller.socialCtrl.vouchersLoading()
+                                      ? Center(child: buildLoader())
+                                      : AlreadyAssignedView()
                                   : const SizedBox.shrink(),
                               controller.tabIndex() == 2
-                                  ? RedeemedView()
+                                  ? controller.socialCtrl.vouchersLoading()
+                                      ? Center(child: buildLoader())
+                                      : RedeemedView()
                                   : const SizedBox.shrink(),
                             ],
                           )),

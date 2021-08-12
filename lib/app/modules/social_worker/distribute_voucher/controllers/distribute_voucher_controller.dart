@@ -1,7 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:six/app/data/config/logger.dart';
-import 'package:six/app/data/models/available_vouchers.dart';
+import 'package:six/app/data/models/assign_voucher.dart';
 import 'package:six/app/data/models/voucher_category.dart';
 import 'package:six/app/data/remote/provider/social_worker.dart';
 import 'package:six/app/data/remote/provider/voucher_category.dart';
@@ -15,18 +16,22 @@ class DistributeVoucherController extends GetxController {
   RxInt height = 280.obs;
   RxInt voucherToBeAssignCount = 0.obs;
   RxList<VoucherCategory> categoryList = <VoucherCategory>[].obs;
-  RxList<AvailableVouchers> vouchers = <AvailableVouchers>[].obs;
+  RxList<AssignVoucher> searchedVoucherList = <AssignVoucher>[].obs;
+  RxList<AssignVoucher> vouchers = <AssignVoucher>[].obs;
   RxList<int> initialVoucherCount = <int>[].obs;
   RxInt voucherCount = 0.obs;
   RxBool voucherAssigned = false.obs;
   RxBool voucherAssignLoading = false.obs;
   RxBool isLoading = false.obs;
+  RxBool isSearched = false.obs;
   RxBool isVoucherLoading = false.obs;
+  RxBool isSVoucherLoading = false.obs;
   RxInt skip = 0.obs;
   RxInt limit = 1000.obs;
   RxString categoryId = ''.obs;
+  TextEditingController voucherSearch = TextEditingController();
   BeneficiaryDetailsController beneCtrl =
-      Get.find<BeneficiaryDetailsController>();
+      Get.put(BeneficiaryDetailsController());
   @override
   void onInit() {
     super.onInit();
@@ -43,6 +48,19 @@ class DistributeVoucherController extends GetxController {
     logI(categoryList);
     isLoading(false);
     await assignVoucherList(categoryList[0].id!);
+  }
+
+  Future<void> assignSearchedVoucher(
+      String categoryId, String searchText) async {
+    isSVoucherLoading(true);
+    searchedVoucherList(await VoucherCategoryProvider.searchVoucher(
+      categoryId: categoryId,
+      skip: skip.toString(),
+      limit: limit.toString(),
+      searchText: searchText,
+    ));
+    logI(searchedVoucherList);
+    isSVoucherLoading(false);
   }
 
   Future<void> assignVoucherList(String categoryId) async {

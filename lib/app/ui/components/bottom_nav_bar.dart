@@ -51,6 +51,10 @@ Widget bottomNavBar() {
         if (UserProvider.role == 'charity') {
           avail.disableLeading(true);
         } else if (UserProvider.role == 'social_worker') {
+          if (index == 2) {
+            socialCtrl.getHistoryOfAssignVoucher('all');
+            socialCtrl.assignHistoryDashData();
+          }
           avail.disableLeading(true);
         }
         //fromVoucherScreen ? (Get.offAllNamed<void>(Routes.HOME)) : null;

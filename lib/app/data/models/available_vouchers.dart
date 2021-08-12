@@ -24,6 +24,7 @@ class AvailableVouchers {
     this.deleted,
     this.total,
     this.voucher,
+    this.userVoucherData,
   });
 
   String? id;
@@ -48,6 +49,7 @@ class AvailableVouchers {
   bool? isActive;
   bool? deleted;
   Map<String, dynamic>? voucher;
+  Map<String, dynamic>? userVoucherData;
 
   AvailableVouchers copyWith({
     String? id,
@@ -72,6 +74,7 @@ class AvailableVouchers {
     bool? isActive,
     bool? deleted,
     Map<String, dynamic>? voucher,
+    Map<String, dynamic>? userVoucherData,
   }) =>
       AvailableVouchers(
         id: id ?? this.id,
@@ -96,6 +99,7 @@ class AvailableVouchers {
         isActive: isActive ?? this.isActive,
         deleted: deleted ?? this.deleted,
         voucher: voucher ?? this.voucher,
+        userVoucherData: userVoucherData ?? this.userVoucherData,
       );
 
   factory AvailableVouchers.fromJson(Map<String, dynamic> json) =>
@@ -146,6 +150,9 @@ class AvailableVouchers {
         voucher: json['voucher'] == null
             ? null
             : json['voucher'] as Map<String, dynamic>,
+        userVoucherData: json['userVoucherData'] == null
+            ? null
+            : json['userVoucherData'] as Map<String, dynamic>,
       );
 
   Map<String, dynamic> toMap() => <String, dynamic>{
@@ -171,5 +178,6 @@ class AvailableVouchers {
         'is_active': isActive,
         '_deleted': deleted,
         'voucher': voucher,
+        'userVoucherData': userVoucherData,
       };
 }

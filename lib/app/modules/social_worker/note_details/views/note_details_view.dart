@@ -201,7 +201,7 @@ class NoteDetailsView extends GetView<BeneficiaryDetailsController> {
                                 height: 80.r,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: AppColors.kE3FCFF,
+                                  color: AppColors.kFFD7D7,
                                   border: Border.all(
                                     color: AppColors.kffffff,
                                     width: 1.w,
@@ -211,7 +211,7 @@ class NoteDetailsView extends GetView<BeneficiaryDetailsController> {
                                     fit: BoxFit.scaleDown,
                                     child: Icon(
                                       Icons.delete_outline,
-                                      color: AppColors.k13A89E,
+                                      color: AppColors.kEF0404,
                                       size: 18,
                                     )),
                               ),

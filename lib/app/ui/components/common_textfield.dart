@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/modules/charity/available_vendors/controllers/available_vendors_controller.dart';
 import 'package:six/app/modules/charity/purchase/controllers/purchase_controller.dart';
+import 'package:six/app/modules/social_worker/distribute_voucher/controllers/distribute_voucher_controller.dart';
 
 AvailableVendorsController availVendorCtrl =
     Get.put(AvailableVendorsController());
 PurchaseController purchaseController = Get.put(PurchaseController());
-
+DistributeVoucherController distriCtrl = Get.put(DistributeVoucherController());
 Widget textField({
   required BuildContext context,
   required double height,
@@ -74,7 +76,9 @@ Widget textField({
               }
             },
             onFieldSubmitted: (value) {
-              if (value.isNotEmpty) {
+              if (value.isNotEmpty &&
+                  textAction == TextInputAction.done &&
+                  UserProvider.role == 'charity') {
                 availVendorCtrl.isSearched(true);
                 availVendorCtrl.isLoading(true);
                 availVendorCtrl.assignSearchedVendor(
@@ -84,6 +88,17 @@ Widget textField({
                     value.trim());
                 if (controller!.text.trim().isEmpty) {
                   availVendorCtrl.isSearched(false);
+                }
+              } else if (UserProvider.role == 'social_worker' &&
+                  value.isNotEmpty &&
+                  textAction == TextInputAction.search) {
+                distriCtrl.isSearched(true);
+                distriCtrl.assignSearchedVoucher(
+                    distriCtrl.categoryList[distriCtrl.selectedCategory()].id
+                        .toString(),
+                    value.trim());
+                if (controller!.text.trim().isEmpty) {
+                  distriCtrl.isSearched(false);
                 }
               }
             },

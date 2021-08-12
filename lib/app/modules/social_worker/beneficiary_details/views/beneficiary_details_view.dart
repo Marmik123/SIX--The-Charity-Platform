@@ -365,7 +365,7 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                                                 textAlign: TextAlign.center,
                                               ),
                                               Text(
-                                                '\$${controller.beneDashboard?['totalCredits'] ?? 0}',
+                                                '\$${controller.beneDashboard()['totalCredits'] ?? 0}',
                                                 style: TextStyle(
                                                   fontFamily: 'Gilroy',
                                                   fontSize: 40.sp,
@@ -394,7 +394,7 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                                                 textAlign: TextAlign.center,
                                               ),
                                               Text(
-                                                '\$${controller.beneDashboard?['totalMonthlyCredits'] ?? 0}',
+                                                '\$${controller.beneDashboard()['totalMonthlyCredits'] ?? 0}',
                                                 style: TextStyle(
                                                   fontFamily: 'Gilroy',
                                                   fontSize: 40.sp,
@@ -454,7 +454,7 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                                                 textAlign: TextAlign.center,
                                               ),
                                               Text(
-                                                '${controller.beneDashboard?['houseHoldSize'] ?? 0}',
+                                                '${controller.beneDashboard()['houseHoldSize'] ?? 0}',
                                                 style: TextStyle(
                                                   fontFamily: 'Gilroy',
                                                   fontSize: 40.sp,

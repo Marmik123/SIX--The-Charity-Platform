@@ -24,8 +24,24 @@ class SocialWorkerProvider {
     }
   }
 
+  //Helper Function to fetch the social worker history dashboard data .
+  static Future<Map<String, dynamic>?> getSWHistoryData() async {
+    var response = await APIService.get(
+      path: '/v1/auth/worker-history-dashboard-data',
+    );
+    if (response?.statusCode == 200) {
+      logI('######SWHistoryDashData########');
+      logI(response?.data!['data']);
+      var availCredits = response?.data!['data'] as Map<String, dynamic>;
+      return availCredits;
+    } else {
+      appSnackbar(message: 'Error');
+      return null;
+    }
+  }
+
   //Helper Function to fetch the beneficiary dashboard data .
-  static Future<Map<String, dynamic>?> getBeneDashBoardData(
+  static Future<Map<String, dynamic>> getBeneDashBoardData(
       String beneficiaryId) async {
     var response = await APIService.get(
       path: '/v1/auth/beneficiary-dashboard-data/$beneficiaryId',
@@ -37,7 +53,7 @@ class SocialWorkerProvider {
       return availCredits;
     } else {
       appSnackbar(message: 'Error');
-      return null;
+      return <String, dynamic>{};
     }
   }
 
@@ -132,6 +148,26 @@ class SocialWorkerProvider {
     );
     if (response?.statusCode == 200) {
       logI('######Assigned Vouchers########');
+      logI(response?.data!['data']);
+      var vouchers = response?.data!['data'] as List<dynamic>;
+      logI(vouchers);
+      return List<AvailableVouchers>.from(vouchers.map<AvailableVouchers>(
+          (dynamic e) => AvailableVouchers.fromMap(e as Map<String, dynamic>)));
+    } else {
+      appSnackbar(message: 'Error');
+      return <AvailableVouchers>[];
+    }
+  }
+
+  static Future<List<AvailableVouchers>> getHistoryVouchers(
+      {required String? type,
+      required String? skip,
+      required String? limit}) async {
+    var response = await APIService.get(
+      path: '/v1/auth/worker-assigned-voucher-list/$type/$skip/$limit',
+    );
+    if (response?.statusCode == 200) {
+      logI('######History of Assigned Vouchers########');
       logI(response?.data!['data']);
       var vouchers = response?.data!['data'] as List<dynamic>;
       logI(vouchers);

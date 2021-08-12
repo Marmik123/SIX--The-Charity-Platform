@@ -9,10 +9,9 @@ import 'package:six/app/ui/components/sizedbox.dart';
 import '../controllers/assigned_voucher_controller.dart';
 
 class AssignedVoucherView extends GetView<AssignedVoucherController> {
-  @override
   final BeneficiaryDetailsController ctrl =
       Get.put(BeneficiaryDetailsController());
-
+  @override
   Widget build(BuildContext context) {
     return ListView(
       shrinkWrap: true,
@@ -34,7 +33,7 @@ class AssignedVoucherView extends GetView<AssignedVoucherController> {
                 ),
                 children: [
                   TextSpan(
-                    text: '(25)',
+                    text: ' (${ctrl.assignedVouchers.length.toString()})',
                     style: TextStyle(
                       fontFamily: 'Gilroy',
                       fontSize: 60.sp,
@@ -91,7 +90,11 @@ class AssignedVoucherView extends GetView<AssignedVoucherController> {
 
             return voucherCard(
               title: ctrl.assignedVouchers[index].name ?? 'NTUC Fairprice',
-              imgUrl: 'https://picsum.photos/id/1011/180',
+              imgUrl: ctrl.assignedVouchers[index].voucher!['icon_url'] == null
+                  ? 'https://picsum.photos/200/300'
+                  : ctrl.assignedVouchers[index].voucher?['icon_url']
+                          .toString() ??
+                      'https://picsum.photos/200/300',
               amount: ctrl.assignedVouchers[index].amount ?? 0,
               whichScreen: 'Assign Voucher',
               voucherCode: ctrl.assignedVouchers[index].voucherId ?? '15015403',
