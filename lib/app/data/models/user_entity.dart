@@ -27,7 +27,7 @@ class UserEntity {
   });
 
   String id;
-  dynamic singpassId;
+  String? singpassId;
   String? corppassId;
   String? role;
   dynamic profileImage;
@@ -47,7 +47,7 @@ class UserEntity {
 
   UserEntity copyWith({
     String? id,
-    dynamic singpassId,
+    String? singpassId,
     String? corppassId,
     String? role,
     Map<String, dynamic>? userData,
@@ -94,7 +94,7 @@ class UserEntity {
 
   factory UserEntity.fromMap(Map<String, dynamic> json) => UserEntity(
         id: json['id'] as String,
-        singpassId: json['singpass_id'],
+        singpassId: json['singpass_id'] as String?,
         corppassId:
             json['corppass_id'] == null ? null : json['corppass_id'] as String,
         role: json['role'] == null ? null : json['role'] as String,

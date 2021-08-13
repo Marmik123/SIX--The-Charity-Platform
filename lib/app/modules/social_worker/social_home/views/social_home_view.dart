@@ -543,8 +543,7 @@ class SocialHome extends StatelessWidget {
                                                                       controller
                                                                           .beneficiaryList()[
                                                                               index]
-                                                                          .userMetadata
-                                                                          ?.nricFin ??
+                                                                          .singpassId ??
                                                                       '-',
                                                                   style:
                                                                       TextStyle(
