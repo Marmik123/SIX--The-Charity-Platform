@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/modules/social_worker/available_credits_sw/controllers/available_credits_sw_controller.dart';
-import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/circular_progress_indicator.dart';
 
@@ -53,7 +52,7 @@ class AvailableCreditsViewSW extends GetView<AvailableCreditsSwController> {
                           itemBuilder: (context, index) => GestureDetector(
                             onTap: () {
                               // controller.programIndex!(index);
-                              Get.toNamed<void>(Routes.PURCHASE);
+                              //Get.toNamed<void>(Routes.PURCHASE);
                             },
                             child: Stack(
                               clipBehavior: Clip.none,

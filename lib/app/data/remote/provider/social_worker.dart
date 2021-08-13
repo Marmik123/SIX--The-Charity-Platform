@@ -164,6 +164,29 @@ class SocialWorkerProvider {
     }
   }
 
+  static Future<List<AvailableVouchers>> getFilterAssignedVouchers(
+      {required String? needyFamilyId,
+      required String? skip,
+      required String? type,
+      required String? limit}) async {
+    var response = await APIService.get(
+      path:
+          '/v1/auth/beneficiary-filter-assigned-voucher-list/$needyFamilyId/$type/$skip/$limit',
+    );
+    if (response?.statusCode == 200) {
+      logI('######Assigned Vouchers########');
+      logI(response?.data!['data']);
+      var vouchers = response?.data!['data'] as List<dynamic>;
+      logI(vouchers);
+      return List<AvailableVouchers>.from(vouchers.map<AvailableVouchers>(
+          (dynamic e) => AvailableVouchers.fromMap(e as Map<String, dynamic>)));
+    } else {
+      appSnackbar(message: 'Error');
+      return <AvailableVouchers>[];
+    }
+  }
+
+  //Helper function to fetch the history of vouchers for a social worker.
   static Future<List<AvailableVouchers>> getHistoryVouchers(
       {required String? type,
       required String? skip,

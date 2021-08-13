@@ -35,6 +35,7 @@ abstract class Routes {
   static const HISTORY_SW = _Paths.HISTORY_SW;
   static const WEB_VIEW = _Paths.WEB_VIEW;
   static const AVAILABLE_CREDITS_SW = _Paths.AVAILABLE_CREDITS_SW;
+  static const TERMS_CONDITIONS = _Paths.TERMS_CONDITIONS;
 }
 
 abstract class _Paths {
@@ -70,4 +71,5 @@ abstract class _Paths {
   static const HISTORY_SW = '/history-sw';
   static const WEB_VIEW = '/web-view';
   static const AVAILABLE_CREDITS_SW = '/available-credits-sw';
+  static const TERMS_CONDITIONS = '/terms-conditions';
 }

@@ -14,6 +14,7 @@ class BeneficiaryDetailsController extends GetxController {
   RxBool isLoading = false.obs;
   late UserEntity beneficiary;
   RxBool tabBarVisibility = true.obs;
+  RxBool filterLoading = false.obs;
   RxBool titleVisible = true.obs;
   RxDouble top = 0.0.obs;
   RxInt skip = 0.obs;
@@ -104,6 +105,19 @@ class BeneficiaryDetailsController extends GetxController {
       limit: limit().toString(),
     ));
     isLoading(false);
+  }
+
+  Future<void> getFilterAssignedVouchers(
+    String type,
+  ) async {
+    filterLoading(true);
+    assignedVouchers(await SocialWorkerProvider.getFilterAssignedVouchers(
+      needyFamilyId: beneficiary.id,
+      type: type,
+      skip: skip().toString(),
+      limit: limit().toString(),
+    ));
+    filterLoading(false);
   }
 
   Future<void> assignBeneDashboardData() async {

@@ -434,6 +434,10 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                               category: ctrl
                                   .voucherCategory[ctrl.selectCategory!()].name
                                   .toString(),
+                              imgUrl: ctrl
+                                  .voucherCategory[ctrl.selectCategory!()]
+                                  .iconUrl
+                                  .toString(),
                               categoryId: ctrl
                                   .voucherCategory[ctrl.selectCategory!()].id
                                   .toString(),

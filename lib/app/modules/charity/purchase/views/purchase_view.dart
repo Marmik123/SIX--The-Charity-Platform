@@ -132,6 +132,7 @@ class PurchaseView extends GetView<PurchaseController> {
                                     children: [
                                       categoryCard(
                                         index: index,
+                                        disableCheckBox: true,
                                         categoryName: ctrl
                                             .voucherCategory()[index]
                                             .name
@@ -154,31 +155,37 @@ class PurchaseView extends GetView<PurchaseController> {
                                             right: 20,
                                             bottom: 35.0),
                                       ),
-                                      Positioned(
-                                        right: 30.r,
-                                        top: 30.r,
-                                        child: Container(
-                                          width: 88.r,
-                                          height: 88.r,
-                                          decoration: BoxDecoration(
-                                              color: AppColors.kffffff,
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                color: AppColors.k033660
-                                                    .withOpacity(0.05),
-                                                width: 1.w,
-                                              )),
-                                          child: ctrl.selectCategory!() == index
-                                              ? Image.asset(
-                                                  R.image.asset.select_voucher
-                                                      .assetName,
-                                                  height: 88.r,
-                                                  width: 88.r,
-                                                  fit: BoxFit.contain,
-                                                )
-                                              : const SizedBox.shrink(),
-                                        ),
-                                      )
+                                      UserProvider.role == 'social_worker'
+                                          ? const SizedBox.shrink()
+                                          : Positioned(
+                                              right: 30.r,
+                                              top: 30.r,
+                                              child: Container(
+                                                width: 88.r,
+                                                height: 88.r,
+                                                decoration: BoxDecoration(
+                                                    color: AppColors.kffffff,
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                      color: AppColors.k033660
+                                                          .withOpacity(0.05),
+                                                      width: 1.w,
+                                                    )),
+                                                child: ctrl.selectCategory!() ==
+                                                        index
+                                                    ? Image.asset(
+                                                        R
+                                                            .image
+                                                            .asset
+                                                            .select_voucher
+                                                            .assetName,
+                                                        height: 88.r,
+                                                        width: 88.r,
+                                                        fit: BoxFit.contain,
+                                                      )
+                                                    : const SizedBox.shrink(),
+                                              ),
+                                            )
                                     ],
                                   ),
                                 );

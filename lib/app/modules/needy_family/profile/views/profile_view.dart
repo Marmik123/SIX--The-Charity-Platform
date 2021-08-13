@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/local/user_provider.dart';
+import 'package:six/app/modules/terms_conditions/views/privacy_policy_view.dart';
 import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/double_shaded_container.dart';
@@ -195,10 +196,16 @@ class ProfileView extends GetView<ProfileController> {
                           R.image.asset.feedback.assetName, 'Feedback', () {
                         controller.sendMailFeedback();
                       }),
-                      profileMenuItem(R.image.asset.term_c.assetName,
-                          'Term & Condition', () {}),
-                      profileMenuItem(R.image.asset.privacy.assetName,
-                          'Privacy Policy', () {}),
+                      profileMenuItem(
+                          R.image.asset.term_c.assetName, 'Terms & Conditions',
+                          () {
+                        Get.toNamed<void>(Routes.TERMS_CONDITIONS);
+                      }),
+                      profileMenuItem(
+                          R.image.asset.privacy.assetName, 'Privacy Policy',
+                          () {
+                        Get.to<void>(() => PrivacyPolicyView());
+                      }),
                     ],
                   )
                   /*Container(

@@ -81,7 +81,7 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
                         child: ListView.builder(
                           itemCount: UserProvider.role == 'charity'
                               ? controller.programCreditsAvailability().length
-                              : 2,
+                              : 0,
                           shrinkWrap: true,
                           padding: const EdgeInsets.only(top: 20, left: 50),
                           physics: const BouncingScrollPhysics(),

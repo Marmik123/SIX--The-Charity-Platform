@@ -13,6 +13,7 @@ import 'package:six/app/ui/components/dialog_vocher_redeem.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
 import 'package:six/app/ui/components/voucher_container_paint.dart';
 import 'package:six/app/utils/material_prop_ext.dart';
+import 'package:six/app/views/views/voucher_terms_view.dart';
 
 enum VoucherState {
   active,
@@ -35,6 +36,7 @@ Widget voucherCard({
   int index = 0,
   DistributeVoucherController? voucherCtrlSW,
   String? beneficiaryName,
+  String? terms,
   String? beneProfileUrl,
 }) {
   /*DistributeVoucherController voucherCtrlSW =
@@ -587,7 +589,15 @@ Widget voucherCard({
             whichScreen == 'History'
                 ? const SizedBox.shrink()
                 : TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to<void>(() => VoucherTerms(
+                            name: title,
+                            amount: amount,
+                            date: date,
+                            terms: terms,
+                            iconUrl: imgUrl,
+                          ));
+                    },
                     style: ButtonStyle(
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       padding: EdgeInsets.zero.msp,

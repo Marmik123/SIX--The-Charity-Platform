@@ -27,6 +27,7 @@ Widget categoryCard({
   required Color accent,
   required EdgeInsetsGeometry padding,
   required BuildContext context,
+  bool? disableCheckBox,
 }) {
   return Container(
     width: width, //420.w,
