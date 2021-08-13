@@ -349,8 +349,10 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                 minHeight: 100.h,
                                 maxHeight: 100.h,
                                 child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 22, top: 15),
+                                  padding: const EdgeInsets.only(
+                                    left: 22,
+                                    top: 5,
+                                  ),
                                   child: Text(
                                     'About Us',
                                     style: TextStyle(
@@ -422,13 +424,17 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                           UserProvider.role == 'charity'
                               ? Padding(
                                   padding:
-                                      EdgeInsets.only(left: 20.0, top: 40.h),
+                                      EdgeInsets.only(left: 20.0, top: 50.h),
                                   child: Text(
-                                    availVendorCtrl
-                                            .vendorDetails?['user_metadata']
-                                                ['about_us']
-                                            .toString() ??
-                                        '\nLorem ipsum dolor sit amet, consectetur adipiscing\nelit, sed do eiusmod tempor incididunt ut labore et\ndolore magna aliqua. Ut enim ad minim veniam, \nquis nostrud exercitation ullamco laboris nisi ut\naliquip ex ea commodo consequat.\n\nLorem ipsum dolor sit amet, consectetur adipiscing\nelit, sed do eiusmod tempor incididunt ut labore et\ndolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut\naliquip ex ea commodo consequat.  ',
+                                    availVendorCtrl.vendorDetails?[
+                                                'user_metadata']['about_us'] ==
+                                            null
+                                        ? '-'
+                                        : availVendorCtrl
+                                                .vendorDetails?['user_metadata']
+                                                    ['about_us']
+                                                .toString() ??
+                                            '\nLorem ipsum dolor sit amet, consectetur adipiscing\nelit, sed do eiusmod tempor incididunt ut labore et\ndolore magna aliqua. Ut enim ad minim veniam, \nquis nostrud exercitation ullamco laboris nisi ut\naliquip ex ea commodo consequat.\n\nLorem ipsum dolor sit amet, consectetur adipiscing\nelit, sed do eiusmod tempor incididunt ut labore et\ndolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut\naliquip ex ea commodo consequat.  ',
                                     style: TextStyle(
                                       fontFamily: 'Gilroy',
                                       fontSize: 42.sp,
