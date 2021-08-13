@@ -456,12 +456,19 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                                           left: 60.w,
                                                           right: 77.w),
                                                       child: Text(
-                                                        availVendorCtrl
-                                                                .vendorDetails?[
-                                                                    'user_metadata']
-                                                                    ['about_us']
-                                                                .toString() ??
-                                                            '\nLorem ipsum dolor sit amet, consectetur adipiscing\nelit, sed do eiusmod tempor incididunt ut labore et\ndolore magna aliqua. Ut enim ad minim veniam, \nquis nostrud exercitation ullamco laboris nisi ut\naliquip ex ea commodo consequat.\n\nLorem ipsum dolor sit amet, consectetur adipiscing\nelit, sed do eiusmod tempor incididunt ut labore et\ndolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut\naliquip ex ea commodo consequat.  ',
+                                                        availVendorCtrl.vendorDetails?[
+                                                                        'user_metadata']
+                                                                    [
+                                                                    'about_us'] ==
+                                                                null
+                                                            ? 'About us'
+                                                            : availVendorCtrl
+                                                                    .vendorDetails?[
+                                                                        'user_metadata']
+                                                                        [
+                                                                        'about_us']
+                                                                    .toString() ??
+                                                                '\nLorem ipsum dolor sit amet, consectetur adipiscing\nelit, sed do eiusmod tempor incididunt ut labore et\ndolore magna aliqua. Ut enim ad minim veniam, \nquis nostrud exercitation ullamco laboris nisi ut\naliquip ex ea commodo consequat.\n\nLorem ipsum dolor sit amet, consectetur adipiscing\nelit, sed do eiusmod tempor incididunt ut labore et\ndolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut\naliquip ex ea commodo consequat.  ',
                                                         style: TextStyle(
                                                           fontFamily: 'Gilroy',
                                                           fontSize: 42.sp,
@@ -482,243 +489,248 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                           controller.tabIndex() == 1
                                               ? Container(
                                                   width: 1.sw,
-                                                  child: ListView.separated(
-                                                    shrinkWrap: true,
-                                                    physics:
-                                                        const ClampingScrollPhysics(),
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                      left: 10,
-                                                      right: 10,
-                                                      bottom: 35,
-                                                    ),
-                                                    itemBuilder:
-                                                        (context, index) {
-                                                      var expiryDate =
-                                                          controller
-                                                              .getDate(index);
-                                                      return Stack(
-                                                        alignment: Alignment
-                                                            .bottomCenter,
-                                                        clipBehavior: Clip.none,
-                                                        children: [
-                                                          Container(
-                                                            width: 1005.w,
-                                                            height: 458.h,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: AppColors
-                                                                  .kffffff,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          50.r),
-                                                              boxShadow: [
-                                                                BoxShadow(
-                                                                  color: AppColors
-                                                                      .k00474E
-                                                                      .withOpacity(
-                                                                          0.04),
-                                                                  offset:
-                                                                      const Offset(
-                                                                          0,
-                                                                          20),
-                                                                  blurRadius:
-                                                                      50.r,
-                                                                )
-                                                              ],
-                                                            ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      right:
-                                                                          18.0),
-                                                              child: Container(
-                                                                width: 1005.w,
-                                                                height: 150.h,
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .min,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    SizedBox(
+                                                  child: controller
+                                                          .availableVouchers()
+                                                          .isEmpty
+                                                      ? Text(
+                                                          'No Available Vouchers',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Gilroy',
+                                                            fontSize: 42.sp,
+                                                            fontStyle: FontStyle
+                                                                .normal,
+                                                            color: AppColors
+                                                                .k6886A0,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                        )
+                                                      : ListView.separated(
+                                                          shrinkWrap: true,
+                                                          physics:
+                                                              const ClampingScrollPhysics(),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                            left: 10,
+                                                            right: 10,
+                                                            bottom: 35,
+                                                          ),
+                                                          itemBuilder:
+                                                              (context, index) {
+                                                            var expiryDate =
+                                                                controller
+                                                                    .getDate(
+                                                                        index);
+                                                            return Stack(
+                                                              alignment: Alignment
+                                                                  .bottomCenter,
+                                                              clipBehavior:
+                                                                  Clip.none,
+                                                              children: [
+                                                                Container(
+                                                                  width: 1005.w,
+                                                                  height: 458.h,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: AppColors
+                                                                        .kffffff,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            50.r),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                        color: AppColors
+                                                                            .k00474E
+                                                                            .withOpacity(0.04),
+                                                                        offset: const Offset(
+                                                                            0,
+                                                                            20),
+                                                                        blurRadius:
+                                                                            50.r,
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        right:
+                                                                            18.0),
+                                                                    child:
+                                                                        Container(
+                                                                      width:
+                                                                          1005.w,
                                                                       height:
-                                                                          49.h,
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: const EdgeInsets
-                                                                              .only(
-                                                                          left:
-                                                                              32.0),
+                                                                          150.h,
                                                                       child:
-                                                                          Stack(
-                                                                        clipBehavior:
-                                                                            Clip.none,
-                                                                        alignment:
-                                                                            Alignment.centerLeft,
+                                                                          Column(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.min,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
                                                                         children: [
-                                                                          Container(
-                                                                            width:
-                                                                                515.w,
+                                                                          SizedBox(
                                                                             height:
-                                                                                139.h,
-                                                                            decoration:
-                                                                                BoxDecoration(color: AppColors.kF8FAFA, borderRadius: BorderRadius.circular(50.r)),
-                                                                            child:
-                                                                                Center(
-                                                                              child: Text(
-                                                                                controller.availableVouchers[index].name.toString(),
-                                                                                style: TextStyle(
-                                                                                  fontFamily: 'Gilroy',
-                                                                                  fontSize: 50.sp,
-                                                                                  fontStyle: FontStyle.normal,
-                                                                                  color: AppColors.k033660,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                ),
-                                                                                textAlign: TextAlign.center,
-                                                                              ),
-                                                                            ),
+                                                                                49.h,
                                                                           ),
-                                                                          Positioned(
-                                                                            left:
-                                                                                -15,
+                                                                          Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.only(left: 32.0),
                                                                             child:
-                                                                                CircleAvatar(
-                                                                              backgroundColor: Colors.transparent,
-                                                                              child: ClipRRect(
-                                                                                borderRadius: BorderRadius.circular(30),
-                                                                                child: FittedBox(
-                                                                                  fit: BoxFit.fill,
-                                                                                  child: cacheImage(
-                                                                                    height: 121.r,
-                                                                                    width: 121.r,
-                                                                                    url: controller.availableVouchers[index].iconUrl ?? 'https://picsum.photos/200/300',
+                                                                                Stack(
+                                                                              clipBehavior: Clip.none,
+                                                                              alignment: Alignment.centerLeft,
+                                                                              children: [
+                                                                                Container(
+                                                                                  width: 515.w,
+                                                                                  height: 139.h,
+                                                                                  decoration: BoxDecoration(color: AppColors.kF8FAFA, borderRadius: BorderRadius.circular(50.r)),
+                                                                                  child: Center(
+                                                                                    child: Text(
+                                                                                      controller.availableVouchers[index].name.toString(),
+                                                                                      style: TextStyle(
+                                                                                        fontFamily: 'Gilroy',
+                                                                                        fontSize: 50.sp,
+                                                                                        fontStyle: FontStyle.normal,
+                                                                                        color: AppColors.k033660,
+                                                                                        fontWeight: FontWeight.w500,
+                                                                                      ),
+                                                                                      textAlign: TextAlign.center,
+                                                                                    ),
                                                                                   ),
                                                                                 ),
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    SizedBox(
-                                                                      height:
-                                                                          40.h,
-                                                                    ),
-                                                                    FittedBox(
-                                                                      child:
-                                                                          Row(
-                                                                        children: [
-                                                                          SizedBox(
-                                                                            width:
-                                                                                60.w,
-                                                                          ),
-                                                                          Text(
-                                                                            '\$${controller.availableVouchers[index].amount}',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontFamily: 'Gilroy',
-                                                                              fontSize: 100.sp,
-                                                                              fontStyle: FontStyle.normal,
-                                                                              color: AppColors.k033660,
-                                                                              fontWeight: FontWeight.w700,
-                                                                            ),
-                                                                            textAlign:
-                                                                                TextAlign.center,
-                                                                          ),
-                                                                          SizedBox(
-                                                                            width:
-                                                                                144.w,
-                                                                          ),
-                                                                          Container(
-                                                                            height:
-                                                                                81.h,
-                                                                            width:
-                                                                                3.w,
-                                                                            color:
-                                                                                AppColors.k6886A0.withOpacity(0.5),
-                                                                          ),
-                                                                          SizedBox(
-                                                                            width:
-                                                                                166.w,
-                                                                          ),
-                                                                          FittedBox(
-                                                                            fit:
-                                                                                BoxFit.contain,
-                                                                            child:
-                                                                                Column(
-                                                                              children: [
-                                                                                FittedBox(
-                                                                                  child: RichText(
-                                                                                    text: TextSpan(
-                                                                                      children: <TextSpan>[
-                                                                                        TextSpan(
-                                                                                          text: 'Expire Date : ',
-                                                                                          style: TextStyle(
-                                                                                            fontFamily: 'Gilroy',
-                                                                                            fontSize: 40.sp,
-                                                                                            color: AppColors.k033660.withOpacity(0.6),
-                                                                                            fontStyle: FontStyle.normal,
-                                                                                            fontWeight: FontWeight.w400,
-                                                                                          ),
+                                                                                Positioned(
+                                                                                  left: -15,
+                                                                                  child: CircleAvatar(
+                                                                                    backgroundColor: Colors.transparent,
+                                                                                    child: ClipRRect(
+                                                                                      borderRadius: BorderRadius.circular(30),
+                                                                                      child: FittedBox(
+                                                                                        fit: BoxFit.fill,
+                                                                                        child: cacheImage(
+                                                                                          height: 121.r,
+                                                                                          width: 121.r,
+                                                                                          url: controller.availableVouchers[index].iconUrl ?? 'https://picsum.photos/200/300',
                                                                                         ),
-                                                                                        TextSpan(
-                                                                                          text: expiryDate,
-                                                                                          style: TextStyle(
-                                                                                            fontFamily: 'Gilroy',
-                                                                                            fontSize: 40.sp,
-                                                                                            color: AppColors.k033660,
-                                                                                            fontStyle: FontStyle.normal,
-                                                                                            fontWeight: FontWeight.w500,
-                                                                                          ),
-                                                                                        ),
-                                                                                      ],
+                                                                                      ),
                                                                                     ),
                                                                                   ),
                                                                                 ),
                                                                               ],
                                                                             ),
-                                                                          )
+                                                                          ),
+                                                                          SizedBox(
+                                                                            height:
+                                                                                40.h,
+                                                                          ),
+                                                                          FittedBox(
+                                                                            child:
+                                                                                Row(
+                                                                              children: [
+                                                                                SizedBox(
+                                                                                  width: 60.w,
+                                                                                ),
+                                                                                Text(
+                                                                                  '\$${controller.availableVouchers[index].amount}',
+                                                                                  style: TextStyle(
+                                                                                    fontFamily: 'Gilroy',
+                                                                                    fontSize: 100.sp,
+                                                                                    fontStyle: FontStyle.normal,
+                                                                                    color: AppColors.k033660,
+                                                                                    fontWeight: FontWeight.w700,
+                                                                                  ),
+                                                                                  textAlign: TextAlign.center,
+                                                                                ),
+                                                                                SizedBox(
+                                                                                  width: 144.w,
+                                                                                ),
+                                                                                Container(
+                                                                                  height: 81.h,
+                                                                                  width: 3.w,
+                                                                                  color: AppColors.k6886A0.withOpacity(0.5),
+                                                                                ),
+                                                                                SizedBox(
+                                                                                  width: 166.w,
+                                                                                ),
+                                                                                FittedBox(
+                                                                                  fit: BoxFit.contain,
+                                                                                  child: Column(
+                                                                                    children: [
+                                                                                      FittedBox(
+                                                                                        child: RichText(
+                                                                                          text: TextSpan(
+                                                                                            children: <TextSpan>[
+                                                                                              TextSpan(
+                                                                                                text: 'Expire Date : ',
+                                                                                                style: TextStyle(
+                                                                                                  fontFamily: 'Gilroy',
+                                                                                                  fontSize: 40.sp,
+                                                                                                  color: AppColors.k033660.withOpacity(0.6),
+                                                                                                  fontStyle: FontStyle.normal,
+                                                                                                  fontWeight: FontWeight.w400,
+                                                                                                ),
+                                                                                              ),
+                                                                                              TextSpan(
+                                                                                                text: expiryDate,
+                                                                                                style: TextStyle(
+                                                                                                  fontFamily: 'Gilroy',
+                                                                                                  fontSize: 40.sp,
+                                                                                                  color: AppColors.k033660,
+                                                                                                  fontStyle: FontStyle.normal,
+                                                                                                  fontWeight: FontWeight.w500,
+                                                                                                ),
+                                                                                              ),
+                                                                                            ],
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                )
+                                                                              ],
+                                                                            ),
+                                                                          ),
                                                                         ],
                                                                       ),
                                                                     ),
-                                                                  ],
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Positioned(
-                                                            bottom: -20,
-                                                            child:
-                                                                roundedButton(
-                                                              text:
-                                                                  'View Details',
-                                                              onTap: () {
-                                                                Get.to<void>(() =>
-                                                                    VoucherDetailsView(
-                                                                      voucherIndex:
-                                                                          index,
-                                                                    ));
-                                                              },
-                                                              width: 925.w,
-                                                              height: 120.h,
-                                                              fontSize: 45.sp,
-                                                            ),
-                                                          )
-                                                        ],
-                                                      );
-                                                    },
-                                                    separatorBuilder:
-                                                        (context, index) =>
-                                                            h(150.h),
-                                                    itemCount: controller
-                                                        .availableVouchers()
-                                                        .length,
-                                                  ),
+                                                                Positioned(
+                                                                  bottom: -20,
+                                                                  child:
+                                                                      roundedButton(
+                                                                    text:
+                                                                        'View Details',
+                                                                    onTap: () {
+                                                                      Get.to<void>(
+                                                                          () =>
+                                                                              VoucherDetailsView(
+                                                                                voucherIndex: index,
+                                                                              ));
+                                                                    },
+                                                                    width:
+                                                                        925.w,
+                                                                    height:
+                                                                        120.h,
+                                                                    fontSize:
+                                                                        45.sp,
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            );
+                                                          },
+                                                          separatorBuilder:
+                                                              (context,
+                                                                      index) =>
+                                                                  h(150.h),
+                                                          itemCount: controller
+                                                              .availableVouchers()
+                                                              .length,
+                                                        ),
                                                 )
                                               : const SizedBox.shrink(),
                                         ],

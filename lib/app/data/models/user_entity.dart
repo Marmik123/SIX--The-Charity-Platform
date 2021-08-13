@@ -93,7 +93,7 @@ class UserEntity {
   String toJson() => json.encode(toMap());
 
   factory UserEntity.fromMap(Map<String, dynamic> json) => UserEntity(
-        id: json['id']! as String,
+        id: json['id'] as String,
         singpassId: json['singpass_id'],
         corppassId:
             json['corppass_id'] == null ? null : json['corppass_id'] as String,
@@ -177,7 +177,7 @@ class UserMetadata {
   String? nricFin;
   Map<String, dynamic>? userData;
   dynamic partialNricFin;
-  dynamic principalName;
+  String? principalName;
   dynamic sex;
   dynamic race;
   dynamic email;
@@ -202,7 +202,7 @@ class UserMetadata {
     String? nricFin,
     Map<String, dynamic>? userData,
     dynamic partialNricFin,
-    dynamic principalName,
+    String? principalName,
     dynamic sex,
     dynamic race,
     dynamic email,
@@ -255,9 +255,9 @@ class UserMetadata {
   factory UserMetadata.fromMap(Map<String, dynamic> json) => UserMetadata(
         id: json['id'] == null ? null : json['id'] as String,
         userId: json['user_id'] == null ? null : json['user_id'] as String,
-        nricFin: json['nric_fin'] == null ? null : json['nric_fin'] as String,
+        nricFin: json['nric_fin'] as String?,
         partialNricFin: json['partial_nric_fin'],
-        principalName: json['principal_name'],
+        principalName: json['principal_name'] as String?,
         sex: json['sex'],
         race: json['race'],
         email: json['email'],

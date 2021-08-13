@@ -439,7 +439,11 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                   .toString(),
                               amount: vDetailsCont
                                   .availableVouchers[voucherIndex ?? 0].amount,
-                              totalAmount: controller.totalAmount(),
+                              totalAmount: controller.voucherCount() *
+                                  vDetailsCont
+                                      .availableVouchers[voucherIndex ?? 0]
+                                      .amount!
+                                      .toDouble(),
                               quantity: controller.voucherCount(),
                               voucherId: vDetailsCont
                                   .availableVouchers[voucherIndex ?? 0].id,

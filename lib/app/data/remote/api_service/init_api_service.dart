@@ -178,4 +178,28 @@ class APIService {
       return e.response;
     }
   }
+
+  //PUT
+  static Future<Response<dynamic>?> put({
+    required String path,
+    Map<String, dynamic>? data,
+    Map<String, dynamic>? params,
+    bool encrypt = true,
+  }) async {
+    try {
+      return await _dio.put<Map<String, dynamic>?>(
+        baseUrl + path,
+        data: data,
+        queryParameters: params,
+        options: Options(headers: <String, dynamic>{
+          'encrypt': encrypt,
+        }),
+      );
+    } on DioError catch (e, t) {
+      letMeHandleAllErrors(e, t);
+      logW(e.response?.data['message']);
+      logW(e.response?.statusCode);
+      return e.response;
+    }
+  }
 }

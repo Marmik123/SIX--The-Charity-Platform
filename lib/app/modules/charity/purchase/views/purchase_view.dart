@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/local/user_provider.dart';
+import 'package:six/app/modules/charity/available_vendors/views/available_vendors_view.dart';
 import 'package:six/app/ui/components/category_card.dart';
 import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/common_appbar.dart';
@@ -81,7 +82,7 @@ class PurchaseView extends GetView<PurchaseController> {
                   height: 50.h,
                 ),
                 ctrl.isLoading()
-                    ? buildLoader()
+                    ? Center(child: buildLoader())
                     : Expanded(
                         child: GetBuilder<PurchaseController>(
                           builder: (_) => GridView.builder(
@@ -104,9 +105,27 @@ class PurchaseView extends GetView<PurchaseController> {
                                     ctrl.voucherCategory[index].accent!);
                                 return GestureDetector(
                                   onTap: () {
+                                    controller.availVendorCtrl.txtCtrl.clear();
                                     ctrl.selectCategory!(index);
                                     logI(ctrl.selectCategory);
                                     ctrl.update();
+                                    if (UserProvider.role == 'social_worker') {
+                                      purchaseController.selectCategory!(index);
+                                      purchaseController.update();
+                                      controller.availVendorCtrl
+                                          .assignVendorList(purchaseController
+                                              .voucherCategory[index].id
+                                              .toString());
+                                      UserProvider.role == 'charity' ||
+                                              UserProvider.role ==
+                                                  'social_worker'
+                                          ? Get.to<void>(
+                                              () => AvailableVendorsView(
+                                                    categoryIndex: index,
+                                                  ))
+                                          : Get.to<void>(
+                                              () => AvailableVendorsView());
+                                    }
                                   },
                                   child: Stack(
                                     alignment: Alignment.topRight,

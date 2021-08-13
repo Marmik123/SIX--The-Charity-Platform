@@ -24,6 +24,7 @@ class SocialHomeController extends GetxController {
   RxInt limit = 1000.obs;
   RxBool isLoading = false.obs;
   RxBool vouchersLoading = false.obs;
+  RxBool isAddressNull = false.obs;
   RxInt? monthNum = 1.obs;
   RxString monthName = 'Sept'.obs;
   DateTime selectedDate = DateTime.now();

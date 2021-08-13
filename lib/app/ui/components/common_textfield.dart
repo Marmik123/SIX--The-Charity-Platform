@@ -23,6 +23,7 @@ Widget textField({
   required String hintText,
   required String prefixImageName,
   required VoidCallback onTap,
+  VoidCallback? onSubmit,
   required EdgeInsetsGeometry contentPadding,
   required TextStyle textStyle,
   required TextStyle hintStyle,
@@ -77,13 +78,14 @@ Widget textField({
             },
             onFieldSubmitted: (value) {
               if (value.isNotEmpty &&
-                  textAction == TextInputAction.done &&
+                  textAction == TextInputAction.search &&
                   UserProvider.role == 'charity') {
                 availVendorCtrl.isSearched(true);
                 availVendorCtrl.isLoading(true);
                 availVendorCtrl.assignSearchedVendor(
                     purchaseController
-                        .voucherCategory[availVendorCtrl.categoryIndex()].id
+                        .voucherCategory[purchaseController.selectCategory!()]
+                        .id
                         .toString(),
                     value.trim());
                 if (controller!.text.trim().isEmpty) {
@@ -99,6 +101,20 @@ Widget textField({
                     value.trim());
                 if (controller!.text.trim().isEmpty) {
                   distriCtrl.isSearched(false);
+                }
+              } else if (UserProvider.role == 'social_worker' &&
+                  value.isNotEmpty &&
+                  textAction == TextInputAction.done) {
+                availVendorCtrl.isSearched(true);
+                availVendorCtrl.isLoading(true);
+                availVendorCtrl.assignSearchedVendor(
+                    purchaseController
+                        .voucherCategory[purchaseController.selectCategory!()]
+                        .id
+                        .toString(),
+                    value.trim());
+                if (controller!.text.trim().isEmpty) {
+                  availVendorCtrl.isSearched(false);
                 }
               }
             },

@@ -1,10 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:jovial_svg/jovial_svg.dart';
 import 'package:six/app/ui/components/circular_progress_indicator.dart';
 
-ScalableImage? si;
 Widget cacheImage({
   required double height,
   required double width,

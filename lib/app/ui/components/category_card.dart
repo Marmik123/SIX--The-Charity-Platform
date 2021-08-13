@@ -82,6 +82,8 @@ Widget categoryCard({
                         onPressed: () {
                           purchaseController.selectCategory!(index);
                           purchaseController.update();
+                          availVendorCtrl.txtCtrl.clear();
+
                           availVendorCtrl.assignVendorList(purchaseController
                               .voucherCategory[index].id
                               .toString());

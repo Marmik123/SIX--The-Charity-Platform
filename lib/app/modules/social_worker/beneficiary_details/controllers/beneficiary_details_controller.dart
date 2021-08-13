@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/local/note_details_helper.dart';
 import 'package:six/app/data/models/available_vouchers.dart';
 import 'package:six/app/data/models/user_entity.dart';
@@ -47,11 +46,15 @@ class BeneficiaryDetailsController extends GetxController {
     titleVisible(false);
     scrollViewController.addListener(dataScrollController);
     if (Get.arguments != null) {
-      beneficiary = Get.arguments[0] as UserEntity;
+      if (Get.arguments[0] != null) {
+        beneficiary = Get.arguments[0] as UserEntity;
+      } else {
+        beneficiary = null as UserEntity;
+      }
       beneIndex(Get.arguments[1] as int);
     }
     getNotes();
-    logWTF(beneficiary.toJson());
+    //logWTF(beneficiary.toJson());
     assignConnectedOrg();
     assignBeneDashboardData();
     getAssignedVouchers();

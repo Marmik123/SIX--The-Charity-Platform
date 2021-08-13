@@ -1,19 +1,21 @@
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/config/logger.dart';
+import 'package:six/app/data/remote/provider/social_worker.dart';
+import 'package:six/app/ui/components/app_snackbar.dart';
 
 class ProfileController extends GetxController {
   //TODO: Implement ProfileController
 
   final count = 0.obs;
   late File profilePicture;
-  final picker = ImagePicker();
-
+  RxBool isLoading = false.obs;
   @override
   void onInit() {
     super.onInit();
@@ -48,7 +50,7 @@ class ProfileController extends GetxController {
         children: [
           ListTile(
             onTap: () {
-              pickProfilePicture(ImageSource.camera);
+              pickProfilePicture();
             },
             leading: const Icon(
               Icons.camera_alt,
@@ -64,7 +66,7 @@ class ProfileController extends GetxController {
           ),
           ListTile(
             onTap: () {
-              pickProfilePicture(ImageSource.gallery);
+              pickProfilePicture();
             },
             leading: const Icon(
               Icons.image_outlined,
@@ -83,15 +85,56 @@ class ProfileController extends GetxController {
   }
 
   //Function for choosing picture
-  Future<void> pickProfilePicture(ImageSource source) async {
-    final pickedFile = await picker.getImage(source: source, imageQuality: 50);
+  Future<void> pickProfilePicture() async {
+    final pickedFile = await FilePicker.platform.pickFiles(
+      withData: true,
+      type: FileType.image,
+      allowCompression: true,
+    );
     // profilePicture = File(pickedFile.path);
     if (pickedFile != null) {
-      profilePicture = File(pickedFile.path);
-      print(profilePicture);
+      var file = pickedFile.files.first;
+      //profilePicture = File(pickedFile.path);
+      // logI(profilePicture);
+      await uploadImg(
+        file.name,
+        file.bytes,
+      );
     } else {
-      print('No image selected.');
+      logI('No image selected.');
     }
     update();
+  }
+
+  Future<void> uploadImg(String filename, dynamic fileBytes) async {
+    var success = await SocialWorkerProvider.uploadProfileImg(
+      filename: filename,
+      finalImage: fileBytes,
+    );
+    logWTF(success);
+    if (success != 'false') {
+      await editProfilePicture(success);
+    }
+  }
+
+  Future<void> editProfilePicture(String filename) async {
+    isLoading(true);
+    var success = await SocialWorkerProvider.editProfilePicture(
+      profileImg: filename,
+    );
+    logWTF(success);
+    if (success) {
+      isLoading(false);
+      appSnackbar(
+        message: 'Image Uploaded Successfully',
+        snackbarState: SnackbarState.success,
+      );
+    } else {
+      isLoading(false);
+      appSnackbar(
+        message: 'Something Went Wrong,Please try again',
+        snackbarState: SnackbarState.danger,
+      );
+    }
   }
 }

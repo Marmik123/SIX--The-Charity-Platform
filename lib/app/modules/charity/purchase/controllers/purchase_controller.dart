@@ -8,6 +8,7 @@ import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/data/models/voucher_category.dart';
 import 'package:six/app/data/remote/provider/social_worker.dart';
 import 'package:six/app/data/remote/provider/voucher_category.dart';
+import 'package:six/app/modules/charity/available_vendors/controllers/available_vendors_controller.dart';
 import 'package:six/app/modules/charity/charity_home/controllers/charity_home_controller.dart';
 import 'package:six/app/modules/needy_family/available_credits/controllers/available_credits_controller.dart';
 import 'package:six/app/modules/social_worker/social_home/controllers/social_home_controller.dart';
@@ -31,6 +32,8 @@ class PurchaseController extends GetxController {
       Get.put(CharityHomeController());
   AvailableCreditsController programListingCtrl =
       Get.put(AvailableCreditsController());
+  AvailableVendorsController availVendorCtrl =
+      Get.put(AvailableVendorsController());
   SocialHomeController socialCtrl = Get.put(SocialHomeController());
 
   final amountController = MoneyMaskedTextController(
@@ -44,7 +47,9 @@ class PurchaseController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    assignVoucherCatList();
+    UserProvider.role == 'charity'
+        ? assignCharityVouchCat()
+        : assignVoucherCatList();
   }
 
   //Function for assigning voucher category list.
@@ -55,6 +60,20 @@ class PurchaseController extends GetxController {
         limit: limit().toString(),
         skip: skip().toString(),
         type: 'vendor',
+      ),
+    );
+    isLoading(false);
+  }
+
+  //Function for assigning voucher category list.
+  Future<void> assignCharityVouchCat() async {
+    isLoading(true);
+    //logI(charityHomeController.graphDetails);
+    voucherCategory(
+      await VoucherCategoryProvider.getCharityVouchers(
+        programId: charityHomeController
+            .graphDetails[programListingCtrl.programIndex!()].id
+            .toString(),
       ),
     );
     isLoading(false);

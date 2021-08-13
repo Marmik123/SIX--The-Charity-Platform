@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/models/graph_category_data.dart';
-import 'package:six/app/modules/charity/purchase/controllers/purchase_controller.dart';
 import 'package:six/app/modules/needy_family/available_credits/controllers/available_credits_controller.dart';
 import 'package:six/app/modules/needy_family/available_credits/views/available_credits_view.dart';
 import 'package:six/app/modules/needy_family/profile/views/profile_view.dart';
@@ -19,7 +18,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import '../controllers/charity_home_controller.dart';
 
 class CharityHomeView extends GetView<CharityHomeController> {
-  final PurchaseController purCtrl = Get.put(PurchaseController());
+  //final PurchaseController purCtrl = Get.put(PurchaseController());
   final List<Widget> bottomScreen = <Widget>[
     CharityHome(),
     AvailableCreditsView(),
@@ -29,8 +28,7 @@ class CharityHomeView extends GetView<CharityHomeController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
-          bottomNavigationBar:
-              purCtrl.paid.value ? const SizedBox.shrink() : bottomNavBar(),
+          bottomNavigationBar: bottomNavBar(),
           backgroundColor: AppColors.kffffff,
           body: bottomScreen.elementAt(controller.currentIndex!.value),
         ));

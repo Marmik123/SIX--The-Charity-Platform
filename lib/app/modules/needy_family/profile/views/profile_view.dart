@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/routes/app_pages.dart';
+import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/double_shaded_container.dart';
 import 'package:six/app/ui/components/profile_options.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
+import 'package:six/app/ui/components/sizedbox.dart';
 import 'package:six/r.g.dart';
 
 import '../controllers/profile_controller.dart';
@@ -57,58 +58,64 @@ class ProfileView extends GetView<ProfileController> {
                       SizedBox(
                         height: 93.h,
                       ),
-                      Stack(
-                        alignment: Alignment.bottomRight,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              if (UserProvider.role != 'charity' &&
-                                  UserProvider.role != 'vendor') {
-                                profileCtrl
-                                    .pickProfilePicture(ImageSource.gallery);
-                              }
-                            },
-                            onLongPress: () {},
-                            child: doubleShadedCont(
-                              UserProvider.currentUser?.profileImageUrl == null
-                                  ? 'https://picsum.photos/200/300'
-                                  : UserProvider.currentUser!.profileImageUrl
-                                      .toString(),
-                            ),
-                          ),
-                          UserProvider.role == 'charity' ||
-                                  UserProvider.role == 'vendor'
-                              ? const SizedBox.shrink()
-                              : Positioned(
-                                  right: 385.w,
-                                  top: 355.h,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      profileCtrl.pickProfilePicture(
-                                          ImageSource.gallery);
-                                    },
-                                    child: UserProvider.role == 'needy'
-                                        ? Image.asset(
-                                            R.image.asset.camera_only.assetName,
-                                            width: 43.w,
-                                            height: 33.h,
-                                          )
-                                        : Image.asset(
-                                            R.image.asset.image_picker
-                                                .assetName,
-                                            height: 105.h,
-                                            width: 104.w,
-                                          ),
+                      Obx(() => controller.isLoading()
+                          ? buildLoader()
+                          : Stack(
+                              alignment: Alignment.bottomRight,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    if (UserProvider.role != 'charity' &&
+                                        UserProvider.role != 'vendor') {
+                                      profileCtrl.pickProfilePicture();
+                                    }
+                                  },
+                                  onLongPress: () {},
+                                  child: doubleShadedCont(
+                                    UserProvider.currentUser?.profileImageUrl ==
+                                            null
+                                        ? 'https://picsum.photos/200/300'
+                                        : UserProvider
+                                            .currentUser!.profileImageUrl
+                                            .toString(),
                                   ),
                                 ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 83.h,
-                      ),
+                                UserProvider.role == 'charity' ||
+                                        UserProvider.role == 'vendor'
+                                    ? const SizedBox.shrink()
+                                    : Positioned(
+                                        right: 385.w,
+                                        top: 355.h,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            profileCtrl.pickProfilePicture();
+                                          },
+                                          child: UserProvider.role == 'needy'
+                                              ? Image.asset(
+                                                  R.image.asset.camera_only
+                                                      .assetName,
+                                                  width: 43.w,
+                                                  height: 33.h,
+                                                )
+                                              : Image.asset(
+                                                  R.image.asset.image_picker
+                                                      .assetName,
+                                                  height: 105.h,
+                                                  width: 104.w,
+                                                ),
+                                        ),
+                                      ),
+                              ],
+                            )),
+                      h(83.h),
                       Text(
-                        UserProvider.currentUser?.userMetadata?.entityName ??
-                            'Entity Name',
+                        UserProvider.currentUser?.userMetadata?.principalName ==
+                                null
+                            ? '-'
+                            : UserProvider
+                                    .currentUser?.userMetadata?.principalName
+                                    .toString() ??
+                                '-',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: 'Gilroy',
@@ -118,13 +125,17 @@ class ProfileView extends GetView<ProfileController> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
+                      h(20.h),
                       UserProvider.role == 'needy' ||
                               UserProvider.role == 'social_worker'
                           ? Text(
-                              'peterlim@gmail.com',
+                              UserProvider.currentUser?.userMetadata?.email ==
+                                      null
+                                  ? '-'
+                                  : UserProvider
+                                          .currentUser?.userMetadata?.email
+                                          .toString() ??
+                                      '-',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontFamily: 'Gilroy',

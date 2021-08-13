@@ -1,5 +1,10 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:six/app/data/config/logger.dart';
+import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/data/models/available_credits_sw.dart';
 import 'package:six/app/data/models/available_vouchers.dart';
 import 'package:six/app/data/models/user_entity.dart';
@@ -218,6 +223,54 @@ class SocialWorkerProvider {
           success: false, message: response!.data['message'].toString()));
     }
     logWTF(response?.statusMessage);
+    return response?.statusCode == 200;
+  }
+
+  //Helper Function to upload the profile picture of the user.
+  static Future<String> uploadProfileImg(
+      {required String filename, dynamic finalImage}) async {
+    var url = 'https://six.api.dharmatech.in/file/upload/user/profile';
+    var uri = Uri.parse(url);
+    var request = http.MultipartRequest('POST', uri);
+
+    var multipartFile = http.MultipartFile.fromBytes(
+        'profile', finalImage as List<int>,
+        filename: '$filename',
+        contentType: MediaType('application', 'octet-stream'));
+    request.files.add(multipartFile);
+    var result = await http.Response.fromStream(await request.send());
+    logI('Result: ${result.statusCode}');
+    logI(result.body);
+    dynamic json = jsonDecode(result.body);
+    logW(json['file']);
+    if (result.statusCode != 200) {
+      logW('FILE UPLOAD FAILED');
+      return 'false';
+    } else {
+      logW('FILE UPLOAD SUCCESS');
+      return json['file'] as String;
+    }
+  }
+
+  //Helper function to edit the profile picture of the user.
+  static Future<bool> editProfilePicture({
+    required String profileImg,
+  }) async {
+    var response = await APIService.put(
+        path: '/v1/auth/edit-user',
+        encrypt: true,
+        data: <String, dynamic>{
+          'profile_image': profileImg,
+        });
+    logI(response);
+    if (response?.statusCode != 200) {
+      unawaited(dialog(
+          success: false, message: response!.data['message'].toString()));
+    } else {
+      UserProvider.currentUser?.profileImageUrl =
+          response?.data['data']['profile_image_url'];
+      logWTF(response?.statusMessage);
+    }
     return response?.statusCode == 200;
   }
 }

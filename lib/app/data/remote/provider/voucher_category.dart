@@ -25,6 +25,26 @@ class VoucherCategoryProvider {
     }
   }
 
+  //Helper function to fetch the category list according to program ID for charity module.
+  static Future<List<VoucherCategory>> getCharityVouchers({
+    String programId = '',
+  }) async {
+    var response = await APIService.get(
+      path: '/v1/auth/program-category-list/$programId',
+    );
+    if (response?.statusCode == 200) {
+      logI('######Voucher of Charity########');
+      logI(response?.data!['data']);
+      var voucherCategory = response?.data!['data'] as List<dynamic>;
+      return List<VoucherCategory>.from(voucherCategory.map<VoucherCategory>(
+          (dynamic e) => VoucherCategory.fromJson(e as Map<String, dynamic>)));
+    } else {
+      Get.snackbar<void>(
+          'Error in voucher category fetching', 'Please Try Again.');
+      return <VoucherCategory>[];
+    }
+  }
+
   //Helper function to fetch the vouchers of particular category on passing categoryID.
   static Future<List<AssignVoucher>> getVoucherList(
       {String skip = '', String limit = '', required String categoryId}) async {
