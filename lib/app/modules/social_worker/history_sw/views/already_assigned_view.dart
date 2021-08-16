@@ -42,12 +42,16 @@ class AlreadyAssignedView extends GetView<HistorySwController> {
               voucherCode: '15015783',
               date: controller.socialCtrl.getDate(index) ?? 'NA',
               onTap: () {},
-              voucherState:
-                  controller.socialCtrl.historyVouchers[index].isActive ?? false
+              voucherState: controller.socialCtrl.checkIsExpired(index)
+                  ? VoucherState.expired
+                  : controller.socialCtrl.historyVouchers[index].isActive ??
+                          false
                       ? VoucherState.redeemed
                       : VoucherState.active,
-              btnText:
-                  controller.socialCtrl.historyVouchers[index].isActive ?? false
+              btnText: controller.socialCtrl.checkIsExpired(index)
+                  ? 'Already Expired'
+                  : controller.socialCtrl.historyVouchers[index].isActive ??
+                          false
                       ? 'Already Redeemed'
                       : 'Already Assigned',
               whichScreen: 'History',

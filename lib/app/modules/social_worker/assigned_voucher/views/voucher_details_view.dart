@@ -342,7 +342,18 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                     ),
                                     IconButton(
                                       onPressed: () {
-                                        controller.voucherCount.value++;
+                                        if (controller.voucherCount.value ==
+                                            vDetailsCont
+                                                .availableVouchers[
+                                                    voucherIndex ?? 0]
+                                                .availableCount) {
+                                          appSnackbar(
+                                            message: 'Maximum Limit Reached',
+                                            snackbarState: SnackbarState.info,
+                                          );
+                                        } else {
+                                          controller.voucherCount.value++;
+                                        }
                                         /*controller.totalAmount(
                                             controller.voucherCount() *
                                                 vDetailsCont

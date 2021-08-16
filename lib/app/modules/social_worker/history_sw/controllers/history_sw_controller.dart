@@ -6,7 +6,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 class HistorySwController extends GetxController
     with SingleGetTickerProviderMixin {
-  //TODO: Implement HistorySwController
   TabController? tabController;
   ScrollController scrollViewController = ScrollController();
   RxBool titleVisible = true.obs;
@@ -77,15 +76,8 @@ class HistorySwController extends GetxController
   }
 
   @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {
     tabController!.dispose();
     scrollViewController.removeListener(dataScrollController);
   }
-
-  void increment() => count.value++;
 }

@@ -129,4 +129,13 @@ class SocialHomeController extends GetxController {
     // logI(beneficiaryList());
     isLoading(false);
   }
+
+  bool checkIsExpired(int index) {
+    var isAfter = DateTime.now().compareTo(historyVouchers[index].endDate!);
+    if (isAfter > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

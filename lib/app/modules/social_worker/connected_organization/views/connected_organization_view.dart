@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/modules/social_worker/beneficiary_details/controllers/beneficiary_details_controller.dart';
 import 'package:six/app/ui/components/catched_image.dart';
-import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
 import 'package:six/r.g.dart';
 
@@ -110,13 +109,13 @@ class ConnectedOrganizationView
                         ],
                       ),
                       h(15.h),
-                      roundedButton(
+                      /* roundedButton(
                         text: 'View Details',
                         onTap: () {},
                         width: 281.w,
                         height: 100.h,
                         fontSize: 35.sp,
-                      ),
+                      ),*/
                     ],
                   ),
                 )

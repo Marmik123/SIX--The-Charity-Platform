@@ -100,6 +100,8 @@ class DistributeVoucherController extends GetxController {
           await SocialWorkerProvider.assignVoucher(vouchers: vouchers);
       if (success) {
         voucherAssignLoading(false);
+        await beneCtrl.assignBeneDashboardData();
+        await beneCtrl.getAssignedVouchers();
         unawaited(
           dialog(
             success: true,
