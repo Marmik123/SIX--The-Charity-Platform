@@ -52,15 +52,15 @@ class DistributeVoucherController extends GetxController {
 
   Future<void> assignSearchedVoucher(
       String categoryId, String searchText) async {
-    isSVoucherLoading(true);
-    searchedVoucherList(await VoucherCategoryProvider.searchVoucher(
+    isVoucherLoading(true);
+    vouchers(await VoucherCategoryProvider.searchVoucher(
       categoryId: categoryId,
       skip: skip.toString(),
       limit: limit.toString(),
       searchText: searchText,
     ));
     logI(searchedVoucherList);
-    isSVoucherLoading(false);
+    isVoucherLoading(false);
   }
 
   Future<void> assignVoucherList(String categoryId) async {

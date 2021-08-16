@@ -207,6 +207,30 @@ class SocialWorkerProvider {
     }
   }
 
+  //Helper Function to fetch history of vouchers by month filter.
+  static Future<List<AvailableVouchers>> getVouchersHistoryByMonth(
+      {required String? type,
+      required String? skip,
+      required String? startDate,
+      required String? endDate,
+      required String? limit}) async {
+    var response = await APIService.get(
+      path:
+          '/v1/auth/worker-assigned-voucher-filter-list/$type/$startDate/$endDate/$skip/$limit',
+    );
+    if (response?.statusCode == 200) {
+      logI('######History By Month Filter########');
+      logI(response?.data!['data']);
+      var vouchers = response?.data!['data'] as List<dynamic>;
+      logI(vouchers);
+      return List<AvailableVouchers>.from(vouchers.map<AvailableVouchers>(
+          (dynamic e) => AvailableVouchers.fromMap(e as Map<String, dynamic>)));
+    } else {
+      appSnackbar(message: 'Error');
+      return <AvailableVouchers>[];
+    }
+  }
+
   //Helper Function to assign a purchased voucher to  selected beneficiary.
   static Future<bool> assignVoucher({
     required List vouchers,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/modules/charity/available_vendors/controllers/available_vendors_controller.dart';
 import 'package:six/app/modules/charity/purchase/controllers/purchase_controller.dart';
@@ -95,6 +96,7 @@ Widget textField({
                   value.isNotEmpty &&
                   textAction == TextInputAction.search) {
                 distriCtrl.isSearched(true);
+                logI(value.trim());
                 distriCtrl.assignSearchedVoucher(
                     distriCtrl.categoryList[distriCtrl.selectedCategory()].id
                         .toString(),

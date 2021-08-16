@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:six/app/modules/social_worker/social_home/controllers/social_home_controller.dart';
+import 'package:six/app/utils/get_month_name.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HistorySwController extends GetxController
@@ -10,6 +11,8 @@ class HistorySwController extends GetxController
   ScrollController scrollViewController = ScrollController();
   RxBool titleVisible = true.obs;
   RxInt tabIndex = 0.obs;
+  RxString startDateValue = ''.obs;
+  RxString lastDateValue = ''.obs;
   SocialHomeController socialCtrl = Get.find<SocialHomeController>();
   List<String> text = [
     '',
@@ -21,15 +24,31 @@ class HistorySwController extends GetxController
     'Assigned',
     'Redeemed',
   ];
-  RxString monthName = 'Sept'.obs;
+  //Type for Specifying in API call.
+  List<String> type = [
+    'all',
+    'assigned',
+    'redeemed',
+  ];
+  RxString monthName = ''.obs;
   Rx<DateTime> selectedDate = DateTime.now().obs;
   final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
     tabController = TabController(length: 3, vsync: this);
+    initialDateValues();
     titleVisible(false);
     scrollViewController.addListener(dataScrollController);
+  }
+
+  void initialDateValues() {
+    var initialDate = DateTime.now();
+    monthName(assignMonth(initialDate.month));
+    var startDate = DateTime(initialDate.year, initialDate.month, 0);
+    var endDate = DateTime(initialDate.year, initialDate.month + 1, 0);
+    startDateValue(startDate.toString());
+    lastDateValue(endDate.toString());
   }
 
   Future<void> launchURL() async {
@@ -42,47 +61,6 @@ class HistorySwController extends GetxController
       await launch(url);
     } else {
       print('Could not launch $url');
-    }
-  }
-
-  void assignMonth({int month = 1}) {
-    switch (month) {
-      case 1:
-        monthName('Jan');
-        break;
-      case 2:
-        monthName('Feb');
-        break;
-      case 3:
-        monthName('March');
-        break;
-      case 4:
-        monthName('April');
-        break;
-      case 5:
-        monthName('May');
-        break;
-      case 6:
-        monthName('June');
-        break;
-      case 7:
-        monthName('July');
-        break;
-      case 8:
-        monthName('Aug');
-        break;
-      case 9:
-        monthName('Sept');
-        break;
-      case 10:
-        monthName('Oct');
-        break;
-      case 11:
-        monthName('Nov');
-        break;
-      case 12:
-        monthName('Dec');
-        break;
     }
   }
 

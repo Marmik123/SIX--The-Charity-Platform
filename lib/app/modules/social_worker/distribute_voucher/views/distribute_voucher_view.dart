@@ -299,36 +299,30 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
           SizedBox(
             height: 5.h,
           ),
-          Obx(() => (controller.isSearched()
-                  ? controller.isSVoucherLoading()
-                  : controller.isVoucherLoading())
+          Obx(() => controller.isVoucherLoading()
               ? Padding(
                   padding: EdgeInsets.only(top: 0.20.sh),
                   child: buildLoader(),
                 )
               : Expanded(
-                  child: controller.isLoading()
-                      ? buildLoader()
-                      : (controller.isSearched()
-                              ? controller.searchedVoucherList().isEmpty
-                              : controller.vouchers().isEmpty)
-                          ? Padding(
-                              padding: EdgeInsets.only(top: 0.20.sh),
-                              child: Text(
-                                'No Voucher Available',
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy',
-                                  fontSize: 50.sp,
-                                  fontStyle: FontStyle.normal,
-                                  color: AppColors.k033660,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            )
+                  child: controller.vouchers().isEmpty
+                      ? Padding(
+                          padding: EdgeInsets.only(top: 0.20.sh),
+                          child: Text(
+                            'No Voucher Available',
+                            style: TextStyle(
+                              fontFamily: 'Gilroy',
+                              fontSize: 50.sp,
+                              fontStyle: FontStyle.normal,
+                              color: AppColors.k033660,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        )
+                      : controller.isLoading()
+                          ? buildLoader()
                           : ListView.builder(
-                              itemCount: controller.isSearched()
-                                  ? controller.searchedVoucherList.length
-                                  : controller.vouchers.length,
+                              itemCount: controller.vouchers.length,
                               padding: const EdgeInsets.all(0),
                               physics: const BouncingScrollPhysics(),
                               itemBuilder: (context, index) => Row(

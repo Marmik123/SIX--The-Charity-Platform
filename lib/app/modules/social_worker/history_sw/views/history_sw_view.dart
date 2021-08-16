@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/models/sliver_persistent_header.dart';
 import 'package:six/app/modules/social_worker/history_sw/views/already_assigned_view.dart';
 import 'package:six/app/modules/social_worker/history_sw/views/history_all_voucher_view.dart';
@@ -11,6 +12,7 @@ import 'package:six/app/ui/components/indexed_stack_tab_item.dart';
 import 'package:six/app/ui/components/month_picker.dart';
 import 'package:six/app/ui/components/month_picker_dialog.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
+import 'package:six/app/utils/get_month_name.dart';
 
 import '../controllers/history_sw_controller.dart';
 
@@ -129,7 +131,9 @@ class HistorySwView extends GetView<HistorySwController> {
                                                 height: 53.h,
                                               ),
                                               controller.socialCtrl.isLoading()
-                                                  ? buildLoader()
+                                                  ? FittedBox(
+                                                      child:
+                                                          buildPaymentLoader())
                                                   : Text(
                                                       controller.socialCtrl
                                                                       .historyDashData?[
@@ -206,7 +210,9 @@ class HistorySwView extends GetView<HistorySwController> {
                                                 height: 53.h,
                                               ),
                                               controller.socialCtrl.isLoading()
-                                                  ? buildLoader()
+                                                  ? FittedBox(
+                                                      child:
+                                                          buildPaymentLoader())
                                                   : RichText(
                                                       text: TextSpan(
                                                           text: '\$',
@@ -284,10 +290,22 @@ class HistorySwView extends GetView<HistorySwController> {
                                     context: context,
                                     selectedDate: controller.selectedDate(),
                                   ).then((value) {
+                                    var lastDay = DateTime(
+                                        value.year, value.month + 1, 0);
+                                    logI(value);
+                                    logI(lastDay);
+                                    controller.socialCtrl
+                                        .getHistoryByMonthFilter(
+                                      controller.type[controller.tabIndex()],
+                                      value.toString(),
+                                      lastDay.toString(),
+                                    );
+                                    controller.startDateValue(value.toString());
                                     controller
-                                        .selectedDate(value ?? DateTime.now());
-                                    controller.assignMonth(
-                                        month: value?.month ?? 1);
+                                        .lastDateValue(lastDay.toString());
+                                    controller.selectedDate(value);
+                                    controller
+                                        .monthName(assignMonth(value.month));
                                   });
                                 },
                                 child: monthPicker(
@@ -339,23 +357,13 @@ class HistorySwView extends GetView<HistorySwController> {
                                     (index) => TextButton(
                                       onPressed: () {
                                         controller.tabIndex(index);
-                                        switch (index) {
-                                          case 0:
-                                            controller.socialCtrl
-                                                .getHistoryOfAssignVoucher(
-                                                    'all');
-                                            break;
-                                          case 1:
-                                            controller.socialCtrl
-                                                .getHistoryOfAssignVoucher(
-                                                    'assigned');
-                                            break;
-                                          case 2:
-                                            controller.socialCtrl
-                                                .getHistoryOfAssignVoucher(
-                                                    'redeemed');
-                                            break;
-                                        }
+                                        controller.socialCtrl
+                                            .getHistoryByMonthFilter(
+                                          controller
+                                              .type[controller.tabIndex()],
+                                          controller.startDateValue(),
+                                          controller.lastDateValue(),
+                                        );
                                       },
                                       child: indexedStackTabItem(
                                         controller.text[index],

@@ -19,8 +19,7 @@ class VendorHomeView extends GetView<VendorHomeController> {
   final List<Widget> bottomNavScreen = <Widget>[
     VendorHome(),
     VendorRedeemView(),
-    ProfileView(
-    )
+    ProfileView()
   ];
   @override
   Widget build(BuildContext context) {
@@ -102,8 +101,8 @@ class VendorHome extends StatelessWidget {
                                   monthPickerDialog(
                                     context: context,
                                     selectedDate: ctrl.selectedDate,
-                                  ).then((value) =>
-                                      ctrl.assignMonth(value?.month ?? 1));
+                                  ).then(
+                                      (value) => ctrl.assignMonth(value.month));
                                 },
                                 child: Container(
                                   width: 380.w,

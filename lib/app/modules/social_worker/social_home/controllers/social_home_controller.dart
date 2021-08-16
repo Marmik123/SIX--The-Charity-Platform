@@ -95,6 +95,21 @@ class SocialHomeController extends GetxController {
     vouchersLoading(false);
   }
 
+  Future<void> getHistoryByMonthFilter(
+      String type, String startDate, String endDate) async {
+    vouchersLoading(true);
+    historyVouchers(
+      await SocialWorkerProvider.getVouchersHistoryByMonth(
+        type: type,
+        startDate: startDate,
+        endDate: endDate,
+        skip: skip().toString(),
+        limit: limit().toString(),
+      ),
+    );
+    vouchersLoading(false);
+  }
+
   String? getDate(int index) {
     var formattedDate =
         DateTime.parse(historyVouchers[index].endDate.toString());
