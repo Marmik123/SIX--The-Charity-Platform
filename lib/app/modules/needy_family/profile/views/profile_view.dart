@@ -110,12 +110,7 @@ class ProfileView extends GetView<ProfileController> {
                             )),
                       h(83.h),
                       Text(
-                        UserProvider.currentUser?.userMetadata?.entityName ==
-                                null
-                            ? '-'
-                            : UserProvider.currentUser?.userMetadata?.entityName
-                                    .toString() ??
-                                '-',
+                        controller.getUserName()!,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: 'Gilroy',

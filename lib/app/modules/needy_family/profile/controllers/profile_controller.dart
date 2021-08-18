@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/config/logger.dart';
+import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/data/remote/provider/social_worker.dart';
 import 'package:six/app/ui/components/app_snackbar.dart';
 
@@ -135,6 +136,21 @@ class ProfileController extends GetxController {
         message: 'Something Went Wrong,Please try again',
         snackbarState: SnackbarState.danger,
       );
+    }
+  }
+
+  String? getUserName() {
+    if (UserProvider.role == 'charity' || UserProvider.role == 'vendor') {
+      return UserProvider.currentUser?.userMetadata?.entityName == null
+          ? '-'
+          : UserProvider.currentUser?.userMetadata?.entityName.toString() ??
+              '-';
+    } else if (UserProvider.role == 'social_worker' ||
+        UserProvider.role == 'needy') {
+      return UserProvider.currentUser?.userMetadata?.principalName == null
+          ? '-'
+          : UserProvider.currentUser?.userMetadata?.principalName.toString() ??
+              '-';
     }
   }
 }

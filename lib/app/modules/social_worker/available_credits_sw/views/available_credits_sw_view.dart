@@ -42,7 +42,11 @@ class AvailableCreditsViewSW extends GetView<AvailableCreditsSwController> {
             () => controller.isLoading()
                 ? Center(child: buildLoader())
                 : controller.availCreditsSW().isEmpty
-                    ? const Text('No Data Available')
+                    ? Center(
+                        child: Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: const Text('No Data Available'),
+                      ))
                     : Expanded(
                         child: ListView.builder(
                           itemCount: controller.availCreditsSW().length,

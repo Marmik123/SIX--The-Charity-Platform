@@ -26,8 +26,9 @@ class VendorDetailsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    logI('inside init');
+    logW(Get.arguments);
     if (Get.arguments != null) {
-      logW(Get.arguments);
       vendorId(Get.arguments as String);
       assignAvailVouchers();
     }
@@ -43,26 +44,22 @@ class VendorDetailsController extends GetxController {
   }
 
   Future<void> assignAvailVouchers() async {
+    isLoading(true);
     availableVouchers(await SocialWorkerProvider.getAvailableVouchers(
       vendorId: vendorId(),
       skip: skip().toString(),
       limit: limit().toString(),
     ));
+    isLoading(false);
   }
 
-  String? getDate(int index){
-    var formattedDate = DateTime
-        .parse(availableVouchers[index]
-        .endDate
-        .toString());
-    var date =
-        formattedDate.day;
-    var year =
-        formattedDate.year;
-    var month = assignMonth(
-        formattedDate.month);
-    var finalDate =
-        '$date,$month $year';
+  String? getDate(int index) {
+    var formattedDate =
+        DateTime.parse(availableVouchers[index].endDate.toString());
+    var date = formattedDate.day;
+    var year = formattedDate.year;
+    var month = assignMonth(formattedDate.month);
+    var finalDate = '$date,$month $year';
     return finalDate;
   }
 }

@@ -626,18 +626,24 @@ Widget voucherCard({
                 children: [
                   CircleAvatar(
                     backgroundColor: Colors.transparent,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: FittedBox(
-                        fit: BoxFit.fill,
-                        child: cacheImage(
-                          height: 119.r,
-                          width: 119.r,
-                          url: beneProfileUrl ??
-                              'https://picsum.photos/id/1011/180',
-                        ),
-                      ),
-                    ),
+                    child: beneProfileUrl == ''
+                        ? CircleAvatar(
+                            radius: 119.r,
+                            child: const Icon(
+                              Icons.person,
+                            ),
+                          )
+                        : ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child: FittedBox(
+                              fit: BoxFit.fill,
+                              child: cacheImage(
+                                height: 119.r,
+                                width: 119.r,
+                                url: beneProfileUrl!,
+                              ),
+                            ),
+                          ),
                   ),
                   w(37.w),
                   Text(

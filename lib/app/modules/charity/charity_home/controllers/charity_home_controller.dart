@@ -109,4 +109,12 @@ class CharityHomeController extends GetxController {
     totalContributors(dashboardData?['totalContributors'].toString() ?? '');
     totalFamilyCount(dashboardData?['totalFamilyCount'].toString() ?? '');
   }
+
+  void refreshHomeScreenData() {
+    assignToGraphDetails();
+    /*assignToCategoryDetails(graphDetails[programListingCtrl.programIndex!()].id
+        .toString());*/
+    assignDashboardData();
+    //programListingCtrl.assignToAvailProgCredit();
+  }
 }

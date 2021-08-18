@@ -27,8 +27,9 @@ class ConnectedOrganizationView
       separatorBuilder: (context, index) => h(25.h),
       itemBuilder: (context, index) {
         return Container(
-          height: 380.h,
+          //height: 380.h,
           width: 1005.w,
+          padding: const EdgeInsets.all(0),
           decoration: BoxDecoration(
             color: AppColors.kffffff,
             borderRadius: BorderRadius.circular(50.r),
@@ -56,12 +57,13 @@ class ConnectedOrganizationView
                     url: ctrl.connectedOrg[index].profileImageUrl.toString(),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0),
+                w(15),
+                Expanded(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    //mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      h(20.h),
                       Text(
                         ctrl.connectedOrg[index].userMetadata?.entityName ??
                             'Entity Name',
@@ -110,15 +112,15 @@ class ConnectedOrganizationView
                       ),
                       h(15.h),
                       /* roundedButton(
-                        text: 'View Details',
-                        onTap: () {},
-                        width: 281.w,
-                        height: 100.h,
-                        fontSize: 35.sp,
-                      ),*/
+                          text: 'View Details',
+                          onTap: () {},
+                          width: 281.w,
+                          height: 100.h,
+                          fontSize: 35.sp,
+                        ),*/
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),

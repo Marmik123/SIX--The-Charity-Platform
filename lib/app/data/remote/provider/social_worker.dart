@@ -25,7 +25,7 @@ class SocialWorkerProvider {
       return availCredits;
     } else {
       appSnackbar(message: 'Error');
-      return null;
+      return <String, dynamic>{};
     }
   }
 

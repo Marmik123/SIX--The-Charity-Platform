@@ -5,9 +5,6 @@ import 'package:six/app/data/models/vendor_list.dart';
 import 'package:six/app/data/remote/provider/voucher_category.dart';
 
 class AvailableVendorsController extends GetxController {
-  //TODO: Implement AvailableVendorsController
-
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -22,14 +19,7 @@ class AvailableVendorsController extends GetxController {
   RxInt skip = 0.obs;
   RxInt limit = 1000.obs;
   TextEditingController txtCtrl = TextEditingController();
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {}
-  void increment() => count.value++;
   final formKey = GlobalKey<FormState>();
   RxInt categoryIndex = 0.obs;
   //Function for assigning vendor details.

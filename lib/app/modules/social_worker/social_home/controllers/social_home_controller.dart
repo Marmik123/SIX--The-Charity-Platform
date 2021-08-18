@@ -18,7 +18,7 @@ class SocialHomeController extends GetxController {
   RxInt beneficiaryCount = 0.obs;
   RxMap<String, dynamic>? dashboardData = <String, dynamic>{}.obs;
   Map<String, dynamic>? historyDashData;
-  Map<String, dynamic>? decodedAddress;
+  RxList<Map<String, dynamic>?> decodedAddress = <Map<String, dynamic>?>[].obs;
   RxBool paid = false.obs;
   RxInt skip = 0.obs;
   RxInt limit = 1000.obs;
@@ -44,15 +44,18 @@ class SocialHomeController extends GetxController {
     logI(UserProvider.role);
   }
 
-  void assignAddress(Map<String, dynamic> address) {
-    logWTF('!!!!$address');
-    decodedAddress = address;
-    logW('@@@$address');
+  void assignAddress(Map<String, dynamic>? address) {
+    decodedAddress.add(address);
+    logI('finalDecodedAddress$decodedAddress');
   }
 
-  String returnAddress() {
-    logI(decodedAddress);
-    return '${decodedAddress!['floor']['value']},${decodedAddress!['building']['value']},${decodedAddress!['street']['value']},\n${decodedAddress!['block']['value']},${decodedAddress!['country']['desc']},${decodedAddress!['postal']['value']}.';
+  String returnAddress(int index) {
+    logI('!!##$decodedAddress');
+    logI('!!##${decodedAddress[index]}');
+    if (decodedAddress[index]!.isNotEmpty) {
+      return '${decodedAddress[index]!['floor']['value']},${decodedAddress[index]!['building']['value']},${decodedAddress[index]!['street']['value']},\n${decodedAddress[index]!['block']['value']},${decodedAddress[index]!['country']['desc']},${decodedAddress[index]!['postal']['value']}.';
+    } else
+      return '';
   }
 
   Future<void> launchURL(String mailId) async {
@@ -71,9 +74,10 @@ class SocialHomeController extends GetxController {
   Future<void> assignDashboardData() async {
     isLoading(true);
     dashboardData!(await SocialWorkerProvider.getSWDashBoardData());
-    availableCredits(dashboardData?['availableCreditData'][0]['total'] as int);
+    availableCredits(dashboardData?['availableCreditData'] as int);
     beneficiaryCount(dashboardData?['beneficiaryCount'] as int);
     logI(dashboardData);
+    await assignBeneficiaryList();
     isLoading(false);
     // logW(dashboardData?['availableCreditData'][0]['total'] ?? '0');
   }

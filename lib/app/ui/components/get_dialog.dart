@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/local/user_provider.dart';
+import 'package:six/app/modules/charity/vendor_details/controllers/vendor_details_controller.dart';
 import 'package:six/app/ui/components/action_dialog.dart';
 import 'package:six/r.g.dart';
 
@@ -12,6 +14,10 @@ Future<void> dialog({
   String? purchasedCategory,
   String? message,
 }) {
+  var vendorCtrl = Get.find<VendorDetailsController>();
+  if (success == true && UserProvider.role == 'social_worker') {
+    vendorCtrl.assignAvailVouchers();
+  }
   return Get.dialog<void>(
     SizedBox(
       height: Get.height,

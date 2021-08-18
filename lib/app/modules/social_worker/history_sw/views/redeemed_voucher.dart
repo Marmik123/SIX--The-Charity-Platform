@@ -67,11 +67,10 @@ class RedeemedView extends GetView<HistorySwController> {
               beneProfileUrl: controller.socialCtrl.historyVouchers[index]
                           .userVoucherData?['icon_url'] ==
                       null
-                  ? 'https://picsum.photos/id/1011/180'
+                  ? ''
                   : controller.socialCtrl.historyVouchers[index]
-                          .userVoucherData?['icon_url']
-                          .toString() ??
-                      'NA',
+                      .userVoucherData?['icon_url']
+                      .toString(),
             ),
           );
   }
