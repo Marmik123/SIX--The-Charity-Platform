@@ -4,31 +4,32 @@ import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/modules/needy_family/home/controllers/home_controller.dart';
 import 'package:six/app/routes/app_pages.dart';
+import 'package:six/app/ui/components/catched_image.dart';
+import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/common_voucher_card.dart';
-import 'package:six/r.g.dart';
 
 import '../controllers/voucher_controller.dart';
 
 class VoucherView extends GetView<VoucherController> {
   final VoucherController ctrl = Get.put(VoucherController());
-  final HomeController homeController = Get.put(HomeController());
+
+  final HomeController homeController = Get.find<HomeController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.kffffff,
-      body: VoucherContent(ctrl: ctrl, homeController: homeController),
+      body: VoucherContent(homeController: homeController),
     );
   }
 }
 
-class VoucherContent extends StatelessWidget {
+class VoucherContent extends GetView<VoucherController> {
   const VoucherContent({
     Key? key,
-    required this.ctrl,
     required this.homeController,
   }) : super(key: key);
 
-  final VoucherController ctrl;
   final HomeController homeController;
 
   @override
@@ -53,221 +54,230 @@ class VoucherContent extends StatelessWidget {
                 height: 440.h,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 15.0),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 467.w,
+                  child: Center(
+                    child: Text(
+                      ' Voucher',
+                      style: TextStyle(
+                        fontFamily: 'Gilroy',
+                        fontSize: 50.sp,
+                        fontStyle: FontStyle.normal,
+                        color: AppColors.k033660,
+                        fontWeight: FontWeight.w500,
                       ),
-                      Text(
-                        ' Voucher',
-                        style: TextStyle(
-                          fontFamily: 'Gilroy',
-                          fontSize: 50.sp,
-                          fontStyle: FontStyle.normal,
-                          color: AppColors.k033660,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(
-                        width: 247.w,
-                      ),
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          width: 160.w,
-                          height: 160.h,
-                          decoration: BoxDecoration(
-                              color: AppColors.kffffff,
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 40.r,
-                                  color: AppColors.k00474E.withOpacity(0.08),
-                                  offset: const Offset(0, 20),
-                                )
-                              ],
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(70.r))),
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Image.asset(
-                              R.image.voucher_filter().assetName,
-                              height: 20,
-                              width: 20,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ),
             ),
-            Positioned(
-              bottom: -40,
-              left: -60,
-              right: 0,
-              top: 30,
-              child: Container(
-                height: 280.h,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.only(
-                    top: 10,
-                    left: 70,
-                    right: 10,
-                  ),
-                  itemCount: 10,
-                  scrollDirection: Axis.horizontal,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) => Obx(() => Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              ctrl.selectedCategory.value = index;
-                            },
-                            child: Container(
-                              width: 380.w,
-                              height: 271.h,
-                              decoration: BoxDecoration(
-                                  color: AppColors.kffffff,
-                                  borderRadius: BorderRadius.circular(50.r),
-                                  gradient: ctrl.selectedCategory.value == index
-                                      ? const LinearGradient(
-                                          begin: Alignment(-1, -2.8),
-                                          end: Alignment(1, 2),
-                                          colors: [
-                                              AppColors.k1FAF9E,
-                                              AppColors.k0087FF
-                                            ])
-                                      : const LinearGradient(colors: [
-                                          AppColors.kffffff,
-                                          AppColors.kffffff
-                                        ]),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color:
-                                            AppColors.k000000.withOpacity(0.04),
-                                        blurRadius: 50.r,
-                                        offset: const Offset(0, 20))
-                                  ]),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 40.h,
-                                  ),
-                                  Image.asset(
-                                    ctrl.selectedCategory.value == index
-                                        ? R.image.asset.voucher_card_1.assetName
-                                        : R.image.asset.super_market.assetName,
-                                    height: 113.h,
-                                    width: 104.w,
-                                  ),
-                                  SizedBox(
-                                    height: 30.5.h,
-                                  ),
-                                  Text(
-                                    'Super - Market',
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy',
-                                      fontSize: 40.sp,
-                                      fontStyle: FontStyle.normal,
-                                      color:
-                                          ctrl.selectedCategory.value == index
-                                              ? AppColors.kffffff
-                                              : AppColors.k033660,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  SizedBox(
-                                    height: 40.h,
-                                  ),
-                                ],
+            Obx(() => Positioned(
+                  bottom: -40,
+                  left: -60,
+                  right: 0,
+                  top: 30,
+                  child: Container(
+                    height: 280.h,
+                    child: controller.isLoading()
+                        ? buildLoader()
+                        : controller.categoryList.isEmpty
+                            ? const Text('No Categories Found')
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                padding: const EdgeInsets.only(
+                                  top: 0,
+                                  left: 70,
+                                  right: 10,
+                                ),
+                                itemCount: controller.categoryList.length,
+                                scrollDirection: Axis.horizontal,
+                                physics: const BouncingScrollPhysics(),
+                                itemBuilder: (context, index) => Obx(() => Row(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            controller.selectedCategory(index);
+                                            controller.update();
+                                            controller.categoryId(controller
+                                                .categoryList[index].id);
+                                            controller.assignVoucherList(
+                                                controller
+                                                    .categoryList[index].id!);
+                                          },
+                                          child: Container(
+                                            width: 380.w,
+                                            height: 271.h,
+                                            decoration: BoxDecoration(
+                                                color: AppColors.kffffff,
+                                                borderRadius:
+                                                    BorderRadius.circular(50.r),
+                                                gradient: controller
+                                                            .selectedCategory
+                                                            .value ==
+                                                        index
+                                                    ? const LinearGradient(
+                                                        begin:
+                                                            Alignment(-1, -2.8),
+                                                        end: Alignment(1, 2),
+                                                        colors: [
+                                                            AppColors.k1FAF9E,
+                                                            AppColors.k0087FF
+                                                          ])
+                                                    : const LinearGradient(
+                                                        colors: [
+                                                            AppColors.kffffff,
+                                                            AppColors.kffffff
+                                                          ]),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: AppColors.k000000
+                                                          .withOpacity(0.04),
+                                                      blurRadius: 50.r,
+                                                      offset:
+                                                          const Offset(0, 20))
+                                                ]),
+                                            child: Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 40.h,
+                                                ),
+                                                /*controller.selectedCategory
+                                                          .value ==
+                                                      index
+                                                  ? Image.asset(
+                                                      R
+                                                          .image
+                                                          .asset
+                                                          .voucher_card_1
+                                                          .assetName,
+                                                      height: 113.h,
+                                                      width: 104.w,
+                                                    )
+                                                  :*/
+                                                cacheImage(
+                                                  height: 113.h,
+                                                  width: 104.w,
+                                                  url: controller
+                                                      .categoryList[index]
+                                                      .iconUrl
+                                                      .toString(),
+                                                ),
+                                                SizedBox(
+                                                  height: 30.5.h,
+                                                ),
+                                                Text(
+                                                  controller.categoryList[index]
+                                                          .name ??
+                                                      'Super - Market',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy',
+                                                    fontSize: 40.sp,
+                                                    fontStyle: FontStyle.normal,
+                                                    color: controller
+                                                                .selectedCategory
+                                                                .value ==
+                                                            index
+                                                        ? AppColors.kffffff
+                                                        : AppColors.k033660,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                SizedBox(
+                                                  height: 40.h,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 25.w,
+                                        ),
+                                      ],
+                                    )),
                               ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 25.w,
-                          ),
-                        ],
-                      )),
-                ),
-              ),
-            )
+                  ),
+                )),
           ],
         ),
         SizedBox(
           height: 30.h,
         ),
-        Expanded(
-          child: ListView(
-            padding: const EdgeInsets.all(0),
-            physics: const BouncingScrollPhysics(),
-            children: [
-              Row(
-                children: [
-                  SizedBox(
-                    width: 60.w,
-                  ),
-                  voucherCard(
-                    title: 'NTUC Fairprice',
-                    amount: 10,
-                    date: '31,Nov 2021',
-                    imgUrl: 'https://picsum.photos/id/1011/200/300',
-                    whichScreen: 'Needy Family',
-                    onTap: () {
-                      homeController.currentIndex!.value = 1;
-                      Get.toNamed<void>(Routes.VOUCHER_REDEMPTION);
-                    },
-                    voucherCode: '15015403',
-                    btnText: 'Redeem Now',
-                    voucherState: VoucherState.active,
-                    isQRScreen: false,
-                  ), //Common Voucher Card
-                ],
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 60.w,
-                  ),
-                  voucherCard(
-                    title: 'Sheng Siong',
-                    amount: 20,
-                    date: '1,Oct 2021',
-                    imgUrl: 'https://picsum.photos/id/1012/200/300',
-                    onTap: () {},
-                    voucherCode: '15015403',
-                    btnText: 'Already Redeemed',
-                    whichScreen: 'Needy Family',
-                    voucherState: VoucherState.redeemed,
-                    isQRScreen: false,
-                  ), //Common Voucher Card
-                ],
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 60.w,
-                  ),
-                  voucherCard(
-                    title: 'NTUC Fairprice',
-                    amount: 15,
-                    date: '1,Jan 2021',
-                    imgUrl: 'https://picsum.photos/id/1013/200/300',
-                    voucherCode: '15015403',
-                    onTap: () {},
-                    whichScreen: 'Needy Family',
-                    btnText: 'Expired Voucher',
-                    voucherState: VoucherState.expired,
-                    isQRScreen: false,
-                  ), //Common Voucher Card
-                ],
-              )
-            ],
-          ),
-        )
+        Obx(() => Expanded(
+              child: controller.isVoucherLoading()
+                  ? buildLoader()
+                  : controller.vouchers().isEmpty
+                      ? Padding(
+                          padding: EdgeInsets.only(top: 0.20.sh),
+                          child: Text(
+                            'No Voucher Available',
+                            style: TextStyle(
+                              fontFamily: 'Gilroy',
+                              fontSize: 50.sp,
+                              fontStyle: FontStyle.normal,
+                              color: AppColors.k033660,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        )
+                      : ListView.builder(
+                          itemCount: controller.vouchers.length,
+                          padding: const EdgeInsets.all(0),
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            var date = controller.getDate(index);
+                            return Row(
+                              children: [
+                                SizedBox(
+                                  width: 60.w,
+                                ),
+                                voucherCard(
+                                  title: controller.vouchers[index].name ??
+                                      'NTUC Fairprice',
+                                  amount: double.tryParse(controller
+                                      .vouchers[index].amount
+                                      .toString())!,
+                                  date: date ?? '-',
+                                  terms:
+                                      '${controller.vouchers[index].voucher?['terms'] ?? '-'}',
+                                  imgUrl: controller.vouchers[index].iconUrl ==
+                                          null
+                                      ? 'https://picsum.photos/200/300'
+                                      : controller.vouchers[index].iconUrl ??
+                                          'https://picsum.photos/id/1011/200/300',
+                                  whichScreen: 'Social Worker',
+                                  voucherCode:
+                                      '${controller.vouchers[index].voucherId ?? '-'}',
+                                  btnText: controller.checkIsExpired(index)
+                                      ? 'Expired Voucher'
+                                      : (controller.vouchers[index].isActive ??
+                                              false
+                                          ? 'Already Redeemed'
+                                          : 'Redeem Now'),
+                                  onTap: () {
+                                    Get.toNamed<void>(
+                                      Routes.VOUCHER_REDEMPTION,
+                                      arguments: controller
+                                          .vouchers[index].voucherId
+                                          .toString(),
+                                    );
+                                  },
+                                  voucherState: controller.checkIsExpired(index)
+                                      ? VoucherState.expired
+                                      : (controller.vouchers[index].isActive ??
+                                              false
+                                          ? VoucherState.redeemed
+                                          : VoucherState.active),
+                                  isQRScreen: false,
+                                  totalAvailable: double.tryParse(controller
+                                      .vouchers[index].total
+                                      .toString()),
+                                  index: index,
+                                ), //Common Voucher Card
+                              ],
+                            );
+                          },
+                        ),
+            )),
       ],
     );
   }

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/ui/components/action_dialog.dart';
+import 'package:six/app/utils/clipboard_utils.dart';
 import 'package:six/r.g.dart';
 
 import '../controllers/voucher_redemption_controller.dart';
@@ -100,7 +101,7 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                                 ),
                                 child: Center(
                                   child: QrImage(
-                                    data: 'This is demo qr',
+                                    data: controller.voucherCode!(),
                                     size: 610.r,
                                     version: QrVersions.auto,
                                   ),
@@ -207,8 +208,11 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                               children: [
                                 Expanded(
                                   child: TextFormField(
-                                    initialValue: '15015403',
+                                    initialValue: controller.voucherCode == null
+                                        ? '-'
+                                        : controller.voucherCode!(),
                                     enabled: true,
+                                    readOnly: true,
                                     onEditingComplete: () {
                                       var currentFocus = FocusScope.of(context);
                                       currentFocus.unfocus();
@@ -221,7 +225,7 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                                       fontFamily: 'Gilroy',
                                       fontSize: 45.sp,
                                     ),
-                                    decoration: const InputDecoration(
+                                    decoration: InputDecoration(
                                         fillColor: AppColors.kffffff,
                                         contentPadding:
                                             EdgeInsets.only(left: 15, top: 15),
@@ -229,10 +233,21 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                                         enabledBorder: InputBorder.none,
                                         focusedBorder: InputBorder.none,
                                         isDense: true,
-                                        suffixIcon: Icon(
-                                          Icons.content_copy,
-                                          color: AppColors.k14A1BE,
-                                          size: 20,
+                                        suffixIcon: IconButton(
+                                          icon: Obx(() => Icon(
+                                                controller.codeCopied()
+                                                    ? Icons.done
+                                                    : Icons.content_copy,
+                                                color: AppColors.k14A1BE,
+                                                size: 20,
+                                              )),
+                                          onPressed: () {
+                                            if (!controller.codeCopied()) {
+                                              copyText(
+                                                  controller.voucherCode!());
+                                            }
+                                            controller.codeCopied(true);
+                                          },
                                         )),
                                   ),
                                 ),

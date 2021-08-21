@@ -16,9 +16,9 @@ import 'package:six/r.g.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
-  final ProfileController profileCtrl = Get.put(ProfileController());
+  @override
+  final ProfileController controller = Get.put(ProfileController());
 
-  ProfileView();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +68,7 @@ class ProfileView extends GetView<ProfileController> {
                                   onTap: () {
                                     if (UserProvider.role != 'charity' &&
                                         UserProvider.role != 'vendor') {
-                                      profileCtrl.pickProfilePicture();
+                                      controller.pickProfilePicture();
                                     }
                                   },
                                   onLongPress: () {},
@@ -89,34 +89,21 @@ class ProfileView extends GetView<ProfileController> {
                                         top: 355.h,
                                         child: GestureDetector(
                                           onTap: () {
-                                            profileCtrl.pickProfilePicture();
+                                            controller.pickProfilePicture();
                                           },
-                                          child: UserProvider.role == 'needy'
-                                              ? Image.asset(
-                                                  R.image.asset.camera_only
-                                                      .assetName,
-                                                  width: 43.w,
-                                                  height: 33.h,
-                                                )
-                                              : Image.asset(
-                                                  R.image.asset.image_picker
-                                                      .assetName,
-                                                  height: 105.h,
-                                                  width: 104.w,
-                                                ),
+                                          child: Image.asset(
+                                            R.image.asset.image_picker
+                                                .assetName,
+                                            height: 105.h,
+                                            width: 104.w,
+                                          ),
                                         ),
                                       ),
                               ],
                             )),
                       h(83.h),
                       Text(
-                        UserProvider.currentUser?.userMetadata?.principalName ==
-                                null
-                            ? '-'
-                            : UserProvider
-                                    .currentUser?.userMetadata?.principalName
-                                    .toString() ??
-                                '-',
+                        controller.getUserName() ?? '-',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: 'Gilroy',
@@ -127,7 +114,7 @@ class ProfileView extends GetView<ProfileController> {
                         ),
                       ),
                       h(20.h),
-                      UserProvider.role == 'needy' ||
+                      UserProvider.role == 'needy_family' ||
                               UserProvider.role == 'social_worker'
                           ? Text(
                               UserProvider.currentUser?.userMetadata?.email ==
@@ -188,7 +175,9 @@ class ProfileView extends GetView<ProfileController> {
                         behavior: HitTestBehavior.translucent,
                         child: profileMenuItem(
                             R.image.asset.support.assetName, 'Support', () {
-                          controller.supportMail();
+                          UserProvider.role == 'needy_family'
+                              ? Get.toNamed<void>(Routes.SUPPORT)
+                              : controller.supportMail();
                           //.toNamed<void>(Routes.SUPPORT);
                         }),
                       ),
@@ -295,6 +284,9 @@ class ProfileView extends GetView<ProfileController> {
                 child: roundedButton(
                     text: 'Logout',
                     onTap: () {
+                      controller.needyCtrl?.currentIndex!(0);
+                      // logI(controller.foundController.currentIndex!(0));
+
                       UserProvider.onLogout();
                       Get.offAllNamed<void>(Routes.SIGN_PASS_VERIFICATION);
                     },

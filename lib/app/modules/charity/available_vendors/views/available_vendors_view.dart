@@ -200,12 +200,13 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                       onTap: () {
                                         controller.categoryIndex(categoryIndex);
                                         controller.assignVendorDetails(
-                                            availVendorCtrl.vendorList[index].id
+                                            controller.vendorList[index].id
                                                 .toString());
+
                                         Get.toNamed<void>(
                                           Routes.VENDOR_DETAILS,
-                                          arguments: availVendorCtrl
-                                              .vendorList[index].id,
+                                          arguments:
+                                              controller.vendorList[index].id,
                                         );
                                       },
                                       child: Container(

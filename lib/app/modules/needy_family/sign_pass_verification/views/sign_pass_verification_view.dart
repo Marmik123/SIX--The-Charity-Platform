@@ -199,7 +199,10 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                           text: 'Login',
                           onTap: () {
                             UserProvider.staticRole = 'needy';
-                            Get.offAndToNamed<void>('/home');
+                            LoginProvider.getUserDetailToLogin(
+                                userId: '73be3b37-c043-4ad5-a2e4-c2d0ca96ba40',
+                                role: 'needy_family');
+                            Get.offAndToNamed<void>(Routes.ONBOARDING_SCREEN);
                           },
                           width: 452.w,
                           height: 150.h,
@@ -235,7 +238,7 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                             var loginStatus =
                                 await LoginProvider.getUserDetailToLogin(
                                     userId:
-                                        '742151a9-0553-44b5-8e0e-d0a33032916a',
+                                        'ea723be9-64e7-41c5-8791-af026c8b4ae5',
                                     role: 'social_worker');
                             if (loginStatus == 200) {
                               appSnackbar(

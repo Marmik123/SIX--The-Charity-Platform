@@ -73,7 +73,7 @@ Widget categoryCard({
                 ),
                 textAlign: TextAlign.center,
               ),
-              UserProvider.role == 'needy'
+              UserProvider.role == 'needy_family'
                   ? buildNeedyStats(context, creditsRemaining, totalCredits,
                       foreground, accent)
                   : Padding(
@@ -165,7 +165,7 @@ Column buildNeedyStats(BuildContext context, double creditsRemaining,
                         ],
                       ),*/ //STACK CUSTOM SLIDER
       Padding(
-        padding: const EdgeInsets.only(left: 15.0, right: 15, bottom: 3),
+        padding: const EdgeInsets.only(left: 15.0, right: 15, bottom: 0),
         child: SliderTheme(
           data: SliderTheme.of(context).copyWith(
             thumbColor: Colors.transparent,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/onboarding_content.dart';
 import 'package:six/app/ui/components/onboarding_navigation.dart';
 
@@ -53,13 +54,13 @@ class OnboardingScreenView extends GetView<OnboardingScreenController> {
                     isVendor: false,
                     onTapArrow: () {
                       controller.index!() == 2
-                          ? Get.offAllNamed<void>('/sign-pass-verification')
+                          ? Get.offAllNamed<void>(Routes.HOME)
                           : controller.pageController.nextPage(
                               duration: const Duration(milliseconds: 300),
                               curve: Curves.ease);
                     },
                     onTapSkip: () {
-                      Get.offAllNamed<void>('/sign-pass-verification');
+                      Get.offAllNamed<void>(Routes.HOME);
                     },
                     screenIndex: controller.index!.value.toDouble(),
                     onChangedPadding: 35.w),

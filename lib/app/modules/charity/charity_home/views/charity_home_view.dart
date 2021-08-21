@@ -63,10 +63,15 @@ class CharityHome extends StatelessWidget {
                         SizedBox(
                           height: 202.h,
                         ),
-                        Image.asset(
-                          R.image.asset.six_logo.assetName,
-                          height: 77.h,
-                          width: 170.w,
+                        GestureDetector(
+                          onTap: () {
+                            ctrl.refreshHomeScreenData();
+                          },
+                          child: Image.asset(
+                            R.image.asset.six_logo.assetName,
+                            height: 77.h,
+                            width: 170.w,
+                          ),
                         ),
                         SizedBox(
                           height: 98.h,
