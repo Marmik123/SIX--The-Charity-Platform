@@ -351,9 +351,8 @@ Widget voucherCard({
                                     UserProvider.role == 'social_worker'
                                         ? const SizedBox.shrink()
                                         : FittedBox(
-                                            child: RichText(
-                                              text:
-                                                  TextSpan(children: <TextSpan>[
+                                            child: SelectableText.rich(
+                                              TextSpan(children: <TextSpan>[
                                                 TextSpan(
                                                   text: 'Voucher Code : ',
                                                   style: TextStyle(
@@ -427,7 +426,7 @@ Widget voucherCard({
                 : whichScreen == 'Assign Voucher' ||
                         whichScreen == 'Social Worker'
                     ? 45.w
-                    : 95.h,
+                    : 45.h, //For Needy Family voucher card
         right: whichScreen == 'QRScreen'
             ? 86.w
             : whichScreen == 'Social Worker'
@@ -436,7 +435,7 @@ Widget voucherCard({
                     ? 130.h
                     : whichScreen == 'Assign Voucher'
                         ? 105.w
-                        : 96.w,
+                        : 96.w, //For Needy Family voucher card
         child: Column(
           children: [
             InkWell(
@@ -444,7 +443,9 @@ Widget voucherCard({
               child: DottedBorder(
                 radius: Radius.circular(40.r),
                 color: voucherState == VoucherState.active
-                    ? AppColors.k14A1BE
+                    ? UserProvider.role == 'needy_family'
+                        ? AppColors.k11C502
+                        : AppColors.k14A1BE
                     : voucherState == VoucherState.redeemed
                         ? AppColors.kEF9104
                         : AppColors.kff0000,
@@ -455,7 +456,9 @@ Widget voucherCard({
                 child: Container(
                   decoration: BoxDecoration(
                       color: voucherState == VoucherState.active
-                          ? AppColors.kD7FBFF
+                          ? UserProvider.role == 'needy_family'
+                              ? AppColors.kE7FFED
+                              : AppColors.kD7FBFF
                           : voucherState == VoucherState.redeemed
                               ? AppColors.kFFEFD7
                               : AppColors.kFFD7D7,
@@ -480,7 +483,9 @@ Widget voucherCard({
                             fontSize: whichScreen == 'History' ? 42.sp : 50.sp,
                             fontStyle: FontStyle.normal,
                             color: voucherState == VoucherState.active
-                                ? AppColors.k13A89E
+                                ? UserProvider.role == 'needy_family'
+                                    ? AppColors.k11C502
+                                    : AppColors.k13A89E
                                 : voucherState == VoucherState.redeemed
                                     ? AppColors.kEF9104
                                     : AppColors.kEF0404,

@@ -9,6 +9,10 @@ import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/data/remote/provider/social_worker.dart';
+import 'package:six/app/modules/charity/charity_home/controllers/charity_home_controller.dart';
+import 'package:six/app/modules/needy_family/home/controllers/home_controller.dart';
+import 'package:six/app/modules/social_worker/social_home/controllers/social_home_controller.dart';
+import 'package:six/app/modules/vendor/vendor_home/controllers/vendor_home_controller.dart';
 import 'package:six/app/ui/components/app_snackbar.dart';
 
 class ProfileController extends GetxController {
@@ -17,9 +21,48 @@ class ProfileController extends GetxController {
   final count = 0.obs;
   late File profilePicture;
   RxBool isLoading = false.obs;
+  CharityHomeController? charityCtrl;
+  SocialHomeController? socialCtrl;
+  HomeController? needyCtrl;
+  //var needyCtrl = Get.find<HomeController>();
+  VendorHomeController? vendorCtrl;
+  dynamic foundController;
+
   @override
   void onInit() {
     super.onInit();
+    foundController = findController();
+    logWTF(foundController);
+  }
+
+/*
+  final vendorCtrl = Get.find<VendorHomeController>();
+  final charityCtrl = Get.find<CharityHomeController>();
+  final socialCtrl = Get.find<SocialHomeController>();
+  final homeCtrl = Get.find<HomeController>();*/
+
+  dynamic findController() {
+    switch (UserProvider.role) {
+      case 'charity':
+        logI('charity');
+        charityCtrl = Get.find<CharityHomeController>();
+        return charityCtrl;
+
+      case 'social_worker':
+        logI('social');
+        socialCtrl = Get.find<SocialHomeController>();
+        return socialCtrl;
+
+      case 'needy_family':
+        logI('needy');
+        needyCtrl = Get.find<HomeController>();
+        return needyCtrl;
+
+      case 'vendor':
+        logI('vendor');
+        vendorCtrl = Get.find<VendorHomeController>();
+        return vendorCtrl;
+    }
   }
 
   void sendMailFeedback() {
@@ -146,11 +189,16 @@ class ProfileController extends GetxController {
           : UserProvider.currentUser?.userMetadata?.entityName.toString() ??
               '-';
     } else if (UserProvider.role == 'social_worker' ||
-        UserProvider.role == 'needy') {
-      return UserProvider.currentUser?.userMetadata?.principalName == null
-          ? '-'
-          : UserProvider.currentUser?.userMetadata?.principalName.toString() ??
-              '-';
+        UserProvider.role == 'needy_family') {
+      if (UserProvider.currentUser != null) {
+        return UserProvider.currentUser?.userMetadata?.principalName == null
+            ? '-'
+            : UserProvider.currentUser?.userMetadata?.principalName
+                    .toString() ??
+                '-';
+      } else {
+        return '-';
+      }
     }
   }
 }

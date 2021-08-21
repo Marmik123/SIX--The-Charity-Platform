@@ -76,7 +76,10 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
             () => controller.isLoading()
                 ? buildLoader()
                 : controller.programCreditsAvailability().isEmpty
-                    ? const Text('No Data Available')
+                    ? const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text('No Data Available'),
+                      )
                     : Expanded(
                         child: ListView.builder(
                           itemCount: UserProvider.role == 'charity'

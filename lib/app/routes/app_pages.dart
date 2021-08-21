@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import 'package:six/app/modules/charity/available_vendors/bindings/available_vendors_binding.dart';
 import 'package:six/app/modules/charity/available_vendors/views/available_vendors_view.dart';
 import 'package:six/app/modules/charity/charity_home/bindings/charity_home_binding.dart';
@@ -74,7 +73,7 @@ class AppPages {
   AppPages._();
   //OnboardingScreenController ctrl = Get.put(OnboardingScreenController());
 
-  static const INITIAL = Routes.ONBOARDING_SCREEN;
+  static const INITIAL = Routes.SIGN_PASS_VERIFICATION;
 
   static final routes = [
     GetPage(

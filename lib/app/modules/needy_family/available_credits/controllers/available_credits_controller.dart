@@ -21,6 +21,9 @@ class AvailableCreditsController extends GetxController {
     if (UserProvider.role == 'charity') {
       assignToAvailProgCredit();
     }
+    if (UserProvider.role == 'needy_family') {
+      disableLeading(false);
+    }
   }
 
   //Function for assigning the available credits of programs to the list "programCreditsAvailability".

@@ -19,7 +19,7 @@ class SocialHomeController extends GetxController {
   RxMap<String, dynamic>? dashboardData = <String, dynamic>{}.obs;
   Map<String, dynamic>? historyDashData;
   RxList<Map<String, dynamic>?> decodedAddress = <Map<String, dynamic>?>[].obs;
-  RxBool paid = false.obs;
+  // RxBool paid = false.obs;
   RxInt skip = 0.obs;
   RxInt limit = 1000.obs;
   RxBool isLoading = false.obs;

@@ -12,7 +12,6 @@ class SignPassVerificationController extends GetxController {
   RxBool isVerified = false.obs;
   RxBool successLogin = false.obs;
   RxInt? tabIndex = 0.obs;
-  final count = 0.obs;
 
   final Completer<WebViewController> webController =
       Completer<WebViewController>();

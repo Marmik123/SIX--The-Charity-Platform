@@ -33,7 +33,7 @@ Widget bottomNavBar() {
       iconSize: 25,
       currentIndex: UserProvider.role == 'vendor'
           ? vendorCtrl.currentIndex!.value
-          : UserProvider.role == 'needy'
+          : UserProvider.role == 'needy_family'
               ? controller.currentIndex!.value
               : UserProvider.role == 'social_worker'
                   ? socialCtrl.currentIndex!()
@@ -43,7 +43,7 @@ Widget bottomNavBar() {
       onTap: (index) {
         UserProvider.role == 'vendor'
             ? vendorCtrl.currentIndex!(index)
-            : UserProvider.role == 'needy'
+            : UserProvider.role == 'needy_family'
                 ? controller.currentIndex!(index)
                 : UserProvider.role == 'social_worker'
                     ? socialCtrl.currentIndex!(index)

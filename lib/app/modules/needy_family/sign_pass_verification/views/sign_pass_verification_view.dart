@@ -199,7 +199,10 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                           text: 'Login',
                           onTap: () {
                             UserProvider.staticRole = 'needy';
-                            Get.offAndToNamed<void>('/home');
+                            LoginProvider.getUserDetailToLogin(
+                                userId: '73be3b37-c043-4ad5-a2e4-c2d0ca96ba40',
+                                role: 'needy_family');
+                            Get.offAndToNamed<void>(Routes.ONBOARDING_SCREEN);
                           },
                           width: 452.w,
                           height: 150.h,

@@ -31,8 +31,7 @@ class SocialHomeView extends GetView<SocialHomeController> {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
-          bottomNavigationBar:
-              controller.paid() ? const SizedBox.shrink() : bottomNavBar(),
+          bottomNavigationBar: bottomNavBar(),
           backgroundColor: AppColors.kffffff,
           body: bottomScreen.elementAt(controller.currentIndex!())),
     );

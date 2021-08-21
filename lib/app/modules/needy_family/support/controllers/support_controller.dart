@@ -1,19 +1,22 @@
 import 'package:get/get.dart';
+import 'package:six/app/data/models/support_details.dart';
+import 'package:six/app/data/remote/provider/needy_family.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SupportController extends GetxController {
-  //TODO: Implement SupportController
+  RxBool supportLoading = false.obs;
+  RxList<SupportDetails> supportDetails = <SupportDetails>[].obs;
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
+    getSupportDetails();
   }
 
-  Future<void> launchURL() async {
+  Future<void> launchURL(String? email) async {
     final params = Uri(
       scheme: 'mailto',
-      path: 'raymondwong@gmail.com',
+      path: email ?? '-',
     );
     var url = params.toString();
     if (await canLaunch(url)) {
@@ -23,12 +26,10 @@ class SupportController extends GetxController {
     }
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  Future<void> getSupportDetails() async {
+    supportLoading(true);
+    supportDetails(
+        await NeedyProvider.getSupportDetails(skip: '0', limit: '1000'));
+    supportLoading(false);
   }
-
-  @override
-  void onClose() {}
-  void increment() => count.value++;
 }
