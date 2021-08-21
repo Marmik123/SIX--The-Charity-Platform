@@ -325,40 +325,45 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                               itemCount: controller.vouchers.length,
                               padding: const EdgeInsets.all(0),
                               physics: const BouncingScrollPhysics(),
-                              itemBuilder: (context, index) => Row(
-                                children: [
-                                  SizedBox(
-                                    width: 60.w,
-                                  ),
-                                  voucherCard(
-                                    title: controller.vouchers[index].name ??
-                                        'NTUC Fairprice',
-                                    amount: double.tryParse(controller
-                                        .vouchers[index].amount
-                                        .toString())!,
-                                    date: '31,Nov 2021',
-                                    imgUrl: controller
-                                                .vouchers[index].iconUrl ==
-                                            null
-                                        ? 'https://picsum.photos/200/300'
-                                        : controller.vouchers[index].iconUrl ??
-                                            'https://picsum.photos/id/1011/200/300',
-                                    whichScreen: 'Social Worker',
-                                    onTap: () {
-                                      controller.voucherIndex(index);
-                                    },
-                                    voucherCtrlSW: controller,
-                                    voucherCode: '15015403',
-                                    btnText: 'Redeem Now',
-                                    voucherState: VoucherState.active,
-                                    isQRScreen: false,
-                                    totalAvailable: double.tryParse(controller
-                                        .vouchers[index].total
-                                        .toString()),
-                                    index: index,
-                                  ), //Common Voucher Card
-                                ],
-                              ),
+                              itemBuilder: (context, index) {
+                                // var date = controller.getDate(index);
+                                return Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 60.w,
+                                    ),
+                                    voucherCard(
+                                      title: controller.vouchers[index].name ??
+                                          'NTUC Fairprice',
+                                      // terms: controller.vouchers[index],
+                                      amount: double.tryParse(controller
+                                          .vouchers[index].amount
+                                          .toString())!,
+                                      date: '31,Nov 2021',
+                                      imgUrl: controller
+                                                  .vouchers[index].iconUrl ==
+                                              null
+                                          ? 'https://picsum.photos/200/300'
+                                          : controller
+                                                  .vouchers[index].iconUrl ??
+                                              'https://picsum.photos/id/1011/200/300',
+                                      whichScreen: 'Social Worker',
+                                      onTap: () {
+                                        controller.voucherIndex(index);
+                                      },
+                                      voucherCtrlSW: controller,
+                                      voucherCode: '15015403',
+                                      btnText: 'Redeem Now',
+                                      voucherState: VoucherState.active,
+                                      isQRScreen: false,
+                                      totalAvailable: double.tryParse(controller
+                                          .vouchers[index].total
+                                          .toString()),
+                                      index: index,
+                                    ), //Common Voucher Card
+                                  ],
+                                );
+                              },
                             ),
                 )),
         ],

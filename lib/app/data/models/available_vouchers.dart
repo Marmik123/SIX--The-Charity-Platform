@@ -134,11 +134,15 @@ class AvailableVouchers {
         thumbIconName: json['thumb_icon_name'],
         thumbIconUrl: json['thumb_icon_url'],
         startDate: json['start_date'] == null
-            ? DateTime.parse(json['user_start_date'] as String)
-            : DateTime.parse(json['start_date'] as String),
+            ? (json['user_start_date'] != null
+                ? DateTime.tryParse(json['user_start_date'] as String)
+                : null)
+            : DateTime.tryParse(json['start_date'] as String),
         endDate: json['end_date'] == null
-            ? DateTime.parse(json['user_end_date'] as String)
-            : DateTime.parse(json['end_date'] as String),
+            ? (json['user_end_date'] != null
+                ? DateTime.tryParse(json['user_end_date'] as String)
+                : null)
+            : DateTime.tryParse(json['end_date'] as String),
         validity: json['validity'] == null ? null : json['validity'] as String,
         isPaid: json['is_paid'] == null ? null : json['is_paid'] as bool,
         isFeature:

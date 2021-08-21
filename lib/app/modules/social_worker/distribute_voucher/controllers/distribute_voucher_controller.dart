@@ -63,6 +63,24 @@ class DistributeVoucherController extends GetxController {
     isVoucherLoading(false);
   }
 
+  /*String? getDate(int index) {
+    var formattedDate = DateTime.parse(vouchers[index].voucherId.toString());
+    var date = formattedDate.day;
+    var year = formattedDate.year;
+    var month = assignMonth(formattedDate.month);
+    var finalDate = '$date,$month $year';
+    return finalDate;
+  }*/
+
+  // bool checkIsExpired(int index) {
+  //   var isAfter = DateTime.now().compareTo(vouchers[index].endDate!);
+  //   if (isAfter > 0) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
+
   Future<void> assignVoucherList(String categoryId) async {
     isVoucherLoading(true);
     initialVoucherCount.fillRange(0, initialVoucherCount.length, 0);
@@ -95,6 +113,7 @@ class DistributeVoucherController extends GetxController {
       );
       return 0;
     });*/
+
     if (initialVoucherCount.any((element) => element != 0)) {
       var success =
           await SocialWorkerProvider.assignVoucher(vouchers: vouchers);
