@@ -168,9 +168,8 @@ class AssignedVoucherView extends GetView<AssignedVoucherController> {
                         : ctrl.assignedVouchers[index].voucher?['icon_url']
                                 .toString() ??
                             'https://picsum.photos/200/300',
-                    terms: ctrl.assignedVouchers[index].voucher?['terms']
-                            .toString() ??
-                        '-',
+                    terms:
+                        '${ctrl.assignedVouchers[index].voucher?['terms'] ?? '-'}',
                     amount: ctrl.assignedVouchers[index].amount ?? 0,
                     whichScreen: 'Assign Voucher',
                     voucherCode:

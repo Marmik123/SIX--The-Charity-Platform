@@ -22,8 +22,10 @@ class VoucherController extends GetxController {
     assignVoucherCatList();
   }
 
-  String? getDate(int index) {
-    var formattedDate = DateTime.parse(vouchers[index].endDate.toString());
+  String? getDate({required int index, bool? isRedeemed = false}) {
+    var formattedDate = isRedeemed!
+        ? DateTime.parse(vouchers[index].redeemedDate.toString())
+        : DateTime.parse(vouchers[index].endDate.toString());
     var date = formattedDate.day;
     var year = formattedDate.year;
     var month = assignMonth(formattedDate.month);

@@ -224,7 +224,10 @@ class VoucherContent extends GetView<VoucherController> {
                           padding: const EdgeInsets.all(0),
                           physics: const BouncingScrollPhysics(),
                           itemBuilder: (context, index) {
-                            var date = controller.getDate(index);
+                            var date = controller.getDate(
+                                index: index,
+                                isRedeemed:
+                                    controller.vouchers[index].isRedeemed);
                             return Row(
                               children: [
                                 SizedBox(
@@ -237,29 +240,38 @@ class VoucherContent extends GetView<VoucherController> {
                                       .vouchers[index].amount
                                       .toString())!,
                                   date: date ?? '-',
+                                  isRedeemed:
+                                      controller.vouchers[index].isRedeemed ??
+                                          false,
                                   terms:
                                       '${controller.vouchers[index].voucher?['terms'] ?? '-'}',
-                                  imgUrl: controller.vouchers[index].iconUrl ==
+                                  imgUrl: controller.vouchers[index]
+                                              .voucher?['icon_url'] ==
                                           null
                                       ? 'https://picsum.photos/200/300'
-                                      : controller.vouchers[index].iconUrl ??
+                                      : controller.vouchers[index]
+                                              .voucher?['icon_url']
+                                              .toString() ??
                                           'https://picsum.photos/id/1011/200/300',
                                   whichScreen: 'Social Worker',
                                   voucherCode:
                                       '${controller.vouchers[index].voucherId ?? '-'}',
                                   btnText: controller.checkIsExpired(index)
                                       ? 'Expired Voucher'
-                                      : (controller.vouchers[index].isActive ??
+                                      : (controller
+                                                  .vouchers[index].isRedeemed ??
                                               false
                                           ? 'Already Redeemed'
                                           : 'Redeem Now'),
                                   onTap: () {
-                                    Get.toNamed<void>(
-                                      Routes.VOUCHER_REDEMPTION,
-                                      arguments: controller
-                                          .vouchers[index].voucherId
-                                          .toString(),
-                                    );
+                                    if (controller.vouchers[index].isRedeemed ==
+                                        false) {
+                                      Get.toNamed<void>(
+                                        Routes.VOUCHER_REDEMPTION,
+                                        arguments:
+                                            '${controller.vouchers[index]}',
+                                      );
+                                    }
                                   },
                                   voucherState: controller.checkIsExpired(index)
                                       ? VoucherState.expired

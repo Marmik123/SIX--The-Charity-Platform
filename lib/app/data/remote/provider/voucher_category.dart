@@ -1,6 +1,6 @@
 import 'package:get/get.dart' hide FormData;
 import 'package:six/app/data/config/logger.dart';
-import 'package:six/app/data/models/assign_voucher.dart';
+import 'package:six/app/data/models/available_vouchers.dart';
 import 'package:six/app/data/models/vendor_list.dart';
 import 'package:six/app/data/models/voucher_category.dart';
 import 'package:six/app/data/remote/api_service/init_api_service.dart';
@@ -46,7 +46,7 @@ class VoucherCategoryProvider {
   }
 
   //Helper function to fetch the vouchers of particular category on passing categoryID.
-  static Future<List<AssignVoucher>> getVoucherList(
+  static Future<List<AvailableVouchers>> getVoucherList(
       {String skip = '', String limit = '', required String categoryId}) async {
     var response = await APIService.get(
       path: '/v1/auth/worker-purchase-voucher-list/$categoryId/$skip/$limit',
@@ -55,11 +55,12 @@ class VoucherCategoryProvider {
       logI('######Voucher Lists########');
       logI(response?.data!['data']);
       var voucherCategory = response?.data!['data'] as List<dynamic>;
-      return List<AssignVoucher>.from(voucherCategory.map<AssignVoucher>(
-          (dynamic e) => AssignVoucher.fromJson(e as Map<String, dynamic>)));
+      return List<AvailableVouchers>.from(
+          voucherCategory.map<AvailableVouchers>((dynamic e) =>
+              AvailableVouchers.fromJson(e as Map<String, dynamic>)));
     } else {
       // Get.snackbar<void>('Error in voucher list fetching', 'Please Try Again.');
-      return <AssignVoucher>[];
+      return <AvailableVouchers>[];
     }
   }
 
@@ -123,7 +124,7 @@ class VoucherCategoryProvider {
     }
   }
 
-  static Future<List<AssignVoucher>> searchVoucher(
+  static Future<List<AvailableVouchers>> searchVoucher(
       {String searchText = '',
       String skip = '',
       String limit = '',
@@ -136,11 +137,12 @@ class VoucherCategoryProvider {
       logI('######Searched Voucher########');
       logI(response?.data!['data']);
       var vendorList = response?.data!['data'] as List<dynamic>;
-      return List<AssignVoucher>.from(vendorList.map<AssignVoucher>(
-          (dynamic e) => AssignVoucher.fromJson(e as Map<String, dynamic>)));
+      return List<AvailableVouchers>.from(vendorList.map<AvailableVouchers>(
+          (dynamic e) =>
+              AvailableVouchers.fromJson(e as Map<String, dynamic>)));
     } else {
       Get.snackbar<void>('Error in Graph Data', 'Please Try Again.');
-      return <AssignVoucher>[];
+      return <AvailableVouchers>[];
     }
   }
 

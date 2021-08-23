@@ -101,7 +101,7 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                                 ),
                                 child: Center(
                                   child: QrImage(
-                                    data: controller.voucherCode!(),
+                                    data: 'test202',
                                     size: 610.r,
                                     version: QrVersions.auto,
                                   ),

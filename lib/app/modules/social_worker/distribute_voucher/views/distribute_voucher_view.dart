@@ -339,7 +339,7 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                                       amount: double.tryParse(controller
                                           .vouchers[index].amount
                                           .toString())!,
-                                      date: '31,Nov 2021',
+                                      date: '-',
                                       imgUrl: controller
                                                   .vouchers[index].iconUrl ==
                                               null
@@ -351,6 +351,8 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                                       onTap: () {
                                         controller.voucherIndex(index);
                                       },
+                                      terms:
+                                          '${controller.vouchers[index].terms ?? '-'}',
                                       voucherCtrlSW: controller,
                                       voucherCode: '15015403',
                                       btnText: 'Redeem Now',

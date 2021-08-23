@@ -32,6 +32,7 @@ Widget voucherCard({
   required String btnText,
   required String whichScreen,
   required bool isQRScreen,
+  bool? isRedeemed,
   double? totalAvailable,
   int index = 0,
   DistributeVoucherController? voucherCtrlSW,
@@ -601,6 +602,7 @@ Widget voucherCard({
                             date: date,
                             terms: terms,
                             iconUrl: imgUrl,
+                            isRedeemed: isRedeemed,
                           ));
                     },
                     style: ButtonStyle(

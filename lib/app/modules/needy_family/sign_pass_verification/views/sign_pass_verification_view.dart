@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
-import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/data/remote/provider/login_webview_process.dart';
 import 'package:six/app/routes/app_pages.dart';
@@ -223,8 +222,9 @@ class SignPassVerificationView extends GetView<SignPassVerificationController> {
                         roundedButton(
                           text: 'Vendor',
                           onTap: () {
-                            UserProvider.staticRole = 'vendor';
-                            logI(UserProvider.role);
+                            LoginProvider.getUserDetailToLogin(
+                                userId: '657b5426-01d7-4fdb-94c5-320c8b8b4f6a',
+                                role: 'vendor');
                             Get.offAndToNamed<void>(Routes.ONBOARDING_VENDOR);
                           },
                           width: 452.w,

@@ -17,6 +17,7 @@ class VoucherTerms extends GetView<AssignedVoucherController> {
   final String? terms;
   final String? date;
   final String? iconUrl;
+  final bool? isRedeemed;
 
   @override
   final AssignedVoucherController controller =
@@ -26,7 +27,13 @@ class VoucherTerms extends GetView<AssignedVoucherController> {
 
   final PurchaseController ctrl = Get.put(PurchaseController());
 
-  VoucherTerms({this.iconUrl, this.name, this.amount, this.terms, this.date});
+  VoucherTerms(
+      {this.iconUrl,
+      this.name,
+      this.amount,
+      this.terms,
+      this.date,
+      this.isRedeemed});
 
   @override
   Widget build(BuildContext context) {
@@ -169,7 +176,9 @@ class VoucherTerms extends GetView<AssignedVoucherController> {
                                                 text: TextSpan(
                                                     children: <TextSpan>[
                                                       TextSpan(
-                                                        text: 'Expire Date : ',
+                                                        text: isRedeemed!
+                                                            ? 'Redeemed Date : '
+                                                            : 'Expire Date : ',
                                                         style: TextStyle(
                                                           fontFamily: 'Gilroy',
                                                           fontSize: 40.sp,

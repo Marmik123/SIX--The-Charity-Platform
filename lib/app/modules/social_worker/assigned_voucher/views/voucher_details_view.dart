@@ -40,7 +40,7 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
               height: 100.h,
               disableBackIcon: false,
             ),
-            body: vDetailsCont.availableVouchers[voucherIndex!].name == null
+            body: vDetailsCont.availableVouchers.isEmpty
                 ? const Center(child: Text('No Voucher Available'))
                 : Column(
                     children: [

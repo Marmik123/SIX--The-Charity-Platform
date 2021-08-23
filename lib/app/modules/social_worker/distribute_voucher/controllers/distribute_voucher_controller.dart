@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/models/assign_voucher.dart';
+import 'package:six/app/data/models/available_vouchers.dart';
 import 'package:six/app/data/models/voucher_category.dart';
 import 'package:six/app/data/remote/provider/social_worker.dart';
 import 'package:six/app/data/remote/provider/voucher_category.dart';
@@ -17,7 +18,7 @@ class DistributeVoucherController extends GetxController {
   RxInt voucherToBeAssignCount = 0.obs;
   RxList<VoucherCategory> categoryList = <VoucherCategory>[].obs;
   RxList<AssignVoucher> searchedVoucherList = <AssignVoucher>[].obs;
-  RxList<AssignVoucher> vouchers = <AssignVoucher>[].obs;
+  RxList<AvailableVouchers> vouchers = <AvailableVouchers>[].obs;
   RxList<int> initialVoucherCount = <int>[].obs;
   RxInt voucherCount = 0.obs;
   RxBool voucherAssigned = false.obs;
@@ -121,6 +122,8 @@ class DistributeVoucherController extends GetxController {
         voucherAssignLoading(false);
         await beneCtrl.assignBeneDashboardData();
         await beneCtrl.getAssignedVouchers();
+        await assignVoucherList(categoryList[selectedCategory()].id!);
+
         unawaited(
           dialog(
             success: true,

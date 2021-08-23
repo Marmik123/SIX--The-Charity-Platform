@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/modules/vendor/qr_screen/controllers/qr_screen_controller.dart';
+import 'package:six/app/modules/vendor/vendor_home/controllers/vendor_home_controller.dart';
 import 'package:six/app/modules/vendor/vendor_redeem/controllers/vendor_redeem_controller.dart';
 import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/action_dialog.dart';
@@ -16,7 +17,7 @@ import 'package:six/r.g.dart';
 class VendorRedeemView extends GetView<VendorRedeemController> {
   final QrScreenController qrCtrl = Get.put(QrScreenController());
   final VendorRedeemController vendorRCtrl = Get.put(VendorRedeemController());
-
+  var vendorHomeCtrl = Get.find<VendorHomeController>();
   @override
   Widget build(BuildContext context) {
     return Obx(() => Stack(
@@ -262,7 +263,9 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
                             text: 'Redeem Now',
                             onTap: () {
                               // qrCtrl.qrScanned.value = true;
-                              controller.redeemNow.value = true;
+                              controller.redeemVoucherThroughCode(
+                                  'f2d6b19b-bc6a-46f7-a4a2-4679f789921b');
+                              //controller.redeemNow.value = true;
                             },
                             width: 500.w,
                             height: 150.h,
