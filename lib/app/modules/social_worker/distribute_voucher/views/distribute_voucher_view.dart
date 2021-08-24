@@ -21,59 +21,59 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: roundedButton(
-        text: 'Confirm Now',
-        isLoading: controller.voucherAssignLoading(),
-        onTap: () {
-          if (controller.vouchers.isNotEmpty) {
-            logW(controller.vouchers[controller.voucherIndex()].voucherId);
-            logW(controller.voucherIndex());
-            var quantityZero =
-                controller.initialVoucherCount.every((element) => element == 0);
-            if (quantityZero) {
-              appSnackbar(
-                message: 'Please increase quantity',
-                snackbarState: SnackbarState.warning,
-              );
-            } else {
-              var voucherList =
-                  List.generate(controller.vouchers.length, (index) {
-                if (controller.initialVoucherCount[index] != 0) {
-                  return <String, dynamic>{
-                    'quantity': double.tryParse(
-                        controller.initialVoucherCount[index].toString()),
-                    'amount': controller.vouchers[index].amount,
-                    'familyUserId': controller.beneCtrl.beneficiary.id,
-                    'name': controller.vouchers[index].name,
-                    'voucherId': controller.vouchers[index].voucherId,
-                  };
+      floatingActionButton: Obx(() => roundedButton(
+            text: 'Confirm Now',
+            isLoading: controller.voucherAssignLoading(),
+            onTap: () {
+              if (controller.vouchers.isNotEmpty) {
+                logW(controller.vouchers[controller.voucherIndex()].voucherId);
+                logW(controller.voucherIndex());
+                var quantityZero = controller.initialVoucherCount
+                    .every((element) => element == 0);
+                if (quantityZero) {
+                  appSnackbar(
+                    message: 'Please increase quantity',
+                    snackbarState: SnackbarState.warning,
+                  );
                 } else {
-                  return 0;
+                  var voucherList =
+                      List.generate(controller.vouchers.length, (index) {
+                    if (controller.initialVoucherCount[index] != 0) {
+                      return <String, dynamic>{
+                        'quantity': double.tryParse(
+                            controller.initialVoucherCount[index].toString()),
+                        'amount': controller.vouchers[index].amount,
+                        'familyUserId': controller.beneCtrl.beneficiary.id,
+                        'name': controller.vouchers[index].name,
+                        'voucherId': controller.vouchers[index].voucherId,
+                      };
+                    } else {
+                      return 0;
+                    }
+                  });
+                  voucherList.removeWhere((element) => element == 0);
+                  logWTF(voucherList);
+                  logI(voucherList.runtimeType);
+                  if (voucherList.isNotEmpty) {
+                    controller.voucherAssignLoading(true);
+                    controller.assignNow(
+                      vouchers: voucherList,
+                    );
+                  }
                 }
-              });
-              voucherList.removeWhere((element) => element == 0);
-              logWTF(voucherList);
-              logI(voucherList.runtimeType);
-              if (voucherList.isNotEmpty) {
-                controller.voucherAssignLoading(true);
-                controller.assignNow(
-                  vouchers: voucherList,
+                // controller.voucherAssigned(true);
+                //Get.toNamed<void>(Routes.DISTRIBUTE_VOUCHER);
+              } else {
+                appSnackbar(
+                  message: 'No Voucher Available',
+                  snackbarState: SnackbarState.danger,
                 );
               }
-            }
-            // controller.voucherAssigned(true);
-            //Get.toNamed<void>(Routes.DISTRIBUTE_VOUCHER);
-          } else {
-            appSnackbar(
-              message: 'No Voucher Available',
-              snackbarState: SnackbarState.danger,
-            );
-          }
-        },
-        width: 452.w,
-        height: 150.h,
-        fontSize: 50.sp,
-      ),
+            },
+            width: 452.w,
+            height: 150.h,
+            fontSize: 50.sp,
+          )),
       backgroundColor: AppColors.kffffff,
       appBar: appBar(
         title: 'Voucher',
@@ -356,6 +356,7 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                                       voucherCtrlSW: controller,
                                       voucherCode: '15015403',
                                       btnText: 'Redeem Now',
+                                      dottedIsBlue: true,
                                       voucherState: VoucherState.active,
                                       isQRScreen: false,
                                       totalAvailable: double.tryParse(controller

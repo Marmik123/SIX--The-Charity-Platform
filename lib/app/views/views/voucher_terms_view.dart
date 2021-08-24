@@ -173,38 +173,36 @@ class VoucherTerms extends GetView<AssignedVoucherController> {
                                           children: [
                                             FittedBox(
                                               child: RichText(
-                                                text: TextSpan(
-                                                    children: <TextSpan>[
-                                                      TextSpan(
-                                                        text: isRedeemed!
-                                                            ? 'Redeemed Date : '
-                                                            : 'Expire Date : ',
-                                                        style: TextStyle(
-                                                          fontFamily: 'Gilroy',
-                                                          fontSize: 40.sp,
-                                                          color: AppColors
-                                                              .k033660
-                                                              .withOpacity(0.6),
-                                                          fontStyle:
-                                                              FontStyle.normal,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      ),
-                                                      TextSpan(
-                                                        text: date ?? '-',
-                                                        style: TextStyle(
-                                                          fontFamily: 'Gilroy',
-                                                          fontSize: 40.sp,
-                                                          color:
-                                                              AppColors.k033660,
-                                                          fontStyle:
-                                                              FontStyle.normal,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      )
-                                                    ]),
+                                                text: TextSpan(children: <
+                                                    TextSpan>[
+                                                  TextSpan(
+                                                    text: isRedeemed ?? false
+                                                        ? 'Redeemed Date : '
+                                                        : 'Expire Date : ',
+                                                    style: TextStyle(
+                                                      fontFamily: 'Gilroy',
+                                                      fontSize: 40.sp,
+                                                      color: AppColors.k033660
+                                                          .withOpacity(0.6),
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  TextSpan(
+                                                    text: date ?? '-',
+                                                    style: TextStyle(
+                                                      fontFamily: 'Gilroy',
+                                                      fontSize: 40.sp,
+                                                      color: AppColors.k033660,
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  )
+                                                ]),
                                               ),
                                             ),
                                             //VOUCHER CODE

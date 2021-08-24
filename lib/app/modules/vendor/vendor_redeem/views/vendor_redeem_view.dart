@@ -219,6 +219,7 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
                                 children: [
                                   Expanded(
                                     child: TextFormField(
+                                      controller: controller.redeemCode,
                                       enabled: true,
                                       onEditingComplete: () {
                                         var currentFocus =
@@ -263,8 +264,8 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
                             text: 'Redeem Now',
                             onTap: () {
                               // qrCtrl.qrScanned.value = true;
-                              controller.redeemVoucherThroughCode(
-                                  'f2d6b19b-bc6a-46f7-a4a2-4679f789921b');
+                              controller.redeemVoucherByRedeemCode(
+                                  controller.redeemCode.text.trim());
                               //controller.redeemNow.value = true;
                             },
                             width: 500.w,

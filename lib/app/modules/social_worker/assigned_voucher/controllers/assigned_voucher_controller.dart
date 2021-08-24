@@ -6,6 +6,7 @@ class AssignedVoucherController extends GetxController {
   RxInt voucherCount = 1.obs;
   RxInt voucherFilterIndex = 0.obs;
   RxBool paid = false.obs;
+  RxString title = '-'.obs;
   RxDouble totalAmount = 0.0.obs;
   RxBool purchasePressed = false.obs;
   RxBool filterLoading = false.obs;

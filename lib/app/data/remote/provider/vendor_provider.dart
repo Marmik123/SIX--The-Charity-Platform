@@ -17,6 +17,7 @@ class VendorProvider {
     }
   }
 
+  //Helper Function to fetch the vendor transactions list.
   static Future<List<AvailableVouchers>> getVoucherList({
     String skip = '',
     String limit = '',
@@ -37,7 +38,7 @@ class VendorProvider {
     }
   }
 
-  //Helper function to purchase the voucher of particular category.
+  //Helper function to redeem the voucher of needy family by scanning QR(QR will provide long id as data).
   static Future<bool> redeemVoucher({
     required String userVoucherId,
   }) async {
@@ -50,5 +51,37 @@ class VendorProvider {
       },
     );
     return response?.statusCode == 200;
+  }
+
+  //Helper function to redeem the voucher of needy family by manually typing redeem code or voucher code(For ex. test203).
+  static Future<bool> redeemVoucherByRedeemCode({
+    required String redeemCode,
+  }) async {
+    var response = await APIService.post(
+      path: '/v1/auth/redeem-voucher-from-code',
+      data: <String, dynamic>{
+        'redeem_code': redeemCode,
+      },
+    );
+    logW(response?.statusCode);
+    return response?.statusCode == 200;
+  }
+
+  //Helper Function to fetch static pages info like terms and conditions ,privacy policy.
+  static Future<Map<String, dynamic>> getStaticPages({
+    String slugName = '',
+  }) async {
+    var response = await APIService.get(
+      path: '/v1/list-static-page-slug/$slugName',
+    );
+    if (response?.statusCode == 200) {
+      logI('######Static Pages########');
+      logI(response?.data!['data']);
+      //var voucherCategory = response?.data!['data'] as List<dynamic>;
+      return response?.data!['data'] as Map<String, dynamic>;
+    } else {
+      // Get.snackbar<void>('Error in voucher list fetching', 'Please Try Again.');
+      return <String, dynamic>{};
+    }
   }
 }

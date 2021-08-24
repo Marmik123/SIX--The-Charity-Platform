@@ -49,8 +49,9 @@ import 'package:six/app/modules/social_worker/social_home/bindings/social_home_b
 import 'package:six/app/modules/social_worker/social_home/views/social_home_view.dart';
 import 'package:six/app/modules/social_worker/social_onboarding/bindings/social_onboarding_binding.dart';
 import 'package:six/app/modules/social_worker/social_onboarding/views/social_onboarding_view.dart';
+import 'package:six/app/modules/static_pages/bindings/static_pages_binding.dart';
+import 'package:six/app/modules/static_pages/views/static_pages_view.dart';
 import 'package:six/app/modules/terms_conditions/bindings/terms_conditions_binding.dart';
-import 'package:six/app/modules/terms_conditions/views/terms_conditions_view.dart';
 import 'package:six/app/modules/vendor/onboarding_vendor/bindings/onboarding_vendor_binding.dart';
 import 'package:six/app/modules/vendor/onboarding_vendor/views/onboarding_vendor_view.dart';
 import 'package:six/app/modules/vendor/qr_screen/bindings/qr_screen_binding.dart';
@@ -232,9 +233,9 @@ class AppPages {
       binding: AvailableCreditsSwBinding(),
     ),
     GetPage(
-      name: _Paths.TERMS_CONDITIONS,
-      page: () => TermsConditionsView(),
-      binding: TermsConditionsBinding(),
+      name: _Paths.STATIC_PAGES,
+      page: () => StaticPagesView(),
+      binding: StaticPagesBinding(),
     ),
   ];
 }

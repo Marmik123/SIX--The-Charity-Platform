@@ -4,7 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/local/user_provider.dart';
-import 'package:six/app/modules/terms_conditions/views/privacy_policy_view.dart';
+import 'package:six/app/modules/static_pages/controllers/static_pages_controller.dart';
+import 'package:six/app/modules/static_pages/privacy_policy_view.dart';
+import 'package:six/app/modules/static_pages/terms_conditions_view.dart';
 import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/double_shaded_container.dart';
@@ -18,7 +20,7 @@ import '../controllers/profile_controller.dart';
 class ProfileView extends GetView<ProfileController> {
   @override
   final ProfileController controller = Get.put(ProfileController());
-
+  final StaticPagesController staticPage = Get.put(StaticPagesController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -188,11 +190,13 @@ class ProfileView extends GetView<ProfileController> {
                       profileMenuItem(
                           R.image.asset.term_c.assetName, 'Terms & Conditions',
                           () {
-                        Get.toNamed<void>(Routes.TERMS_CONDITIONS);
+                        staticPage.getStaticPageData('terms');
+                        Get.to<void>(() => TermsConditionsView());
                       }),
                       profileMenuItem(
                           R.image.asset.privacy.assetName, 'Privacy Policy',
                           () {
+                        staticPage.getStaticPageData('privacy');
                         Get.to<void>(() => PrivacyPolicyView());
                       }),
                     ],
