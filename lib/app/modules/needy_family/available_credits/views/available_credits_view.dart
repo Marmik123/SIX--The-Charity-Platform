@@ -48,151 +48,336 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
               ),
       ),
       backgroundColor: AppColors.kffffff,
-      body: Column(
-        children: [
-          Obx(() => controller.disableLeading()
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    h(70.h),
-                    Padding(
-                      padding: EdgeInsets.only(right: 600.w),
-                      child: Text(
-                        'Select Program',
-                        style: TextStyle(
-                          fontFamily: 'Gilroy',
-                          fontSize: 60.sp,
-                          fontStyle: FontStyle.normal,
-                          color: AppColors.k033660.withOpacity(0.5),
-                          fontWeight: FontWeight.w500,
-                        ),
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                  ],
-                )
-              : Container()),
-          Obx(
-            () => controller.isLoading()
-                ? buildLoader()
-                : controller.programCreditsAvailability().isEmpty
-                    ? const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text('No Data Available'),
+      body: NotificationListener<OverscrollIndicatorNotification>(
+        onNotification: (overscroll) {
+          overscroll.disallowGlow();
+          return false;
+        },
+        child: RefreshIndicator(
+          color: Colors.white,
+          backgroundColor: Colors.white,
+          displacement: 1.sh,
+          strokeWidth: 0,
+          onRefresh: () {
+            if (UserProvider.role == 'needy_family') {
+              return controller.assignToNeedyProgCredit();
+            } else {
+              return controller.assignToAvailProgCredit();
+            }
+          },
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Obx(() => controller.disableLeading()
+                    ? Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          h(70.h),
+                          Padding(
+                            padding: EdgeInsets.only(right: 600.w),
+                            child: Text(
+                              'Select Program',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy',
+                                fontSize: 60.sp,
+                                fontStyle: FontStyle.normal,
+                                color: AppColors.k033660.withOpacity(0.5),
+                                fontWeight: FontWeight.w500,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                        ],
                       )
-                    : Expanded(
-                        child: ListView.builder(
-                          itemCount: UserProvider.role == 'charity'
-                              ? controller.programCreditsAvailability().length
-                              : 0,
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.only(top: 20, left: 50),
-                          physics: const BouncingScrollPhysics(),
-                          itemBuilder: (context, index) => GestureDetector(
-                            onTap: () {
-                              controller.programIndex!(index);
-                              Get.toNamed<void>(Routes.PURCHASE);
-                            },
-                            child: Stack(
-                              clipBehavior: Clip.none,
-                              children: [
-                                Column(
-                                  children: [
-                                    Container(
-                                        height: 260.h,
-                                        width: 916.w,
-                                        decoration: BoxDecoration(
-                                            color: AppColors.kffffff,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: AppColors.k00474E
-                                                      .withOpacity(0.04),
-                                                  blurRadius: 50.r,
-                                                  offset: const Offset(0, 20))
-                                            ],
-                                            borderRadius:
-                                                BorderRadius.circular(50.r)),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 40.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                    : Container(
+                        height: 0,
+                      )),
+                Obx(
+                  () => UserProvider.role == 'charity'
+                      ? controller.isLoading()
+                          ? buildLoader()
+                          : controller.programCreditsAvailability().isEmpty
+                              ? const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text('No Data Available'),
+                                )
+                              : Flexible(
+                                  child: ListView.builder(
+                                    itemCount: controller
+                                        .programCreditsAvailability()
+                                        .length,
+                                    shrinkWrap: true,
+                                    padding: const EdgeInsets.only(
+                                        top: 20, left: 50),
+                                    physics: const BouncingScrollPhysics(),
+                                    itemBuilder: (context, index) =>
+                                        GestureDetector(
+                                      onTap: () {
+                                        controller.programIndex!(index);
+                                        Get.toNamed<void>(Routes.PURCHASE);
+                                      },
+                                      child: Stack(
+                                        clipBehavior: Clip.none,
+                                        children: [
+                                          Column(
                                             children: [
+                                              Container(
+                                                  height: 260.h,
+                                                  width: 916.w,
+                                                  decoration: BoxDecoration(
+                                                      color: AppColors.kffffff,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                            color: AppColors
+                                                                .k00474E
+                                                                .withOpacity(
+                                                                    0.04),
+                                                            blurRadius: 50.r,
+                                                            offset:
+                                                                const Offset(
+                                                                    0, 20))
+                                                      ],
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50.r)),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 40.0),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        SizedBox(
+                                                          height: 66.h,
+                                                        ),
+                                                        Text(
+                                                          controller
+                                                              .programCreditsAvailability()[
+                                                                  index]
+                                                              .name
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Gilroy',
+                                                            fontSize: 50.sp,
+                                                            fontStyle: FontStyle
+                                                                .normal,
+                                                            color: AppColors
+                                                                .k033660,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                        ),
+                                                        SizedBox(
+                                                          height: 19.h,
+                                                        ),
+                                                        Text(
+                                                          '\$${controller.programCreditsAvailability()[index].value.toString()}',
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Gilroy',
+                                                            fontSize: 60.sp,
+                                                            fontStyle: FontStyle
+                                                                .normal,
+                                                            color: AppColors
+                                                                .k14A1BE,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  )),
                                               SizedBox(
-                                                height: 66.h,
+                                                height: 25.h,
                                               ),
-                                              Text(
-                                                controller
-                                                    .programCreditsAvailability()[
-                                                        index]
-                                                    .name
-                                                    .toString(),
-                                                style: TextStyle(
-                                                  fontFamily: 'Gilroy',
-                                                  fontSize: 50.sp,
-                                                  fontStyle: FontStyle.normal,
-                                                  color: AppColors.k033660,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              SizedBox(
-                                                height: 19.h,
-                                              ),
-                                              Text(
-                                                '\$${controller.programCreditsAvailability()[index].value.toString()}',
-                                                style: TextStyle(
-                                                  fontFamily: 'Gilroy',
-                                                  fontSize: 60.sp,
-                                                  fontStyle: FontStyle.normal,
-                                                  color: AppColors.k14A1BE,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
-                                              )
                                             ],
                                           ),
-                                        )),
-                                    SizedBox(
-                                      height: 25.h,
-                                    ),
-                                  ],
-                                ),
-                                Positioned(
-                                  bottom: 15,
-                                  right: 0.78.sw,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        border: Border.all(
-                                          color: AppColors.kffffff,
-                                          width: 8.w,
-                                        ),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: AppColors.k001F22
-                                                .withOpacity(0.03),
-                                            blurRadius: 25.r,
-                                            offset: Offset(10.sp, 25.sp),
-                                          ),
-                                        ]),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(50),
-                                      child: cacheImage(
-                                          height: 180.r,
-                                          width: 180.r,
-                                          url:
-                                              'https://picsum.photos/id/1011/180'),
+                                          Positioned(
+                                            bottom: 15,
+                                            right: 0.78.sw,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                    color: AppColors.kffffff,
+                                                    width: 8.w,
+                                                  ),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: AppColors.k001F22
+                                                          .withOpacity(0.03),
+                                                      blurRadius: 25.r,
+                                                      offset:
+                                                          Offset(10.sp, 25.sp),
+                                                    ),
+                                                  ]),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                child: cacheImage(
+                                                    height: 180.r,
+                                                    width: 180.r,
+                                                    url:
+                                                        '${controller.programCreditsAvailability()[index].icon ?? 'https://picsum.photos/200/300'}'),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                      : controller.isNeedyLoading()
+                          ? buildLoader()
+                          : controller.needyProgCredits().isEmpty
+                              ? const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text('No Data Available'),
+                                )
+                              : Flexible(
+                                  child: ListView.builder(
+                                    itemCount:
+                                        controller.needyProgCredits().length,
+                                    shrinkWrap: true,
+                                    padding: const EdgeInsets.only(
+                                        top: 20, left: 50),
+                                    physics: const BouncingScrollPhysics(),
+                                    itemBuilder: (context, index) =>
+                                        GestureDetector(
+                                      onTap: () {
+                                        controller.programIndex!(index);
+                                        Get.toNamed<void>(Routes.PURCHASE);
+                                      },
+                                      child: Stack(
+                                        clipBehavior: Clip.none,
+                                        children: [
+                                          Column(
+                                            children: [
+                                              Container(
+                                                  height: 260.h,
+                                                  width: 916.w,
+                                                  decoration: BoxDecoration(
+                                                      color: AppColors.kffffff,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                            color: AppColors
+                                                                .k00474E
+                                                                .withOpacity(
+                                                                    0.04),
+                                                            blurRadius: 50.r,
+                                                            offset:
+                                                                const Offset(
+                                                                    0, 20))
+                                                      ],
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50.r)),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 40.0),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        SizedBox(
+                                                          height: 66.h,
+                                                        ),
+                                                        Text(
+                                                          controller
+                                                              .needyProgCredits()[
+                                                                  index]
+                                                              .name
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Gilroy',
+                                                            fontSize: 50.sp,
+                                                            fontStyle: FontStyle
+                                                                .normal,
+                                                            color: AppColors
+                                                                .k033660,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                        ),
+                                                        SizedBox(
+                                                          height: 19.h,
+                                                        ),
+                                                        Text(
+                                                          '\$${controller.needyProgCredits()[index].value.toString()}',
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Gilroy',
+                                                            fontSize: 60.sp,
+                                                            fontStyle: FontStyle
+                                                                .normal,
+                                                            color: AppColors
+                                                                .k14A1BE,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  )),
+                                              SizedBox(
+                                                height: 25.h,
+                                              ),
+                                            ],
+                                          ),
+                                          Positioned(
+                                            bottom: 15,
+                                            right: 0.78.sw,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                    color: AppColors.kffffff,
+                                                    width: 8.w,
+                                                  ),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: AppColors.k001F22
+                                                          .withOpacity(0.03),
+                                                      blurRadius: 25.r,
+                                                      offset:
+                                                          Offset(10.sp, 25.sp),
+                                                    ),
+                                                  ]),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                child: cacheImage(
+                                                    height: 180.r,
+                                                    width: 180.r,
+                                                    url:
+                                                        '${controller.needyProgCredits()[index].profileUrl ?? 'https://picsum.photos/200/300'}'),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                ),
+              ],
+            ),
           ),
-        ],
+        ),
       ),
     );
   }

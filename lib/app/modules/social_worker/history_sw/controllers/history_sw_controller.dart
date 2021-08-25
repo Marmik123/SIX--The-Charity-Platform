@@ -11,6 +11,7 @@ class HistorySwController extends GetxController
   RxBool titleVisible = true.obs;
   RxInt tabIndex = 0.obs;
   RxString startDateValue = ''.obs;
+  RxString name = ''.obs;
   RxString lastDateValue = ''.obs;
   SocialHomeController socialCtrl = Get.find<SocialHomeController>();
   List<String> text = [

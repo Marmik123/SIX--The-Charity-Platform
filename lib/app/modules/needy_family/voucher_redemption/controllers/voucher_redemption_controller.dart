@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/models/available_vouchers.dart';
@@ -23,7 +21,7 @@ class VoucherRedemptionController extends GetxController {
       qrCode!(Get.arguments! as String);
       logW(qrCode);
       if (qrCode != null) {
-        jsonDecode(qrCode!());
+        //jsonDecode(qrCode!());
       }
       // qrCodeData!(Get.arguments as List<AvailableVouchers>);
     }

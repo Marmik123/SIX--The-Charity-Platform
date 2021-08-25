@@ -17,7 +17,7 @@ import 'package:six/r.g.dart';
 class VendorRedeemView extends GetView<VendorRedeemController> {
   final QrScreenController qrCtrl = Get.put(QrScreenController());
   final VendorRedeemController vendorRCtrl = Get.put(VendorRedeemController());
-  var vendorHomeCtrl = Get.find<VendorHomeController>();
+  final vendorHomeCtrl = Get.find<VendorHomeController>();
   @override
   Widget build(BuildContext context) {
     return Obx(() => Stack(

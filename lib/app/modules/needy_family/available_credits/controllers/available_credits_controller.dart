@@ -8,9 +8,11 @@ import 'package:six/app/data/remote/provider/available_credits.dart';
 class AvailableCreditsController extends GetxController {
   //TODO: Implement AvailableCreditsController
   RxBool isLoading = false.obs;
+  RxBool isNeedyLoading = false.obs;
   RxBool disableLeading = true.obs;
   RxList<GraphCategoryData> programCreditsAvailability =
       <GraphCategoryData>[].obs;
+  RxList<GraphCategoryData> needyProgCredits = <GraphCategoryData>[].obs;
   RxList<AvailableCredits> availCreditsSW = <AvailableCredits>[].obs;
   RxInt skip = 0.obs;
   RxInt limit = 1000.obs;
@@ -23,6 +25,7 @@ class AvailableCreditsController extends GetxController {
     }
     if (UserProvider.role == 'needy_family') {
       disableLeading(false);
+      assignToNeedyProgCredit();
     }
   }
 
@@ -34,5 +37,14 @@ class AvailableCreditsController extends GetxController {
         await AvailableCreditsProvider.getTotalAvailableCreditsData(
             skip: skip().toString(), limit: limit().toString()));
     isLoading(false);
+  }
+
+  //Function for assigning the available credits of programs to the list "programCreditsAvailability".
+  Future<void> assignToNeedyProgCredit() async {
+    isNeedyLoading(true);
+    logI('availNeedyCreditsCalled');
+    needyProgCredits(
+        await AvailableCreditsProvider.getTotalAvailableCreditsNeedy());
+    isNeedyLoading(false);
   }
 }

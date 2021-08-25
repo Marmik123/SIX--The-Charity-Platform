@@ -473,22 +473,21 @@ class SocialHome extends StatelessWidget {
                                     if (controller.beneficiaryList[index]
                                             .userMetadata !=
                                         null) {
-                                      controller.assignAddress(jsonDecode(
-                                          controller.beneficiaryList[index]
-                                                      .userMetadata?.address ==
-                                                  null
-                                              ? '-'
-                                              : controller
-                                                      .beneficiaryList[index]
-                                                      .userMetadata
-                                                      ?.address
-                                                      .toString() ??
-                                                  '-') as Map<String, dynamic>);
-                                    } else {
-                                      controller.assignAddress(jsonDecode('{}')
-                                          as Map<String, dynamic>);
+                                      if (controller.beneficiaryList[index]
+                                              .userMetadata?.address !=
+                                          null) {
+                                        controller.assignAddress(
+                                          jsonDecode(controller
+                                                  .beneficiaryList[index]
+                                                  .userMetadata
+                                                  ?.address
+                                                  .toString() ??
+                                              '-') as Map<String, dynamic>,
+                                        );
+                                      }
                                     }
-                                    return /* controller.beneficiaryList[index]
+                                    return
+                                        /* controller.beneficiaryList[index]
                                         .userMetadata ==
                                     null
                                 ? const SizedBox.shrink()

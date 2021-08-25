@@ -45,17 +45,23 @@ class SocialHomeController extends GetxController {
   }
 
   void assignAddress(Map<String, dynamic>? address) {
+    decodedAddress.clear();
     decodedAddress.add(address);
     logI('finalDecodedAddress$decodedAddress');
   }
 
   String returnAddress(int index) {
     logI('!!##$decodedAddress');
-    logI('!!##${decodedAddress[index]}');
-    if (decodedAddress[index]!.isNotEmpty) {
-      return '${decodedAddress[index]!['floor']['value']},${decodedAddress[index]!['building']['value']},${decodedAddress[index]!['street']['value']},\n${decodedAddress[index]!['block']['value']},${decodedAddress[index]!['country']['desc']},${decodedAddress[index]!['postal']['value']}.';
-    } else
-      return '';
+    // logI('!!##${decodedAddress[index]}');
+    if (index < decodedAddress.length) {
+      if (decodedAddress[index] != null) {
+        return '${decodedAddress[index]!['floor']['value']},${decodedAddress[index]!['building']['value']},${decodedAddress[index]!['street']['value']},\n${decodedAddress[index]!['block']['value']},${decodedAddress[index]!['country']['desc']},${decodedAddress[index]!['postal']['value']}.';
+      } else {
+        return '-';
+      }
+    } else {
+      return '-';
+    }
   }
 
   Future<void> launchURL(String mailId) async {

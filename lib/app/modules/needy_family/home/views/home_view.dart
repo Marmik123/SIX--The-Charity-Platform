@@ -176,7 +176,7 @@ class HomeContent extends GetView<HomeController> {
                       bottom: 10.h,
                       child: GestureDetector(
                         onTap: () {
-                          Get.toNamed<void>('/available-credits');
+                          Get.toNamed<void>(Routes.AVAILABLE_CREDITS);
                         },
                         child: Container(
                           width: 1005.w,

@@ -227,8 +227,8 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                                     ),
                                     decoration: InputDecoration(
                                         fillColor: AppColors.kffffff,
-                                        contentPadding:
-                                            EdgeInsets.only(left: 15, top: 15),
+                                        contentPadding: const EdgeInsets.only(
+                                            left: 15, top: 15),
                                         filled: true,
                                         enabledBorder: InputBorder.none,
                                         focusedBorder: InputBorder.none,
