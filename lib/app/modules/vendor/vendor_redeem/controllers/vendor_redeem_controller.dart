@@ -11,18 +11,23 @@ class VendorRedeemController extends GetxController {
   RxBool scanLoading = false.obs;
   RxBool redeemThroughNum = false.obs;
   RxBool redeemNow = false.obs;
-  TextEditingController redeemCode = TextEditingController();
+  TextEditingController redeemCodeCtrl = TextEditingController();
   @override
   void onInit() {
     super.onInit();
-    redeemCode.clear();
+    redeemCodeCtrl.clear();
   }
 
-  Future<void> redeemVoucherThroughScan(String voucherId) async {
+  Future<Map<String, dynamic>> getVoucherDataThroughScan(
+      String redeemCode) async {
     scanLoading(true);
-    var success = await VendorProvider.redeemVoucher(userVoucherId: voucherId);
+    var voucherData =
+        await VendorProvider.getVoucherDataOnScan(redeemCode: redeemCode);
+    Get.back<void>();
     scanLoading(false);
-    logI(success);
+
+    logI(voucherData);
+    return voucherData;
   }
 
   Future<void> redeemVoucherByRedeemCode(String redeemCode) async {
@@ -32,6 +37,7 @@ class VendorRedeemController extends GetxController {
     redeemLoading(false);
     logI(success);
     if (success) {
+      redeemCodeCtrl.clear();
       unawaited(dialog(
           success: true, message: 'Voucher has been successfully redeemed.'));
     }

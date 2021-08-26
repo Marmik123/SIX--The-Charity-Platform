@@ -7,10 +7,6 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/modules/vendor/vendor_home/controllers/vendor_home_controller.dart';
 import 'package:six/app/modules/vendor/vendor_redeem/controllers/vendor_redeem_controller.dart';
-import 'package:six/app/ui/components/action_dialog.dart';
-import 'package:six/app/ui/components/common_voucher_card.dart';
-import 'package:six/app/ui/components/rounded_gradient_btn.dart';
-import 'package:six/r.g.dart';
 
 import '../controllers/qr_screen_controller.dart';
 
@@ -33,6 +29,7 @@ class QrScreenView extends GetView<QrScreenController> {
                   icon: const Icon(Icons.arrow_back),
                   color: AppColors.k033660,
                   onPressed: () {
+                    controller.qrCtrl.dispose();
                     Get.back<void>();
                   },
                 ),
@@ -52,7 +49,43 @@ class QrScreenView extends GetView<QrScreenController> {
                   ? _buildQrView(context)
                   : const CircularProgressIndicator(),
             ),
-            controller.qrScanned.value
+            controller.cannotDetect.value
+                ? Positioned(
+                    top: 300.h,
+                    child: GestureDetector(
+                      onTap: () {
+                        controller.cannotDetect.value = false;
+                      },
+                      child: Material(
+                        color: Colors.transparent,
+                        elevation: 0,
+                        child: Container(
+                          height: 160.h,
+                          width: 1.sw,
+                          color: AppColors.kFF5555,
+                          child: Center(
+                            child: Text(
+                              'Sorry! We can’t found data.Please scan corrected\nQR Code',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy',
+                                fontSize: 40.sp,
+                                fontStyle: FontStyle.normal,
+                                color: AppColors.kffffff,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                : Container(),
+          ],
+        ));
+  }
+
+  /* controller.qrScanned.value
                 ? BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 20.r, sigmaY: 20.r),
                     child: Container(
@@ -214,11 +247,7 @@ class QrScreenView extends GetView<QrScreenController> {
                       ),
                     ),
                   )
-                : Container()
-          ],
-        ));
-  }
-
+                : Container()*/
   Widget _buildQrView(BuildContext context) {
     // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
     var scanArea = (1.sw < 400.w || 1.sh < 400.h) ? 150.r : 800.r;

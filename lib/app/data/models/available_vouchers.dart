@@ -118,7 +118,7 @@ class AvailableVouchers {
   factory AvailableVouchers.fromMap(Map<String, dynamic> json) =>
       AvailableVouchers(
         id: json['id'] == null ? null : json['id'] as String,
-        voucherId: (json['voucher_id'] ?? json['redeem_code']) as String?,
+        voucherId: (json['redeem_code'] ?? json['voucher_id']) as String?,
         name: json['name'] == null ? null : json['name'] as String,
         description:
             json['description'] == null ? null : json['description'] as String,

@@ -10,6 +10,7 @@ import 'package:six/app/modules/vendor/vendor_home/controllers/vendor_home_contr
 import 'package:six/app/modules/vendor/vendor_redeem/controllers/vendor_redeem_controller.dart';
 import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/action_dialog.dart';
+import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/common_voucher_card.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 import 'package:six/r.g.dart';
@@ -219,7 +220,7 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
                                 children: [
                                   Expanded(
                                     child: TextFormField(
-                                      controller: controller.redeemCode,
+                                      controller: controller.redeemCodeCtrl,
                                       enabled: true,
                                       onEditingComplete: () {
                                         var currentFocus =
@@ -264,8 +265,10 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
                             text: 'Redeem Now',
                             onTap: () {
                               // qrCtrl.qrScanned.value = true;
-                              controller.redeemVoucherByRedeemCode(
-                                  controller.redeemCode.text.trim());
+                              if (controller.redeemCodeCtrl.text.isNotEmpty) {
+                                controller.redeemVoucherByRedeemCode(
+                                    controller.redeemCodeCtrl.text.trim());
+                              }
                               //controller.redeemNow.value = true;
                             },
                             width: 500.w,
@@ -277,7 +280,7 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
                     ),
                   ),
                 )),
-            controller.redeemNow.value
+            /* controller.redeemNow.value
                 ? BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 20.r, sigmaY: 20.r),
                     child: Container(
@@ -377,7 +380,110 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
                       ),
                     ),
                   )
-                : Container(),
+                : Container(),*/
+            Obx(() => controller.scanLoading()
+                ? Center(
+                    child: buildLoader(),
+                  )
+                : BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 20.r, sigmaY: 20.r),
+                    child: Container(
+                      height: 1.sh,
+                      width: 1.sw,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.k000000.withOpacity(0.25),
+                            offset: const Offset(0, 4),
+                            blurRadius: 4.r,
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Material(
+                          color: Colors.transparent,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 778.h,
+                              ),
+                              Stack(
+                                alignment: Alignment.bottomCenter,
+                                clipBehavior: Clip.none,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 20.0),
+                                    child: voucherCard(
+                                      title: '-',
+                                      imgUrl:
+                                          '-', //controller.voucherData[0].id.toString(),
+                                      amount: 0.0,
+                                      whichScreen: 'QRScreen',
+                                      voucherCode: '-',
+                                      date: '1, Nov 2021',
+                                      onTap: () {},
+                                      btnText: 'Active Voucher',
+                                      voucherState: VoucherState.active,
+                                      isQRScreen: true,
+                                    ),
+                                  ),
+                                  Positioned(
+                                      bottom: -6,
+                                      right: 25,
+                                      child: roundedButton(
+                                        text: 'Redeem Now',
+                                        onTap: () {
+                                          vendorRCtrl.redeemThroughNum.value =
+                                              true;
+                                          Get.back<void>();
+                                        },
+                                        width: 905.w,
+                                        height: 150.h,
+                                        fontSize: 50.sp,
+                                      )),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 484.h,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  /* controller.qrScanned.value = false;
+                            controller.qrCtrl.resumeCamera();
+                            controller.cannotDetect.value = false;
+                          */
+                                },
+                                child: Container(
+                                  height: 160.r,
+                                  width: 160.r,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.kffffff,
+                                    borderRadius: BorderRadius.circular(70.r),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color:
+                                            AppColors.k00474E.withOpacity(0.04),
+                                        blurRadius: 40.r,
+                                        offset: const Offset(0, 20),
+                                      ),
+                                    ],
+                                  ),
+                                  child: const Center(
+                                    child: Icon(
+                                      Icons.clear,
+                                      color: AppColors.k1FAF9E,
+                                      size: 20,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  )),
             vendorRCtrl.redeemThroughNum.value
                 ? BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 20.r, sigmaY: 20.r),

@@ -101,8 +101,23 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                                 ),
                                 child: Center(
                                   child: QrImage(
-                                    data: 'test202',
+                                    data: controller.qrCode!(),
                                     size: 610.r,
+                                    /*Use of errorCorrection
+                                     is must for using embedded Image.*/
+                                    /* errorCorrectionLevel: QrErrorCorrectLevel.H,
+                                    //Use this to change color of internal qr pattern.
+                                    */ /* eyeStyle: QrEyeStyle(
+                                      color: AppColors.kE3FCFF1,
+                                      eyeShape: QrEyeShape.square,
+                                    ),*/ /*
+                                    embeddedImageStyle: QrEmbeddedImageStyle(
+                                      size: Size(120.r, 120.r),
+                                      */ /*this size must not be more than
+                                      30% of total QR size else data will be hidden.*/ /*
+                                    ),
+                                    embeddedImage:
+                                        R.image.six_logo_removebg_preview_jpg(),*/
                                     version: QrVersions.auto,
                                   ),
                                 ),
@@ -208,9 +223,9 @@ class VoucherRedemptionView extends GetView<VoucherRedemptionController> {
                               children: [
                                 Expanded(
                                   child: TextFormField(
-                                    initialValue: controller.voucherCode == null
+                                    initialValue: controller.qrCode == null
                                         ? '-'
-                                        : controller.voucherCode!(),
+                                        : controller.qrCode.toString(),
                                     enabled: true,
                                     readOnly: true,
                                     onEditingComplete: () {

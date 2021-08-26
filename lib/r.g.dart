@@ -310,6 +310,12 @@ class _R_Image_AssetResource {
   final select_voucher = const AssetResource("assets/images/select_voucher.png",
       packageName: null);
 
+  /// asset: assets/images/six_logo-removebg-preview.jpg
+  // ignore: non_constant_identifier_names
+  final six_logo_removebg_preview_jpg = const AssetResource(
+      "assets/images/six_logo-removebg-preview.jpg",
+      packageName: null);
+
   /// asset: assets/images/six_logo.png
   // ignore: non_constant_identifier_names
   final six_logo =
@@ -650,6 +656,12 @@ class _R_Image {
   // ignore: non_constant_identifier_names
   AssetImage select_voucher() {
     return AssetImage(asset.select_voucher.keyName);
+  }
+
+  /// asset: assets/images/six_logo-removebg-preview.jpg
+  // ignore: non_constant_identifier_names
+  AssetImage six_logo_removebg_preview_jpg() {
+    return AssetImage(asset.six_logo_removebg_preview_jpg.keyName);
   }
 
   /// asset: assets/images/six_logo.png

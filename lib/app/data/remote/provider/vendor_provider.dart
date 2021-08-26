@@ -39,18 +39,15 @@ class VendorProvider {
   }
 
   //Helper function to redeem the voucher of needy family by scanning QR(QR will provide long id as data).
-  static Future<bool> redeemVoucher({
-    required String userVoucherId,
+  static Future<Map<String, dynamic>> getVoucherDataOnScan({
+    required String redeemCode,
   }) async {
-    var response = await APIService.post(
-      path: '/v1/auth/redeem-voucher',
-      data: <String, dynamic>{
-        'userVoucherId': [
-          userVoucherId,
-        ],
-      },
+    var response = await APIService.get(
+      path: '/v1/auth/voucher-data-from-code/$redeemCode',
     );
-    return response?.statusCode == 200;
+    logI(response?.data!['data']);
+    var voucherData = response?.data!['data'] as Map<String, dynamic>;
+    return voucherData;
   }
 
   //Helper function to redeem the voucher of needy family by manually typing redeem code or voucher code(For ex. test203).

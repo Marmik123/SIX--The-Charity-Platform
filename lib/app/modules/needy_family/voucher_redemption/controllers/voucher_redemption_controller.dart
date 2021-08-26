@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:six/app/data/config/logger.dart';
-import 'package:six/app/data/models/available_vouchers.dart';
 import 'package:six/app/modules/needy_family/home/controllers/home_controller.dart';
 
 class VoucherRedemptionController extends GetxController {
@@ -10,7 +9,7 @@ class VoucherRedemptionController extends GetxController {
   RxString? voucherCode =
       ''.obs; // Code entered for retrieving through voucher code.
   RxString? qrCode = ''.obs; //Code That will be retrived on scanning QR
-  RxList<AvailableVouchers> qrCodeData = <AvailableVouchers>[].obs;
+  RxList<String> qrCodeData = <String>[].obs;
   @override
   void onInit() {
     // TODO: implement onInit
@@ -18,11 +17,8 @@ class VoucherRedemptionController extends GetxController {
     codeCopied(false);
     if (Get.arguments != null) {
       logI(Get.arguments);
-      qrCode!(Get.arguments! as String);
+      qrCode!(Get.arguments as String);
       logW(qrCode);
-      if (qrCode != null) {
-        //jsonDecode(qrCode!());
-      }
       // qrCodeData!(Get.arguments as List<AvailableVouchers>);
     }
     /*if (qrCodeData != null) {

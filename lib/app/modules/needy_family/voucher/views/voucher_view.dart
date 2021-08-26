@@ -352,7 +352,7 @@ class VoucherContent extends GetView<VoucherController> {
                                       Get.toNamed<void>(
                                         Routes.VOUCHER_REDEMPTION,
                                         arguments:
-                                            '${controller.vouchers[index]}',
+                                            '${controller.vouchers[index].voucherId ?? '-'}',
                                       );
                                     }
                                   },
