@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/local/note_details_helper.dart';
 import 'package:six/app/data/local/user_provider.dart';
@@ -14,7 +15,7 @@ class SocialHomeController extends GetxController {
   RxInt? currentIndex = 0.obs;
   RxInt? beneIndex = 0.obs;
   RxInt? tabIndex = 0.obs;
-  RxInt availableCredits = 0.obs;
+  RxString availableCredits = ''.obs;
   RxInt beneficiaryCount = 0.obs;
   RxMap<String, dynamic>? dashboardData = <String, dynamic>{}.obs;
   Map<String, dynamic>? historyDashData;
@@ -33,6 +34,8 @@ class SocialHomeController extends GetxController {
   RxList<AvailableVouchers> historyVouchers = <AvailableVouchers>[].obs;
   // final NoteDetailsController notesCtrl = Get.put(NoteDetailsController());
   final dbHelper = DatabaseHelper.instance;
+  final moneyFormat = NumberFormat('#,##0.00', 'en_US');
+
   @override
   void onInit() {
     super.onInit();
@@ -80,7 +83,13 @@ class SocialHomeController extends GetxController {
   Future<void> assignDashboardData() async {
     isLoading(true);
     dashboardData!(await SocialWorkerProvider.getSWDashBoardData());
-    availableCredits(dashboardData?['availableCreditData'] as int);
+    /* var availableCreds = await moneyFormat.format(int.tryParse(dashboardData?[
+                'availableCreditData'] ==
+            null
+        ? '-'
+        : '${dashboardData?['availableCreditData'].toStringAsFixed(2) ?? '-'}'));
+*/
+    availableCredits(dashboardData?['availableCreditData'].toString());
     beneficiaryCount(dashboardData?['beneficiaryCount'] as int);
     logI(dashboardData);
     await assignBeneficiaryList();

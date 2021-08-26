@@ -24,6 +24,12 @@ class VendorRedeemController extends GetxController {
     var voucherData =
         await VendorProvider.getVoucherDataOnScan(redeemCode: redeemCode);
     Get.back<void>();
+    unawaited(dialog(
+      success: redeemLoading(),
+      redeemDialog: true,
+      redeemVoucherData: voucherData,
+      //onTapRedeemNow: redeemVoucherByRedeemCode(redeemCode),
+    ));
     scanLoading(false);
 
     logI(voucherData);
@@ -39,7 +45,9 @@ class VendorRedeemController extends GetxController {
     if (success) {
       redeemCodeCtrl.clear();
       unawaited(dialog(
-          success: true, message: 'Voucher has been successfully redeemed.'));
+        success: true,
+        message: 'Voucher has been successfully redeemed.',
+      ));
     }
   }
 }

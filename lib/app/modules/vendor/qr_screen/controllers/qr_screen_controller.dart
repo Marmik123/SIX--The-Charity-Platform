@@ -19,7 +19,7 @@ class QrScreenController extends GetxController {
   RxBool cannotDetect = false.obs;
   RxBool redeemed = false.obs;
   Map<String, dynamic>? voucherData;
-  late QRViewController qrCtrl;
+  QRViewController? qrCtrl;
   final count = 0.obs;
   VendorRedeemController vendorRedeemCtrl = Get.find<VendorRedeemController>();
   @override
@@ -34,9 +34,9 @@ class QrScreenController extends GetxController {
   void reassemble() {
     //super.reassemble();
     if (Platform.isAndroid) {
-      qrCtrl.pauseCamera();
+      qrCtrl?.pauseCamera();
     } else if (Platform.isIOS) {
-      qrCtrl.resumeCamera();
+      qrCtrl?.resumeCamera();
     }
   }
 
@@ -55,7 +55,7 @@ class QrScreenController extends GetxController {
   void onQRViewCreated(QRViewController controller) {
     qrCtrl = controller;
     // controller.scannedDataStream.timeout(Duration(seconds:10, )).lis
-    qrCtrl.scannedDataStream
+    qrCtrl?.scannedDataStream
         .timeout(
       const Duration(
         seconds: 15,
@@ -122,7 +122,7 @@ class QrScreenController extends GetxController {
 
   @override
   void onClose() {
-    qrCtrl.dispose();
+    qrCtrl?.dispose();
     super.onClose();
   }
 }

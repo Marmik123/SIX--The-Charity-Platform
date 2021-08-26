@@ -242,9 +242,8 @@ class SocialHome extends StatelessWidget {
                                                                   ),
                                                                   children: [
                                                                     TextSpan(
-                                                                      text: controller
-                                                                          .availableCredits()
-                                                                          .toString(),
+                                                                      text:
+                                                                          '${controller.availableCredits().toString()}',
                                                                       style:
                                                                           TextStyle(
                                                                         fontFamily:

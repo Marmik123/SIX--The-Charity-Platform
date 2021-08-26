@@ -29,7 +29,7 @@ class QrScreenView extends GetView<QrScreenController> {
                   icon: const Icon(Icons.arrow_back),
                   color: AppColors.k033660,
                   onPressed: () {
-                    controller.qrCtrl.dispose();
+                    controller.qrCtrl?.dispose();
                     Get.back<void>();
                   },
                 ),
