@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:six/app/ui/components/circular_progress_indicator.dart';
+import 'package:six/app/data/config/app_colors.dart';
 
 Widget cacheImage({
   required double height,
@@ -12,10 +12,15 @@ Widget cacheImage({
     imageUrl: url,
     height: height,
     width: width,
-    fit: BoxFit.fill,
+    fit: BoxFit.scaleDown,
     errorWidget: (context, url, dynamic error) => const Icon(Icons.error),
     placeholder: (context, url) {
-      return Center(child: buildLoader());
+      return Center(
+          child: const Icon(
+        Icons.person,
+        color: AppColors.k033660,
+        size: 35,
+      ));
     },
   );
 }

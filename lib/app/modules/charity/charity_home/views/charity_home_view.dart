@@ -145,67 +145,72 @@ class CharityHome extends StatelessWidget {
                             borderRadius: BorderRadius.circular(50.r),
                           ),
                           child: Center(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                Text(
-                                  'Available Credits',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy',
-                                    fontSize: 50.sp,
-                                    fontStyle: FontStyle.normal,
-                                    color: AppColors.kffffff,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                                SizedBox(
-                                  width: 223.w,
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                            child: FittedBox(
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.only(left: 61.w, right: 51.w),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
-                                      '\$',
+                                      'Available Credits',
                                       style: TextStyle(
                                         fontFamily: 'Gilroy',
-                                        fontSize: 60.sp,
+                                        fontSize: 50.sp,
                                         fontStyle: FontStyle.normal,
                                         color: AppColors.kffffff,
-                                        fontWeight: FontWeight.w400,
+                                        fontWeight: FontWeight.w500,
                                       ),
+                                      textAlign: TextAlign.center,
                                     ),
-                                    Text(
-                                      ctrl.availableCredits(),
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy',
-                                        fontSize: 60.sp,
-                                        fontStyle: FontStyle.normal,
+                                    SizedBox(
+                                      width: 153.w,
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '\$',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy',
+                                            fontSize: 60.sp,
+                                            fontStyle: FontStyle.normal,
+                                            color: AppColors.kffffff,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        Text(
+                                          ctrl.availableCredits(),
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy',
+                                            fontSize: 60.sp,
+                                            fontStyle: FontStyle.normal,
+                                            color: AppColors.kffffff,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        creditsCtrl.assignToAvailProgCredit();
+                                        creditsCtrl.disableLeading(false);
+                                        Get.toNamed<void>('/available-credits',
+                                            arguments: 'Charity');
+                                      },
+                                      child: const Icon(
+                                        Icons.keyboard_arrow_right_sharp,
                                         color: AppColors.kffffff,
-                                        fontWeight: FontWeight.w700,
+                                        size: 25,
                                       ),
-                                    ),
+                                    )
                                   ],
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    creditsCtrl.assignToAvailProgCredit();
-                                    creditsCtrl.disableLeading(false);
-                                    Get.toNamed<void>('/available-credits',
-                                        arguments: 'Charity');
-                                  },
-                                  child: const Icon(
-                                    Icons.keyboard_arrow_right_sharp,
-                                    color: AppColors.kffffff,
-                                    size: 25,
-                                  ),
-                                )
-                              ],
+                              ),
                             ),
                           ),
                         ),

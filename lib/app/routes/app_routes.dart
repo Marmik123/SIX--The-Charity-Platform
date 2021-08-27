@@ -36,6 +36,7 @@ abstract class Routes {
   static const WEB_VIEW = _Paths.WEB_VIEW;
   static const AVAILABLE_CREDITS_SW = _Paths.AVAILABLE_CREDITS_SW;
   static const TERMS_CONDITIONS = _Paths.TERMS_CONDITIONS;
+  static const STATIC_PAGES = _Paths.STATIC_PAGES;
 }
 
 abstract class _Paths {
@@ -72,4 +73,5 @@ abstract class _Paths {
   static const WEB_VIEW = '/web-view';
   static const AVAILABLE_CREDITS_SW = '/available-credits-sw';
   static const TERMS_CONDITIONS = '/terms-conditions';
+  static const STATIC_PAGES = '/static-pages';
 }

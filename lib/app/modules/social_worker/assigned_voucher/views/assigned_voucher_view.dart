@@ -151,48 +151,65 @@ class AssignedVoucherView extends GetView<AssignedVoucherController> {
           ],
         ),
         h(50.h),
-        Obx(() => ctrl.filterLoading()
-            ? buildLoader()
-            : ListView.separated(
-                shrinkWrap: true,
-                physics: const ClampingScrollPhysics(),
-                padding: const EdgeInsets.only(left: 15),
-                itemBuilder: (context, index) {
-                  var expiryDate = ctrl.getDate(index);
-                  return voucherCard(
-                    title:
-                        ctrl.assignedVouchers[index].name ?? 'NTUC Fairprice',
-                    imgUrl: ctrl.assignedVouchers[index].voucher!['icon_url'] ==
-                            null
-                        ? 'https://picsum.photos/200/300'
-                        : ctrl.assignedVouchers[index].voucher?['icon_url']
-                                .toString() ??
-                            'https://picsum.photos/200/300',
-                    terms: ctrl.assignedVouchers[index].voucher?['terms']
-                            .toString() ??
-                        '-',
-                    amount: ctrl.assignedVouchers[index].amount ?? 0,
-                    whichScreen: 'Assign Voucher',
-                    voucherCode:
-                        ctrl.assignedVouchers[index].voucherId ?? '15015403',
-                    date: expiryDate ?? '1, Nov 2021',
-                    onTap: () {},
-                    voucherState: ctrl.checkIsExpired(index)
-                        ? VoucherState.expired
-                        : (ctrl.assignedVouchers[index].isActive ?? false
-                            ? VoucherState.redeemed
-                            : VoucherState.active),
-                    btnText: ctrl.checkIsExpired(index)
-                        ? 'Expired Voucher'
-                        : (ctrl.assignedVouchers[index].isActive ?? false
-                            ? 'Already Redeemed'
-                            : 'Active Voucher'),
-                    isQRScreen: false,
-                  );
-                },
-                separatorBuilder: (context, index) => h(1.h),
-                itemCount: ctrl.assignedVouchers.length,
-              )),
+        Obx(() => ctrl.isLoading()
+            ? Center(child: buildLoader())
+            : ctrl.filterLoading()
+                ? buildLoader()
+                : ListView.separated(
+                    shrinkWrap: true,
+                    physics: const ClampingScrollPhysics(),
+                    padding: const EdgeInsets.only(left: 15),
+                    itemBuilder: (context, index) {
+                      var expiryDate = ctrl.getDate(index);
+                      if (ctrl.assignedVouchers[index].voucher?['user'] !=
+                              null &&
+                          ctrl.assignedVouchers[index].voucher?['user']
+                                  ['user_metadata'] !=
+                              null &&
+                          ctrl.assignedVouchers[index].voucher?['user']
+                                  ['user_metadata']['entity_name'] !=
+                              null) {
+                        controller.title(ctrl.assignedVouchers[index]
+                            .voucher?['user']['user_metadata']['entity_name']
+                            .toString());
+                      } else {
+                        controller.title('-');
+                      }
+                      return voucherCard(
+                          title: controller.title(),
+                          imgUrl: ctrl.assignedVouchers[index]
+                                      .voucher!['icon_url'] ==
+                                  null
+                              ? 'https://picsum.photos/200/300'
+                              : ctrl.assignedVouchers[index]
+                                      .voucher?['icon_url']
+                                      .toString() ??
+                                  'https://picsum.photos/200/300',
+                          terms:
+                              '${ctrl.assignedVouchers[index].voucher?['terms'] ?? '-'}',
+                          amount: ctrl.assignedVouchers[index].amount ?? 0,
+                          whichScreen: 'Assign Voucher',
+                          voucherCode: ctrl.assignedVouchers[index].voucherId ??
+                              '15015403',
+                          date: expiryDate ?? '1, Nov 2021',
+                          onTap: () {},
+                          voucherState: ctrl.checkIsExpired(index)
+                              ? VoucherState.expired
+                              : (ctrl.assignedVouchers[index].isActive ?? false
+                                  ? VoucherState.redeemed
+                                  : VoucherState.active),
+                          btnText: ctrl.checkIsExpired(index)
+                              ? 'Expired Voucher'
+                              : (ctrl.assignedVouchers[index].isActive ?? false
+                                  ? 'Already Redeemed'
+                                  : 'Active Voucher'),
+                          isQRScreen: false,
+                          isRedeemed:
+                              ctrl.assignedVouchers[index].isRedeemed ?? false);
+                    },
+                    separatorBuilder: (context, index) => h(1.h),
+                    itemCount: ctrl.assignedVouchers.length,
+                  )),
       ],
     );
   }

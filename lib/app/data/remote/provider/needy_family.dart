@@ -57,4 +57,26 @@ class NeedyProvider {
       return <AvailableVouchers>[];
     }
   }
+
+  static Future<List<AvailableVouchers>> getFilterAssignedVouchers(
+      {required String? categoryId,
+      required String? skip,
+      required String? type,
+      required String? limit}) async {
+    var response = await APIService.get(
+      path:
+          '/v1/auth/beneficiary-login-assigned-filter-voucher-list/$categoryId/$type/$skip/$limit',
+    );
+    if (response?.statusCode == 200) {
+      logI('######Filter Needy Vouchers########');
+      logI(response?.data!['data']);
+      var vouchers = response?.data!['data'] as List<dynamic>;
+      logI(vouchers);
+      return List<AvailableVouchers>.from(vouchers.map<AvailableVouchers>(
+          (dynamic e) => AvailableVouchers.fromMap(e as Map<String, dynamic>)));
+    } else {
+      appSnackbar(message: 'Error');
+      return <AvailableVouchers>[];
+    }
+  }
 }

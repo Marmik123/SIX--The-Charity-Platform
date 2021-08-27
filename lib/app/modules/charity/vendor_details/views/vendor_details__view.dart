@@ -724,7 +724,7 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                                                             () {
                                                                           Get.to<void>(() =>
                                                                               VoucherDetailsView(
-                                                                                voucherIndex: index,
+                                                                                voucher: controller.availableVouchers[index],
                                                                               ));
                                                                         },
                                                                         width:

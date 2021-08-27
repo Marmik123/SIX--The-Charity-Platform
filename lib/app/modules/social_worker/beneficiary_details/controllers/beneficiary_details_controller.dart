@@ -56,9 +56,7 @@ class BeneficiaryDetailsController extends GetxController {
     }
     getNotes();
     //logWTF(beneficiary.toJson());
-    assignConnectedOrg();
     assignBeneDashboardData();
-    getAssignedVouchers();
   }
 
   Future<void> addNote() async {
@@ -97,16 +95,6 @@ class BeneficiaryDetailsController extends GetxController {
     }
   }
 
-  Future<void> getAssignedVouchers() async {
-    isLoading(true);
-    assignedVouchers(await SocialWorkerProvider.getAssignedVouchers(
-      needyFamilyId: beneficiary.id,
-      skip: skip().toString(),
-      limit: limit().toString(),
-    ));
-    isLoading(false);
-  }
-
   Future<void> getFilterAssignedVouchers(
     String type,
   ) async {
@@ -125,6 +113,8 @@ class BeneficiaryDetailsController extends GetxController {
     beneDashboard(
         await SocialWorkerProvider.getBeneDashBoardData(beneficiary.id));
     // logI(beneDashboard);
+    await getAssignedVouchers();
+    await assignConnectedOrg();
     isLoading(false);
   }
 
@@ -139,13 +129,11 @@ class BeneficiaryDetailsController extends GetxController {
   }
 
   Future<void> assignConnectedOrg() async {
-    isLoading(true);
     connectedOrg(await SocialWorkerProvider.getBeneficiaryOrganization(
       needyFamilyId: beneficiary.id,
       skip: skip().toString(),
       limit: limit().toString(),
     ));
-    isLoading(false);
   }
 
   void dataScrollController() {
@@ -158,6 +146,14 @@ class BeneficiaryDetailsController extends GetxController {
         titleVisible(false);
       }
     }
+  }
+
+  Future<void> getAssignedVouchers() async {
+    assignedVouchers(await SocialWorkerProvider.getAssignedVouchers(
+      needyFamilyId: beneficiary.id,
+      skip: skip().toString(),
+      limit: limit().toString(),
+    ));
   }
 
   @override

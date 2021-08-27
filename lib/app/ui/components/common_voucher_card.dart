@@ -32,6 +32,10 @@ Widget voucherCard({
   required String btnText,
   required String whichScreen,
   required bool isQRScreen,
+  bool? isRedeemed,
+  bool? dottedIsBlue,
+  bool?
+      closeDialog, // Close the voucher detail dialog which is coming on scanning QR.
   double? totalAvailable,
   int index = 0,
   DistributeVoucherController? voucherCtrlSW,
@@ -51,7 +55,11 @@ Widget voucherCard({
         color: AppColors.kffffff,
       ),*/
       Container(
-        height: whichScreen == 'QRScreen' ? 743.h : 646.h,
+        height: whichScreen == 'QRScreen'
+            ? 743.h
+            : whichScreen == 'redeemedVoucher'
+                ? 750.w
+                : 646.h,
         child: whichScreen == 'QRScreen' || whichScreen == 'History'
             ? CustomPaint(
                 size: Size(
@@ -223,15 +231,17 @@ Widget voucherCard({
                     (1005.w * 0.6755980861244019)
                         .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
                 painter: VoucherContainer(voucherState == VoucherState.active
-                    ? AppColors.kE3FCFF
+                    ? dottedIsBlue ?? false
+                        ? AppColors.kE3FCFF
+                        : AppColors.kE7FFED
                     : voucherState == VoucherState.redeemed
-                        ? AppColors.kFFF5E7
+                        ? AppColors.kE0F8FF
                         : AppColors.kFFE7E7),
                 child: Padding(
                   padding: const EdgeInsets.only(right: 18.0),
                   child: Container(
                     width: 1005.w,
-                    height: 150.h,
+                    height: whichScreen == 'redeemedVoucher' ? 350.h : 150.h,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -394,7 +404,9 @@ Widget voucherCard({
             ? 318.h
             : whichScreen == 'History'
                 ? 260.w
-                : 220.h,
+                : whichScreen == 'redeemedVoucher'
+                    ? 270.h
+                    : 220.h,
         left: whichScreen == 'QRScreen'
             ? 81.w
             : whichScreen == 'Social Worker'
@@ -414,7 +426,7 @@ Widget voucherCard({
           color: voucherState == VoucherState.active
               ? AppColors.k14A1BE
               : voucherState == VoucherState.redeemed
-                  ? AppColors.kEF9104
+                  ? AppColors.k0B92B8
                   : AppColors.kEF0404,
         ),
       ),
@@ -426,7 +438,9 @@ Widget voucherCard({
                 : whichScreen == 'Assign Voucher' ||
                         whichScreen == 'Social Worker'
                     ? 45.w
-                    : 45.h, //For Needy Family voucher card
+                    : whichScreen == 'redeemedVoucher'
+                        ? 100.h
+                        : 45.h, //For Needy Family voucher card
         right: whichScreen == 'QRScreen'
             ? 86.w
             : whichScreen == 'Social Worker'
@@ -443,11 +457,11 @@ Widget voucherCard({
               child: DottedBorder(
                 radius: Radius.circular(40.r),
                 color: voucherState == VoucherState.active
-                    ? UserProvider.role == 'needy_family'
-                        ? AppColors.k11C502
-                        : AppColors.k14A1BE
+                    ? dottedIsBlue ?? false
+                        ? AppColors.k14A1BE
+                        : AppColors.k11C502
                     : voucherState == VoucherState.redeemed
-                        ? AppColors.kEF9104
+                        ? AppColors.k0B92B8
                         : AppColors.kff0000,
                 strokeCap: StrokeCap.round,
                 dashPattern: const [3, 3],
@@ -456,11 +470,11 @@ Widget voucherCard({
                 child: Container(
                   decoration: BoxDecoration(
                       color: voucherState == VoucherState.active
-                          ? UserProvider.role == 'needy_family'
-                              ? AppColors.kE7FFED
-                              : AppColors.kD7FBFF
+                          ? dottedIsBlue ?? false
+                              ? AppColors.kD7FBFF
+                              : AppColors.kE7FFED
                           : voucherState == VoucherState.redeemed
-                              ? AppColors.kFFEFD7
+                              ? AppColors.kE0F8FF
                               : AppColors.kFFD7D7,
                       /*border: Border.all(
                         color: AppColors.kD7FBFF,
@@ -483,11 +497,9 @@ Widget voucherCard({
                             fontSize: whichScreen == 'History' ? 42.sp : 50.sp,
                             fontStyle: FontStyle.normal,
                             color: voucherState == VoucherState.active
-                                ? UserProvider.role == 'needy_family'
-                                    ? AppColors.k11C502
-                                    : AppColors.k13A89E
+                                ? AppColors.k11C502
                                 : voucherState == VoucherState.redeemed
-                                    ? AppColors.kEF9104
+                                    ? AppColors.k0B92B8
                                     : AppColors.kEF0404,
                             fontWeight: FontWeight.w500,
                           ),
@@ -595,17 +607,23 @@ Widget voucherCard({
                 ? const SizedBox.shrink()
                 : TextButton(
                     onPressed: () {
+                      if (closeDialog == true) {
+                        Get.back<void>();
+                      }
                       Get.to<void>(() => VoucherTerms(
                             name: title,
                             amount: amount,
                             date: date,
                             terms: terms,
                             iconUrl: imgUrl,
+                            isRedeemed: isRedeemed,
                           ));
                     },
                     style: ButtonStyle(
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      padding: EdgeInsets.zero.msp,
+                      padding: whichScreen == 'redeemedVoucher'
+                          ? const EdgeInsets.only(bottom: 5).msp
+                          : EdgeInsets.zero.msp,
                       overlayColor: Colors.transparent.msp,
                     ),
                     child: Text(

@@ -10,6 +10,7 @@ import 'package:six/app/data/remote/provider/social_worker.dart';
 import 'package:six/app/data/remote/provider/voucher_category.dart';
 import 'package:six/app/modules/charity/available_vendors/controllers/available_vendors_controller.dart';
 import 'package:six/app/modules/charity/charity_home/controllers/charity_home_controller.dart';
+import 'package:six/app/modules/charity/vendor_details/controllers/vendor_details_controller.dart';
 import 'package:six/app/modules/needy_family/available_credits/controllers/available_credits_controller.dart';
 import 'package:six/app/modules/social_worker/social_home/controllers/social_home_controller.dart';
 import 'package:six/app/ui/components/app_snackbar.dart';
@@ -34,8 +35,6 @@ class PurchaseController extends GetxController {
       Get.put(AvailableCreditsController());
   AvailableVendorsController availVendorCtrl =
       Get.put(AvailableVendorsController());
-  /*VendorDetailsController vendorDetailsCtrl =
-      Get.put(VendorDetailsController());*/
   SocialHomeController socialCtrl = Get.put(SocialHomeController());
 
   final amountController = MoneyMaskedTextController(
@@ -247,10 +246,15 @@ class PurchaseController extends GetxController {
         ],
       );
       if (success == true) {
-        isLoading(false);
+        var vendorDetailsCtrl = Get.find<VendorDetailsController>();
+        await vendorDetailsCtrl.assignAvailVouchers();
         await socialCtrl.assignDashboardData();
         await socialCtrl.assignHistoryDashData();
         //await vendorDetailsCtrl.assignAvailVouchers();
+        isLoading(false);
+        if (vendorDetailsCtrl.availableVouchers.isEmpty) {
+          Get.back<void>();
+        }
         var purchasedCategory =
             voucherCategory[selectCategory!()].name.toString();
         unawaited(dialog(

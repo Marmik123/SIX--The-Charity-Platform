@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/models/available_vouchers.dart';
@@ -14,16 +15,27 @@ class VoucherController extends GetxController {
   RxInt limit = 1000.obs;
   RxBool isLoading = false.obs;
   RxString categoryId = ''.obs;
+  RxString name = ''.obs;
+  RxInt voucherFilterIndex = 0.obs;
   RxBool isVoucherLoading = false.obs;
-
+  RxBool filterLoading = false.obs;
+  final GlobalKey<PopupMenuButtonState<int>> key = GlobalKey();
+  RxList<String> assignedVoucherFilter = <String>[
+    'All',
+    'Assigned',
+    'Redeemed',
+    'Expired',
+  ].obs;
   @override
   void onInit() {
     super.onInit();
     assignVoucherCatList();
   }
 
-  String? getDate(int index) {
-    var formattedDate = DateTime.parse(vouchers[index].endDate.toString());
+  String? getDate({required int index, bool? isRedeemed = false}) {
+    var formattedDate = isRedeemed!
+        ? DateTime.parse(vouchers[index].redeemedDate.toString())
+        : DateTime.parse(vouchers[index].endDate.toString());
     var date = formattedDate.day;
     var year = formattedDate.year;
     var month = assignMonth(formattedDate.month);
@@ -41,6 +53,19 @@ class VoucherController extends GetxController {
     logI(categoryList);
     isLoading(false);
     await assignVoucherList(categoryList[0].id!);
+  }
+
+  Future<void> getFilterAssignedVouchers(
+    String type,
+  ) async {
+    isVoucherLoading(true);
+    vouchers(await NeedyProvider.getFilterAssignedVouchers(
+      categoryId: categoryId(),
+      type: type,
+      skip: skip().toString(),
+      limit: limit().toString(),
+    ));
+    isVoucherLoading(false);
   }
 
   bool checkIsExpired(int index) {

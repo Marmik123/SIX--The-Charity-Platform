@@ -17,6 +17,7 @@ class AvailableVouchers {
     this.startDate,
     this.voucherId,
     this.endDate,
+    this.redeemedDate,
     this.validity,
     this.isPaid,
     this.isFeature,
@@ -24,6 +25,7 @@ class AvailableVouchers {
     this.deleted,
     this.total,
     this.voucher,
+    this.isRedeemed,
     this.userVoucherData,
   });
 
@@ -43,10 +45,12 @@ class AvailableVouchers {
   dynamic thumbIconUrl;
   DateTime? startDate;
   DateTime? endDate;
+  DateTime? redeemedDate;
   String? validity;
   bool? isPaid;
   bool? isFeature;
   bool? isActive;
+  bool? isRedeemed;
   bool? deleted;
   Map<String, dynamic>? voucher;
   Map<String, dynamic>? userVoucherData;
@@ -64,6 +68,7 @@ class AvailableVouchers {
     double? soldCount,
     String? iconName,
     String? iconUrl,
+    DateTime? redeemedDate,
     dynamic thumbIconName,
     dynamic thumbIconUrl,
     DateTime? startDate,
@@ -72,6 +77,7 @@ class AvailableVouchers {
     bool? isPaid,
     bool? isFeature,
     bool? isActive,
+    bool? isRedeemed,
     bool? deleted,
     Map<String, dynamic>? voucher,
     Map<String, dynamic>? userVoucherData,
@@ -84,6 +90,8 @@ class AvailableVouchers {
         voucherId: voucherId ?? this.voucherId,
         instructions: instructions ?? this.instructions,
         amount: amount ?? this.amount,
+        isRedeemed: isRedeemed ?? this.isRedeemed,
+        redeemedDate: redeemedDate ?? this.redeemedDate,
         availableCount: availableCount ?? this.availableCount,
         soldCount: soldCount ?? this.soldCount,
         iconName: iconName ?? this.iconName,
@@ -110,12 +118,15 @@ class AvailableVouchers {
   factory AvailableVouchers.fromMap(Map<String, dynamic> json) =>
       AvailableVouchers(
         id: json['id'] == null ? null : json['id'] as String,
-        voucherId: (json['voucher_id'] ?? json['redeem_code']) as String?,
+        voucherId: (json['redeem_code'] ?? json['voucher_id']) as String?,
         name: json['name'] == null ? null : json['name'] as String,
         description:
             json['description'] == null ? null : json['description'] as String,
         terms: json['terms'] == null ? null : json['terms'] as String,
         instructions: json['instructions'],
+        redeemedDate: json['redeem_date'] == null
+            ? null
+            : DateTime.tryParse(json['redeem_date'] as String),
         amount: json['amount'] == null
             ? null
             : double.tryParse(json['amount'].toString()),
@@ -134,18 +145,26 @@ class AvailableVouchers {
         thumbIconName: json['thumb_icon_name'],
         thumbIconUrl: json['thumb_icon_url'],
         startDate: json['start_date'] == null
-            ? DateTime.parse(json['user_start_date'] as String)
-            : DateTime.parse(json['start_date'] as String),
+            ? (json['user_start_date'] != null
+                ? DateTime.tryParse(json['user_start_date'] as String)
+                : null)
+            : DateTime.tryParse(json['start_date'] as String),
         endDate: json['end_date'] == null
-            ? DateTime.parse(json['user_end_date'] as String)
-            : DateTime.parse(json['end_date'] as String),
+            ? (json['user_end_date'] != null
+                ? DateTime.tryParse(json['user_end_date'] as String)
+                : json['date'] != null
+                    ? DateTime.tryParse(json['date'] as String)
+                    : null)
+            : DateTime.tryParse(json['end_date'] as String),
         validity: json['validity'] == null ? null : json['validity'] as String,
         isPaid: json['is_paid'] == null ? null : json['is_paid'] as bool,
         isFeature:
             json['is_feature'] == null ? null : json['is_feature'] as bool,
         isActive: json['is_active'] == null
-            ? json['is_redeemed'] as bool
+            ? (json['is_redeemed'] == null ? null : json['is_redeemed'] as bool)
             : json['is_active'] as bool,
+        isRedeemed:
+            json['is_redeemed'] == null ? null : json['is_redeemed'] as bool,
         deleted: json['_deleted'] == null ? null : json['_deleted'] as bool,
         voucher: json['voucher'] == null
             ? null
@@ -163,7 +182,9 @@ class AvailableVouchers {
         'voucher_id': voucherId,
         'instructions': instructions,
         'amount': amount,
+        'is_redeemed': isRedeemed,
         'total': total,
+        'redeem_date': redeemedDate,
         'available_count': availableCount,
         'sold_count': soldCount,
         'icon_name': iconName,

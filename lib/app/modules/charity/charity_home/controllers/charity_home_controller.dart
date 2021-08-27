@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/data/models/graph_category_data.dart';
@@ -104,8 +105,20 @@ class CharityHomeController extends GetxController {
   Future<void> assignDashboardData() async {
     dashboardData = await GraphDataProvider.getDashboardData();
     logI('@@@$dashboardData');
-    availableCredits(dashboardData?['availableCreditData'].toString() ?? '');
-    totalDonation(dashboardData?['totalDonation'].toString() ?? '');
+    final moneyFormat = NumberFormat('#,##0.00', 'en_US');
+
+    var availableCreds = moneyFormat.format(double.tryParse(dashboardData?[
+                'availableCreditData'] ==
+            null
+        ? '-'
+        : '${dashboardData?['availableCreditData'].toStringAsFixed(2) ?? '-'}'));
+    logI(availableCreds);
+    var totalDonationReceived = moneyFormat.format(double.tryParse(
+        dashboardData?['totalDonation'] == null
+            ? '-'
+            : '${dashboardData?['totalDonation'].toStringAsFixed(2) ?? '-'}'));
+    availableCredits(availableCreds);
+    totalDonation(totalDonationReceived);
     totalContributors(dashboardData?['totalContributors'].toString() ?? '');
     totalFamilyCount(dashboardData?['totalFamilyCount'].toString() ?? '');
   }

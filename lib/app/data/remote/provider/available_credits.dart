@@ -23,4 +23,21 @@ class AvailableCreditsProvider {
       return <GraphCategoryData>[];
     }
   }
+
+  static Future<List<GraphCategoryData>> getTotalAvailableCreditsNeedy() async {
+    var response = await APIService.get(
+      path: '/v1/auth/beneficiary-charity-available-credits',
+    );
+    if (response?.statusCode == 200) {
+      logI('######Avail Needy Credits########');
+      logI(response?.data!['data']);
+      var availCredits = response?.data!['data'] as List<dynamic>;
+      return List<GraphCategoryData>.from(availCredits.map<GraphCategoryData>(
+          (dynamic e) => GraphCategoryData.fromJson(
+              e as Map<String, dynamic>, AppColors.k13A89E)));
+    } else {
+      Get.snackbar<void>('Error in Graph Data', 'Please Try Again.');
+      return <GraphCategoryData>[];
+    }
+  }
 }

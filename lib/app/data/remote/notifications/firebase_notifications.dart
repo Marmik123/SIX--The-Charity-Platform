@@ -1,9 +1,9 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:six/app/data/remote/notifications/local_notifications.dart';
+/*import 'package:six/app/data/remote/notifications/local_notifications.dart';
+import 'dart:convert';*/
 
 FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
@@ -26,11 +26,11 @@ void notificationActions({
     requestPermissions();
   }
 
-  if (localNotification) {
+/*  if (localNotification) {
     FlutterLocalNotificationHelper().initializeSettings(
       actionCallback: localNotificationAction,
     );
-  }
+  }*/
 
   _firebaseMessaging.getInitialMessage().then((message) {
     action!(message);
@@ -38,13 +38,13 @@ void notificationActions({
 
   FirebaseMessaging.onMessage.listen((message) {
     action!(message);
-    if (localNotification) {
+    /* if (localNotification) {
       FlutterLocalNotificationHelper().showNotificationWithDefaultSound(
         title: message.notification?.title,
         body: message.notification?.body,
         payload: jsonEncode(message.data),
       );
-    }
+    }*/
   });
 
   FirebaseMessaging.onMessageOpenedApp.listen((message) {
