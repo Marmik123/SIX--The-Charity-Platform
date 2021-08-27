@@ -19,8 +19,6 @@ Future<void> dialog({
   String? message,
   Future<void>? onTapRedeemNow,
 }) {
-  var date = getDate('${redeemVoucherData?['user_end_date'] ?? '-'}');
-
   return redeemDialog!
       ? Get.dialog(
           BackdropFilter(
@@ -63,7 +61,9 @@ Future<void> dialog({
                               closeDialog: redeemDialog,
                               voucherCode:
                                   '${redeemVoucherData?['redeem_code'] ?? '-'}',
-                              date: date ?? '-',
+                              date: getDate(
+                                      '${redeemVoucherData?['user_end_date'] ?? '-'}') ??
+                                  '-',
                               onTap: () {},
                               btnText: 'Active Voucher',
                               voucherState: VoucherState.active,
@@ -77,6 +77,7 @@ Future<void> dialog({
                             right: 25,
                             child: roundedButton(
                               text: 'Redeem Now',
+                              isLoading: success,
                               onTap: () {
                                 var vendorRedeemCtrl =
                                     Get.find<VendorRedeemController>();

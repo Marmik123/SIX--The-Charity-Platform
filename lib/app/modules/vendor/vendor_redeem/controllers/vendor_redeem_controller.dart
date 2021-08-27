@@ -42,11 +42,16 @@ class VendorRedeemController extends GetxController {
         await VendorProvider.redeemVoucherByRedeemCode(redeemCode: redeemCode);
     redeemLoading(false);
     logI(success);
+    Get.back<void>();
     if (success) {
       redeemCodeCtrl.clear();
       unawaited(dialog(
         success: true,
         message: 'Voucher has been successfully redeemed.',
+      ));
+    } else {
+      unawaited(dialog(
+        success: false,
       ));
     }
   }

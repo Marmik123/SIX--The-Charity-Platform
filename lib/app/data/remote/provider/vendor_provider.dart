@@ -57,7 +57,7 @@ class VendorProvider {
     var response = await APIService.post(
       path: '/v1/auth/redeem-voucher-from-code',
       data: <String, dynamic>{
-        'redeem_code': 'test305',
+        'redeem_code': redeemCode,
       },
     );
     logW(response?.statusCode);

@@ -9,6 +9,7 @@ import 'package:six/app/modules/vendor/qr_screen/controllers/qr_screen_controlle
 import 'package:six/app/modules/vendor/vendor_home/controllers/vendor_home_controller.dart';
 import 'package:six/app/modules/vendor/vendor_redeem/controllers/vendor_redeem_controller.dart';
 import 'package:six/app/routes/app_pages.dart';
+import 'package:six/app/ui/components/app_snackbar.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 import 'package:six/r.g.dart';
 
@@ -252,20 +253,26 @@ class VendorRedeemView extends GetView<VendorRedeemController> {
                   SizedBox(
                     height: 120.h,
                   ),
-                  roundedButton(
-                    text: 'Redeem Now',
-                    onTap: () {
-                      // qrCtrl.qrScanned.value = true;
-                      if (controller.redeemCodeCtrl.text.isNotEmpty) {
-                        controller.redeemVoucherByRedeemCode(
-                            controller.redeemCodeCtrl.text.trim());
-                      }
-                      //controller.redeemNow.value = true;
-                    },
-                    width: 500.w,
-                    height: 150.h,
-                    fontSize: 50.sp,
-                  ),
+                  Obx(() => roundedButton(
+                        text: 'Redeem Now',
+                        isLoading: controller.redeemLoading(),
+                        onTap: () {
+                          // qrCtrl.qrScanned.value = true;
+                          if (controller.redeemCodeCtrl.text.isNotEmpty) {
+                            controller.redeemVoucherByRedeemCode(
+                                controller.redeemCodeCtrl.text.trim());
+                          } else {
+                            appSnackbar(
+                              message: 'Please enter voucher code',
+                              snackbarState: SnackbarState.warning,
+                            );
+                          }
+                          //controller.redeemNow.value = true;
+                        },
+                        width: 500.w,
+                        height: 150.h,
+                        fontSize: 50.sp,
+                      )),
                 ],
               ),
             ),
