@@ -7,82 +7,95 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/modules/vendor/vendor_home/controllers/vendor_home_controller.dart';
 import 'package:six/app/modules/vendor/vendor_redeem/controllers/vendor_redeem_controller.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../controllers/qr_screen_controller.dart';
 
 class QrScreenView extends GetView<QrScreenController> {
   final VendorRedeemController vendorRCtrl = Get.put(VendorRedeemController());
   final VendorHomeController vendorHome = Get.put(VendorHomeController());
+
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Stack(
-          children: [
-            Scaffold(
-              extendBodyBehindAppBar: true,
-              backgroundColor: Colors.transparent,
-              appBar: AppBar(
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                toolbarHeight: 80,
-                centerTitle: true,
-                leading: IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  color: AppColors.k033660,
-                  onPressed: () {
-                    controller.qrCtrl?.dispose();
-                    Get.back<void>();
-                  },
-                ),
-                title: Text(
-                  'Scan',
-                  style: TextStyle(
-                    fontFamily: 'Gilroy',
-                    fontSize: 50.sp,
-                    fontStyle: FontStyle.normal,
-                    color: AppColors.kffffff,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              body: controller.permissionGiven.value
-                  ? _buildQrView(context)
-                  : const CircularProgressIndicator(),
-            ),
-            controller.cannotDetect.value
-                ? Positioned(
-                    top: 300.h,
-                    child: GestureDetector(
-                      onTap: () {
-                        controller.cannotDetect.value = false;
+    return GetBuilder<QrScreenController>(
+      initState: (state) {
+        controller.getCameraPermission().then((status) {
+          if (status.isGranted) {
+            controller.permissionGiven(true);
+          }
+        });
+      },
+      builder: (_) {
+        return Obx(() => Stack(
+              children: [
+                Scaffold(
+                  extendBodyBehindAppBar: true,
+                  backgroundColor: Colors.transparent,
+                  appBar: AppBar(
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                    toolbarHeight: 80,
+                    centerTitle: true,
+                    leading: IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      color: AppColors.k033660,
+                      onPressed: () {
+                        controller.qrCtrl?.dispose();
+                        Get.back<void>();
                       },
-                      child: Material(
-                        color: Colors.transparent,
-                        elevation: 0,
-                        child: Container(
-                          height: 160.h,
-                          width: 1.sw,
-                          color: AppColors.kFF5555,
-                          child: Center(
-                            child: Text(
-                              'Sorry! We can’t found data.Please scan corrected\nQR Code',
-                              style: TextStyle(
-                                fontFamily: 'Gilroy',
-                                fontSize: 40.sp,
-                                fontStyle: FontStyle.normal,
-                                color: AppColors.kffffff,
-                                fontWeight: FontWeight.w500,
+                    ),
+                    title: Text(
+                      'Scan',
+                      style: TextStyle(
+                        fontFamily: 'Gilroy',
+                        fontSize: 50.sp,
+                        fontStyle: FontStyle.normal,
+                        color: AppColors.kffffff,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  body: controller.permissionGiven.value
+                      ? _buildQrView(context)
+                      : const CircularProgressIndicator(),
+                ),
+                controller.cannotDetect.value
+                    ? Positioned(
+                        top: 300.h,
+                        child: GestureDetector(
+                          onTap: () {
+                            controller.cannotDetect.value = false;
+                          },
+                          child: Material(
+                            color: Colors.transparent,
+                            elevation: 0,
+                            child: Container(
+                              height: 160.h,
+                              width: 1.sw,
+                              color: AppColors.kFF5555,
+                              child: Center(
+                                child: Text(
+                                  'Sorry! We can’t found data.Please scan corrected\nQR Code',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy',
+                                    fontSize: 40.sp,
+                                    fontStyle: FontStyle.normal,
+                                    color: AppColors.kffffff,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                  )
-                : Container(),
-          ],
-        ));
+                      )
+                    : Container(),
+              ],
+            ));
+      },
+    );
   }
 
   /* controller.qrScanned.value

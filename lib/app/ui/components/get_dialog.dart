@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/modules/vendor/vendor_redeem/controllers/vendor_redeem_controller.dart';
 import 'package:six/app/ui/components/action_dialog.dart';
 import 'package:six/app/ui/components/common_voucher_card.dart';
@@ -65,32 +66,49 @@ Future<void> dialog({
                                       '${redeemVoucherData?['user_end_date'] ?? '-'}') ??
                                   '-',
                               onTap: () {},
-                              btnText: 'Active Voucher',
-                              voucherState: VoucherState.active,
+                              btnText: (redeemVoucherData?['is_redeemed']
+                                      as bool)
+                                  ? 'Already Redeemed'
+                                  : isExpired(
+                                          redeemVoucherData?['user_end_date']
+                                              as String)
+                                      ? 'Voucher Expired'
+                                      : 'Active Voucher',
+                              voucherState: (redeemVoucherData?['is_redeemed']
+                                      as bool)
+                                  ? VoucherState.redeemed
+                                  : isExpired(
+                                          redeemVoucherData?['user_end_date']
+                                              as String)
+                                      ? VoucherState.expired
+                                      : VoucherState.active,
                               isQRScreen: true,
                               terms:
                                   '${redeemVoucherData?['voucher']['terms'] ?? '-'}',
                             ),
                           ),
-                          Positioned(
-                            bottom: -6,
-                            right: 25,
-                            child: roundedButton(
-                              text: 'Redeem Now',
-                              isLoading: success,
-                              onTap: () {
-                                var vendorRedeemCtrl =
-                                    Get.find<VendorRedeemController>();
-                                if (redeemVoucherData?['redeem_code'] != null) {
-                                  vendorRedeemCtrl.redeemVoucherByRedeemCode(
-                                      '${redeemVoucherData?['redeem_code'] ?? '-'}');
-                                }
-                              },
-                              width: 905.w,
-                              height: 150.h,
-                              fontSize: 50.sp,
-                            ),
-                          ),
+                          ((redeemVoucherData?['is_redeemed'] as bool))
+                              ? const SizedBox.shrink()
+                              : Positioned(
+                                  bottom: -6,
+                                  right: 25,
+                                  child: roundedButton(
+                                    text: 'Redeem Now',
+                                    isLoading: success,
+                                    onTap: () {
+                                      var vendorRedeemCtrl =
+                                          Get.find<VendorRedeemController>();
+                                      if (redeemVoucherData?['redeem_code'] !=
+                                          null) {
+                                        vendorRedeemCtrl.redeemVoucherByRedeemCode(
+                                            '${redeemVoucherData?['redeem_code'] ?? '-'}');
+                                      }
+                                    },
+                                    width: 905.w,
+                                    height: 150.h,
+                                    fontSize: 50.sp,
+                                  ),
+                                ),
                         ],
                       ),
                       SizedBox(
@@ -206,4 +224,14 @@ String? getDate(String dateString) {
   var month = assignMonth(formattedDate.month);
   var finalDate = '$date,$month $year';
   return finalDate;
+}
+
+bool isExpired(String? dateTime) {
+  if (dateTime == null) {
+    return false;
+  }
+
+  return (DateTime.tryParse(dateTime!)?.difference(DateTime.now()).inDays ??
+          1) <
+      0;
 }

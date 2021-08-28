@@ -23,12 +23,13 @@ class QrScreenController extends GetxController {
   final count = 0.obs;
   VendorRedeemController vendorRedeemCtrl = Get.find<VendorRedeemController>();
   @override
-  Future<void> onInit() async {
+  void onInit() {
     super.onInit();
-    var status = await _getCameraPermission();
-    if (status.isGranted) {
-      permissionGiven.value = true;
-    }
+    // getCameraPermission().then((status) {
+    //   if (status.isGranted) {
+    //     permissionGiven.value = true;
+    //   }
+    // });
   }
 
   void reassemble() {
@@ -40,9 +41,13 @@ class QrScreenController extends GetxController {
     }
   }
 
-  Future<PermissionStatus> _getCameraPermission() async {
+  Future<PermissionStatus> getCameraPermission() async {
+    if (Platform.isIOS) {
+      return PermissionStatus.granted;
+    }
+
     var status = await Permission.camera.status;
-    print('##$status');
+
     if (!status.isGranted) {
       final result = await Permission.camera.request();
       return result;
