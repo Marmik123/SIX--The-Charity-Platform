@@ -32,7 +32,7 @@ Widget textField({
   TextEditingController? controller,
   GlobalKey<FormState>? formKey,
   bool autofocus = false,
-  TextInputAction textAction = TextInputAction.none,
+  TextInputAction textAction = TextInputAction.done,
   Widget? suffixIcon,
   ValueChanged<String>? onChanged,
 }) {

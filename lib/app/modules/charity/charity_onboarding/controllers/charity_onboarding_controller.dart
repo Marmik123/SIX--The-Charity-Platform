@@ -6,15 +6,15 @@ class CharityOnboardingController extends GetxController {
   //TODO: Implement CharityOnboardingController
   PageController pageController = PageController();
   List<String?> title = [
-    'Dashboard to track\nactivities',
-    'Purchase credits\nfor different categories',
+    'Dashboard to track activities',
+    'Purchase credits for different categories',
     'View Vendor Details',
   ];
 
   List<String?> subTitle = [
-    'Get a holistic view of your donations received and\nspendings on the SIX platform ',
-    'You can buy credits for various categories and\nassign to your social workers',
-    'You can browse through the details of  the available\nvendors for each category',
+    'Get a holistic view of your donations received and spendings on the SIX platform ',
+    'You can buy credits for various categories and assign to your social workers',
+    'You can browse through the details of the available vendors for each category',
   ];
 
   List<String> imageAssetName = [

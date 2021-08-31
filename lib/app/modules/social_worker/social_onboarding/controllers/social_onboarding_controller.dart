@@ -8,15 +8,15 @@ class SocialOnboardingController extends GetxController {
 
   PageController pageController = PageController();
   List<String?> title = [
-    'Track the e-voucher\nactivities of your\nbeneficiaries',
-    'Single Beneficiary View for\naccessing details of all\nbeneficiaries ',
-    'Purchase e-vouchers for\nbeneficiaries',
+    'Track the e-voucher activities of your beneficiaries',
+    'Single Beneficiary View for accessing details of all beneficiaries ',
+    'Purchase e-vouchers for beneficiaries',
   ];
 
   List<String?> subTitle = [
-    'You will be able to view the status of the e-vouchers\nyou assign to the beneficiaries and track if they\nredeem the vouchers before expiry',
-    'Get a holistic view of all your beneficiaries related\ndetails like vouchers assigned, connected\norganizations, personal details',
-    'You can purchase e-vouchers using the credits\nassigned to you by your organization, based on\nthe requirements of the beneficiaries',
+    'You will be able to view the status of the e-vouchers you assign to the beneficiaries and track if they redeem the vouchers before expiry',
+    'Get a holistic view of all your beneficiaries related details like vouchers assigned, connected organizations, personal details',
+    'You can purchase e-vouchers using the credits assigned to you by your organization, based on the requirements of the beneficiaries',
   ];
 
   List<String> imageAssetName = [

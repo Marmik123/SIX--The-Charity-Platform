@@ -7,14 +7,14 @@ class OnboardingScreenController extends GetxController {
   PageController pageController = PageController();
   List<String?> title = [
     'Make a request for help',
-    'Receive e-voucher from\nSocial Worker',
-    'Redeem via QR Code or\nVoucher Code',
+    'Receive e-voucher from Social Worker',
+    'Redeem via QR Code or Voucher Code',
   ];
 
   List<String?> subTitle = [
-    'In an emergency situation, you can also request\nfor e-vouchers for a specific category',
-    'Social Worker will provide you with e-vouchers\nfor various categories based on your\nrequirements',
-    'You can redeem the e-voucher at the participating\nvendor store using a QR code or entering\nthe voucher code',
+    'In an emergency situation, you can also request for e-vouchers for a specific category',
+    'Social Worker will provide you with e-vouchers for various categories based on your requirements',
+    'You can redeem the e-voucher at the participating vendor store using a QR code or entering the voucher code',
   ];
 
   List<String> imageAssetName = [

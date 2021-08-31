@@ -8,6 +8,7 @@ import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/common_voucher_card.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
+import 'package:six/app/utils/main_utils.dart';
 import 'package:six/r.g.dart';
 
 import '../controllers/voucher_controller.dart';
@@ -348,7 +349,9 @@ class VoucherContent extends GetView<VoucherController> {
                                           : 'Redeem Now'),
                                   onTap: () {
                                     if (controller.vouchers[index].isRedeemed ==
-                                        false) {
+                                            false &&
+                                        !isVoucherExpired(controller
+                                            .vouchers[index].endDate)) {
                                       Get.toNamed<void>(
                                         Routes.VOUCHER_REDEMPTION,
                                         arguments:

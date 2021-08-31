@@ -10,6 +10,7 @@ import 'package:six/app/ui/components/action_dialog.dart';
 import 'package:six/app/ui/components/common_voucher_card.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 import 'package:six/app/utils/get_month_name.dart';
+import 'package:six/app/utils/main_utils.dart';
 import 'package:six/r.g.dart';
 
 Future<void> dialog({
@@ -69,15 +70,15 @@ Future<void> dialog({
                               btnText: (redeemVoucherData?['is_redeemed']
                                       as bool)
                                   ? 'Already Redeemed'
-                                  : isExpired(
+                                  : isVoucherExpired(
                                           redeemVoucherData?['user_end_date']
                                               as String)
-                                      ? 'Voucher Expired'
+                                      ? 'Expired Voucher'
                                       : 'Active Voucher',
                               voucherState: (redeemVoucherData?['is_redeemed']
                                       as bool)
                                   ? VoucherState.redeemed
-                                  : isExpired(
+                                  : isVoucherExpired(
                                           redeemVoucherData?['user_end_date']
                                               as String)
                                       ? VoucherState.expired
@@ -224,14 +225,4 @@ String? getDate(String dateString) {
   var month = assignMonth(formattedDate.month);
   var finalDate = '$date,$month $year';
   return finalDate;
-}
-
-bool isExpired(String? dateTime) {
-  if (dateTime == null) {
-    return false;
-  }
-
-  return (DateTime.tryParse(dateTime!)?.difference(DateTime.now()).inDays ??
-          1) <
-      0;
 }

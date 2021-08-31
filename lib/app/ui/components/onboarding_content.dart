@@ -35,39 +35,45 @@ Widget onBoarding(String? title, String? subTitle, int? index,
       SizedBox(
         height: 150.h,
       ),
-      Text(
-        title!,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontFamily: 'Gilroy',
-            fontSize: 80.sp,
-            fontStyle: FontStyle.normal,
-            color: AppColors.k033660,
-            fontWeight: FontWeight.w500,
-            /*foreground: Paint()
-                ..style = PaintingStyle.stroke
-                ..strokeWidth = 1
-                ..color = AppColors.k000000,*/
-            shadows: [
-              Shadow(
-                color: AppColors.k000000.withOpacity(0.25),
-                blurRadius: 4,
-                offset: const Offset(0, 4),
-              )
-            ]),
+      Padding(
+        padding: EdgeInsets.fromLTRB(16.w, 0.w, 16.w, 0.w),
+        child: Text(
+          title!,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontFamily: 'Gilroy',
+              fontSize: 80.sp,
+              fontStyle: FontStyle.normal,
+              color: AppColors.k033660,
+              fontWeight: FontWeight.w500,
+              /*foreground: Paint()
+                  ..style = PaintingStyle.stroke
+                  ..strokeWidth = 1
+                  ..color = AppColors.k000000,*/
+              shadows: [
+                Shadow(
+                  color: AppColors.k000000.withOpacity(0.25),
+                  blurRadius: 4,
+                  offset: const Offset(0, 4),
+                )
+              ]),
+        ),
       ),
       SizedBox(
-        height: 45.h,
+        height: 40.h,
       ),
-      Text(
-        subTitle!,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontFamily: 'Gilroy',
-          fontSize: 40.sp,
-          fontStyle: FontStyle.normal,
-          color: AppColors.k585858,
-          fontWeight: FontWeight.w500,
+      Padding(
+        padding: EdgeInsets.fromLTRB(16.w, 0.w, 16.w, 0.w),
+        child: Text(
+          subTitle!,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: 'Gilroy',
+            fontSize: 40.sp,
+            fontStyle: FontStyle.normal,
+            color: AppColors.k585858,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
       SizedBox(

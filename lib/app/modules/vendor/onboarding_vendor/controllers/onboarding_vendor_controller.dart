@@ -7,13 +7,13 @@ class OnboardingVendorController extends GetxController {
   PageController pageController = PageController();
 
   List<String?> title = [
-    'Dashboard to track\nvoucher activities ',
-    'Accept e-vouchers via\nQR code or Voucher Code',
+    'Dashboard to track voucher activities ',
+    'Accept e-vouchers via QR code or Voucher Code',
   ];
 
   List<String?> subtitle = [
-    'Get a holistic view of your e-vouchers being\nredeemed by SIX platform users',
-    'Accept the e-vouchers presented by users via\nQR code or entering the voucher code',
+    'Get a holistic view of your e-vouchers being redeemed by SIX platform users',
+    'Accept the e-vouchers presented by users via QR code or entering the voucher code',
   ];
 
   List<String> imageAssetName = [
