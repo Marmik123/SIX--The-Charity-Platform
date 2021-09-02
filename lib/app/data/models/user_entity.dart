@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+
 class UserEntity {
   UserEntity({
     required this.id,
@@ -30,12 +32,12 @@ class UserEntity {
   String? singpassId;
   String? corppassId;
   String? role;
-  dynamic profileImage;
-  dynamic profileImageUrl;
-  dynamic thumbProfileImage;
-  dynamic thumbProfileImageUrl;
-  int? walletBalance;
-  dynamic referalCode;
+  String? profileImage;
+  String? profileImageUrl;
+  String? thumbProfileImage;
+  String? thumbProfileImageUrl;
+  double? walletBalance;
+  String? referalCode;
   String? loginWith;
   String? categories;
   String? categorieIds;
@@ -51,12 +53,12 @@ class UserEntity {
     String? corppassId,
     String? role,
     Map<String, dynamic>? userData,
-    dynamic profileImage,
-    dynamic profileImageUrl,
-    dynamic thumbProfileImage,
-    dynamic thumbProfileImageUrl,
-    int? walletBalance,
-    dynamic referalCode,
+    String? profileImage,
+    String? profileImageUrl,
+    String? thumbProfileImage,
+    String? thumbProfileImageUrl,
+    double? walletBalance,
+    String? referalCode,
     String? loginWith,
     String? categories,
     String? categorieIds,
@@ -98,14 +100,14 @@ class UserEntity {
         corppassId:
             json['corppass_id'] == null ? null : json['corppass_id'] as String,
         role: json['role'] == null ? null : json['role'] as String,
-        profileImage: json['profile_image'],
-        profileImageUrl: json['profile_image_url'],
-        thumbProfileImage: json['thumb_profile_image'],
-        thumbProfileImageUrl: json['thumb_profile_image_url'],
+        profileImage: json['profile_image'] as String?,
+        profileImageUrl: json['profile_image_url'] as String?,
+        thumbProfileImage: json['thumb_profile_image'] as String?,
+        thumbProfileImageUrl: json['thumb_profile_image_url'] as String?,
         walletBalance: json['wallet_balance'] == null
             ? null
-            : json['wallet_balance'] as int,
-        referalCode: json['referal_code'],
+            : double.tryParse(json['wallet_balance'].toString()),
+        referalCode: json['referal_code'] as String?,
         loginWith:
             json['login_with'] == null ? null : json['login_with'] as String,
         categories:
@@ -143,6 +145,18 @@ class UserEntity {
         'worker_ids': workerIds,
         'user_metadata': userMetadata == null ? null : userMetadata!.toMap(),
       };
+
+  String get address {
+    if (userMetadata?.address != null) {
+      var jsonAddress =
+          jsonDecode(userMetadata?.address ?? '') as Map<String, dynamic>;
+      var addressStr =
+          '${jsonAddress['floor']['value']}, ${jsonAddress['building']['value']}, ${jsonAddress['street']['value']}, ${jsonAddress['block']['value']}, ${jsonAddress['country']['desc']}, ${jsonAddress['postal']['value']}.';
+      return toBeginningOfSentenceCase(addressStr.toLowerCase()) ?? '-';
+    } else {
+      return '-';
+    }
+  }
 }
 
 class UserMetadata {
@@ -180,11 +194,11 @@ class UserMetadata {
   String? principalName;
   dynamic sex;
   dynamic race;
-  dynamic email;
+  String? email;
   dynamic dob;
   dynamic nationality;
   dynamic mobileNumber;
-  dynamic address;
+  String? address;
   dynamic typeOfHdb;
   dynamic typeOfHousing;
   dynamic maritialStatus;
@@ -205,11 +219,11 @@ class UserMetadata {
     String? principalName,
     dynamic sex,
     dynamic race,
-    dynamic email,
+    String? email,
     dynamic dob,
     dynamic nationality,
     dynamic mobileNumber,
-    dynamic address,
+    String? address,
     dynamic typeOfHdb,
     dynamic typeOfHousing,
     dynamic maritialStatus,
@@ -260,11 +274,11 @@ class UserMetadata {
         principalName: json['principal_name'] as String?,
         sex: json['sex'],
         race: json['race'],
-        email: json['email'],
+        email: json['email'] as String?,
         dob: json['dob'],
         nationality: json['nationality'],
         mobileNumber: json['mobile_number'],
-        address: json['address'],
+        address: json['address'] as String?,
         typeOfHdb: json['type_of_hdb'],
         typeOfHousing: json['type_of_housing'],
         maritialStatus: json['maritial_status'],

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:catcher/catcher.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -87,7 +88,9 @@ Future<void> main() async {
         errorDetails.exception,
         errorDetails.stack,
       );
-      Catcher.reportCheckedError(errorDetails.exception, errorDetails.stack);
+      if (kReleaseMode) {
+        Catcher.reportCheckedError(errorDetails.exception, errorDetails.stack);
+      }
     });
   };
 }

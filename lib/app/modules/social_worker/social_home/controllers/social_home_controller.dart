@@ -19,7 +19,7 @@ class SocialHomeController extends GetxController {
   RxInt beneficiaryCount = 0.obs;
   RxMap<String, dynamic>? dashboardData = <String, dynamic>{}.obs;
   Map<String, dynamic>? historyDashData;
-  RxList<Map<String, dynamic>?> decodedAddress = <Map<String, dynamic>?>[].obs;
+  // RxList<Map<String, dynamic>?> decodedAddress = <Map<String, dynamic>?>[].obs;
   // RxBool paid = false.obs;
   RxInt skip = 0.obs;
   RxInt limit = 1000.obs;
@@ -47,7 +47,7 @@ class SocialHomeController extends GetxController {
     logI(UserProvider.role);
   }
 
-  void assignAddress(Map<String, dynamic>? address) {
+  /*void assignAddress(Map<String, dynamic>? address) {
     decodedAddress.clear();
     decodedAddress.add(address);
     logI('finalDecodedAddress$decodedAddress');
@@ -65,20 +65,7 @@ class SocialHomeController extends GetxController {
     } else {
       return '-';
     }
-  }
-
-  Future<void> launchURL(String mailId) async {
-    final params = Uri(
-      scheme: 'mailto',
-      path: mailId,
-    );
-    var url = params.toString();
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      print('Could not launch $url');
-    }
-  }
+  }*/
 
   Future<void> assignDashboardData() async {
     isLoading(true);

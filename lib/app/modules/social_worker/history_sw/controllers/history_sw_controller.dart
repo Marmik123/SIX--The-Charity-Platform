@@ -51,19 +51,6 @@ class HistorySwController extends GetxController
     lastDateValue(endDate.toString());
   }
 
-  Future<void> launchURL() async {
-    final params = Uri(
-      scheme: 'mailto',
-      path: 'raymondwong@gmail.com',
-    );
-    var url = params.toString();
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      print('Could not launch $url');
-    }
-  }
-
   void dataScrollController() {
     if (scrollViewController.offset > 150) {
       if (titleVisible.isFalse) {

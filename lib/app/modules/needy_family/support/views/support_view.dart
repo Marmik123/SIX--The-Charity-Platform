@@ -5,6 +5,7 @@ import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/common_appbar.dart';
+import 'package:six/app/utils/url_utils.dart';
 import 'package:six/r.g.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
@@ -138,11 +139,10 @@ class SupportView extends GetView<SupportController> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        controller.launchURL(controller
-                                                .supportDetails[index]
-                                                .userMetadata
-                                                ?.email ??
-                                            '-');
+                                        sendMail(controller
+                                            .supportDetails[index]
+                                            .userMetadata
+                                            ?.email);
                                       },
                                       child: Row(
                                         children: [

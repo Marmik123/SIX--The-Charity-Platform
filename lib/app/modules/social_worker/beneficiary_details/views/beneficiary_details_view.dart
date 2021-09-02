@@ -14,6 +14,7 @@ import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/indexed_stack_tab_item.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
+import 'package:six/app/utils/url_utils.dart';
 import 'package:six/r.g.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
@@ -280,10 +281,8 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      controller.socialHome.launchURL(controller
-                                              .beneficiary.userMetadata?.email
-                                              .toString() ??
-                                          'mail@dharmatech.in');
+                                      sendMail(controller
+                                          .beneficiary.userMetadata?.email);
                                     },
                                     child: Row(
                                       mainAxisAlignment:
@@ -317,25 +316,21 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                                     ),
                                   ),
                                   h(20.h),
-                                  FittedBox(
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SizedBox(
-                                          width: 50.w,
-                                        ),
-                                        Image.asset(
-                                          R.image.asset.location.assetName,
-                                          height: 37.h,
-                                          width: 31.w,
-                                        ),
-                                        w(15.w),
-                                        Text(
-                                          controller.socialHome
-                                              .returnAddress(0),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      w(50.w),
+                                      Image.asset(
+                                        R.image.asset.location.assetName,
+                                        height: 37.h,
+                                        width: 31.w,
+                                      ),
+                                      w(15.w),
+                                      Expanded(
+                                        child: Text(
+                                          controller.beneficiary.address,
                                           style: TextStyle(
                                             fontFamily: 'Gilroy',
                                             fontSize: 38.sp,
@@ -346,8 +341,9 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                                           ),
                                           textAlign: TextAlign.left,
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                      w(50.w),
+                                    ],
                                   ),
                                 ],
                               ),

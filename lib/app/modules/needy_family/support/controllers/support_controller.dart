@@ -13,19 +13,6 @@ class SupportController extends GetxController {
     getSupportDetails();
   }
 
-  Future<void> launchURL(String? email) async {
-    final params = Uri(
-      scheme: 'mailto',
-      path: email ?? '-',
-    );
-    var url = params.toString();
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      print('Could not launch $url');
-    }
-  }
-
   Future<void> getSupportDetails() async {
     supportLoading(true);
     supportDetails(

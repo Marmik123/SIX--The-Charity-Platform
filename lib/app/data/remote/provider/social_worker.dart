@@ -315,7 +315,7 @@ class SocialWorkerProvider {
           success: false, message: response!.data['message'].toString()));
     } else {
       UserProvider.currentUser?.profileImageUrl =
-          response?.data['data']['profile_image_url'];
+          response?.data['data']['profile_image_url'] as String?;
       logWTF(response?.statusMessage);
     }
     return response?.statusCode == 200;

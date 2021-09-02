@@ -9,7 +9,6 @@ import 'package:six/app/utils/get_month_name.dart';
 
 class BeneficiaryDetailsController extends GetxController {
   RxInt tabIndex = 0.obs;
-  RxInt beneIndex = 0.obs;
   RxBool snap = true.obs;
   RxBool isLoading = false.obs;
   late UserEntity beneficiary;
@@ -21,7 +20,7 @@ class BeneficiaryDetailsController extends GetxController {
   RxInt limit = 1000.obs;
   RxDouble opacity = 0.0.obs;
   RxMap<String, dynamic> beneDashboard = <String, dynamic>{}.obs;
-  SocialHomeController socialHome = Get.find<SocialHomeController>();
+  // SocialHomeController socialHome = Get.find<SocialHomeController>();
   ScrollController scrollViewController = ScrollController();
   TextEditingController addNoteCtrl = TextEditingController();
   TextEditingController editNoteCtrl = TextEditingController();
@@ -49,10 +48,7 @@ class BeneficiaryDetailsController extends GetxController {
     if (Get.arguments != null) {
       if (Get.arguments[0] != null) {
         beneficiary = Get.arguments[0] as UserEntity;
-      } else {
-        beneficiary = null as UserEntity;
       }
-      beneIndex(Get.arguments[1] as int);
     }
     getNotes();
     //logWTF(beneficiary.toJson());
