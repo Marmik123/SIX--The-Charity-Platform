@@ -9,7 +9,7 @@ import 'package:six/app/data/remote/provider/home_graph_provider.dart';
 class CharityHomeController extends GetxController {
   //TODO: Implement CharityHomeController
   RxInt? tabIndex = 0.obs;
-  RxInt? currentIndex = 0.obs;
+  RxInt currentIndex = 0.obs;
   RxInt? monthNum = 1.obs;
   RxInt programIndex = 0.obs;
   RxString monthName = 'Sept'.obs;

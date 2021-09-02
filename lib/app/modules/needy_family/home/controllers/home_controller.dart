@@ -4,7 +4,7 @@ import 'package:six/app/data/remote/provider/needy_family.dart';
 
 class HomeController extends GetxController {
   Map<String, dynamic>? beneDash;
-  RxInt? currentIndex = 0.obs;
+  RxInt currentIndex = 0.obs;
   RxBool dashDataLoading = false.obs;
   @override
   void onInit() {

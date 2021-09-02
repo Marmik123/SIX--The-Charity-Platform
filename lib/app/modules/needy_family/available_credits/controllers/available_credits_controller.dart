@@ -22,9 +22,10 @@ class AvailableCreditsController extends GetxController {
     super.onInit();
     if (UserProvider.role == 'charity') {
       assignToAvailProgCredit();
+    } else {
+      disableLeading(false);
     }
     if (UserProvider.role == 'needy_family') {
-      disableLeading(false);
       assignToNeedyProgCredit();
     }
   }

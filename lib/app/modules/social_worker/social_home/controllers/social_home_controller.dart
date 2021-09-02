@@ -12,7 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class SocialHomeController extends GetxController {
   //TODO: Implement SocialHomeController
-  RxInt? currentIndex = 0.obs;
+  RxInt currentIndex = 0.obs;
   RxInt? beneIndex = 0.obs;
   RxInt? tabIndex = 0.obs;
   RxString availableCredits = ''.obs;

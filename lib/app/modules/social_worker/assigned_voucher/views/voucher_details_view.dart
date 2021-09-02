@@ -458,16 +458,15 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                   purchaseBottomSheet(
                                     category: ctrl
                                         .voucherCategory[ctrl.selectCategory!()]
-                                        .name
-                                        .toString(),
+                                        .name,
                                     imgUrl: ctrl
-                                        .voucherCategory[ctrl.selectCategory!()]
-                                        .iconUrl
-                                        .toString(),
+                                            .voucherCategory[
+                                                ctrl.selectCategory!()]
+                                            .iconUrl ??
+                                        '-',
                                     categoryId: ctrl
                                         .voucherCategory[ctrl.selectCategory!()]
-                                        .id
-                                        .toString(),
+                                        .id,
                                     amount: voucher?.amount,
                                     totalAmount: controller.voucherCount() *
                                         (voucher!.amount!.toDouble()),

@@ -288,7 +288,7 @@ class ProfileView extends GetView<ProfileController> {
                 child: roundedButton(
                     text: 'Logout',
                     onTap: () {
-                      controller.needyCtrl?.currentIndex!(0);
+                      controller.needyCtrl?.currentIndex(0);
                       // logI(controller.foundController.currentIndex!(0));
 
                       UserProvider.onLogout();

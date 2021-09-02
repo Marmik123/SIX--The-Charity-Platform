@@ -28,9 +28,14 @@ class HomeView extends GetView<HomeController> {
     return Obx(
       () => Scaffold(
         backgroundColor: AppColors.kffffff,
-        bottomNavigationBar: bottomNavBar(),
+        bottomNavigationBar: bottomNavBar(
+          onTap: (index) {
+            controller.currentIndex(index);
+          },
+          currentIndex: controller.currentIndex(),
+        ),
         //extendBodyBehindAppBar: true,
-        body: bottomNavScreen.elementAt(controller.currentIndex!.value),
+        body: bottomNavScreen.elementAt(controller.currentIndex()),
       ),
     );
   }

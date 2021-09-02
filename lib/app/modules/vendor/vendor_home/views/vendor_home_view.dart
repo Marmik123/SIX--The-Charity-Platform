@@ -27,10 +27,15 @@ class VendorHomeView extends GetView<VendorHomeController> {
         backgroundColor: AppColors.kffffff,
         bottomNavigationBar:
             !vendorRCtrl.redeemNow.value && !vendorRCtrl.redeemThroughNum.value
-                ? bottomNavBar()
+                ? bottomNavBar(
+                    onTap: (index) {
+                      controller.currentIndex(index);
+                    },
+                    currentIndex: controller.currentIndex(),
+                  )
                 : const SizedBox.shrink(),
         body: bottomNavScreen.elementAt(
-          controller.currentIndex!.value,
+          controller.currentIndex.value,
         ),
       ),
     );

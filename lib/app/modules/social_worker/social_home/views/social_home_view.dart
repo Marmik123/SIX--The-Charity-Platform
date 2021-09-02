@@ -31,11 +31,19 @@ class SocialHomeView extends GetView<SocialHomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Scaffold(
-          bottomNavigationBar: bottomNavBar(),
-          backgroundColor: AppColors.kffffff,
-          body: bottomScreen.elementAt(controller.currentIndex!())),
+    return Scaffold(
+      bottomNavigationBar: Obx(() => bottomNavBar(
+            onTap: (index) {
+              controller.currentIndex(index);
+              if (index == 2) {
+                controller.getHistoryOfAssignVoucher('all');
+                controller.assignHistoryDashData();
+              }
+            },
+            currentIndex: controller.currentIndex(),
+          )),
+      backgroundColor: AppColors.kffffff,
+      body: Obx(() => bottomScreen.elementAt(controller.currentIndex())),
     );
   }
 }

@@ -7,7 +7,7 @@ import 'package:six/app/data/remote/provider/vendor_provider.dart';
 import 'package:six/app/utils/get_month_name.dart';
 
 class VendorHomeController extends GetxController {
-  RxInt? currentIndex = 0.obs;
+  RxInt currentIndex = 0.obs;
   RxInt? monthNum = 1.obs;
   RxBool isLoading = false.obs;
   RxBool trLoading = false.obs;

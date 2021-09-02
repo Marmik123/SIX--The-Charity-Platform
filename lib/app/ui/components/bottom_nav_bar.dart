@@ -11,12 +11,16 @@ import 'package:six/app/modules/social_worker/social_home/controllers/social_hom
 import 'package:six/app/modules/vendor/vendor_home/controllers/vendor_home_controller.dart';
 import 'package:six/r.g.dart';
 
-Widget bottomNavBar() {
-  var vendorCtrl = Get.put(VendorHomeController());
+Widget bottomNavBar({
+  required ValueChanged<int> onTap,
+  required int currentIndex,
+}) {
+  /*var vendorCtrl = Get.put(VendorHomeController());
   var charityCtrl = Get.put(CharityHomeController());
   var socialCtrl = Get.put(SocialHomeController());
   var controller = Get.put(HomeController());
-  var avail = Get.put(AvailableCreditsController());
+  var avail = Get.put(AvailableCreditsController());*/
+
   return Container(
     decoration: BoxDecoration(
       color: AppColors.kffffff,
@@ -31,22 +35,16 @@ Widget bottomNavBar() {
       backgroundColor: AppColors.kffffff,
       elevation: 45,
       iconSize: 25,
-      currentIndex: UserProvider.role == 'vendor'
-          ? vendorCtrl.currentIndex!.value
-          : UserProvider.role == 'needy_family'
-              ? controller.currentIndex!.value
-              : UserProvider.role == 'social_worker'
-                  ? socialCtrl.currentIndex!()
-                  : charityCtrl.currentIndex!.value,
+      currentIndex: currentIndex,
       type: BottomNavigationBarType.fixed,
       showUnselectedLabels: true,
-      onTap: (index) {
+      /*onTap: (index) {
         UserProvider.role == 'vendor'
             ? vendorCtrl.currentIndex!(index)
             : UserProvider.role == 'needy_family'
                 ? controller.currentIndex!(index)
                 : UserProvider.role == 'social_worker'
-                    ? socialCtrl.currentIndex!(index)
+                    ? socialCtrl.currentIndex(index)
                     : charityCtrl.currentIndex!(index);
         if (UserProvider.role == 'charity') {
           avail.disableLeading(true);
@@ -58,7 +56,8 @@ Widget bottomNavBar() {
           avail.disableLeading(true);
         }
         //fromVoucherScreen ? (Get.offAllNamed<void>(Routes.HOME)) : null;
-      },
+      },*/
+      onTap: onTap,
       unselectedFontSize: 36.sp,
       selectedFontSize: 36.sp,
       selectedItemColor: AppColors.k1FAF9E,

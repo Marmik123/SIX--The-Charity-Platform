@@ -28,9 +28,14 @@ class CharityHomeView extends GetView<CharityHomeController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
-          bottomNavigationBar: bottomNavBar(),
+          bottomNavigationBar: bottomNavBar(
+            onTap: (index) {
+              controller.currentIndex(index);
+            },
+            currentIndex: controller.currentIndex(),
+          ),
           backgroundColor: AppColors.kffffff,
-          body: bottomScreen.elementAt(controller.currentIndex!.value),
+          body: bottomScreen.elementAt(controller.currentIndex()),
         ));
   }
 }
