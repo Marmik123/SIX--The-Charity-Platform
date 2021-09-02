@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/modules/charity/available_vendors/views/available_vendors_view.dart';
-import 'package:six/app/modules/charity/purchase/controllers/purchase_controller.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/category_curved_container.dart';
 import 'package:six/app/ui/components/common_textfield.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
 import 'package:six/app/utils/material_prop_ext.dart';
+import 'package:six/r.g.dart';
 
-PurchaseController purchaseController = Get.put(PurchaseController());
+// PurchaseController purchaseController = Get.put(PurchaseController());
 Widget categoryCard({
   required int index,
   required String categoryName,
@@ -49,6 +50,11 @@ Widget categoryCard({
           height: 148.h,
           width: 139.w,
           url: imageUrl,
+          placeholder: ImageIcon(
+            R.image.categories(),
+            color: AppColors.k033660,
+            size: 35,
+          ),
         ), // Category Icon
         CustomPaint(
           size: Size(
@@ -84,16 +90,18 @@ Widget categoryCard({
                           purchaseController.selectCategory!(index);
                           purchaseController.update();
                           availVendorCtrl.txtCtrl.clear();
-
                           availVendorCtrl.assignVendorList(purchaseController
                               .voucherCategory[index].id
                               .toString());
-                          UserProvider.role == 'charity' ||
-                                  UserProvider.role == 'social_worker'
-                              ? Get.to<void>(() => AvailableVendorsView(
-                                    categoryIndex: index,
-                                  ))
-                              : Get.to<void>(() => AvailableVendorsView());
+                          if (UserProvider.role == 'charity' ||
+                              UserProvider.role == 'social_worker') {
+                            logI('I am here $index');
+                            Get.to<void>(() => AvailableVendorsView(
+                                  categoryIndex: index,
+                                ));
+                          } else {
+                            Get.to<void>(() => AvailableVendorsView());
+                          }
                         },
                         style: ButtonStyle(
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,

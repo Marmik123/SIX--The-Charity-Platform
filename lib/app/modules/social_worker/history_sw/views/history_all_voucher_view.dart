@@ -79,12 +79,7 @@ class HistoryAllVoucherView extends GetView<HistorySwController> {
                             .toString() ??
                         'NA',
                 beneProfileUrl: controller.socialCtrl.historyVouchers[index]
-                            .userVoucherData?['profile_image_url'] ==
-                        null
-                    ? ''
-                    : controller.socialCtrl.historyVouchers[index]
-                        .userVoucherData?['profile_image_url']
-                        .toString(),
+                    .userVoucherData?['profile_image_url'] as String?,
               );
             },
           );

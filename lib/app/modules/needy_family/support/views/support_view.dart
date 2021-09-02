@@ -63,25 +63,17 @@ class SupportView extends GetView<SupportController> {
                                 ),
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(70.r),
-                                  child: controller.supportDetails[index]
-                                              .profileImageUrl ==
-                                          null
-                                      ? const Icon(
-                                          Icons.person,
-                                          color: AppColors.k033660,
-                                          size: 35,
-                                        )
-                                      : cacheImage(
-                                          height: 130.r,
-                                          width: 130.r,
-                                          url: controller.supportDetails[index]
-                                                      .profileImageUrl ==
-                                                  null
-                                              ? 'https://picsum.photos/id/1027/400'
-                                              : controller.supportDetails[index]
-                                                  .profileImageUrl
-                                                  .toString(),
-                                        ),
+                                  child: cacheImage(
+                                    height: 130.r,
+                                    width: 130.r,
+                                    url: controller
+                                        .supportDetails[index].profileImageUrl,
+                                    placeholder: const Icon(
+                                      Icons.person,
+                                      color: AppColors.k033660,
+                                      size: 35,
+                                    ),
+                                  ),
                                 ),
                                 SizedBox(
                                   width: 56.w,

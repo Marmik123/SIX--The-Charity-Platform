@@ -16,11 +16,15 @@ import '../controllers/available_vendors_controller.dart';
 class AvailableVendorsView extends GetView<AvailableVendorsController> {
   final int? categoryIndex;
   final PurchaseController purchaseController = Get.put(PurchaseController());
+
   @override
   final AvailableVendorsController controller =
       Get.put(AvailableVendorsController());
+
   final currentFocus = FocusScope.of(Get.context!);
+
   AvailableVendorsView({this.categoryIndex});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +102,7 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                       initialValue: '',
                       controller: controller.txtCtrl,
                       prefixText: '',
-                      formKey: availVendorCtrl.formKey,
+                      formKey: controller.formKey,
                       hintText: 'Search',
                       prefixImageName: R.image.asset.search.assetName,
                       onTap: () {},
@@ -120,10 +124,9 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                               onPressed: () {
                                 controller.txtCtrl.clear();
                                 controller.update();
-                                availVendorCtrl.assignVendorList(
-                                    purchaseController
-                                        .voucherCategory[categoryIndex ?? 0].id
-                                        .toString());
+                                controller.assignVendorList(purchaseController
+                                    .voucherCategory[categoryIndex ?? 0].id
+                                    .toString());
                               },
                             ),
                       textAction: UserProvider.role == 'social_worker'
@@ -154,46 +157,41 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
           SizedBox(
             height: 100.h,
           ),
-          Obx(() => purchaseController.isLoading() ||
-                  availVendorCtrl.isLoading()
+          Obx(() => purchaseController.isLoading() || controller.isLoading()
               ? buildLoader()
-              : (availVendorCtrl.isSearched()
-                      ? availVendorCtrl.searchedVendorList().isEmpty
-                      : availVendorCtrl.vendorList().isEmpty)
+              : (controller.isSearched()
+                      ? controller.searchedVendorList().isEmpty
+                      : controller.vendorList().isEmpty)
                   ? const Text('No Vendor available')
                   : Expanded(
                       child: ListView.separated(
-                        itemCount: availVendorCtrl.isSearched()
-                            ? availVendorCtrl.searchedVendorList().length
-                            : availVendorCtrl.vendorList().length,
+                        itemCount: controller.isSearched()
+                            ? controller.searchedVendorList().length
+                            : controller.vendorList().length,
                         physics: const BouncingScrollPhysics(),
                         separatorBuilder: (context, index) => h(25.h),
                         padding:
                             const EdgeInsets.only(top: 0, left: 10, right: 5),
                         itemBuilder: (context, index) {
-                          return (availVendorCtrl.isSearched()
-                                      ? availVendorCtrl
+                          return (controller.isSearched()
+                                      ? controller
                                               .searchedVendorList()[index]
                                               .firstName ==
                                           null
-                                      : availVendorCtrl
+                                      : controller
                                               .vendorList()[index]
                                               .firstName ==
                                           null) &&
-                                  (availVendorCtrl.isSearched()
-                                      ? availVendorCtrl
+                                  (controller.isSearched()
+                                      ? controller
                                           .searchedVendorList()
                                           .isNotEmpty
-                                      : availVendorCtrl
-                                          .vendorList()
-                                          .isNotEmpty) &&
-                                  availVendorCtrl.vendorList().length != 1
+                                      : controller.vendorList().isNotEmpty) &&
+                                  controller.vendorList().length != 1
                               ? const SizedBox.shrink()
-                              : (availVendorCtrl
-                                              .vendorList()[index]
-                                              .firstName ==
+                              : (controller.vendorList()[index].firstName ==
                                           null &&
-                                      availVendorCtrl.vendorList().length == 1)
+                                      controller.vendorList().length == 1)
                                   ? const Center(
                                       child: Text('No Vendor available'))
                                   : GestureDetector(
@@ -250,30 +248,25 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                                         child: cacheImage(
                                                           height: 180.r,
                                                           width: 180.r,
-                                                          url: availVendorCtrl
+                                                          url: controller
                                                                   .isSearched()
-                                                              ? availVendorCtrl
-                                                                          .searchedVendorList()[
-                                                                              index]
-                                                                          .profileImageUrl ==
-                                                                      null
-                                                                  ? 'https://picsum.photos/200/300'
-                                                                  : availVendorCtrl
-                                                                      .searchedVendorList()[
-                                                                          index]
-                                                                      .profileImageUrl
-                                                                      .toString()
-                                                              : availVendorCtrl
-                                                                          .vendorList()[
-                                                                              index]
-                                                                          .profileImageUrl ==
-                                                                      null
-                                                                  ? 'https://picsum.photos/200/300'
-                                                                  : availVendorCtrl
-                                                                      .vendorList()[
-                                                                          index]
-                                                                      .profileImageUrl
-                                                                      .toString(),
+                                                              ? controller
+                                                                  .searchedVendorList()[
+                                                                      index]
+                                                                  .profileImageUrl
+                                                                  .toString()
+                                                              : controller
+                                                                  .vendorList()[
+                                                                      index]
+                                                                  .profileImageUrl
+                                                                  .toString(),
+                                                          placeholder:
+                                                              ImageIcon(
+                                                            R.image.vendors(),
+                                                            color: AppColors
+                                                                .k033660,
+                                                            size: 35,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
@@ -288,14 +281,13 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                                         height: 54.h,
                                                       ),
                                                       Text(
-                                                        availVendorCtrl
-                                                                .isSearched()
-                                                            ? availVendorCtrl
+                                                        controller.isSearched()
+                                                            ? controller
                                                                 .searchedVendorList()[
                                                                     index]
                                                                 .firstName
                                                                 .toString()
-                                                            : availVendorCtrl
+                                                            : controller
                                                                 .vendorList()[
                                                                     index]
                                                                 .firstName
@@ -335,7 +327,7 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                                         ),
                                                         child: Center(
                                                           child: Text(
-                                                            availVendorCtrl
+                                                            controller
                                                                     .isSearched()
                                                                 ? purchaseController
                                                                     .voucherCategory[
@@ -379,13 +371,13 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                                         categoryIndex);
                                                     controller
                                                         .assignVendorDetails(
-                                                            availVendorCtrl
+                                                            controller
                                                                 .vendorList[index]
                                                                 .id
                                                                 .toString());
                                                     Get.toNamed<void>(
                                                       Routes.VENDOR_DETAILS,
-                                                      arguments: availVendorCtrl
+                                                      arguments: controller
                                                           .vendorList[index].id,
                                                     );
                                                   },

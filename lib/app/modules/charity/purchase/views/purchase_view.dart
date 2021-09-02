@@ -41,9 +41,8 @@ class PurchaseView extends GetView<PurchaseController> {
                       categoryId: ctrl
                           .voucherCategory[ctrl.selectCategory!()].id
                           .toString(),
-                      imgUrl: ctrl.voucherCategory[ctrl.selectCategory!()]
-                              .iconUrl ??
-                          'https://picsum.photos/200/300',
+                      imgUrl:
+                          ctrl.voucherCategory[ctrl.selectCategory!()].iconUrl,
                       background: HexColor.fromHex(ctrl
                           .voucherCategory[ctrl.selectCategory!()].background!),
                     );
@@ -110,10 +109,10 @@ class PurchaseView extends GetView<PurchaseController> {
                                     logI(ctrl.selectCategory);
                                     ctrl.update();
                                     if (UserProvider.role == 'social_worker') {
-                                      purchaseController.selectCategory!(index);
-                                      purchaseController.update();
+                                      controller.selectCategory!(index);
+                                      controller.update();
                                       controller.availVendorCtrl
-                                          .assignVendorList(purchaseController
+                                          .assignVendorList(controller
                                               .voucherCategory[index].id
                                               .toString());
                                       UserProvider.role == 'charity' ||

@@ -5,6 +5,7 @@ import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 
 import '../controllers/notification_controller.dart';
+import 'package:six/r.g.dart';
 
 class NotificationView extends GetView<NotificationController> {
   @override
@@ -75,9 +76,15 @@ class NotificationView extends GetView<NotificationController> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(70.r),
                           child: cacheImage(
-                              height: 130.r,
-                              width: 130.r,
-                              url: 'https://picsum.photos/id/1027/400'),
+                            height: 130.r,
+                            width: 130.r,
+                            url: 'https://picsum.photos/id/1027/400',
+                            placeholder: ImageIcon(
+                              R.image.vendors(),
+                              color: AppColors.k033660,
+                              size: 35,
+                            ),
+                          ),
                         ),
                         SizedBox(
                           width: 35.w,

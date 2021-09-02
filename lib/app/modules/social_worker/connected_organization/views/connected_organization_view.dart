@@ -57,8 +57,12 @@ class ConnectedOrganizationView
                         child: cacheImage(
                           height: 180.r,
                           width: 180.r,
-                          url: ctrl.connectedOrg[index].profileImageUrl
-                              .toString(),
+                          url: ctrl.connectedOrg[index].profileImageUrl,
+                          placeholder: ImageIcon(
+                            R.image.organizations(),
+                            color: AppColors.k033660,
+                            size: 35,
+                          ),
                         ),
                       ),
                       w(15),

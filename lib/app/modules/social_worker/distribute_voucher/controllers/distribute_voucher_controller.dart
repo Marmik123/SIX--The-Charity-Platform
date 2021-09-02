@@ -11,7 +11,6 @@ import 'package:six/app/modules/social_worker/beneficiary_details/controllers/be
 import 'package:six/app/ui/components/get_dialog.dart';
 
 class DistributeVoucherController extends GetxController {
-  //TODO: Implement DistributeVoucherController
   RxInt selectedCategory = 0.obs;
   RxInt voucherIndex = 0.obs;
   RxInt height = 280.obs;

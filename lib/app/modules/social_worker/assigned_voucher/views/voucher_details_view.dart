@@ -14,6 +14,7 @@ import 'package:six/app/ui/components/common_appbar.dart';
 import 'package:six/app/ui/components/purchase_bottomsheet.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
+import 'package:six/r.g.dart';
 
 class VoucherDetailsView extends GetView<AssignedVoucherController> {
   final AvailableVouchers? voucher;
@@ -125,8 +126,13 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                                       child: cacheImage(
                                                         height: 121.r,
                                                         width: 121.r,
-                                                        url:
-                                                            '${voucher?.iconUrl ?? 'https://picsum.photos/200/300'}',
+                                                        url: voucher?.iconUrl,
+                                                        placeholder: ImageIcon(
+                                                          R.image.vouchers(),
+                                                          color:
+                                                              AppColors.k033660,
+                                                          size: 35,
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
@@ -460,10 +466,8 @@ class VoucherDetailsView extends GetView<AssignedVoucherController> {
                                         .voucherCategory[ctrl.selectCategory!()]
                                         .name,
                                     imgUrl: ctrl
-                                            .voucherCategory[
-                                                ctrl.selectCategory!()]
-                                            .iconUrl ??
-                                        '-',
+                                        .voucherCategory[ctrl.selectCategory!()]
+                                        .iconUrl,
                                     categoryId: ctrl
                                         .voucherCategory[ctrl.selectCategory!()]
                                         .id,

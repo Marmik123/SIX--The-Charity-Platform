@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 
-Widget doubleShadedCont(String url) {
+Widget doubleShadedCont(String? url) {
   return Stack(
     alignment: Alignment.center,
     children: [
@@ -57,9 +57,15 @@ Widget doubleShadedCont(String url) {
             width: 400.r,
             height: 400.r,
             url: url,
+            fit: BoxFit.cover,
+            placeholder: const Icon(
+              Icons.person,
+              color: AppColors.k033660,
+              size: 35,
+            ),
           ),
         ),
-      )
+      ),
     ],
   );
 }

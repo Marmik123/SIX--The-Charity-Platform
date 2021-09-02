@@ -191,8 +191,12 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                                                     width: 104.w,
                                                     url: controller
                                                         .categoryList[index]
-                                                        .iconUrl
-                                                        .toString(),
+                                                        .iconUrl,
+                                                    placeholder: ImageIcon(
+                                                      R.image.categories(),
+                                                      color: AppColors.k033660,
+                                                      size: 35,
+                                                    ),
                                                   ),
                                                   SizedBox(
                                                     height: 30.5.h,

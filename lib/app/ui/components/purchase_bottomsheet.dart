@@ -9,6 +9,7 @@ import 'package:six/app/modules/social_worker/assigned_voucher/controllers/assig
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/common_textfield.dart';
 import 'package:six/app/ui/components/rounded_gradient_btn.dart';
+import 'package:six/r.g.dart';
 
 var ctrl = Get.find<PurchaseController>();
 var assignCtrl = Get.put(AssignedVoucherController());
@@ -19,7 +20,7 @@ Future<void> purchaseBottomSheet({
   double? totalAmount = 0,
   double? amount = 0,
   int? quantity,
-  String imgUrl = 'https://picsum.photos/200/300',
+  String? imgUrl,
   Color background = AppColors.kE3FCFF,
 }) {
   return Get.bottomSheet<void>(
@@ -60,6 +61,11 @@ Future<void> purchaseBottomSheet({
                         url: imgUrl,
                         height: 106.h,
                         width: 100.w,
+                        placeholder: ImageIcon(
+                          R.image.categories(),
+                          color: AppColors.k033660,
+                          size: 35,
+                        ),
                       ),
                     ),
                   ),
@@ -102,7 +108,7 @@ Future<void> purchaseBottomSheet({
                       height: 170.h,
                       controller: ctrl.amountController,
                       width: 1005.w,
-                      initialValue: '\$${totalAmount}',
+                      initialValue: '\$$totalAmount',
                       prefixText: '\$',
                       hintText: '',
                       prefixImageName: '',

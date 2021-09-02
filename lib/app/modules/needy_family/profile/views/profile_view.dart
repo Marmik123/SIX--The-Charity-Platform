@@ -75,12 +75,7 @@ class ProfileView extends GetView<ProfileController> {
                                   },
                                   onLongPress: () {},
                                   child: doubleShadedCont(
-                                    UserProvider.currentUser?.profileImageUrl ==
-                                            null
-                                        ? 'https://picsum.photos/200/300'
-                                        : UserProvider
-                                            .currentUser!.profileImageUrl
-                                            .toString(),
+                                    UserProvider.currentUser?.profileImageUrl,
                                   ),
                                 ),
                                 UserProvider.role == 'charity' ||

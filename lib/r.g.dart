@@ -154,6 +154,11 @@ class _R_Image_AssetResource {
   final camera_only =
       const AssetResource("assets/images/camera_only.png", packageName: null);
 
+  /// asset: assets/images/categories.png
+  // ignore: non_constant_identifier_names
+  final categories =
+      const AssetResource("assets/images/categories.png", packageName: null);
+
   /// asset: assets/images/charity_ticket.png
   // ignore: non_constant_identifier_names
   final charity_ticket = const AssetResource("assets/images/charity_ticket.png",
@@ -258,6 +263,11 @@ class _R_Image_AssetResource {
   final ons_3 =
       const AssetResource("assets/images/ons_3.png", packageName: null);
 
+  /// asset: assets/images/organizations.png
+  // ignore: non_constant_identifier_names
+  final organizations =
+      const AssetResource("assets/images/organizations.png", packageName: null);
+
   /// asset: assets/images/phone.png
   // ignore: non_constant_identifier_names
   final phone =
@@ -272,6 +282,11 @@ class _R_Image_AssetResource {
   // ignore: non_constant_identifier_names
   final profile_new =
       const AssetResource("assets/images/profile_new.png", packageName: null);
+
+  /// asset: assets/images/programs.png
+  // ignore: non_constant_identifier_names
+  final programs =
+      const AssetResource("assets/images/programs.png", packageName: null);
 
   /// asset: assets/images/pucrchase_social_active.png
   // ignore: non_constant_identifier_names
@@ -366,6 +381,11 @@ class _R_Image_AssetResource {
   final vendor_onb2 =
       const AssetResource("assets/images/vendor_onb2.png", packageName: null);
 
+  /// asset: assets/images/vendors.png
+  // ignore: non_constant_identifier_names
+  final vendors =
+      const AssetResource("assets/images/vendors.png", packageName: null);
+
   /// asset: assets/images/voucher_card_1.png
   // ignore: non_constant_identifier_names
   final voucher_card_1 = const AssetResource("assets/images/voucher_card_1.png",
@@ -375,6 +395,11 @@ class _R_Image_AssetResource {
   // ignore: non_constant_identifier_names
   final voucher_filter = const AssetResource("assets/images/voucher_filter.png",
       packageName: null);
+
+  /// asset: assets/images/vouchers.png
+  // ignore: non_constant_identifier_names
+  final vouchers =
+      const AssetResource("assets/images/vouchers.png", packageName: null);
 }
 
 // ignore: camel_case_types
@@ -470,6 +495,12 @@ class _R_Image {
   // ignore: non_constant_identifier_names
   AssetImage camera_only() {
     return AssetImage(asset.camera_only.keyName);
+  }
+
+  /// asset: assets/images/categories.png
+  // ignore: non_constant_identifier_names
+  AssetImage categories() {
+    return AssetImage(asset.categories.keyName);
   }
 
   /// asset: assets/images/charity_ticket.png
@@ -598,6 +629,12 @@ class _R_Image {
     return AssetImage(asset.ons_3.keyName);
   }
 
+  /// asset: assets/images/organizations.png
+  // ignore: non_constant_identifier_names
+  AssetImage organizations() {
+    return AssetImage(asset.organizations.keyName);
+  }
+
   /// asset: assets/images/phone.png
   // ignore: non_constant_identifier_names
   AssetImage phone() {
@@ -614,6 +651,12 @@ class _R_Image {
   // ignore: non_constant_identifier_names
   AssetImage profile_new() {
     return AssetImage(asset.profile_new.keyName);
+  }
+
+  /// asset: assets/images/programs.png
+  // ignore: non_constant_identifier_names
+  AssetImage programs() {
+    return AssetImage(asset.programs.keyName);
   }
 
   /// asset: assets/images/pucrchase_social_active.png
@@ -724,6 +767,12 @@ class _R_Image {
     return AssetImage(asset.vendor_onb2.keyName);
   }
 
+  /// asset: assets/images/vendors.png
+  // ignore: non_constant_identifier_names
+  AssetImage vendors() {
+    return AssetImage(asset.vendors.keyName);
+  }
+
   /// asset: assets/images/voucher_card_1.png
   // ignore: non_constant_identifier_names
   AssetImage voucher_card_1() {
@@ -734,6 +783,12 @@ class _R_Image {
   // ignore: non_constant_identifier_names
   AssetImage voucher_filter() {
     return AssetImage(asset.voucher_filter.keyName);
+  }
+
+  /// asset: assets/images/vouchers.png
+  // ignore: non_constant_identifier_names
+  AssetImage vouchers() {
+    return AssetImage(asset.vouchers.keyName);
   }
 }
 

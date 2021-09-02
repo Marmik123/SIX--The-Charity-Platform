@@ -5,6 +5,7 @@ import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/modules/social_worker/available_credits_sw/controllers/available_credits_sw_controller.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/circular_progress_indicator.dart';
+import 'package:six/r.g.dart';
 
 class AvailableCreditsViewSW extends GetView<AvailableCreditsSwController> {
   @override
@@ -145,8 +146,12 @@ class AvailableCreditsViewSW extends GetView<AvailableCreditsSwController> {
                                         height: 180.r,
                                         width: 180.r,
                                         url: controller.availCreditsSW[index]
-                                            .category!.iconUrl
-                                            .toString(),
+                                            .category?.iconUrl,
+                                        placeholder: ImageIcon(
+                                          R.image.categories(),
+                                          color: AppColors.k033660,
+                                          size: 35,
+                                        ),
                                       ),
                                     ),
                                   ),

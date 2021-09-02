@@ -96,22 +96,18 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                             child: Center(
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(200.r),
-                                child: controller.beneficiary.profileImageUrl ==
-                                        null
-                                    ? CircleAvatar(
-                                        radius: 35.r,
-                                        child: const Icon(
-                                          Icons.person,
-                                          size: 10,
-                                        ),
-                                      )
-                                    : cacheImage(
-                                        height: 70.r,
-                                        width: 70.r,
-                                        url: controller
-                                            .beneficiary.profileImageUrl
-                                            .toString(),
-                                      ),
+                                child: cacheImage(
+                                  height: 70.r,
+                                  width: 70.r,
+                                  url: controller.beneficiary.profileImageUrl,
+                                  placeholder: CircleAvatar(
+                                    radius: 35.r,
+                                    child: const Icon(
+                                      Icons.person,
+                                      size: 10,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -221,21 +217,18 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                             child: Center(
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(200.r),
-                                child: controller.beneficiary.profileImageUrl ==
-                                        null
-                                    ? CircleAvatar(
-                                        radius: 180.r,
-                                        child: const Icon(
-                                          Icons.person,
-                                        ),
-                                      )
-                                    : cacheImage(
-                                        height: 380.r,
-                                        width: 380.r,
-                                        url: controller
-                                            .beneficiary.profileImageUrl
-                                            .toString(),
-                                      ),
+                                child: cacheImage(
+                                  height: 380.r,
+                                  width: 380.r,
+                                  url: controller.beneficiary.profileImageUrl
+                                      .toString(),
+                                  placeholder: CircleAvatar(
+                                    radius: 180.r,
+                                    child: const Icon(
+                                      Icons.person,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),

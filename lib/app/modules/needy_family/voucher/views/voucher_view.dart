@@ -9,9 +9,9 @@ import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/common_voucher_card.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
 import 'package:six/app/utils/main_utils.dart';
-import 'package:six/r.g.dart';
 
 import '../controllers/voucher_controller.dart';
+import 'package:six/r.g.dart';
 
 class VoucherView extends GetView<VoucherController> {
   final VoucherController ctrl = Get.put(VoucherController());
@@ -230,8 +230,13 @@ class VoucherContent extends GetView<VoucherController> {
                                                 height: 113.h,
                                                 width: 104.w,
                                                 url: controller
-                                                    .categoryList[index].iconUrl
-                                                    .toString(),
+                                                    .categoryList[index]
+                                                    .iconUrl,
+                                                placeholder: ImageIcon(
+                                                  R.image.vouchers(),
+                                                  color: AppColors.k033660,
+                                                  size: 35,
+                                                ),
                                               ),
                                               SizedBox(
                                                 height: 30.5.h,
@@ -330,13 +335,7 @@ class VoucherContent extends GetView<VoucherController> {
                                   terms:
                                       '${controller.vouchers[index].voucher?['terms'] ?? '-'}',
                                   imgUrl: controller.vouchers[index]
-                                              .voucher?['icon_url'] ==
-                                          null
-                                      ? 'https://picsum.photos/200/300'
-                                      : controller.vouchers[index]
-                                              .voucher?['icon_url']
-                                              .toString() ??
-                                          'https://picsum.photos/id/1011/200/300',
+                                      .voucher?['icon_url'] as String?,
                                   whichScreen: 'Social Worker',
                                   voucherCode:
                                       '${controller.vouchers[index].voucherId ?? '-'}',

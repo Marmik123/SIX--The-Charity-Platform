@@ -35,6 +35,7 @@ Widget textField({
   TextInputAction textAction = TextInputAction.done,
   Widget? suffixIcon,
   ValueChanged<String>? onChanged,
+  ValueChanged<String>? onFieldSubmitted,
 }) {
   return ClipRRect(
     borderRadius: BorderRadius.circular(50.r),
@@ -77,49 +78,53 @@ Widget textField({
                 return 'Please enter a value';
               }
             },
-            onFieldSubmitted: (value) {
-              if (value.isNotEmpty &&
-                  textAction == TextInputAction.search &&
-                  UserProvider.role == 'charity') {
-                availVendorCtrl.isSearched(true);
-                availVendorCtrl.isLoading(true);
-                availVendorCtrl.assignSearchedVendor(
-                    purchaseController
-                        .voucherCategory[purchaseController.selectCategory!()]
-                        .id
-                        .toString(),
-                    value.trim());
-                if (controller!.text.trim().isEmpty) {
-                  availVendorCtrl.isSearched(false);
-                }
-              } else if (UserProvider.role == 'social_worker' &&
-                  value.isNotEmpty &&
-                  textAction == TextInputAction.search) {
-                distriCtrl.isSearched(true);
-                logI(value.trim());
-                distriCtrl.assignSearchedVoucher(
-                    distriCtrl.categoryList[distriCtrl.selectedCategory()].id
-                        .toString(),
-                    value.trim());
-                if (controller!.text.trim().isEmpty) {
-                  distriCtrl.isSearched(false);
-                }
-              } else if (UserProvider.role == 'social_worker' &&
-                  value.isNotEmpty &&
-                  textAction == TextInputAction.done) {
-                availVendorCtrl.isSearched(true);
-                availVendorCtrl.isLoading(true);
-                availVendorCtrl.assignSearchedVendor(
-                    purchaseController
-                        .voucherCategory[purchaseController.selectCategory!()]
-                        .id
-                        .toString(),
-                    value.trim());
-                if (controller!.text.trim().isEmpty) {
-                  availVendorCtrl.isSearched(false);
-                }
-              }
-            },
+            onFieldSubmitted: onFieldSubmitted ??
+                (value) {
+                  if (value.isNotEmpty &&
+                      textAction == TextInputAction.search &&
+                      UserProvider.role == 'charity') {
+                    availVendorCtrl.isSearched(true);
+                    availVendorCtrl.isLoading(true);
+                    availVendorCtrl.assignSearchedVendor(
+                        purchaseController
+                            .voucherCategory[
+                                purchaseController.selectCategory!()]
+                            .id
+                            .toString(),
+                        value.trim());
+                    if (controller!.text.trim().isEmpty) {
+                      availVendorCtrl.isSearched(false);
+                    }
+                  } else if (UserProvider.role == 'social_worker' &&
+                      value.isNotEmpty &&
+                      textAction == TextInputAction.search) {
+                    distriCtrl.isSearched(true);
+                    logI(value.trim());
+                    distriCtrl.assignSearchedVoucher(
+                        distriCtrl
+                            .categoryList[distriCtrl.selectedCategory()].id
+                            .toString(),
+                        value.trim());
+                    if (controller!.text.trim().isEmpty) {
+                      distriCtrl.isSearched(false);
+                    }
+                  } else if (UserProvider.role == 'social_worker' &&
+                      value.isNotEmpty &&
+                      textAction == TextInputAction.done) {
+                    availVendorCtrl.isSearched(true);
+                    availVendorCtrl.isLoading(true);
+                    availVendorCtrl.assignSearchedVendor(
+                        purchaseController
+                            .voucherCategory[
+                                purchaseController.selectCategory!()]
+                            .id
+                            .toString(),
+                        value.trim());
+                    if (controller!.text.trim().isEmpty) {
+                      availVendorCtrl.isSearched(false);
+                    }
+                  }
+                },
             onEditingComplete: () {
               var currentFocus = FocusScope.of(context);
               currentFocus.unfocus();

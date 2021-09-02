@@ -14,6 +14,7 @@ import 'package:six/app/ui/components/sizedbox.dart';
 import 'package:six/app/ui/components/voucher_container_paint.dart';
 import 'package:six/app/utils/material_prop_ext.dart';
 import 'package:six/app/views/views/voucher_terms_view.dart';
+import 'package:six/r.g.dart';
 
 enum VoucherState {
   active,
@@ -23,7 +24,7 @@ enum VoucherState {
 
 Widget voucherCard({
   required String title,
-  required String imgUrl,
+  String? imgUrl,
   required double amount,
   required String voucherCode,
   required String date,
@@ -116,6 +117,11 @@ Widget voucherCard({
                                         height: 121.r,
                                         width: 121.r,
                                         url: imgUrl,
+                                        placeholder: ImageIcon(
+                                          R.image.vouchers(),
+                                          color: AppColors.k033660,
+                                          size: 35,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -287,6 +293,11 @@ Widget voucherCard({
                                         height: 121.r,
                                         width: 121.r,
                                         url: imgUrl,
+                                        placeholder: ImageIcon(
+                                          R.image.vouchers(),
+                                          color: AppColors.k033660,
+                                          size: 35,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -649,24 +660,23 @@ Widget voucherCard({
                 children: [
                   CircleAvatar(
                     backgroundColor: Colors.transparent,
-                    child: beneProfileUrl == ''
-                        ? CircleAvatar(
-                            radius: 119.r,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: FittedBox(
+                        fit: BoxFit.fill,
+                        child: cacheImage(
+                          height: 119.r,
+                          width: 119.r,
+                          url: beneProfileUrl,
+                          placeholder: CircleAvatar(
+                            radius: 59.r,
                             child: const Icon(
                               Icons.person,
                             ),
-                          )
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(30),
-                            child: FittedBox(
-                              fit: BoxFit.fill,
-                              child: cacheImage(
-                                height: 119.r,
-                                width: 119.r,
-                                url: beneProfileUrl!,
-                              ),
-                            ),
                           ),
+                        ),
+                      ),
+                    ),
                   ),
                   w(37.w),
                   Text(

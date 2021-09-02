@@ -85,14 +85,14 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                 child: cacheImage(
                                   height: 380.r,
                                   width: 380.r,
-                                  url: availVendorCtrl.vendorDetails?[
-                                              'profile_image_url'] ==
-                                          null
-                                      ? 'https://picsum.photos/200/300'
-                                      : availVendorCtrl.vendorDetails?[
-                                                  'profile_image_url']
-                                              .toString() ??
-                                          'https://picsum.photos/200/300',
+                                  url: availVendorCtrl
+                                      .vendorDetails?['profile_image_url']
+                                      .toString(),
+                                  placeholder: ImageIcon(
+                                    R.image.vendors(),
+                                    color: AppColors.k033660,
+                                    size: 35,
+                                  ),
                                 ),
                               ),
                             ),
@@ -630,7 +630,12 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                                                                             child: cacheImage(
                                                                                               height: 121.r,
                                                                                               width: 121.r,
-                                                                                              url: controller.availableVouchers[index].iconUrl ?? 'https://picsum.photos/200/300',
+                                                                                              url: controller.availableVouchers[index].iconUrl,
+                                                                                              placeholder: ImageIcon(
+                                                                                                R.image.vendors(),
+                                                                                                color: AppColors.k033660,
+                                                                                                size: 35,
+                                                                                              ),
                                                                                             ),
                                                                                           ),
                                                                                         ),

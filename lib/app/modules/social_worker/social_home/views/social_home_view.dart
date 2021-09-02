@@ -684,22 +684,17 @@ class SocialHome extends StatelessWidget {
                   ]),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(50),
-                child:
-                    controller.beneficiaryList()[index].profileImageUrl == null
-                        ? CircleAvatar(
-                            radius: 90.r,
-                            child: const Icon(
-                              Icons.person,
-                            ),
-                          )
-                        : cacheImage(
-                            height: 180.r,
-                            width: 180.r,
-                            url: controller
-                                .beneficiaryList()[index]
-                                .profileImageUrl
-                                .toString(),
-                          ),
+                child: cacheImage(
+                  height: 180.r,
+                  width: 180.r,
+                  url: controller.beneficiaryList()[index].profileImageUrl,
+                  placeholder: CircleAvatar(
+                    radius: 90.r,
+                    child: const Icon(
+                      Icons.person,
+                    ),
+                  ),
+                ),
               ),
             ),
           ),

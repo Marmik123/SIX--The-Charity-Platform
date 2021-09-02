@@ -6,23 +6,30 @@ import 'package:six/app/data/config/app_colors.dart';
 Widget cacheImage({
   required double height,
   required double width,
-  required String url,
+  String? url,
+  required Widget placeholder,
+  BoxFit fit = BoxFit.scaleDown,
 }) {
-  return CachedNetworkImage(
-    imageUrl: url,
-    height: height,
-    width: width,
-    fit: BoxFit.scaleDown,
-    errorWidget: (context, url, dynamic error) => const Icon(Icons.error),
-    placeholder: (context, url) {
-      return Center(
-          child: const Icon(
-        Icons.person,
-        color: AppColors.k033660,
-        size: 35,
-      ));
-    },
-  );
+  return url == null
+      ? placeholder
+      : CachedNetworkImage(
+          imageUrl: url,
+          height: height,
+          width: width,
+          fit: fit,
+          errorWidget: (context, url, dynamic error) => placeholder,
+          /* ?? const Icon(Icons.error)*/
+          placeholder: (context, url) {
+            return placeholder;
+            /* ??
+          const Center(
+              child: Icon(
+            Icons.person,
+            color: AppColors.k033660,
+            size: 35,
+          ));*/
+          },
+        );
 }
 
 Widget cacheSvgImage({

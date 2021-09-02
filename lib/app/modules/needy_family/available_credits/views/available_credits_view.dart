@@ -10,6 +10,7 @@ import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
 
 import '../controllers/available_credits_controller.dart';
+import 'package:six/r.g.dart';
 
 class AvailableCreditsView extends GetView<AvailableCreditsController> {
   /*final String whichRole;
@@ -243,13 +244,21 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
                                                   borderRadius:
                                                       BorderRadius.circular(50),
                                                   child: cacheImage(
-                                                      height: 180.r,
-                                                      width: 180.r,
-                                                      url:
-                                                          '${controller.programCreditsAvailability()[index].icon ?? 'https://picsum.photos/200/300'}'),
+                                                    height: 180.r,
+                                                    width: 180.r,
+                                                    url: controller
+                                                        .programCreditsAvailability()[
+                                                            index]
+                                                        .icon,
+                                                    placeholder: ImageIcon(
+                                                      R.image.categories(),
+                                                      color: AppColors.k033660,
+                                                      size: 35,
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
-                                            )
+                                            ),
                                           ],
                                         ),
                                       );
@@ -381,13 +390,20 @@ class AvailableCreditsView extends GetView<AvailableCreditsController> {
                                                 borderRadius:
                                                     BorderRadius.circular(50),
                                                 child: cacheImage(
-                                                    height: 180.r,
-                                                    width: 180.r,
-                                                    url:
-                                                        '${controller.needyProgCredits()[index].profileUrl ?? 'https://picsum.photos/200/300'}'),
+                                                  height: 180.r,
+                                                  width: 180.r,
+                                                  url: controller
+                                                      .needyProgCredits()[index]
+                                                      .profileUrl,
+                                                  placeholder: ImageIcon(
+                                                    R.image.categories(),
+                                                    color: AppColors.k033660,
+                                                    size: 35,
+                                                  ),
+                                                ),
                                               ),
                                             ),
-                                          )
+                                          ),
                                         ],
                                       ),
                                     ),

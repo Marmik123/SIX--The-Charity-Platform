@@ -132,14 +132,8 @@ class HomeContent extends GetView<HomeController> {
                                     controller.dashDataLoading()
                                         ? buildLoader()
                                         : doubleShadedCont(UserProvider
-                                                    .currentUser
-                                                    ?.profileImageUrl ==
-                                                null
-                                            ? 'https://picsum.photos/id/1027/400'
-                                            : UserProvider.currentUser
-                                                    ?.profileImageUrl
-                                                    .toString() ??
-                                                'https://picsum.photos/id/1027/400'), //double shaded profile container
+                                            .currentUser
+                                            ?.profileImageUrl), //double shaded profile container
                                     SizedBox(
                                       height: 45.h,
                                     ),

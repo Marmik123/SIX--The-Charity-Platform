@@ -10,6 +10,7 @@ import 'package:six/app/modules/social_worker/assigned_voucher/controllers/assig
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/common_appbar.dart';
 import 'package:six/app/ui/components/sizedbox.dart';
+import 'package:six/r.g.dart';
 
 class VoucherTerms extends GetView<AssignedVoucherController> {
   final String? name;
@@ -124,8 +125,12 @@ class VoucherTerms extends GetView<AssignedVoucherController> {
                                                 child: cacheImage(
                                                   height: 121.r,
                                                   width: 121.r,
-                                                  url: iconUrl ??
-                                                      'https://picsum.photos/200/300',
+                                                  url: iconUrl,
+                                                  placeholder: ImageIcon(
+                                                    R.image.vouchers(),
+                                                    color: AppColors.k033660,
+                                                    size: 35,
+                                                  ),
                                                 ),
                                               ),
                                             ),
