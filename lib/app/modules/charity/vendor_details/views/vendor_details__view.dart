@@ -16,8 +16,7 @@ import 'package:six/app/ui/components/sizedbox.dart';
 import 'package:six/r.g.dart';
 
 class VendorDetailsView extends GetView<VendorDetailsController> {
-  final AvailableVendorsController availVendorCtrl =
-      Get.put(AvailableVendorsController());
+  final AvailableVendorsController availVendorCtrl = Get.find();
   final PurchaseController purchaseController = Get.put(PurchaseController());
   @override
   Widget build(BuildContext context) {
@@ -31,11 +30,11 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                 return false;
               },
               child: RefreshIndicator(
-                onRefresh: () {
+                onRefresh: () async {
                   if (UserProvider.role == 'social_worker') {
                     return controller.assignAvailVouchers();
                   }
-                  throw '';
+                  return;
                 },
                 child: CustomScrollView(
                   shrinkWrap: true,
@@ -86,8 +85,8 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                   height: 380.r,
                                   width: 380.r,
                                   url: availVendorCtrl
-                                      .vendorDetails?['profile_image_url']
-                                      .toString(),
+                                          .vendorDetails?['profile_image_url']
+                                      as String?,
                                   placeholder: ImageIcon(
                                     R.image.vendors(),
                                     color: AppColors.k033660,
@@ -134,39 +133,31 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                             textAlign: TextAlign.center,
                                           ),
                                     h(40.h),
-                                    purchaseController
-                                                .voucherCategory[availVendorCtrl
-                                                    .categoryIndex()]
-                                                .name ==
-                                            null
-                                        ? const SizedBox.shrink()
-                                        : Container(
-                                            height: 64.h,
-                                            width: 226.w,
-                                            decoration: BoxDecoration(
-                                              color: AppColors.kffffff,
-                                              borderRadius:
-                                                  BorderRadius.circular(20.r),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                purchaseController
-                                                        .voucherCategory[
-                                                            availVendorCtrl
-                                                                .categoryIndex()]
-                                                        .name ??
-                                                    'Super Market',
-                                                style: TextStyle(
-                                                  fontFamily: 'Gilroy',
-                                                  fontSize: 30.sp,
-                                                  fontStyle: FontStyle.normal,
-                                                  color: AppColors.kFF007A,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
+                                    Container(
+                                      height: 64.h,
+                                      width: 226.w,
+                                      decoration: BoxDecoration(
+                                        color: AppColors.kffffff,
+                                        borderRadius:
+                                            BorderRadius.circular(20.r),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          purchaseController
+                                              .voucherCategory[availVendorCtrl
+                                                  .categoryIndex()]
+                                              .name,
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy',
+                                            fontSize: 30.sp,
+                                            fontStyle: FontStyle.normal,
+                                            color: AppColors.kFF007A,
+                                            fontWeight: FontWeight.w500,
                                           ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
                                     h(60.h),
                                   ],
                                 ),
@@ -316,12 +307,11 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                                         width: 26.w,
                                                       ),
                                                       Text(
-                                                        availVendorCtrl
-                                                                .vendorDetails?[
-                                                                    'user_metadata']
+                                                        (availVendorCtrl.vendorDetails?[
+                                                                        'user_metadata']
                                                                     ['address']
-                                                                .toString() ??
-                                                            '1 Joo koon cir, 13-01 Fairprice hub, Singapore\n629117',
+                                                                as String?) ??
+                                                            '-',
                                                         style: TextStyle(
                                                           fontFamily: 'Gilroy',
                                                           fontSize: 40.sp,
@@ -351,25 +341,26 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                         ? SliverPersistentHeader(
                             pinned: true,
                             delegate: SliverAppBarDelegate(
-                                minHeight: 100.h,
-                                maxHeight: 100.h,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 22,
-                                    top: 5,
+                              minHeight: 100.h,
+                              maxHeight: 100.h,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 22,
+                                  top: 5,
+                                ),
+                                child: Text(
+                                  'About Us',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy',
+                                    fontSize: 60.sp,
+                                    fontStyle: FontStyle.normal,
+                                    color: AppColors.k033660.withOpacity(0.5),
+                                    fontWeight: FontWeight.w500,
                                   ),
-                                  child: Text(
-                                    'About Us',
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy',
-                                      fontSize: 60.sp,
-                                      fontStyle: FontStyle.normal,
-                                      color: AppColors.k033660.withOpacity(0.5),
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                    textAlign: TextAlign.left,
-                                  ),
-                                )),
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                            ),
                           )
                         : SliverPersistentHeader(
                             pinned: true,
@@ -435,15 +426,10 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                   padding:
                                       EdgeInsets.only(left: 20.0, top: 50.h),
                                   child: Text(
-                                    availVendorCtrl.vendorDetails?[
-                                                'user_metadata']['about_us'] ==
-                                            null
-                                        ? '-'
-                                        : availVendorCtrl
+                                    (availVendorCtrl
                                                 .vendorDetails?['user_metadata']
-                                                    ['about_us']
-                                                .toString() ??
-                                            '\nLorem ipsum dolor sit amet, consectetur adipiscing\nelit, sed do eiusmod tempor incididunt ut labore et\ndolore magna aliqua. Ut enim ad minim veniam, \nquis nostrud exercitation ullamco laboris nisi ut\naliquip ex ea commodo consequat.\n\nLorem ipsum dolor sit amet, consectetur adipiscing\nelit, sed do eiusmod tempor incididunt ut labore et\ndolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut\naliquip ex ea commodo consequat.  ',
+                                            ['about_us'] as String?) ??
+                                        '-',
                                     style: TextStyle(
                                       fontFamily: 'Gilroy',
                                       fontSize: 42.sp,
@@ -471,19 +457,11 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                                           left: 60.w,
                                                           right: 77.w),
                                                       child: Text(
-                                                        availVendorCtrl.vendorDetails?[
+                                                        (availVendorCtrl.vendorDetails?[
                                                                         'user_metadata']
-                                                                    [
-                                                                    'about_us'] ==
-                                                                null
-                                                            ? 'About us'
-                                                            : availVendorCtrl
-                                                                    .vendorDetails?[
-                                                                        'user_metadata']
-                                                                        [
-                                                                        'about_us']
-                                                                    .toString() ??
-                                                                '\nLorem ipsum dolor sit amet, consectetur adipiscing\nelit, sed do eiusmod tempor incididunt ut labore et\ndolore magna aliqua. Ut enim ad minim veniam, \nquis nostrud exercitation ullamco laboris nisi ut\naliquip ex ea commodo consequat.\n\nLorem ipsum dolor sit amet, consectetur adipiscing\nelit, sed do eiusmod tempor incididunt ut labore et\ndolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut\naliquip ex ea commodo consequat.  ',
+                                                                    ['about_us']
+                                                                as String?) ??
+                                                            '-',
                                                         style: TextStyle(
                                                           fontFamily: 'Gilroy',
                                                           fontSize: 42.sp,
@@ -632,7 +610,7 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                                                                               width: 121.r,
                                                                                               url: controller.availableVouchers[index].iconUrl,
                                                                                               placeholder: ImageIcon(
-                                                                                                R.image.vendors(),
+                                                                                                R.image.vouchers(),
                                                                                                 color: AppColors.k033660,
                                                                                                 size: 35,
                                                                                               ),

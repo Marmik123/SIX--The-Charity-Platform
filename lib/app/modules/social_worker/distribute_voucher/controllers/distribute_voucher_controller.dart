@@ -47,7 +47,7 @@ class DistributeVoucherController extends GetxController {
     ));
     logI(categoryList);
     isLoading(false);
-    await assignVoucherList(categoryList[0].id!);
+    await assignVoucherList(categoryList[0].id);
   }
 
   Future<void> assignSearchedVoucher(
@@ -121,7 +121,7 @@ class DistributeVoucherController extends GetxController {
         voucherAssignLoading(false);
         await beneCtrl.assignBeneDashboardData();
         await beneCtrl.getAssignedVouchers();
-        await assignVoucherList(categoryList[selectedCategory()].id!);
+        await assignVoucherList(categoryList[selectedCategory()].id);
 
         unawaited(
           dialog(

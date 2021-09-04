@@ -305,16 +305,9 @@ class HomeContent extends GetView<HomeController> {
                             itemBuilder: (context, index) => Padding(
                               padding: const EdgeInsets.only(right: 15),
                               child: categoryCard(
-                                index: index,
                                 context: context,
                                 imageUrl: controller.beneDash?['categoryAmount']
-                                            [index]['icon_url'] ==
-                                        null
-                                    ? 'https://picsum.photos/200/300/?blur=2'
-                                    : controller.beneDash?['categoryAmount']
-                                                [index]['icon_url']
-                                            .toString() ??
-                                        'https://picsum.photos/200/300/?blur=2',
+                                    [index]['icon_url'] as String?,
                                 background: HexColor.fromHex(
                                     controller.beneDash?['categoryAmount']
                                                 [index]['background'] ==

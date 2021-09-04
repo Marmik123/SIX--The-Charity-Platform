@@ -82,17 +82,17 @@ Future<void> main() async {
     ],
   );
 
-  FlutterError.onError = (errorDetails) {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      letMeHandleAllErrors(
-        errorDetails.exception,
-        errorDetails.stack,
-      );
-      if (kReleaseMode) {
+  if (kReleaseMode) {
+    FlutterError.onError = (errorDetails) {
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
+        letMeHandleAllErrors(
+          errorDetails.exception,
+          errorDetails.stack,
+        );
         Catcher.reportCheckedError(errorDetails.exception, errorDetails.stack);
-      }
-    });
-  };
+      });
+    };
+  }
 }
 
 class StartTheApp extends StatelessWidget {

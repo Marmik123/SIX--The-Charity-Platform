@@ -113,6 +113,19 @@ flutter:
   - assets/images/
   - assets/locales/
   uses-material-design: true
+  fonts:
+    - family: Gilroy
+      fonts:
+        - asset: fonts/Gilroy-Regular.otf
+        - asset: fonts/Gilroy-Bold.otf
+        - asset: fonts/Gilroy-ExtraBold.otf
+        - asset: fonts/Gilroy-SemiBold.otf
+        - asset: fonts/Gilroy-Thin.otf
+        - asset: fonts/Gilroy-Heavy.otf
+        - asset: fonts/Gilroy-UltraLight.otf
+        - asset: fonts/Gilroy-Light.otf
+        - asset: fonts/Gilroy-Medium.otf
+          style: normal
 flr:
   core_version: 3.2.0
   dartfmt_line_length: 80

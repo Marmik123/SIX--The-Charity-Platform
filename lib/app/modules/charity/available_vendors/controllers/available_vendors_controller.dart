@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/models/vendor_list.dart';
+import 'package:six/app/data/models/voucher_category.dart';
 import 'package:six/app/data/remote/provider/voucher_category.dart';
 
 class AvailableVendorsController extends GetxController {
@@ -9,6 +10,20 @@ class AvailableVendorsController extends GetxController {
   void onInit() {
     super.onInit();
     isLoading(false);
+    txtCtrl.clear();
+    if (Get.arguments != null) {
+      if (Get.arguments[0] is VoucherCategory) {
+        voucherCategory = Get.arguments[0] as VoucherCategory;
+        assignVendorList(voucherCategory.id);
+      } else {
+        logI('Different class');
+      }
+      if (Get.arguments[1] is int) {
+        voucherCategoryIndex = Get.arguments[1] as int?;
+      }
+    } else {
+      logI('Arguments empty');
+    }
   }
 
   RxBool isLoading = false.obs;
@@ -19,6 +34,8 @@ class AvailableVendorsController extends GetxController {
   RxInt skip = 0.obs;
   RxInt limit = 1000.obs;
   TextEditingController txtCtrl = TextEditingController();
+  late VoucherCategory voucherCategory;
+  int? voucherCategoryIndex;
 
   final formKey = GlobalKey<FormState>();
   RxInt categoryIndex = 0.obs;

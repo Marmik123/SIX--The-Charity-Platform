@@ -5,13 +5,13 @@ import 'dart:convert';
 
 class VendorList {
   VendorList({
-    this.id,
+    required this.id,
     this.firstName,
     this.profileImage,
     this.profileImageUrl,
   });
 
-  String? id;
+  String id;
   String? firstName;
   String? profileImage;
   String? profileImageUrl;
@@ -35,7 +35,7 @@ class VendorList {
   String toJson() => json.encode(toMap());
 
   factory VendorList.fromMap(Map<String, dynamic> json) => VendorList(
-        id: json['id'] == null ? null : json['id'] as String,
+        id: json['id'] as String,
         firstName:
             json['first_name'] == null ? null : json['first_name'] as String,
         profileImage: json['profile_image'] == null

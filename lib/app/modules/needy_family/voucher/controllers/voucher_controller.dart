@@ -52,7 +52,7 @@ class VoucherController extends GetxController {
     ));
     logI(categoryList);
     isLoading(false);
-    await assignVoucherList(categoryList[0].id!);
+    await assignVoucherList(categoryList[0].id);
   }
 
   Future<void> getFilterAssignedVouchers(

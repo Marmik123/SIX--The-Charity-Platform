@@ -175,7 +175,7 @@ class VoucherContent extends GetView<VoucherController> {
                                               .categoryList[index].id);
                                           controller.assignVoucherList(
                                               controller
-                                                  .categoryList[index].id!);
+                                                  .categoryList[index].id);
                                         },
                                         child: Container(
                                           width: 380.w,
@@ -242,9 +242,8 @@ class VoucherContent extends GetView<VoucherController> {
                                                 height: 30.5.h,
                                               ),
                                               Text(
-                                                controller.categoryList[index]
-                                                        .name ??
-                                                    'Super - Market',
+                                                controller
+                                                    .categoryList[index].name,
                                                 style: TextStyle(
                                                   fontFamily: 'Gilroy',
                                                   fontSize: 40.sp,

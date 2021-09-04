@@ -33,8 +33,6 @@ class PurchaseController extends GetxController {
       Get.put(CharityHomeController());
   AvailableCreditsController programListingCtrl =
       Get.put(AvailableCreditsController());
-  AvailableVendorsController availVendorCtrl =
-      Get.put(AvailableVendorsController());
   SocialHomeController socialCtrl = Get.put(SocialHomeController());
 
   final amountController = MoneyMaskedTextController(

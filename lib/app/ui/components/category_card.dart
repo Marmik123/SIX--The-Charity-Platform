@@ -14,14 +14,13 @@ import 'package:six/r.g.dart';
 
 // PurchaseController purchaseController = Get.put(PurchaseController());
 Widget categoryCard({
-  required int index,
   required String categoryName,
   //required String whichScreen,
   required double creditsRemaining,
   required double totalCredits,
   required double width,
   required double height,
-  required String imageUrl,
+  String? imageUrl,
   required Color background,
   required Color foreground,
   required Color shadow,
@@ -29,6 +28,7 @@ Widget categoryCard({
   required EdgeInsetsGeometry padding,
   required BuildContext context,
   bool? disableCheckBox,
+  VoidCallback? onTap,
 }) {
   return Container(
     width: width, //420.w,
@@ -86,7 +86,8 @@ Widget categoryCard({
                       padding:
                           EdgeInsets.only(left: 8.w, right: 8.w, bottom: 70.h),
                       child: TextButton(
-                        onPressed: () {
+                        onPressed: onTap,
+                        /*() {
                           purchaseController.selectCategory!(index);
                           purchaseController.update();
                           availVendorCtrl.txtCtrl.clear();
@@ -102,7 +103,7 @@ Widget categoryCard({
                           } else {
                             Get.to<void>(() => AvailableVendorsView());
                           }
-                        },
+                        },*/
                         style: ButtonStyle(
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           padding: EdgeInsets.zero.msp,

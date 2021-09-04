@@ -5,22 +5,22 @@ import 'dart:convert';
 
 class VoucherCategory {
   VoucherCategory({
-    this.name,
+    required this.name,
     this.forground,
     this.background,
     this.accent,
     this.iconName,
     this.iconUrl,
-    this.id,
+    required this.id,
   });
 
-  String? name;
+  String name;
   String? forground;
   String? background;
   String? accent;
   String? iconName;
   String? iconUrl;
-  String? id;
+  String id;
 
   VoucherCategory copyWith({
     String? name,
@@ -47,7 +47,7 @@ class VoucherCategory {
   String toJson() => json.encode(toMap());
 
   factory VoucherCategory.fromMap(Map<String, dynamic> json) => VoucherCategory(
-        name: json['name'] == null ? null : json['name'] as String,
+        name: json['name'] == null ? '' : json['name'] as String,
         forground:
             json['forground'] == null ? null : json['forground'] as String,
         background:
@@ -56,7 +56,7 @@ class VoucherCategory {
         iconName:
             json['icon_name'] == null ? null : json['icon_name'] as String,
         iconUrl: json['icon_url'] == null ? null : json['icon_url'] as String,
-        id: json['id'] == null ? null : json['id'] as String,
+        id: json['id'] as String,
       );
 
   Map<String, dynamic> toMap() => <String, dynamic>{

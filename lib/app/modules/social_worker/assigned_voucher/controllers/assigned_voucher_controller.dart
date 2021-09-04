@@ -3,7 +3,6 @@ import 'package:six/app/modules/charity/purchase/controllers/purchase_controller
 import 'package:six/app/utils/get_month_name.dart';
 
 class AssignedVoucherController extends GetxController {
-  //TODO: Implement AssignedVoucherController
   RxInt voucherCount = 1.obs;
   RxInt voucherFilterIndex = 0.obs;
   RxBool paid = false.obs;
@@ -18,10 +17,6 @@ class AssignedVoucherController extends GetxController {
     'Redeemed',
     'Expired',
   ].obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   String? getDate({required String datePassed}) {
     var formattedDate = DateTime.parse(datePassed);

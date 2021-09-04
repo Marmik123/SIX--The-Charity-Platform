@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/config/logger.dart';
 
 Widget cacheImage({
   required double height,
@@ -10,10 +11,10 @@ Widget cacheImage({
   required Widget placeholder,
   BoxFit fit = BoxFit.scaleDown,
 }) {
-  return url == null
+  return showPlaceholder(url)
       ? placeholder
       : CachedNetworkImage(
-          imageUrl: url,
+          imageUrl: url!,
           height: height,
           width: width,
           fit: fit,
@@ -42,4 +43,15 @@ Widget cacheSvgImage({
     height: height,
     width: width,
   );
+}
+
+bool showPlaceholder(String? url) {
+  if (url == null) {
+    return true;
+  } else if (url == 'null') {
+    return true;
+  } else if (url.contains('.svg')) {
+    return true;
+  }
+  return false;
 }

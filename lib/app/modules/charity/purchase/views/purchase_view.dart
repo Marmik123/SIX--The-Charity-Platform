@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/local/user_provider.dart';
-import 'package:six/app/modules/charity/available_vendors/views/available_vendors_view.dart';
+import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/category_card.dart';
 import 'package:six/app/ui/components/circular_progress_indicator.dart';
 import 'package:six/app/ui/components/common_appbar.dart';
@@ -20,9 +20,8 @@ import 'package:six/r.g.dart';
 import '../controllers/purchase_controller.dart';
 
 class PurchaseView extends GetView<PurchaseController> {
-  final PurchaseController ctrl = Get.put(PurchaseController());
-
-  PurchaseView();
+  @override
+  final PurchaseController controller = Get.put(PurchaseController());
 
   @override
   Widget build(BuildContext context) {
@@ -31,20 +30,22 @@ class PurchaseView extends GetView<PurchaseController> {
               ? const SizedBox.shrink()
               : roundedButton(
                   text: 'Purchase Credit',
-                  isLoading: ctrl.paymentInProgress(),
+                  isLoading: controller.paymentInProgress(),
                   onTap: () {
-                    ctrl.amountController.clear();
+                    controller.amountController.clear();
                     purchaseBottomSheet(
-                      category: ctrl
-                          .voucherCategory[ctrl.selectCategory!()].name
+                      category: controller
+                          .voucherCategory[controller.selectCategory!()].name
                           .toString(),
-                      categoryId: ctrl
-                          .voucherCategory[ctrl.selectCategory!()].id
+                      categoryId: controller
+                          .voucherCategory[controller.selectCategory!()].id
                           .toString(),
-                      imgUrl:
-                          ctrl.voucherCategory[ctrl.selectCategory!()].iconUrl,
-                      background: HexColor.fromHex(ctrl
-                          .voucherCategory[ctrl.selectCategory!()].background!),
+                      imgUrl: controller
+                          .voucherCategory[controller.selectCategory!()]
+                          .iconUrl,
+                      background: HexColor.fromHex(controller
+                          .voucherCategory[controller.selectCategory!()]
+                          .background!),
                     );
                   },
                   width: 500.w,
@@ -80,7 +81,7 @@ class PurchaseView extends GetView<PurchaseController> {
                 SizedBox(
                   height: 50.h,
                 ),
-                ctrl.isLoading()
+                controller.isLoading()
                     ? Center(child: buildLoader())
                     : Expanded(
                         child: GetBuilder<PurchaseController>(
@@ -93,54 +94,60 @@ class PurchaseView extends GetView<PurchaseController> {
                                 mainAxisSpacing: 34.w,
                                 childAspectRatio: 638.w / 715.h,
                               ),
-                              itemCount: ctrl.voucherCategory.length,
+                              itemCount: controller.voucherCategory.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
-                                var backColor = HexColor.fromHex(
-                                    ctrl.voucherCategory[index].background!);
-                                var foreColor = HexColor.fromHex(
-                                    ctrl.voucherCategory[index].forground!);
+                                var backColor = HexColor.fromHex(controller
+                                    .voucherCategory[index].background!);
+                                var foreColor = HexColor.fromHex(controller
+                                    .voucherCategory[index].forground!);
                                 var accent = HexColor.fromHex(
-                                    ctrl.voucherCategory[index].accent!);
+                                    controller.voucherCategory[index].accent!);
                                 return GestureDetector(
                                   onTap: () {
-                                    controller.availVendorCtrl.txtCtrl.clear();
-                                    ctrl.selectCategory!(index);
-                                    logI(ctrl.selectCategory);
-                                    ctrl.update();
+                                    controller.selectCategory!(index);
+                                    logI(controller.selectCategory);
+                                    controller.update();
                                     if (UserProvider.role == 'social_worker') {
                                       controller.selectCategory!(index);
                                       controller.update();
-                                      controller.availVendorCtrl
-                                          .assignVendorList(controller
-                                              .voucherCategory[index].id
-                                              .toString());
-                                      UserProvider.role == 'charity' ||
-                                              UserProvider.role ==
-                                                  'social_worker'
-                                          ? Get.to<void>(
-                                              () => AvailableVendorsView(
-                                                    categoryIndex: index,
-                                                  ))
-                                          : Get.to<void>(
-                                              () => AvailableVendorsView());
+                                      Get.toNamed<void>(
+                                        Routes.AVAILABLE_VENDORS,
+                                        arguments: [
+                                          controller.voucherCategory()[index],
+                                          index,
+                                        ],
+                                      );
                                     }
                                   },
                                   child: Stack(
                                     alignment: Alignment.topRight,
                                     children: [
                                       categoryCard(
-                                        index: index,
+                                        onTap: () {
+                                          controller.selectCategory!(index);
+                                          controller.update();
+                                          if (UserProvider.role == 'charity' ||
+                                              UserProvider.role ==
+                                                  'social_worker') {
+                                            Get.toNamed<void>(
+                                              Routes.AVAILABLE_VENDORS,
+                                              arguments: [
+                                                controller
+                                                    .voucherCategory()[index],
+                                                index,
+                                              ],
+                                            );
+                                          }
+                                        },
                                         disableCheckBox: true,
-                                        categoryName: ctrl
+                                        categoryName: controller
                                             .voucherCategory()[index]
-                                            .name
-                                            .toString(),
+                                            .name,
                                         creditsRemaining: 0,
                                         totalCredits: 14,
-                                        imageUrl: ctrl.voucherCategory[index]
-                                                .iconUrl ??
-                                            '${R.image.asset.food.assetName}',
+                                        imageUrl: controller
+                                            .voucherCategory[index].iconUrl,
                                         background: backColor,
                                         foreground: foreColor,
                                         shadow:
@@ -170,7 +177,8 @@ class PurchaseView extends GetView<PurchaseController> {
                                                           .withOpacity(0.05),
                                                       width: 1.w,
                                                     )),
-                                                child: ctrl.selectCategory!() ==
+                                                child: controller
+                                                            .selectCategory!() ==
                                                         index
                                                     ? Image.asset(
                                                         R

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
+import 'package:six/app/data/config/logger.dart';
 import 'package:six/app/data/local/user_provider.dart';
+import 'package:six/app/data/models/voucher_category.dart';
 import 'package:six/app/modules/charity/purchase/controllers/purchase_controller.dart';
 import 'package:six/app/routes/app_pages.dart';
 import 'package:six/app/ui/components/catched_image.dart';
@@ -14,16 +16,20 @@ import 'package:six/r.g.dart';
 import '../controllers/available_vendors_controller.dart';
 
 class AvailableVendorsView extends GetView<AvailableVendorsController> {
-  final int? categoryIndex;
-  final PurchaseController purchaseController = Get.put(PurchaseController());
-
-  @override
-  final AvailableVendorsController controller =
-      Get.put(AvailableVendorsController());
+  // final VoucherCategory category;
+  // final PurchaseController purchaseController = Get.put(PurchaseController());
 
   final currentFocus = FocusScope.of(Get.context!);
 
-  AvailableVendorsView({this.categoryIndex});
+  // final int? categoryIndex;
+
+  /*AvailableVendorsView({
+    this.category,
+    this.categoryIndex,
+  });*/
+
+  /*@override
+  final AvailableVendorsController controller = Get.put(AvailableVendorsController());*/
 
   @override
   Widget build(BuildContext context) {
@@ -124,14 +130,11 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                               onPressed: () {
                                 controller.txtCtrl.clear();
                                 controller.update();
-                                controller.assignVendorList(purchaseController
-                                    .voucherCategory[categoryIndex ?? 0].id
-                                    .toString());
+                                controller.assignVendorList(
+                                    controller.voucherCategory.id);
                               },
                             ),
-                      textAction: UserProvider.role == 'social_worker'
-                          ? TextInputAction.done
-                          : TextInputAction.search,
+                      textAction: TextInputAction.search,
                       keyBoardType: TextInputType.text,
                       textStyle: TextStyle(
                         color: AppColors.k6886A0,
@@ -148,6 +151,29 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                         fontSize: 45.sp,
                       ),
                       contentPadding: EdgeInsets.zero,
+                      onFieldSubmitted: (value) {
+                        if (value.isNotEmpty &&
+                            UserProvider.role == 'charity') {
+                          logW('message from view');
+                          controller.isSearched(true);
+                          controller.isLoading(true);
+                          controller.assignSearchedVendor(
+                              controller.voucherCategory.id, value.trim());
+                          if (value.trim().isEmpty) {
+                            controller.isSearched(false);
+                          }
+                        } else if (UserProvider.role == 'social_worker' &&
+                            value.isNotEmpty) {
+                          logW('message from common textfield 2nd condition');
+                          controller.isSearched(true);
+                          controller.isLoading(true);
+                          controller.assignSearchedVendor(
+                              controller.voucherCategory.id, value.trim());
+                          if (value.trim().isEmpty) {
+                            controller.isSearched(false);
+                          }
+                        }
+                      },
                     ),
                   ),
                 ),
@@ -157,7 +183,7 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
           SizedBox(
             height: 100.h,
           ),
-          Obx(() => purchaseController.isLoading() || controller.isLoading()
+          Obx(() => controller.isLoading()
               ? buildLoader()
               : (controller.isSearched()
                       ? controller.searchedVendorList().isEmpty
@@ -196,10 +222,10 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                       child: Text('No Vendor available'))
                                   : GestureDetector(
                                       onTap: () {
-                                        controller.categoryIndex(categoryIndex);
+                                        controller.categoryIndex(
+                                            controller.voucherCategoryIndex);
                                         controller.assignVendorDetails(
-                                            controller.vendorList[index].id
-                                                .toString());
+                                            controller.vendorList[index].id);
 
                                         Get.toNamed<void>(
                                           Routes.VENDOR_DETAILS,
@@ -239,6 +265,7 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                                       shape: BoxShape.circle,
                                                       color: AppColors.kffffff,
                                                     ),
+                                                    alignment: Alignment.center,
                                                     child: Center(
                                                       child: ClipRRect(
                                                         borderRadius:
@@ -260,12 +287,16 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                                                       index]
                                                                   .profileImageUrl
                                                                   .toString(),
-                                                          placeholder:
-                                                              ImageIcon(
-                                                            R.image.vendors(),
-                                                            color: AppColors
-                                                                .k033660,
-                                                            size: 35,
+                                                          placeholder: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: ImageIcon(
+                                                              R.image.vendors(),
+                                                              color: AppColors
+                                                                  .k033660,
+                                                              size: 35,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
@@ -328,17 +359,8 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                                         child: Center(
                                                           child: Text(
                                                             controller
-                                                                    .isSearched()
-                                                                ? purchaseController
-                                                                    .voucherCategory[
-                                                                        categoryIndex!]
-                                                                    .name
-                                                                    .toString()
-                                                                : purchaseController
-                                                                    .voucherCategory[
-                                                                        categoryIndex!]
-                                                                    .name
-                                                                    .toString(),
+                                                                .voucherCategory
+                                                                .name,
                                                             style: TextStyle(
                                                               fontFamily:
                                                                   'Gilroy',

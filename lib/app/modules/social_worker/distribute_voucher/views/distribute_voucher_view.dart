@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:six/app/data/config/app_colors.dart';
 import 'package:six/app/data/config/logger.dart';
+import 'package:six/app/data/local/user_provider.dart';
 import 'package:six/app/ui/components/app_snackbar.dart';
 import 'package:six/app/ui/components/catched_image.dart';
 import 'package:six/app/ui/components/circular_progress_indicator.dart';
@@ -133,7 +134,7 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                                                   .categoryList[index].id);
                                               controller.assignVoucherList(
                                                   controller
-                                                      .categoryList[index].id!);
+                                                      .categoryList[index].id);
                                             },
                                             child: Container(
                                               width: 380.w,
@@ -203,9 +204,8 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                                                   ),
                                                   Text(
                                                     controller
-                                                            .categoryList[index]
-                                                            .name ??
-                                                        'Super - Market',
+                                                        .categoryList[index]
+                                                        .name,
                                                     style: TextStyle(
                                                       fontFamily: 'Gilroy',
                                                       fontSize: 40.sp,
@@ -284,7 +284,7 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                                 controller.update();
                                 controller.assignVoucherList(controller
                                     .categoryList[controller.selectedCategory()]
-                                    .id!);
+                                    .id);
                               },
                             ),
                       hintStyle: TextStyle(
@@ -294,6 +294,21 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
                         color: AppColors.k6886A0,
                       ),
                       keyBoardType: TextInputType.text,
+                      onFieldSubmitted: (value) {
+                        if (UserProvider.role == 'social_worker' &&
+                            value.isNotEmpty) {
+                          controller.isSearched(true);
+                          logI(value.trim());
+                          controller.assignSearchedVoucher(
+                              controller
+                                  .categoryList[controller.selectedCategory()]
+                                  .id,
+                              value.trim());
+                          if (value.trim().isEmpty) {
+                            controller.isSearched(false);
+                          }
+                        }
+                      },
                     ),
                   ),
                 ),
@@ -305,7 +320,7 @@ class DistributeVoucherView extends GetView<DistributeVoucherController> {
           ),
           Obx(() => controller.isVoucherLoading()
               ? Padding(
-                  padding: EdgeInsets.only(top: 0.20.sh),
+                  padding: EdgeInsets.only(top: 100.h),
                   child: buildLoader(),
                 )
               : Expanded(

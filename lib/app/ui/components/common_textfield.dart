@@ -9,10 +9,6 @@ import 'package:six/app/modules/charity/available_vendors/controllers/available_
 import 'package:six/app/modules/charity/purchase/controllers/purchase_controller.dart';
 import 'package:six/app/modules/social_worker/distribute_voucher/controllers/distribute_voucher_controller.dart';
 
-AvailableVendorsController availVendorCtrl =
-    Get.put(AvailableVendorsController());
-PurchaseController purchaseController = Get.put(PurchaseController());
-DistributeVoucherController distriCtrl = Get.put(DistributeVoucherController());
 Widget textField({
   required BuildContext context,
   required double height,
@@ -78,8 +74,10 @@ Widget textField({
                 return 'Please enter a value';
               }
             },
-            onFieldSubmitted: onFieldSubmitted ??
+            onFieldSubmitted: onFieldSubmitted,
+            /* ??
                 (value) {
+                  logW('onFieldSubmitted not configured');
                   if (value.isNotEmpty &&
                       textAction == TextInputAction.search &&
                       UserProvider.role == 'charity') {
@@ -92,12 +90,14 @@ Widget textField({
                             .id
                             .toString(),
                         value.trim());
-                    if (controller!.text.trim().isEmpty) {
+                    if (value.trim().isEmpty) {
                       availVendorCtrl.isSearched(false);
                     }
-                  } else if (UserProvider.role == 'social_worker' &&
+                  } else
+                  if (UserProvider.role == 'social_worker' &&
                       value.isNotEmpty &&
                       textAction == TextInputAction.search) {
+                    logW('message from common textfield');
                     distriCtrl.isSearched(true);
                     logI(value.trim());
                     distriCtrl.assignSearchedVoucher(
@@ -108,23 +108,25 @@ Widget textField({
                     if (controller!.text.trim().isEmpty) {
                       distriCtrl.isSearched(false);
                     }
-                  } else if (UserProvider.role == 'social_worker' &&
+                  }
+                  else if (UserProvider.role == 'social_worker' &&
                       value.isNotEmpty &&
                       textAction == TextInputAction.done) {
+                    logW('message from common textfield 2nd condition');
                     availVendorCtrl.isSearched(true);
                     availVendorCtrl.isLoading(true);
-                    availVendorCtrl.assignSearchedVendor(
+                     */ /*availVendorCtrl.assignSearchedVendor(
                         purchaseController
                             .voucherCategory[
                                 purchaseController.selectCategory!()]
                             .id
                             .toString(),
-                        value.trim());
+                        value.trim());*/ /*
                     if (controller!.text.trim().isEmpty) {
                       availVendorCtrl.isSearched(false);
                     }
                   }
-                },
+                },*/
             onEditingComplete: () {
               var currentFocus = FocusScope.of(context);
               currentFocus.unfocus();
