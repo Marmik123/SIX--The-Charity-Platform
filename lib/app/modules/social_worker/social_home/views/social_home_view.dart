@@ -532,13 +532,13 @@ class SocialHome extends StatelessWidget {
                           controller
                                       .beneficiaryList()[index]
                                       .userMetadata
-                                      ?.mobileNumber ==
+                                      ?.phone ==
                                   null
                               ? const SizedBox.shrink()
                               : GestureDetector(
                                   onTap: () {
                                     url_launcher.launch(
-                                        'tel://${controller.beneficiaryList()[index].userMetadata?.mobileNumber.toString()}');
+                                        'tel://${controller.beneficiaryList()[index].userMetadata?.phone}');
                                   },
                                   child: Container(
                                     height: 80.w,
@@ -561,7 +561,7 @@ class SocialHome extends StatelessWidget {
                                           ),
                                           w(10.w),
                                           Text(
-                                            '${controller.beneficiaryList()[index].userMetadata?.mobileNumber ?? '-'}',
+                                            '${controller.beneficiaryList()[index].userMetadata?.phone ?? '-'}',
                                             style: TextStyle(
                                               fontFamily: 'Gilroy',
                                               fontSize: 38.sp,

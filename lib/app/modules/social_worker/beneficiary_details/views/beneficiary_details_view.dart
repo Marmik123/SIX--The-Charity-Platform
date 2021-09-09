@@ -140,21 +140,21 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                       child: GestureDetector(
                         onTap: () {
                           url_launcher.launch(
-                              'tel://${controller.beneficiary.userMetadata?.mobileNumber.toString() ?? ''}');
+                              'tel://${controller.beneficiary.userMetadata?.phone ?? ''}');
                         },
                         child: Container(
                           height: 70.h,
-                          width: 338.w,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100.r),
-                              color: AppColors.kffffff,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.k00474E.withOpacity(0.14),
-                                  offset: const Offset(5, 8),
-                                  blurRadius: 50.r,
-                                ),
-                              ]),
+                            borderRadius: BorderRadius.circular(100.r),
+                            color: AppColors.kffffff,
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.k00474E.withOpacity(0.14),
+                                offset: const Offset(5, 8),
+                                blurRadius: 50.r,
+                              ),
+                            ],
+                          ),
                           child: Center(
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,9 +167,7 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                                 ),
                                 w(12.w),
                                 Text(
-                                  controller.beneficiary.userMetadata
-                                          ?.mobileNumber
-                                          .toString() ??
+                                  controller.beneficiary.userMetadata?.phone ??
                                       '',
                                   style: TextStyle(
                                     fontFamily: 'Gilroy',
@@ -180,6 +178,7 @@ class BeneficiaryDetailsView extends GetView<BeneficiaryDetailsController> {
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
+                                w(35.w),
                               ],
                             ),
                           ),

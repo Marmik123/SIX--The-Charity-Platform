@@ -41,7 +41,7 @@ class CharityHomeView extends GetView<CharityHomeController> {
 }
 
 class CharityHome extends StatelessWidget {
-  final CharityHomeController ctrl = Get.put(CharityHomeController());
+  final CharityHomeController ctrl = Get.find();
   final AvailableCreditsController creditsCtrl =
       Get.put(AvailableCreditsController());
   @override

@@ -77,7 +77,7 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                             shape: BoxShape.circle,
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 58.0),
+                            padding: EdgeInsets.only(top: 300.h),
                             child: Center(
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(200.r),
@@ -87,10 +87,13 @@ class VendorDetailsView extends GetView<VendorDetailsController> {
                                   url: availVendorCtrl
                                           .vendorDetails?['profile_image_url']
                                       as String?,
-                                  placeholder: ImageIcon(
-                                    R.image.vendors(),
-                                    color: AppColors.k033660,
-                                    size: 35,
+                                  placeholder: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ImageIcon(
+                                      R.image.vendors(),
+                                      color: AppColors.k033660,
+                                      size: 200.r,
+                                    ),
                                   ),
                                 ),
                               ),

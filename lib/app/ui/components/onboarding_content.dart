@@ -8,32 +8,34 @@ Widget onBoarding(String? title, String? subTitle, int? index,
     children: [
       Container(
         decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(170),
-              bottomRight: Radius.circular(170),
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(170),
+            bottomRight: Radius.circular(170),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.kC4C4C4.withOpacity(0.21),
+              spreadRadius: 2,
+              offset: Offset.fromDirection(-720, 8),
+              blurRadius: 0,
             ),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.kC4C4C4.withOpacity(0.21),
-                spreadRadius: 2,
-                offset: Offset.fromDirection(-720, 8),
-                blurRadius: 0,
-              )
-            ]),
+          ],
+        ),
         width: 1.sw,
-        height: 1534.h,
+        height: 0.55.sh,
         child: ClipRRect(
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(185),
-              bottomRight: Radius.circular(185),
-            ),
-            child: Image.asset(
-              assetName,
-              fit: BoxFit.fill,
-            )),
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(185),
+            bottomRight: Radius.circular(185),
+          ),
+          child: Image.asset(
+            assetName,
+            fit: BoxFit.cover,
+          ),
+        ),
       ),
       SizedBox(
-        height: 150.h,
+        height: 120.h,
       ),
       Padding(
         padding: EdgeInsets.fromLTRB(16.w, 0.w, 16.w, 0.w),
@@ -41,22 +43,23 @@ Widget onBoarding(String? title, String? subTitle, int? index,
           title!,
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontFamily: 'Gilroy',
-              fontSize: 80.sp,
-              fontStyle: FontStyle.normal,
-              color: AppColors.k033660,
-              fontWeight: FontWeight.w500,
-              /*foreground: Paint()
+            fontFamily: 'Gilroy',
+            fontSize: 80.sp,
+            fontStyle: FontStyle.normal,
+            color: AppColors.k033660,
+            fontWeight: FontWeight.w500,
+            /*foreground: Paint()
                   ..style = PaintingStyle.stroke
                   ..strokeWidth = 1
                   ..color = AppColors.k000000,*/
-              shadows: [
-                Shadow(
-                  color: AppColors.k000000.withOpacity(0.25),
-                  blurRadius: 4,
-                  offset: const Offset(0, 4),
-                )
-              ]),
+            shadows: [
+              Shadow(
+                color: AppColors.k000000.withOpacity(0.25),
+                blurRadius: 4,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
         ),
       ),
       SizedBox(

@@ -152,7 +152,12 @@ class UserEntity {
           jsonDecode(userMetadata?.address ?? '') as Map<String, dynamic>;
       var addressStr =
           '${jsonAddress['floor']['value']}, ${jsonAddress['building']['value']}, ${jsonAddress['street']['value']}, ${jsonAddress['block']['value']}, ${jsonAddress['country']['desc']}, ${jsonAddress['postal']['value']}.';
-      return toBeginningOfSentenceCase(addressStr.toLowerCase()) ?? '-';
+      var listOfAddItems = addressStr.split(', ');
+      for (var i = 0; i < listOfAddItems.length; i++) {
+        listOfAddItems[i] =
+            toBeginningOfSentenceCase(listOfAddItems[i].toLowerCase()) ?? '';
+      }
+      return listOfAddItems.join(', ');
     } else {
       return '-';
     }
@@ -197,7 +202,7 @@ class UserMetadata {
   String? email;
   dynamic dob;
   dynamic nationality;
-  dynamic mobileNumber;
+  String? mobileNumber;
   String? address;
   dynamic typeOfHdb;
   dynamic typeOfHousing;
@@ -222,7 +227,7 @@ class UserMetadata {
     String? email,
     dynamic dob,
     dynamic nationality,
-    dynamic mobileNumber,
+    String? mobileNumber,
     String? address,
     dynamic typeOfHdb,
     dynamic typeOfHousing,
@@ -277,7 +282,7 @@ class UserMetadata {
         email: json['email'] as String?,
         dob: json['dob'],
         nationality: json['nationality'],
-        mobileNumber: json['mobile_number'],
+        mobileNumber: json['mobile_number'] as String?,
         address: json['address'] as String?,
         typeOfHdb: json['type_of_hdb'],
         typeOfHousing: json['type_of_housing'],
@@ -321,4 +326,10 @@ class UserMetadata {
         'about_us': aboutUs,
         'display_address': displayAddress,
       };
+
+  String? get phone => (mobileNumber?.contains('+65') ?? false)
+      ? mobileNumber
+      : mobileNumber != null
+          ? '+65-$mobileNumber'
+          : null;
 }

@@ -219,7 +219,8 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                           null &&
                                       controller.vendorList().length == 1)
                                   ? const Center(
-                                      child: Text('No Vendor available'))
+                                      child: Text('No Vendor available'),
+                                    )
                                   : GestureDetector(
                                       onTap: () {
                                         controller.categoryIndex(
@@ -270,8 +271,7 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                                       child: ClipRRect(
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(
-                                                                    100.r),
+                                                                .circular(90.r),
                                                         child: cacheImage(
                                                           height: 180.r,
                                                           width: 180.r,
@@ -295,7 +295,7 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                                               R.image.vendors(),
                                                               color: AppColors
                                                                   .k033660,
-                                                              size: 35,
+                                                              size: 130.r,
                                                             ),
                                                           ),
                                                         ),
@@ -337,9 +337,7 @@ class AvailableVendorsView extends GetView<AvailableVendorsController> {
                                                         textAlign:
                                                             TextAlign.center,
                                                       ),
-                                                      SizedBox(
-                                                        height: 20.h,
-                                                      ),
+                                                      h(20.h),
                                                       Container(
                                                         height: 64.h,
                                                         width: 226.w,
