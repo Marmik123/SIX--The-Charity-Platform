@@ -1,4 +1,4 @@
-# **Six - Social Impact Xchange
+#Six - Social Impact Xchange
 **
 The Complete Charity Application for managing the entire Charity Organizaion flow along with managing needy families, vendor , social worker , charity organization and contributor.
 
