@@ -18,3 +18,4 @@ The Complete Charity Application for managing the entire Charity Organizaion flo
 
 One of my best and favorite project to work on with the Team members of Dharma Tech.
 Project was developed under guidance of very supportive and freindly seniors - @deepss1 @DharmaTech123 and Yash Shah (Backend Developer)
+## For more details connect on LinkedIn :  www.linkedin.com/in/marmikmodi
