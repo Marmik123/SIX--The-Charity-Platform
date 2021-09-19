@@ -19,4 +19,4 @@ The Complete Charity Application for managing the entire Charity Organizaion flo
 
 For more samples and demo contact on this mail id : ## marmik.s.modi@gmail.com
 One of my best and favorite project to work on with the Team members of Dharma Tech.
-Project was developed under guidance of my archaic seniors :
+Project was developed under guidance of my archaic seniors : @deepss1 @DharmaTech123
