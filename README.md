@@ -16,7 +16,5 @@ The Complete Charity Application for managing the entire Charity Organizaion flo
 * Vendors - List of transactions on home screen and dashboard stats on the same and in-built QR code scanner and becomes a medium through which needy family could redeem their vouchers, whether by Voucher Code or QR Code.
 * Needy Family - Get to know how much vouchers are available and total credits left on dashboard stats on home screen, and can redeem voucher by showing QR appearing in app tp vendor to successfully redeem the voucher or by providing the voucher code.
 
-
-For more samples and demo contact on this mail id : ## marmik.s.modi@gmail.com
 One of my best and favorite project to work on with the Team members of Dharma Tech.
-Project was developed under guidance of my archaic seniors : @deepss1 @DharmaTech123
+Project was developed under guidance of very supportive and freindly seniors - @deepss1 @DharmaTech123 and Yash Shah (Backend Developer)
