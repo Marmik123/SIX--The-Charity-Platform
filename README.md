@@ -1,5 +1,7 @@
 ## SIX - Social Impact Xchange
-
+<p align=center>
+<img src="https://github.com/Marmik123/SIX---Meticulous-Charity-Platform/blob/marmik-dev/assets/images/six_logo.png" width="250" height="200" alt="SIX Logo" />
+</p>
 The Complete Charity Application for managing the entire Charity Organizaion flow along with managing needy families, vendor , social worker , charity organization and contributors(this role is not in current code base).
 
 # Brief Explanation of Project:
