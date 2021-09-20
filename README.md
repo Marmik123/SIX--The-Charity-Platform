@@ -18,8 +18,10 @@ The Complete Charity Application for managing the entire Charity Organizaion flo
 * Vendors - List of transactions on home screen and dashboard stats on the same and in-built QR code scanner and becomes a medium through which needy family could redeem their vouchers, whether by Voucher Code or QR Code.
 * Needy Family - Get to know how much vouchers are available and total credits left on dashboard stats on home screen, and can redeem voucher by showing QR appearing in app tp vendor to successfully redeem the voucher or by providing the voucher code.
 
-State Management Solution Used: GetX Ecosystem
+## State Management Solution Used: GetX Ecosystem
+
 For Project & Code Structure Maintainance Used : GetX CLI 
+
 Integrated Discord Bot for reporting the bugs users faces while using App to developers errors group in discord instantly on app crash.
 
 One of my best and favourite project to work on with the Team members of Dharma Tech.
