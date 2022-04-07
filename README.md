@@ -26,6 +26,6 @@ For Daily Task reporting used Orli PM - This Create somewhat similar to Agile En
 Thanks for the wonderful starterkit @deepss1 for faster development.
 Integrated Discord Bot for reporting the bugs users faces while using App to developers errors group in discord instantly on app crash.
 
-One of my best and favourite project to work on with the Team members of Dharma Tech.
+
 ## Project was developed under guidance of very supportive and friendly seniors - @deepss1 @DharmaTech123 and Yash Shah.
 ## For more details connect on LinkedIn :  www.linkedin.com/in/marmikmodi
